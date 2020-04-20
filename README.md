@@ -3,7 +3,6 @@ Members: Hamza Mahmood, Jonathan Zhang, Haseeb Siddiqui, Ntsee Ndingwan, Jason H
 
 A program which allows the user to plan out a simple garden. 
 
-Testing embedding image into README
+Testing embedding UML into README
 
 ![GitHub Logo](/UML_AUTOGEN.png)
-Format: ![Alt Text](url)
