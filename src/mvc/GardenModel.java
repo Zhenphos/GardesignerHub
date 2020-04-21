@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import objects.GardenObject;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class GardenModel {
 	private int amountOfLight;
 	private int amountOfRain;

@@ -1,8 +1,7 @@
 /**
  * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
  */
 
-/**
- * @author Haseeb
- */
 package tests;

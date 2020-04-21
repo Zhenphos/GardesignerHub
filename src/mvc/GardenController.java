@@ -3,6 +3,12 @@ package mvc;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class GardenController extends Application {
 
 	public static void main(String[] args) {

@@ -9,6 +9,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import objects.GardenObject;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class View {
 	private Scene gardenScene;
 	private TilePane gardenTilePane;
