@@ -23,44 +23,94 @@ public class View {
 	public View() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void diplayMainMenu() {
 
 	}
-
+	
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void diplayTutorial() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void displayDraw() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void displayGarden() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void displayInformation() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void displayInputs() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void displayTimelapse() {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void generateMap(Collection<GardenObject> someObjects) {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	ImageView generateView(String plantName, int year, Season season) {
 		return null;
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	String howToImprove(int someRating) {
 		return null;
 	}

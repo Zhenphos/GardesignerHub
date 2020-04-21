@@ -24,14 +24,29 @@ public class Plant extends GardenObject {
 		this.size = size;
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	public void incrementSize() {
 		size++;
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	public boolean meetsRequirements() {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	public int getSize() {
 		return size;
 	}
