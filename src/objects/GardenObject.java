@@ -9,7 +9,7 @@ public abstract class GardenObject {
 	int xLoc;
 	int yLoc;
 
-	void makeShape() {
+	public void makeShape() {
 
 	}
 }
