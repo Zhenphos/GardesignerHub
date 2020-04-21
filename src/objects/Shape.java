@@ -11,6 +11,11 @@ public class Shape extends GardenObject {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	public Shape makeNewShape() {
 		return null;
 	}

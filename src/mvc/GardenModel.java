@@ -22,20 +22,40 @@ public class GardenModel {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}
-
+	
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void addGardenObject(GardenObject someObject) {
 
 	}
-
+	
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	int calculateRating() {
 		return 0;
 	}
-
+	
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	Collection<GardenObject> load(String fileName) {
 		return myObjects;
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	void removeGardenObject(GardenObject someObject) {
 
 	}

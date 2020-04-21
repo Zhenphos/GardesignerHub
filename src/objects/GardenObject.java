@@ -15,6 +15,11 @@ public abstract class GardenObject {
 	int xLoc;
 	int yLoc;
 
+	/**
+	 * 
+	 * @param args
+	 * @return 
+	 */
 	public void makeShape() {
 
 	}
