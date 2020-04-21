@@ -15,11 +15,6 @@ import objects.Plant;
 public class PlantTest {
 
 	@Test
-	public void testPlant() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
 	public void testIncrementSize() {
 		System.out.println("Testing incrementSize()");
 		Plant testPlant = new Plant("green", 2, "flower", 100);
