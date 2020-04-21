@@ -6,6 +6,12 @@ import org.junit.Test;
 
 import objects.Plant;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class PlantTest {
 
 	@Test

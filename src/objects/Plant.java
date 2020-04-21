@@ -1,5 +1,11 @@
 package objects;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class Plant extends GardenObject {
 	String color;
 	int monthsUntilGrown;
