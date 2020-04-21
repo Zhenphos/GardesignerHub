@@ -3,6 +3,7 @@ package mvc;
 import java.util.Collection;
 import java.util.HashMap;
 
+import enums.Season;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
