@@ -30,7 +30,7 @@ public class GardenModel {
 	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
-	public Collection<GardenObject> getGardenObjects() {
+	public static Collection<GardenObject> getGardenObjects() {
 		return myObjects;
 	}
 	
@@ -49,7 +49,7 @@ public class GardenModel {
 	 * @param fileName the file which contains a map you wish to load in
 	 * @return a collection of garden objects which creates your map
 	 */
-	Collection<GardenObject> load(String fileName) {
+	public static Collection<GardenObject> load(String fileName) {
 		return myObjects;
 
 	}
@@ -59,7 +59,7 @@ public class GardenModel {
 	 * 
 	 * @param someObject the garden object you want to add
 	 */
-	void addGardenObject(GardenObject someObject) {
+	public static void addGardenObject(GardenObject someObject) {
 
 	}
 
@@ -68,7 +68,7 @@ public class GardenModel {
 	 * 
 	 * @param someObject The object you wish to remove from your garden
 	 */
-	void removeGardenObject(GardenObject someObject) {
+	public static void removeGardenObject(GardenObject someObject) {
 
 	}
 }
