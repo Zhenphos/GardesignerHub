@@ -21,7 +21,7 @@ public class Plant extends GardenObject {
 	int minRain;
 	int maxRain;
 	int size;
-	
+
 	/**
 	 * the constructor for Plant
 	 */
@@ -45,9 +45,8 @@ public class Plant extends GardenObject {
 	 * @param minRain
 	 * @param maxRain
 	 */
-	public Plant(PlantType plantType, String color, double growTime, String name, int size, int minLight, 
-			int maxLight, String[] soilTypes, int minTemp, int maxTemp, int minRain, 
-			int maxRain) {
+	public Plant(PlantType plantType, String color, double growTime, String name, int size, int minLight, int maxLight,
+			String[] soilTypes, int minTemp, int maxTemp, int minRain, int maxRain) {
 		super();
 		this.plantType = plantType;
 		this.color = color;
@@ -62,7 +61,7 @@ public class Plant extends GardenObject {
 		this.minRain = minRain;
 		this.maxRain = maxRain;
 	}
-	
+
 	/**
 	 * 
 	 * @return what type of plant this is
@@ -70,7 +69,7 @@ public class Plant extends GardenObject {
 	public PlantType getPlantType() {
 		return plantType;
 	}
-	
+
 	/**
 	 * 
 	 * @return The color of the plant
@@ -78,7 +77,7 @@ public class Plant extends GardenObject {
 	public String getColor() {
 		return color;
 	}
-	
+
 	/**
 	 * 
 	 * @return the amount of time in months it takes for the plant to be fully grown
@@ -86,7 +85,7 @@ public class Plant extends GardenObject {
 	public double getGrowTime() {
 		return growTime;
 	}
-	
+
 	/**
 	 * 
 	 * @return the minimum amount of light the plant needs
@@ -94,23 +93,23 @@ public class Plant extends GardenObject {
 	public int getMinLight() {
 		return minLight;
 	}
-	
+
 	/**
 	 * 
-	 * @return the maximum amount of light the plant needs 
+	 * @return the maximum amount of light the plant needs
 	 */
 	public int getMaxLight() {
 		return maxLight;
 	}
-	
+
 	/**
 	 * 
 	 * @return the types of soil the plant can grow in
 	 */
-	public String[] getSoilTypes() { 
+	public String[] getSoilTypes() {
 		return soilTypes;
 	}
-	
+
 	/**
 	 * 
 	 * @return the minimum temperature the plant can survive in
@@ -118,7 +117,7 @@ public class Plant extends GardenObject {
 	public int getMinTemp() {
 		return minTemp;
 	}
-	
+
 	/**
 	 * 
 	 * @return the maximum temperature the plant can survive in
@@ -126,7 +125,7 @@ public class Plant extends GardenObject {
 	public int getMaxTemp() {
 		return maxTemp;
 	}
-	
+
 	/**
 	 * 
 	 * @return the minimum amount of rain the plant needs to survive
@@ -134,7 +133,7 @@ public class Plant extends GardenObject {
 	public int getMinRain() {
 		return minRain;
 	}
-	
+
 	/**
 	 * 
 	 * @return the maximum amount of rain the plant can survive with
@@ -167,4 +166,5 @@ public class Plant extends GardenObject {
 	public int getSize() {
 		return size;
 	}
+
 }
