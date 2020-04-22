@@ -18,6 +18,7 @@ public class Plant extends GardenObject {
 	int maxTemp;
 	int minRain;
 	int maxRain;
+	int size;
 	
 	/**
 	 * the constructor for Plant
@@ -42,7 +43,7 @@ public class Plant extends GardenObject {
 	 * @param minRain
 	 * @param maxRain
 	 */
-	public Plant(PlantType plantType, String color, double growTime, String name, int minLight, 
+	public Plant(PlantType plantType, String color, double growTime, String name, int size, int minLight, 
 			int maxLight, String[] soilTypes, int minTemp, int maxTemp, int minRain, 
 			int maxRain) {
 		super();
@@ -50,6 +51,7 @@ public class Plant extends GardenObject {
 		this.color = color;
 		this.growTime = growTime;
 		this.name = name;
+		this.size = size;
 		this.minLight = minLight;
 		this.maxLight = maxLight;
 		this.soilTypes = soilTypes;
