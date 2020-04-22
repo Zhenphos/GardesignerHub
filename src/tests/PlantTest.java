@@ -2,8 +2,12 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
+import mvc.GardenModel;
+import objects.GardenObject;
 import objects.Plant;
 
 /**
@@ -24,7 +28,19 @@ public class PlantTest {
 
 	@Test
 	public void testMeetsRequirements() {
-		fail("Not yet implemented"); // TODO
+		System.out.println("Testing meetsRequirements()");
+		Plant testPlant = new Plant();
+		assertEquals(testPlant.meetsRequirements(), false);
+		
+		Iterator<GardenObject> plantIterator1 = GardenModel.getGardenObjects().iterator();
+		Iterator<GardenObject> plantIterator2 = GardenModel.getGardenObjects().iterator();
+		while(plantIterator1.hasNext()) {
+			if (plantIterator1.next() instanceof Plant) {
+				assertEquals(((Plant) plantIterator2.next()).meetsRequirements(), true); // need to figure out what to test here
+			} else {
+				plantIterator2.next();
+			}
+		}
 	}
-
+	
 }

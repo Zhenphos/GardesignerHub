@@ -12,10 +12,20 @@ public class Plant extends GardenObject {
 	String name;
 	int size;
 
+	/**
+	 * 
+	 */
 	public Plant() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @param color
+	 * @param monthsUntilGrown
+	 * @param name
+	 * @param size
+	 */
 	public Plant(String color, int monthsUntilGrown, String name, int size) {
 		super();
 		this.color = color;
@@ -26,8 +36,6 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @param args
-	 * @return 
 	 */
 	public void incrementSize() {
 		size++;
@@ -35,8 +43,7 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @param args
-	 * @return 
+	 * @return
 	 */
 	public boolean meetsRequirements() {
 		return false;
@@ -44,8 +51,7 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @param args
-	 * @return 
+	 * @return
 	 */
 	public int getSize() {
 		return size;

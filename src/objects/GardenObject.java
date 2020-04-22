@@ -21,6 +21,6 @@ public abstract class GardenObject {
 	 * @return 
 	 */
 	public void makeShape() {
-
+		
 	}
 }

@@ -15,7 +15,7 @@ public class GardenModel {
 	private int amountOfRain;
 	private int canvasHeight;
 	private int canvasWidth;
-	private Collection<GardenObject> myObjects;
+	private static Collection<GardenObject> myObjects;
 	private String soilType;
 	
 	public GardenModel(int canvasHeight, int canvasWidth) {
@@ -58,5 +58,13 @@ public class GardenModel {
 	 */
 	void removeGardenObject(GardenObject someObject) {
 
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Collection<GardenObject> getGardenObjects() {
+		return myObjects;
 	}
 }
