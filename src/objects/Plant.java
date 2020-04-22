@@ -20,22 +20,15 @@ public class Plant extends GardenObject {
 	int maxTemp;
 	int minRain;
 	int maxRain;
-	int size;
+
 
 	/**
-	 * the constructor for Plant
-	 */
-	public Plant() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
+	 * The constructor for Plant
 	 * 
 	 * @param plantType
 	 * @param color
 	 * @param growTime
 	 * @param name
-	 * @param size
 	 * @param name
 	 * @param minLight
 	 * @param maxLight
@@ -45,14 +38,13 @@ public class Plant extends GardenObject {
 	 * @param minRain
 	 * @param maxRain
 	 */
-	public Plant(PlantType plantType, String color, double growTime, String name, int size, int minLight, int maxLight,
+	public Plant(PlantType plantType, String color, double growTime, String name, int minLight, int maxLight,
 			String[] soilTypes, int minTemp, int maxTemp, int minRain, int maxRain) {
 		super();
 		this.plantType = plantType;
 		this.color = color;
 		this.growTime = growTime;
 		this.name = name;
-		this.size = size;
 		this.minLight = minLight;
 		this.maxLight = maxLight;
 		this.soilTypes = soilTypes;
@@ -143,13 +135,6 @@ public class Plant extends GardenObject {
 	}
 
 	/**
-	 * Increments the size of the plant by 1
-	 */
-	public void incrementSize() {
-		size++;
-	}
-
-	/**
 	 * Checks if the plant meets minimum specified requirements.
 	 * 
 	 * @return whether the plant meets the minimum specified requirements
@@ -157,14 +142,4 @@ public class Plant extends GardenObject {
 	public boolean meetsRequirements() {
 		return false;
 	}
-
-	/**
-	 * Gets the size of the plant.
-	 * 
-	 * @return the size of the plant
-	 */
-	public int getSize() {
-		return size;
-	}
-
 }

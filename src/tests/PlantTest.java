@@ -20,14 +20,6 @@ import objects.Plant;
 public class PlantTest {
 
 	@Test
-	public void testIncrementSize() {
-		System.out.println("Testing incrementSize()");
-		Plant testPlant = new Plant(); // TODO add dummy qualities for test plant
-		testPlant.incrementSize();
-		assertEquals(testPlant.getSize(), 101);
-	}
-
-	@Test
 	public void testMeetsRequirements() {
 		System.out.println("Testing meetsRequirements()");
 		Plant testPlant = new Plant();
