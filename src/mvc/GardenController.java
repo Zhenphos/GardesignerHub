@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 public class GardenController extends Application {
 	/**
+	 * the main method for the program
 	 * 
-	 * @param args
-	 * @return 
+	 * @param args - an array of strings
 	 */
 	public static void main(String[] args) {
 		System.out.println("Hello");
@@ -29,9 +29,7 @@ public class GardenController extends Application {
 	}
 	
 	/**
-	 * 
-	 * @param args
-	 * @return 
+	 * @param arg0 - the stage that the garden is displayed on
 	 */
 	@Override
 	public void start(Stage arg0) throws Exception {

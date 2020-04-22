@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import enums.PlantType;
 import mvc.GardenModel;
 import objects.GardenObject;
 import objects.Plant;
@@ -21,7 +22,7 @@ public class PlantTest {
 	@Test
 	public void testIncrementSize() {
 		System.out.println("Testing incrementSize()");
-		Plant testPlant = new Plant("green", 2, "flower", 100);
+		Plant testPlant = new Plant(); // TODO add dummy qualities for test plant
 		testPlant.incrementSize();
 		assertEquals(testPlant.getSize(), 101);
 	}
