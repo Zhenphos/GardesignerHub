@@ -9,7 +9,7 @@ import objects.GardenObject;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
+// TEST COMMENT
 public class GardenModel {
 	private int amountOfLight;
 	private int amountOfRain;
