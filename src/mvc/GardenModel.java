@@ -13,10 +13,12 @@ import objects.GardenObject;
 public class GardenModel {
 	private int amountOfLight;
 	private int amountOfRain;
+	private int maxTemperature;
+	private int minTemperature;
 	private int canvasHeight;
 	private int canvasWidth;
-	private static Collection<GardenObject> myObjects;
 	private String soilType;
+	private Collection<GardenObject> myObjects;
 	
 	public GardenModel(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
@@ -24,47 +26,49 @@ public class GardenModel {
 	}
 	
 	/**
+	 * Gets the GardenObjects in your garden
 	 * 
-	 * @param args
-	 * @return 
+	 * @return All of the GardenObjects in your garden map
 	 */
-	void addGardenObject(GardenObject someObject) {
-
+	public static Collection<GardenObject> getGardenObjects() {
+		return myObjects;
 	}
 	
 	/**
+	 * Calculates each of your ratings based on your map and area details
 	 * 
-	 * @param args
-	 * @return 
+	 * @return the rating of your map on a scale of 1 to 5
 	 */
 	int calculateRating() {
 		return 0;
 	}
 	
 	/**
+	 * Loads a map from your files
 	 * 
-	 * @param args
-	 * @return 
+	 * @param fileName the file which contains a map you wish to load in
+	 * @return a collection of garden objects which creates your map
 	 */
 	Collection<GardenObject> load(String fileName) {
 		return myObjects;
 
 	}
+	
+	/**
+	 * Adds a garden object to the map being created
+	 * 
+	 * @param someObject the garden object you want to add
+	 */
+	void addGardenObject(GardenObject someObject) {
+
+	}
 
 	/**
+	 * Removes an object from your garden
 	 * 
-	 * @param args
-	 * @return 
+	 * @param someObject The object you wish to remove from your garden
 	 */
 	void removeGardenObject(GardenObject someObject) {
 
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static Collection<GardenObject> getGardenObjects() {
-		return myObjects;
 	}
 }
