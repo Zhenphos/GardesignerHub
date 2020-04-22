@@ -36,7 +36,8 @@ public class PlantTest {
 		Iterator<GardenObject> plantIterator2 = GardenModel.getGardenObjects().iterator();
 		while(plantIterator1.hasNext()) {
 			if (plantIterator1.next() instanceof Plant) {
-				assertEquals(((Plant) plantIterator2.next()).meetsRequirements(), true); // need to figure out what to test here
+				assertEquals(((Plant) plantIterator2.next()).meetsRequirements(), true);
+				// TODO add requirements to check against
 			} else {
 				plantIterator2.next();
 			}

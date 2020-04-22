@@ -43,7 +43,7 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @return
+	 * @return true if the plant meets requirements
 	 */
 	public boolean meetsRequirements() {
 		return false;
