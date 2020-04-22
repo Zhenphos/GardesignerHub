@@ -33,10 +33,10 @@ public class PlantTest {
 		Plant testPlant = new Plant();
 		assertEquals(testPlant.meetsRequirements(), false);
 		
-		GardenModel testGM = new GardenModel(500, 500);
+		Iterator<GardenObject> plantIterator1 = GardenModel.getGardenObjects().iterator();
+		Iterator<GardenObject> plantIterator2 = GardenModel.getGardenObjects().iterator();
 		
-		Iterator<GardenObject> plantIterator1 = testGM.getGardenObjects().iterator();
-		Iterator<GardenObject> plantIterator2 = testGM.getGardenObjects().iterator();
+		
 		while(plantIterator1.hasNext()) {
 			if (plantIterator1.next() instanceof Plant) {
 				assertEquals(((Plant) plantIterator2.next()).meetsRequirements(), true);
