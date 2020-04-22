@@ -5,7 +5,6 @@ import java.util.Collection;
 import objects.GardenObject;
 
 /**
- * GardenModel 
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -19,7 +18,7 @@ public class GardenModel {
 	private int canvasHeight;
 	private int canvasWidth;
 	private String soilType;
-	private static Collection<GardenObject> myObjects;
+	private Collection<GardenObject> myObjects;
 	
 	public GardenModel(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
@@ -31,7 +30,7 @@ public class GardenModel {
 	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
-	public static Collection<GardenObject> getGardenObjects() {
+	public Collection<GardenObject> getGardenObjects() {
 		return myObjects;
 	}
 	

@@ -13,8 +13,7 @@ public class Shape extends GardenObject {
 
 	/**
 	 * 
-	 * @param args
-	 * @return 
+	 * @return a new shape with specified properties
 	 */
 	public Shape makeNewShape() {
 		return null;
