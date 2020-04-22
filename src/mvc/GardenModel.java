@@ -18,7 +18,7 @@ public class GardenModel {
 	private int canvasHeight;
 	private int canvasWidth;
 	private String soilType;
-	private Collection<GardenObject> myObjects;
+	private static Collection<GardenObject> myObjects;
 	
 	public GardenModel(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;

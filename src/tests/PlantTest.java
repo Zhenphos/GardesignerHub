@@ -21,7 +21,7 @@ public class PlantTest {
 	@Test
 	public void testIncrementSize() {
 		System.out.println("Testing incrementSize()");
-		Plant testPlant = new Plant("green", 2, "flower", 100);
+		Plant testPlant = new Plant(null, "green", 2, "flower", 100, 0, 0, null, 0, 0, 0, 0);
 		testPlant.incrementSize();
 		assertEquals(testPlant.getSize(), 101);
 	}
