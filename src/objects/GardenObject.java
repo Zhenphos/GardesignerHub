@@ -16,11 +16,9 @@ public abstract class GardenObject {
 	int yLoc;
 
 	/**
-	 * 
-	 * @param args
-	 * @return 
+	 * creates a GardenObject of a specific shape
 	 */
 	public void makeShape() {
-		
+
 	}
 }

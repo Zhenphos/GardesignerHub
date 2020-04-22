@@ -13,7 +13,7 @@ public class Plant extends GardenObject {
 	int size;
 
 	/**
-	 * 
+	 * the constructor for Plant
 	 */
 	public Plant() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +35,7 @@ public class Plant extends GardenObject {
 	}
 
 	/**
-	 * 
+	 * increments the size of the plant by 1
 	 */
 	public void incrementSize() {
 		size++;
@@ -43,7 +43,7 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @return
+	 * @return whether the plant meets the minimum specfied requirements
 	 */
 	public boolean meetsRequirements() {
 		return false;
@@ -51,7 +51,7 @@ public class Plant extends GardenObject {
 
 	/**
 	 * 
-	 * @return
+	 * @return the size of the plant
 	 */
 	public int getSize() {
 		return size;
