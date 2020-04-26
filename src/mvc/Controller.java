@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class GardenController extends Application {
+public class Controller extends Application {
 	/**
 	 * the main method for the program
 	 * 
@@ -21,11 +21,11 @@ public class GardenController extends Application {
 		launch(args);
 	}
 
-	private GardenModel model;
+	private Model gardenModel;
 
 	private View view;
 	
-	public GardenController() {
+	public Controller() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -35,7 +35,7 @@ public class GardenController extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		view = new View(theStage);
-		model = new GardenModel(view.getCanvasWidth(), view.getCanvasHeight());
+		gardenModel = new Model(view.getCanvasWidth(), view.getCanvasHeight());
 		theStage.show();
 	}
 

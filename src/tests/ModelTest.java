@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 
-import mvc.GardenModel;
+import mvc.Model;
 import objects.GardenObject;
 import objects.Plant;
 
@@ -15,13 +15,13 @@ import objects.Plant;
  *
  */
 
-public class GardenModelTest {
+public class ModelTest {
 
 	@Test
 	public void testAddGardenObject() {
 		Plant p = new Plant();
-		Collection<GardenObject> c = GardenModel.getGardenObjects();
-		GardenModel.addGardenObject(p);
+		Collection<GardenObject> c = Model.getGardenObjects();
+		Model.addGardenObject(p);
 		assertEquals(c.size(), c.size() + 1);
 
 	}
@@ -35,7 +35,7 @@ public class GardenModelTest {
 	public void testLoad() {
 		fail("Not yet implemented"); // TODO
 		String filename = " ";
-		Collection<GardenObject> c = GardenModel.load(filename);
+		Collection<GardenObject> c = Model.load(filename);
 		if (c.size() == 0)
 			fail("No object loaded in the collection");
 
@@ -44,7 +44,7 @@ public class GardenModelTest {
 	@Test
 	public void testRemoveGardenObject() {
 		Plant p = new Plant();
-		GardenModel.removeGardenObject(p);
+		Model.removeGardenObject(p);
 		assertNull("Should be null", p);
 
 	}

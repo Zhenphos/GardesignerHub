@@ -10,7 +10,7 @@ import objects.GardenObject;
  *
  */
 // TEST COMMENT
-public class GardenModel {
+public class Model {
 	private int amountOfLight;
 	private int amountOfRain;
 	private int maxTemperature;
@@ -20,7 +20,7 @@ public class GardenModel {
 	private String soilType;
 	private static Collection<GardenObject> myObjects;
 	
-	public GardenModel(int canvasHeight, int canvasWidth) {
+	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}

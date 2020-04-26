@@ -7,7 +7,7 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import enums.PlantType;
-import mvc.GardenModel;
+import mvc.Model;
 import objects.GardenObject;
 import objects.Plant;
 
@@ -33,8 +33,8 @@ public class PlantTest {
 		Plant testPlant = new Plant();
 		assertEquals(testPlant.meetsRequirements(), false);
 		
-		Iterator<GardenObject> plantIterator1 = GardenModel.getGardenObjects().iterator();
-		Iterator<GardenObject> plantIterator2 = GardenModel.getGardenObjects().iterator();
+		Iterator<GardenObject> plantIterator1 = Model.getGardenObjects().iterator();
+		Iterator<GardenObject> plantIterator2 = Model.getGardenObjects().iterator();
 		
 		
 		while(plantIterator1.hasNext()) {
