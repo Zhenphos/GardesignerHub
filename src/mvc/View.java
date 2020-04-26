@@ -68,6 +68,9 @@ public class View {
 
 		// TODO remove "magic numbers"
 
+		// TODO use some type of Pane so we don't have to manually set these buttons and
+		// their translation
+
 		// "New" button
 		Button newButton = new Button("New");
 		mainMenuGroup.getChildren().add(newButton);
