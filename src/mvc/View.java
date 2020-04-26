@@ -45,11 +45,16 @@ public class View {
 	static int canvasHeight = 750;
 	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
+	static Stage theStage;
+	static Scene mainMenuScene;
 
-	public View(Stage theStage) {
+	GardenInfoScene gardenInfoScene = new GardenInfoScene();
+
+	public View(Stage stage) {
+		theStage = stage;
 		theStage.setTitle("Garden Planner Alpha");
 		Group mainMenuGroup = new Group();
-		Scene mainMenuScene = new Scene(mainMenuGroup);
+		mainMenuScene = new Scene(mainMenuGroup);
 		theStage.setScene(mainMenuScene);
 		Canvas mainMenuCanvas = new Canvas(canvasWidth, canvasHeight);
 		mainMenuGroup.getChildren().add(mainMenuCanvas);
@@ -97,15 +102,12 @@ public class View {
 		nextButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
 		nextButton.setTranslateY(600);
 
-		// TODO I don't understand how groups works
 		// TODO should probably split this into another function
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				// TODO there is a high chance that this isn't
-				// the correct way to do multiple scenes
 				System.out.println("next button triggered");
-				GardenInfoScene gardenInfoScene = new GardenInfoScene();
+
 				theStage.setScene(gardenInfoScene);
 			}
 		};
@@ -234,5 +236,13 @@ public class View {
 
 	public static int getCanvasHeight() {
 		return canvasHeight;
+	}
+
+	public static Stage getStage() {
+		return theStage;
+	}
+
+	public static Scene getMainMenuScene() {
+		return mainMenuScene;
 	}
 }

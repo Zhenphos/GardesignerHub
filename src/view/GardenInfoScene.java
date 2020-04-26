@@ -1,5 +1,7 @@
 package view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,18 +26,26 @@ public class GardenInfoScene extends Scene {
 		GraphicsContext gardenInfoGC;
 		gardenInfoGroup.getChildren().add(gardenInfoCanvas);
 		gardenInfoGC = gardenInfoCanvas.getGraphicsContext2D();
-		
+
 		gardenInfoGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
+
 		Image gardenInfoBackground;
 		gardenInfoBackground = View.createImage("resources\\gardenInfoImage.png");
-		//theStage.setScene(gardenInfoScene);
 		gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		Button testButton = new Button("test");
-		gardenInfoGroup.getChildren().add(testButton);
-		testButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		testButton.setTranslateY(600);
+		Button prevButton = new Button("prev");
+		gardenInfoGroup.getChildren().add(prevButton);
+		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
+		prevButton.setTranslateY(600);
+
+		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("prev button triggered");
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		prevButton.setOnAction(prevButtonAction);
 	}
-	
+
 }
