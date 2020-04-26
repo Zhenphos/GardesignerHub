@@ -49,6 +49,7 @@ public class View {
 		root.getChildren().add(theCanvas);
 		gc = theCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
+		diplayMainMenu();
 	}
 
 	private void setMainMenuBackground() {
@@ -66,7 +67,7 @@ public class View {
 	 */
 	public void diplayMainMenu() {
 		// Clear the canvas
-		gc.clearRect(0, 0, canvasWidth, canvasHeight);
+		// gc.clearRect(0, 0, canvasWidth, canvasHeight);
 		// draw background
 		gc.drawImage(mainMenuBackground, 0, 0, canvasWidth, canvasHeight);
 		/*
