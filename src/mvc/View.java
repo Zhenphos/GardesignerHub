@@ -6,6 +6,7 @@ import java.util.HashMap;
 import enums.Season;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -41,17 +42,17 @@ public class View {
 
 	int canvasWidth = 1000;
 	int canvasHeight = 750;
-	GraphicsContext gc;
+	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
 
 	public View(Stage theStage) {
 		theStage.setTitle("Garden Planner Alpha");
-		Group root = new Group();
-		Scene mainMenuScene = new Scene(root);
+		Group mainMenuGroup = new Group();
+		Scene mainMenuScene = new Scene(mainMenuGroup);
 		theStage.setScene(mainMenuScene);
-		Canvas theCanvas = new Canvas(canvasWidth, canvasHeight);
-		root.getChildren().add(theCanvas);
-		gc = theCanvas.getGraphicsContext2D();
+		Canvas mainMenuCanvas = new Canvas(canvasWidth, canvasHeight);
+		mainMenuGroup.getChildren().add(mainMenuCanvas);
+		mainMenuGC = mainMenuCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
 		diplayMainMenu();
 		
@@ -63,19 +64,19 @@ public class View {
 
 		// "New" button
 		Button newButton = new Button("New");
-		root.getChildren().add(newButton);
+		mainMenuGroup.getChildren().add(newButton);
 		newButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
 		newButton.setTranslateY(500);
 
 		// "Import" button
 		Button importButton = new Button("Import");
-		root.getChildren().add(importButton);
+		mainMenuGroup.getChildren().add(importButton);
 		importButton.setTranslateX(canvasWidth / 2);
 		importButton.setTranslateY(500);
 
 		// "Load" button
 		Button loadButton = new Button("Load");
-		root.getChildren().add(loadButton);
+		mainMenuGroup.getChildren().add(loadButton);
 		loadButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
 		loadButton.setTranslateY(500);
 
@@ -85,37 +86,50 @@ public class View {
 
 		// "previous screen" button
 		Button previousButton = new Button("prev");
-		root.getChildren().add(previousButton);
+		mainMenuGroup.getChildren().add(previousButton);
 		previousButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
 		previousButton.setTranslateY(600);
 
 		// "next screen" button
 		Button nextButton = new Button("next");
-		root.getChildren().add(nextButton);
+		mainMenuGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
 		nextButton.setTranslateY(600);
 
 		// TODO I don't understand how groups works
 		// TODO should probably split this into another function
-		Group gardenInfo = new Group();
+		Group gardenInfoGroup = new Group();
 		
-		Scene gardenInfoScene = new Scene(gardenInfo);
+		Scene gardenInfoScene = new Scene(gardenInfoGroup);
+		
+		Canvas gardenInfoCanvas = new Canvas(canvasWidth, canvasHeight);
+		GraphicsContext gardenInfoGC;
+		gardenInfoGroup.getChildren().add(gardenInfoCanvas);
+		gardenInfoGC = gardenInfoCanvas.getGraphicsContext2D();
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				// TODO there is a high chance that this isn't
 				// the correct way to do multiple scenes
 				System.out.println("next button triggered");
-				gc.clearRect(0, 0, canvasWidth, canvasHeight);
-				gardenInfo.getChildren().add(theCanvas);
+				gardenInfoGC.clearRect(0, 0, canvasWidth, canvasHeight);
 				Image gardenInfoBackground;
 				gardenInfoBackground = createImage("resources\\gardenInfoImage.png");
 				theStage.setScene(gardenInfoScene);
-				gc.drawImage(gardenInfoBackground, 0, 0, canvasWidth, canvasHeight);
+				gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, canvasWidth, canvasHeight);
+				
+				Button testButton = new Button("test");
+				gardenInfoGroup.getChildren().add(testButton);
+				testButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
+				testButton.setTranslateY(600);
 			}
 		};
 
 		nextButton.setOnAction(nextButtonAction);
+		
+		// some BorderPane testing for a toolbar at the bottom
+		
+		BorderPane bottomPane = new BorderPane();
 	}
 
 	private void setMainMenuBackground() {
@@ -127,6 +141,8 @@ public class View {
 		Image someImage = new Image(file);
 		return someImage;
 	}
+	
+	
 
 	/**
 	 * Changes to the main menu/title screen with buttons to begin the application.
@@ -134,9 +150,9 @@ public class View {
 	 */
 	public void diplayMainMenu() {
 		// Clear the canvas
-		gc.clearRect(0, 0, canvasWidth, canvasHeight);
+		mainMenuGC.clearRect(0, 0, canvasWidth, canvasHeight);
 		// draw background
-		gc.drawImage(mainMenuBackground, 0, 0, canvasWidth, canvasHeight);
+		mainMenuGC.drawImage(mainMenuBackground, 0, 0, canvasWidth, canvasHeight);
 
 	}
 
