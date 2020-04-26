@@ -54,6 +54,10 @@ public class View {
 		gc = theCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
 		diplayMainMenu();
+		
+		// TODO we should probably add a borderpane at the
+		// top where we can stick buttons and stuff so we don't
+		// have to redraw them, or something like that
 
 		// TODO remove "magic numbers"
 
