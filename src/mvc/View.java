@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import objects.GardenObject;
 import view.GardenInfoScene;
+import view.MainMenuScene;
 
 /**
  * 
@@ -46,85 +47,17 @@ public class View {
 	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
 	static Stage theStage;
-	static Scene mainMenuScene;
 
-	GardenInfoScene gardenInfoScene = new GardenInfoScene();
+	static GardenInfoScene gardenInfoScene = new GardenInfoScene();
+	static MainMenuScene mainMenuScene = new MainMenuScene();
 
 	public View(Stage stage) {
 		theStage = stage;
 		theStage.setTitle("Garden Planner Alpha");
-		Group mainMenuGroup = new Group();
-		mainMenuScene = new Scene(mainMenuGroup);
 		theStage.setScene(mainMenuScene);
-		Canvas mainMenuCanvas = new Canvas(canvasWidth, canvasHeight);
-		mainMenuGroup.getChildren().add(mainMenuCanvas);
-		mainMenuGC = mainMenuCanvas.getGraphicsContext2D();
-		setMainMenuBackground();
-		diplayMainMenu();
 
-		// TODO we should probably add a borderpane at the
-		// top where we can stick buttons and stuff so we don't
-		// have to redraw them, or something like that
-
-		// TODO remove "magic numbers"
-
-		// TODO use some type of Pane so we don't have to manually set these buttons and
-		// their translation
-
-		// "New" button
-		Button newButton = new Button("New");
-		mainMenuGroup.getChildren().add(newButton);
-		newButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
-		newButton.setTranslateY(500);
-
-		// "Import" button
-		Button importButton = new Button("Import");
-		mainMenuGroup.getChildren().add(importButton);
-		importButton.setTranslateX(canvasWidth / 2);
-		importButton.setTranslateY(500);
-
-		// "Load" button
-		Button loadButton = new Button("Load");
-		mainMenuGroup.getChildren().add(loadButton);
-		loadButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
-		loadButton.setTranslateY(500);
-
-		// TODO below are test buttons for screen flipping
-		// they can probably be removed or modified when
-		// the other buttons are implemented
-
-		// "previous screen" button
-		Button previousButton = new Button("prev");
-		mainMenuGroup.getChildren().add(previousButton);
-		previousButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
-		previousButton.setTranslateY(600);
-
-		// "next screen" button
-		Button nextButton = new Button("next");
-		mainMenuGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
-		nextButton.setTranslateY(600);
-
-		// TODO should probably split this into another function
-
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				System.out.println("next button triggered");
-
-				theStage.setScene(gardenInfoScene);
-			}
-		};
-
-		nextButton.setOnAction(nextButtonAction);
-
-		// some BorderPane testing for a toolbar at the bottom
-
-		BorderPane bottomPane = new BorderPane();
-	}
-
-	private void setMainMenuBackground() {
-		// TODO this function might not need to exist
-		mainMenuBackground = createImage("resources\\mainMenuImage.png");
+		// TODO use some type of Pane so we don't have to manually put the button
+		// translations for the Scenes in the View package
 	}
 
 	public static Image createImage(String file) {
@@ -137,10 +70,6 @@ public class View {
 	 * Should begin with this page.
 	 */
 	public void diplayMainMenu() {
-		// Clear the canvas
-		mainMenuGC.clearRect(0, 0, canvasWidth, canvasHeight);
-		// draw background
-		mainMenuGC.drawImage(mainMenuBackground, 0, 0, canvasWidth, canvasHeight);
 
 	}
 
@@ -247,5 +176,9 @@ public class View {
 
 	public static Scene getMainMenuScene() {
 		return mainMenuScene;
+	}
+
+	public static GardenInfoScene getGardenInfoScene() {
+		return gardenInfoScene;
 	}
 }
