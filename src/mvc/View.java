@@ -58,17 +58,30 @@ public class View {
 		Button newButton = new Button("New");
 		root.getChildren().add(newButton);
 		newButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
-		newButton.setTranslateY(600);
+		newButton.setTranslateY(500);
 		// "Import" button
 		Button importButton = new Button("Import");
 		root.getChildren().add(importButton);
 		importButton.setTranslateX(canvasWidth / 2);
-		importButton.setTranslateY(600);
+		importButton.setTranslateY(500);
 		// "Load" button
 		Button loadButton = new Button("Load");
 		root.getChildren().add(loadButton);
 		loadButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
-		loadButton.setTranslateY(600);
+		loadButton.setTranslateY(500);
+		// TODO below are test buttons for screen flipping
+		// they can probably be removed or modified when loading
+		// is implemented
+		// "previous screen" button
+		Button previousButton = new Button("prev");
+		root.getChildren().add(previousButton);
+		previousButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
+		previousButton.setTranslateY(600);
+		// "next screen" button
+		Button nextButton = new Button("next");
+		root.getChildren().add(nextButton);
+		nextButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
+		nextButton.setTranslateY(600);
 	}
 
 	private void setMainMenuBackground() {
