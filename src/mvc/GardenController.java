@@ -1,5 +1,6 @@
 package mvc;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -32,9 +33,10 @@ public class GardenController extends Application {
 	 * @param arg0 - the stage that the garden is displayed on
 	 */
 	@Override
-	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void start(Stage theStage) throws Exception {
+		view = new View(theStage);
+		model = new GardenModel(view.getCanvasWidth(), view.getCanvasHeight());
+		theStage.show();
 	}
 
 }
