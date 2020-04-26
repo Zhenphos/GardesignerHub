@@ -28,6 +28,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import objects.GardenObject;
+import view.GardenInfoScene;
 
 /**
  * 
@@ -40,8 +41,8 @@ public class View {
 	private TilePane gardenTilePane;
 	private HashMap<String, String> plants;
 
-	int canvasWidth = 1000;
-	int canvasHeight = 750;
+	static int canvasWidth = 1000;
+	static int canvasHeight = 750;
 	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
 
@@ -55,7 +56,7 @@ public class View {
 		mainMenuGC = mainMenuCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
 		diplayMainMenu();
-		
+
 		// TODO we should probably add a borderpane at the
 		// top where we can stick buttons and stuff so we don't
 		// have to redraw them, or something like that
@@ -98,37 +99,21 @@ public class View {
 
 		// TODO I don't understand how groups works
 		// TODO should probably split this into another function
-		Group gardenInfoGroup = new Group();
-		
-		Scene gardenInfoScene = new Scene(gardenInfoGroup);
-		
-		Canvas gardenInfoCanvas = new Canvas(canvasWidth, canvasHeight);
-		GraphicsContext gardenInfoGC;
-		gardenInfoGroup.getChildren().add(gardenInfoCanvas);
-		gardenInfoGC = gardenInfoCanvas.getGraphicsContext2D();
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				// TODO there is a high chance that this isn't
 				// the correct way to do multiple scenes
 				System.out.println("next button triggered");
-				gardenInfoGC.clearRect(0, 0, canvasWidth, canvasHeight);
-				Image gardenInfoBackground;
-				gardenInfoBackground = createImage("resources\\gardenInfoImage.png");
+				GardenInfoScene gardenInfoScene = new GardenInfoScene();
 				theStage.setScene(gardenInfoScene);
-				gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, canvasWidth, canvasHeight);
-				
-				Button testButton = new Button("test");
-				gardenInfoGroup.getChildren().add(testButton);
-				testButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
-				testButton.setTranslateY(600);
 			}
 		};
 
 		nextButton.setOnAction(nextButtonAction);
-		
+
 		// some BorderPane testing for a toolbar at the bottom
-		
+
 		BorderPane bottomPane = new BorderPane();
 	}
 
@@ -137,12 +122,10 @@ public class View {
 		mainMenuBackground = createImage("resources\\mainMenuImage.png");
 	}
 
-	private Image createImage(String file) {
+	public static Image createImage(String file) {
 		Image someImage = new Image(file);
 		return someImage;
 	}
-	
-	
 
 	/**
 	 * Changes to the main menu/title screen with buttons to begin the application.
@@ -245,11 +228,11 @@ public class View {
 		return null;
 	}
 
-	public int getCanvasWidth() {
+	public static int getCanvasWidth() {
 		return canvasWidth;
 	}
 
-	public int getCanvasHeight() {
+	public static int getCanvasHeight() {
 		return canvasHeight;
 	}
 }
