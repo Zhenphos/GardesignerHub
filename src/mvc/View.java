@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -46,53 +47,76 @@ public class View {
 	public View(Stage theStage) {
 		theStage.setTitle("Garden Planner Alpha");
 		Group root = new Group();
-		Scene mainScene = new Scene(root);
-		theStage.setScene(mainScene);
+		Scene mainMenuScene = new Scene(root);
+		theStage.setScene(mainMenuScene);
 		Canvas theCanvas = new Canvas(canvasWidth, canvasHeight);
 		root.getChildren().add(theCanvas);
 		gc = theCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
 		diplayMainMenu();
-		
+
 		// TODO remove "magic numbers"
-		
+
 		// "New" button
 		Button newButton = new Button("New");
 		root.getChildren().add(newButton);
 		newButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
 		newButton.setTranslateY(500);
-		
+
 		// "Import" button
 		Button importButton = new Button("Import");
 		root.getChildren().add(importButton);
 		importButton.setTranslateX(canvasWidth / 2);
 		importButton.setTranslateY(500);
-		
+
 		// "Load" button
 		Button loadButton = new Button("Load");
 		root.getChildren().add(loadButton);
 		loadButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
 		loadButton.setTranslateY(500);
-		
+
 		// TODO below are test buttons for screen flipping
 		// they can probably be removed or modified when loading
 		// is implemented
-		
+
 		// "previous screen" button
 		Button previousButton = new Button("prev");
 		root.getChildren().add(previousButton);
 		previousButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
 		previousButton.setTranslateY(600);
-		
+
 		// "next screen" button
 		Button nextButton = new Button("next");
 		root.getChildren().add(nextButton);
 		nextButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
 		nextButton.setTranslateY(600);
+
+		// TODO I don't understand how groups works
+		// TODO should probably split this into another function
+		Group gardenInfo = new Group();
+		
+		Scene gardenInfoScene = new Scene(gardenInfo);
+
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				// TODO there is a high chance that this isn't
+				// the correct way to do multiple scenes
+				System.out.println("next button triggered");
+				gc.clearRect(0, 0, canvasWidth, canvasHeight);
+				gardenInfo.getChildren().add(theCanvas);
+				Image gardenInfoBackground;
+				gardenInfoBackground = createImage("resources\\gardenInfoImage.png");
+				theStage.setScene(gardenInfoScene);
+				gc.drawImage(gardenInfoBackground, 0, 0, canvasWidth, canvasHeight);
+			}
+		};
+
+		nextButton.setOnAction(nextButtonAction);
 	}
 
 	private void setMainMenuBackground() {
-		mainMenuBackground = createImage("resources\\GPA.png");
+		// TODO this function might not need to exist
+		mainMenuBackground = createImage("resources\\mainMenuImage.png");
 	}
 
 	private Image createImage(String file) {
