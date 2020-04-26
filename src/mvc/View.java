@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.SnapshotParameters;
@@ -22,6 +23,8 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import objects.GardenObject;
 
 /**
@@ -50,6 +53,22 @@ public class View {
 		gc = theCanvas.getGraphicsContext2D();
 		setMainMenuBackground();
 		diplayMainMenu();
+		// TODO remove "magic numbers"
+		// "New" button
+		Button newButton = new Button("New");
+		root.getChildren().add(newButton);
+		newButton.setTranslateX(canvasWidth / 2 - canvasWidth / 4);
+		newButton.setTranslateY(600);
+		// "Import" button
+		Button importButton = new Button("Import");
+		root.getChildren().add(importButton);
+		importButton.setTranslateX(canvasWidth / 2);
+		importButton.setTranslateY(600);
+		// "Load" button
+		Button loadButton = new Button("Load");
+		root.getChildren().add(loadButton);
+		loadButton.setTranslateX(canvasWidth / 2 + canvasWidth / 4);
+		loadButton.setTranslateY(600);
 	}
 
 	private void setMainMenuBackground() {
@@ -67,26 +86,10 @@ public class View {
 	 */
 	public void diplayMainMenu() {
 		// Clear the canvas
-		// gc.clearRect(0, 0, canvasWidth, canvasHeight);
+		gc.clearRect(0, 0, canvasWidth, canvasHeight);
 		// draw background
 		gc.drawImage(mainMenuBackground, 0, 0, canvasWidth, canvasHeight);
-		/*
-		Rectangle2D croppedPortion = new Rectangle2D(1000, 0, 1000, 750);
-		// Define an ImageView with the wide png image 'pics'
-		ImageView imageView = new ImageView("resources\\GPA.png");
-		imageView.setViewport(croppedPortion);
-		imageView.setFitWidth(1000);
-		imageView.setFitHeight(750);
-		imageView.setSmooth(false);
-		// Crop!
-		SnapshotParameters params = new SnapshotParameters();
-		params.setFill(Color.TRANSPARENT);
-		Image croppedImage = imageView.snapshot(params, null);
 
-		// Now rotate and flip it based on direction, then draw to canvas
-		//transformAndDraw(gc, croppedImage, 0, 0, direction);
-		 */
-		 
 	}
 
 	/**
