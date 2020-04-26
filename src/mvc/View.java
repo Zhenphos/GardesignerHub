@@ -76,8 +76,8 @@ public class View {
 		loadButton.setTranslateY(500);
 
 		// TODO below are test buttons for screen flipping
-		// they can probably be removed or modified when loading
-		// is implemented
+		// they can probably be removed or modified when
+		// the other buttons are implemented
 
 		// "previous screen" button
 		Button previousButton = new Button("prev");
