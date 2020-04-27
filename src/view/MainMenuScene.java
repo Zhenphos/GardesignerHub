@@ -76,26 +76,29 @@ public class MainMenuScene extends Scene {
 		});
 		// Save/Load end
 
-		// "Tutorial" button
-		Button tutorialButton = new Button("Tutorial");
+		// "Help" button
+		Button tutorialButton = new Button("Help");
 		mainMenuGroup.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 17);
 		tutorialButton.setTranslateY(View.getCanvasHeight()*3/5);
 
-		// "Tutorial" button event handler
+		// "Help" button event handler
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTutorialScene());
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
 			}
 		};
 
-		// "Tutorial" button on click action
+		// "Help" button on click action
 		tutorialButton.setOnAction(tutorialButtonAction);
 
 		// "About" button
 		Button aboutButton = new Button();
 		aboutButton.setText("About");
-		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 15);
+		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		aboutButton.setTranslateY(View.getCanvasHeight()*7/10);
 		aboutButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

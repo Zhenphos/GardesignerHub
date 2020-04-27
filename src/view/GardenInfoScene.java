@@ -18,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.View;
 
 /**
@@ -109,8 +111,8 @@ public class GardenInfoScene extends Scene {
 
 		Button prevButton = new Button("Prev");
 		gardenInfoGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
+		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -122,8 +124,8 @@ public class GardenInfoScene extends Scene {
 
 		Button nextButton = new Button("Next");
 		gardenInfoGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7/8);
+		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -136,8 +138,8 @@ public class GardenInfoScene extends Scene {
 		// main menu button start
 		Button mainMenuButton = new Button("Main Menu");
 		gardenInfoGroup.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(600);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7/8);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -147,6 +149,25 @@ public class GardenInfoScene extends Scene {
 
 		mainMenuButton.setOnAction(mainMenuButtonAction);
 		// main menu button end
+		
+		// "Help" button start
+		Button tutorialButton = new Button("Help");
+		gardenInfoGroup.getChildren().add(tutorialButton);
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
+		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
+				
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
+
+		tutorialButton.setOnAction(tutorialButtonAction);
+				
+		// "Help" button end
 	}
 
 }

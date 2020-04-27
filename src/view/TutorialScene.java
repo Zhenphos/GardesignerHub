@@ -35,11 +35,11 @@ public class TutorialScene extends Scene {
 	 * Creates the tutorial scene
 	 */
 	public void createTutorial() {
-		Canvas tutorialCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
+		Canvas tutorialCanvas = new Canvas(View.getCanvasWidth() * 3/4, View.getCanvasHeight() * 3/4);
 		GraphicsContext tutorialGC;
 		tutorialGroup.getChildren().add(tutorialCanvas);
 		tutorialGC = tutorialCanvas.getGraphicsContext2D();
-		tutorialGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		tutorialGC.clearRect(0, 0, View.getCanvasWidth() * 3/4, View.getCanvasHeight() * 3/4);
 
 		Image tutorialBackground;
 		tutorialBackground = View.createImage("resources/tutorialImage.png");
@@ -51,7 +51,7 @@ public class TutorialScene extends Scene {
 		Text scenetitle = new Text("Tutorial");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
 		border.setTop(scenetitle);
-		BorderPane.setMargin(scenetitle, new Insets(50, 0, 0, 150));
+		BorderPane.setMargin(scenetitle, new Insets(50, 0, 0, 0));
 
 		Text infoTutorial = new Text();
 		infoTutorial.setText(
@@ -62,26 +62,9 @@ public class TutorialScene extends Scene {
 		border.setCenter(center);
 		tutorialGroup.getChildren().add(border);
 		BorderPane.setAlignment(scenetitle, Pos.CENTER);
-		BorderPane.setMargin(center, new Insets(20, 5, 5, 200));
+		BorderPane.setMargin(center, new Insets(50));
 		center.setStyle("-fx-border-color: black");
-		center.setPadding(new Insets(25, 25, 25, 25));
-		
-
-		// "Main Menu" button
-		Button mainMenuButton = new Button("Main Menu");
-		tutorialGroup.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(600);
-
-		// "Main Menu" Button event handler
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		// "Main Menu" Button on click action
-		mainMenuButton.setOnAction(mainMenuButtonAction);
+		center.setPadding(new Insets(25));
 
 	}
 }

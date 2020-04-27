@@ -81,8 +81,8 @@ public class PlantPlacementScene extends Scene {
 
 		Button prevButton = new Button("Prev");
 		plantPlacementGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
+		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -94,8 +94,8 @@ public class PlantPlacementScene extends Scene {
 
 		Button nextButton = new Button("Next");
 		plantPlacementGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7/8);
+		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -126,8 +126,8 @@ public class PlantPlacementScene extends Scene {
 
 		Button mainMenuButton = new Button("Main Menu");
 		plantPlacementGroup.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(600);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -138,6 +138,25 @@ public class PlantPlacementScene extends Scene {
 		mainMenuButton.setOnAction(mainMenuButtonAction);
 
 		// main menu button end
+		
+		// "Help" button start
+		Button tutorialButton = new Button("Help");
+		plantPlacementGroup.getChildren().add(tutorialButton);
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
+		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
+		
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
+
+		tutorialButton.setOnAction(tutorialButtonAction);
+		
+		// "Help" button end
 
 	}
 

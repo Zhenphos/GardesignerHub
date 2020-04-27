@@ -24,6 +24,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.Controller;
 import mvc.View;
@@ -119,7 +120,7 @@ public class TimesScene extends Scene {
 		
 		Button prevButton = new Button("Prev");
 		root.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() * 3/8);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
 		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
@@ -134,7 +135,7 @@ public class TimesScene extends Scene {
 		
 		Button mainMenuButton = new Button("Main Menu");
 		root.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
 		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
@@ -146,6 +147,25 @@ public class TimesScene extends Scene {
 		mainMenuButton.setOnAction(mainMenuButtonAction);
 		
 		// main menu button end
+		
+		// "Help" button start
+		Button tutorialButton = new Button("Help");
+		root.getChildren().add(tutorialButton);
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
+		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
+				
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
+
+		tutorialButton.setOnAction(tutorialButtonAction);
+				
+		// "Help" button end
 		
 		// next button start
 		
