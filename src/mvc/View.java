@@ -475,7 +475,7 @@ public class View {
 	}
 
 	/**
-	 * Used to move to the times scene
+	 * Used to move to the rating scene
 	 *
 	 * @return the rating scene
 	 */

@@ -18,19 +18,29 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class RatingScene extends Scene {
 
 	static Group container = new Group();
 
-	private BorderPane root;
+	private BorderPane ratingSceneGroup;
 	private HBox ratingbox;
 	private FlowPane improveBox;
 
-	public RatingScene() {
-		super(container);
-		this.root = new BorderPane();
-		this.root.setPadding(new Insets(10));
-		container.getChildren().add(this.root);
+    /**
+     * Creates the rating scene which displays a calculated
+     * rating for the user's constructed garden
+     */
+    public RatingScene() {
+        super(container);
+        this.ratingSceneGroup = new BorderPane();
+        this.ratingSceneGroup.setPadding(new Insets(10));
+        container.getChildren().add(this.ratingSceneGroup);
 
 		VBox left = new VBox();
 		left.setAlignment(Pos.CENTER);
@@ -46,7 +56,7 @@ public class RatingScene extends Scene {
 			this.ratingbox.getChildren().add(iv);
 		}
 		left.getChildren().add(this.ratingbox);
-		this.root.setLeft(left);
+		this.ratingSceneGroup.setLeft(left);
 
 		VBox center = new VBox();
 		center.setAlignment(Pos.TOP_CENTER);
@@ -56,7 +66,7 @@ public class RatingScene extends Scene {
 		center.getChildren().add(improveText);
 		this.improveBox = new FlowPane();
 		center.getChildren().add(this.improveBox);
-		this.root.setCenter(center);
+		this.ratingSceneGroup.setCenter(center);
 
 		// "Save/Load" button
 		Button saveLoadButton = new Button("Save/Load");
@@ -88,7 +98,7 @@ public class RatingScene extends Scene {
 		Background background = new Background(new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY));
 		top.setBackground(background);
 		top.setStyle("-fx-border-color: black");
-		this.root.setTop(top);
+		this.ratingSceneGroup.setTop(top);
 
 	}
 }
