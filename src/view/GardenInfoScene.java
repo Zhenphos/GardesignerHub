@@ -105,7 +105,7 @@ public class GardenInfoScene extends Scene {
 		
 		Image gardenInfoBackground;
 		gardenInfoBackground = View.createImage("resources/gardenInfoImage.png");
-		//gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		Button prevButton = new Button("prev");
 		gardenInfoGroup.getChildren().add(prevButton);
