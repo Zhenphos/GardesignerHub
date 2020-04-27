@@ -65,36 +65,35 @@ public class GardenInfoScene extends Scene {
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		top.getChildren().add(scenetitle); 
 		
-		Label light = new Label("Light :");
+		Label light = new Label("Hours of Sunlight :");
 		grid.add(light, 0, 1);     //(col,row)
 
 		TextField lightInput = new TextField();
 		grid.add(lightInput, 1, 1);
 		
-		Label water = new Label("Water :");
+		Label water = new Label("Amount of Rain (millimeters) :");
 		grid.add(water, 0, 2);
 
 		TextField waterInput = new TextField();
 		grid.add(waterInput, 1, 2);
 		
-		Label soil = new Label("Soil :");
+		Label soil = new Label("Soil pH :");
 		grid.add(soil, 0, 3);
 
 		TextField soilInput = new TextField();
 		grid.add(soilInput, 1, 3);
 		
-		Label weather = new Label("Weather :");
+		Label weather = new Label("Temperature (Fahrenheit) :");
 		grid.add(weather, 0, 4);
 
 		TextField weatherInput = new TextField();
-		grid.add(weatherInput, 1, 4);
-		
-		
-		
+		grid.add(weatherInput, 1, 4);		
 		
 		Text infoTutorial = new Text();
-		infoTutorial.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
-		infoTutorial.wrappingWidthProperty().set(500);
+		infoTutorial.setText("Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you. If you are uncertain about any of these values or do not wish to answer, simply leave the box blank and press next. \n \n The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day. \n \n The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters. \n \n The \"Soil pH\" is how acidic or basic your soil is. You may not know this, which is fine. Simply skip over it. \n \n The \"Temperature\" is an estimate of the average temperature the land the garden is on is experiencing, in Fahrenheit.");
+		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
+		//infoTutorial.wrappingWidthProperty().set(500);
+		infoTutorial.wrappingWidthProperty().set(550);
 		//grid.add(infoTutorial, 3, 0, 10, 10);
 		rightBox.getChildren().add(infoTutorial);
 		//		
