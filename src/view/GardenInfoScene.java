@@ -57,7 +57,7 @@ public class GardenInfoScene extends Scene {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		hbox.getChildren().add(grid);
-		Text scenetitle = new Text("\t\tInformatoin Input \t\t\t\t\tHow To Get Information");
+		Text scenetitle = new Text("\t\tInformation Input \t\t\t\t\tHow To Get Information");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		top.getChildren().add(scenetitle); 
 		
