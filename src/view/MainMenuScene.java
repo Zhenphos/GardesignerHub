@@ -51,7 +51,6 @@ public class MainMenuScene extends Scene {
 		// "New" Button event handler
 		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("new button triggered");
 				View.getStage().setScene(View.getGardenInfoScene());
 			}
 		};
