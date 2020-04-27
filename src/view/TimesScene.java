@@ -63,7 +63,7 @@ public class TimesScene extends Scene {
 		final ToggleGroup tGroup = new ToggleGroup();
 		
 		HBox top = new HBox();
-		Text title = new Text("Time Visualization");
+		Text title = new Text("Timelapse Visualization");
 		title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 40));
 		title.setTextAlignment(TextAlignment.CENTER);
 		top.getChildren().add(title); 
@@ -131,22 +131,42 @@ public class TimesScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 		
-		Button nextButton = new Button("Main Menu");
+		// main menu button start
+		
+		Button mainMenuButton = new Button("Main Menu");
+		root.getChildren().add(mainMenuButton);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() - 50);
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+
+				//View.getStage().setScene(View.getMainMenuScene());
+
+				//View.getStage().setScene(View.getRatingScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		
+		// main menu button end
+		
+		// next button start
+		
+		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		nextButton.setTranslateX( View.getCanvasWidth() / 2 + View.getCanvasWidth() * 3/8);
 		nextButton.setTranslateY(View.getCanvasHeight() - 50);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-<<<<<<< HEAD
-				View.getStage().setScene(View.getMainMenuScene());
-=======
 				View.getStage().setScene(View.getRatingScene());
->>>>>>> ntsee
 			}
 		};
 
 		nextButton.setOnAction(nextButtonAction);
+		
+		// next button end
 		
 	}
 

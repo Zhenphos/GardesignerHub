@@ -47,17 +47,17 @@ public class RatingScene extends Scene {
         this.root.setLeft(left);
 
         VBox center = new VBox();
-        center.setAlignment(Pos.CENTER);
+        center.setAlignment(Pos.TOP_CENTER);
         center.setStyle("-fx-border-color: black");
         Text improveText = new Text("How to Improve");
-        improveText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        improveText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         center.getChildren().add(improveText);
         this.improveBox = new FlowPane();
         center.getChildren().add(this.improveBox);
         this.root.setCenter(center);
 
         HBox buttonGroup = new HBox();
-        buttonGroup.setAlignment(Pos.CENTER);
+        buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
         buttonGroup.setSpacing(10);
         Button btnPrev = new Button("Previous");
         btnPrev.setOnMouseClicked(event -> {
