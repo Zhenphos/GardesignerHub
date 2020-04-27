@@ -74,23 +74,5 @@ public class MainMenuScene extends Scene {
 		// TODO below are test buttons for screen flipping
 		// they can probably be removed or modified when
 		// the other buttons are implemented
-
-		// "next screen" button
-		Button nextButton = new Button("next");
-		mainMenuGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
-
-		// nextButton event handler
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				System.out.println("next button triggered");
-				View.getStage().setScene(View.getGardenInfoScene());
-			}
-		};
-
-		// nextButton on click action
-		nextButton.setOnAction(nextButtonAction);
 	}
-
 }
