@@ -94,17 +94,17 @@ public class PlantInfoScene extends Scene {
 				soilReqs);
 		BorderPane.setMargin(right, new Insets(View.getCanvasHeight() / 7, 50, 0, 0));
 		
-		Button prevButton = new Button("prev");
-		plantInfoGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
+		Button backButton = new Button("Go Back");
+		plantInfoGroup.getChildren().add(backButton);
+		backButton.setTranslateX(View.getCanvasWidth() / 2);
+		backButton.setTranslateY(600);
 		
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 
-		prevButton.setOnAction(prevButtonAction);
+		backButton.setOnAction(backButtonAction);
 	}
 }

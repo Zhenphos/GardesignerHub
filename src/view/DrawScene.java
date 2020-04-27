@@ -60,7 +60,7 @@ public class DrawScene extends Scene {
 		
 
 		Label plant = new Label("Plant \t {Plant Image}") ;
-		Label road = new Label("road \t {Road Image}");
+		Label road = new Label("Road \t {Road Image}");
 		Label stream = new Label("Stream \t {Stream Image}");
 		Label shade = new Label("Shade \t {Label Image}");
 		Label object = new Label("Object \t {Object Image}");
@@ -111,6 +111,5 @@ public class DrawScene extends Scene {
 		};
 
 		nextButton.setOnAction(nextButtonAction);
-		
 	}
 }

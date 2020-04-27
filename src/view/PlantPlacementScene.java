@@ -107,10 +107,10 @@ public class PlantPlacementScene extends Scene {
 		nextButton.setOnAction(nextButtonAction);
 
 		// TODO replace with selecting plant from image
-		Button plantButton = new Button("pick a plant");
+		Button plantButton = new Button("Choose a Plant");
 		root.getChildren().add(plantButton);
-		plantButton.setTranslateX(View.getCanvasWidth() / 3 + View.getCanvasWidth() / 4);
-		plantButton.setTranslateY(200);
+		plantButton.setTranslateX(View.getCanvasWidth() / 2);
+		plantButton.setTranslateY(210);
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
