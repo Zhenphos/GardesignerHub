@@ -71,8 +71,21 @@ public class MainMenuScene extends Scene {
 			}
 		});
 
-		// TODO below are test buttons for screen flipping
-		// they can probably be removed or modified when
-		// the other buttons are implemented
+		// "TUTORIAL" button
+		Button tutorialButton = new Button("TUTORIAL");
+		mainMenuGroup.getChildren().add(tutorialButton);
+		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		tutorialButton.setTranslateY(500);
+
+		// "TUTORIAL" Button event handler
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("TUTORIAL button triggered");
+				View.getStage().setScene(View.getTutorialScene());
+			}
+		};
+
+		// "TUTORIAL" Button on click action
+		tutorialButton.setOnAction(tutorialButtonAction);
 	}
 }

@@ -43,28 +43,29 @@ public class TutorialScene extends Scene {
 
 		Image tutorialBackground;
 		tutorialBackground = View.createImage("resources/tutorialImage.png");
-		//tutorialGC.drawImage(tutorialBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
-		
+		// tutorialGC.drawImage(tutorialBackground, 0, 0, View.getCanvasWidth(),
+		// View.getCanvasHeight());
+
 		BorderPane border = new BorderPane();
 		HBox center = new HBox();
 		Text scenetitle = new Text("Tutorial");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
 		border.setTop(scenetitle);
-		BorderPane.setMargin(scenetitle, new Insets(50,0,0,150));
+		BorderPane.setMargin(scenetitle, new Insets(50, 0, 0, 150));
 
 		Text infoTutorial = new Text();
-		infoTutorial.setText("Please follow this short guide to help familiarize yourself with this program's features. \n \n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
+		infoTutorial.setText(
+				"Please follow this short guide to help familiarize yourself with this program's features. \n \n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
 		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
 		infoTutorial.wrappingWidthProperty().set(600);
 		center.getChildren().add(infoTutorial);
 		border.setCenter(center);
 		tutorialGroup.getChildren().add(border);
 		BorderPane.setAlignment(scenetitle, Pos.CENTER);
-		BorderPane.setMargin(center, new Insets(20,5,5,160));
+		BorderPane.setMargin(center, new Insets(20, 5, 5, 200));
 		center.setStyle("-fx-border-color: black");
-		center.setPadding(new Insets(25,25,25,25));
-		
+		center.setPadding(new Insets(25, 25, 25, 25));
+
 		Button prevButton = new Button("prev");
 		tutorialGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
@@ -77,7 +78,7 @@ public class TutorialScene extends Scene {
 		};
 
 		prevButton.setOnAction(prevButtonAction);
-		
+
 		Button nextButton = new Button("next");
 		tutorialGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
@@ -90,6 +91,23 @@ public class TutorialScene extends Scene {
 		};
 
 		nextButton.setOnAction(nextButtonAction);
-		
+
+		// "MAIN MENU" button
+		Button mainMenuButton = new Button("MAIN MENU");
+		tutorialGroup.getChildren().add(mainMenuButton);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		mainMenuButton.setTranslateY(600);
+
+		// "MAIN MENU" Button event handler
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("MAIN MENU button triggered");
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		// "TUTORIAL" Button on click action
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+
 	}
 }

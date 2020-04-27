@@ -65,7 +65,6 @@ public class LoadingScene extends Scene {
 		buttonGroup.setSpacing(10);
 
 		// "BACK" Button event handler
-		System.out.println("hi");
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("BACK button triggered");
