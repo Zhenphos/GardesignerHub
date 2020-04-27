@@ -42,6 +42,17 @@ public class MainMenuScene extends Scene {
 		newButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		newButton.setTranslateY(500);
 
+		// "New" Button event handler
+		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("new button triggered");
+				View.getStage().setScene(View.getGardenInfoScene());
+			}
+		};
+
+		// "New" Button on click action
+		newButton.setOnAction(newButtonAction);
+
 		// "Import" button
 		Button importButton = new Button("Import");
 		mainMenuGroup.getChildren().add(importButton);
@@ -80,7 +91,6 @@ public class MainMenuScene extends Scene {
 
 		// nextButton on click action
 		nextButton.setOnAction(nextButtonAction);
-
 	}
 
 }

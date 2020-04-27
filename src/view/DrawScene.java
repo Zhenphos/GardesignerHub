@@ -29,9 +29,9 @@ public class DrawScene extends Scene {
 
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		//Image drawBackground;
-		//drawBackground = View.createImage("resources\\tutorialImage.png");
-		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		Image drawBackground;
+		drawBackground = View.createImage("resources/drawImage.png");
+		drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		Button prevButton = new Button("prev");
 		drawGroup.getChildren().add(prevButton);
