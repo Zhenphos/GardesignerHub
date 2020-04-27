@@ -140,10 +140,7 @@ public class TimesScene extends Scene {
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-
-				//View.getStage().setScene(View.getMainMenuScene());
-
-				//View.getStage().setScene(View.getRatingScene());
+				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
