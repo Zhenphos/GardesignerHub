@@ -35,10 +35,12 @@ import view.DrawScene;
 import view.GardenInfoScene;
 import view.LoadingScene;
 import view.MainMenuScene;
+import view.PlantInfoScene;
 import view.TutorialScene;
 import view.TimesScene;
 
 /**
+ * View class for Garden Planner
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -62,6 +64,7 @@ public class View {
 	static TutorialScene tutorialScene = new TutorialScene();
 	static DrawScene drawScene = new DrawScene();
 	static LoadingScene loadingScene = new LoadingScene();
+	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
 
 
@@ -417,6 +420,15 @@ public class View {
 
 	public static DrawScene getDrawScene() {
 		return drawScene;
+	}
+	
+	/**
+	 * Used to move to the plant info scene
+	 * 
+	 * @return the plant info scene
+	 */
+	public static PlantInfoScene getPlantInfoScene() {
+		return plantInfoScene;
 	}
 	
 	public static TimesScene getTimesScene() {

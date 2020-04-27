@@ -19,6 +19,12 @@ import mvc.Controller;
 
 import java.io.File;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class LoadingScene extends Scene {
 
     private static Group root = new Group();

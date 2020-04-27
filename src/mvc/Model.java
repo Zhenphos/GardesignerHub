@@ -5,6 +5,7 @@ import java.util.Collection;
 import objects.GardenObject;
 
 /**
+ * Model class for Garden Planner
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

@@ -21,6 +21,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class DrawScene extends Scene {
 	static Group drawGroup = new Group();
 
@@ -100,6 +106,7 @@ public class DrawScene extends Scene {
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				//View.getStage().setScene(View.getDrawScene());
+				View.getStage().setScene(View.getPlantInfoScene()); // for testing with plantInfoScene
 			}
 		};
 

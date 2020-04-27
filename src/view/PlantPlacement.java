@@ -21,6 +21,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class PlantPlacement extends Scene {
 	static Group root = new Group();
 	

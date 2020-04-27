@@ -28,6 +28,12 @@ import javafx.stage.Stage;
 import mvc.Controller;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class TimesScene extends Scene {
 
 	private static Group root = new Group();

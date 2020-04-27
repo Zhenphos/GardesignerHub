@@ -1,7 +1,5 @@
 package view;
 
-
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,6 +22,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import mvc.View;
+
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
 
 public class GardenInfoScene extends Scene {
 	static Group gardenInfoGroup = new Group();

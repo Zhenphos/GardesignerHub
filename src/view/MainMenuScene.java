@@ -14,6 +14,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class MainMenuScene extends Scene {
 	static Group mainMenuGroup = new Group();
 

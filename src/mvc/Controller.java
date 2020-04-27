@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
+ * Controller class for Garden Planner
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

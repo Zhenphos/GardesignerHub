@@ -20,6 +20,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class TutorialScene extends Scene {
 	static Group tutorialGroup = new Group();
 
@@ -36,7 +42,7 @@ public class TutorialScene extends Scene {
 		tutorialGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		Image tutorialBackground;
-		tutorialBackground = View.createImage("/resources/tutorialImage.png");
+		tutorialBackground = View.createImage("resources/tutorialImage.png");
 		//tutorialGC.drawImage(tutorialBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		
