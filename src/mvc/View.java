@@ -31,6 +31,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import objects.GardenObject;
+import view.DrawScene;
 import view.GardenInfoScene;
 import view.LoadingScene;
 import view.MainMenuScene;
@@ -58,7 +59,8 @@ public class View {
 	static GardenInfoScene gardenInfoScene = new GardenInfoScene();
 	static MainMenuScene mainMenuScene = new MainMenuScene();
 	static TutorialScene tutorialScene = new TutorialScene();
-	public static LoadingScene loadingScene = new LoadingScene();
+	static DrawScene drawScene = new DrawScene();
+	static LoadingScene loadingScene = new LoadingScene();
 
 
 
@@ -405,6 +407,14 @@ public class View {
 
 	public static TutorialScene getTutorialScene() {
 		return tutorialScene;
+	}
+
+	public static LoadingScene getLoadingScene() {
+		return loadingScene;
+	}
+
+	public static DrawScene getDrawScene() {
+		return drawScene;
 	}
 
 }

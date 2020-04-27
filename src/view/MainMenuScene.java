@@ -56,7 +56,7 @@ public class MainMenuScene extends Scene {
 		loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				View.getStage().setScene(View.loadingScene);
+				View.getStage().setScene(View.getLoadingScene());
 			}
 		});
 
