@@ -134,7 +134,6 @@ public class GardenInfoScene extends Scene {
 		nextButton.setOnAction(nextButtonAction);
 
 		// main menu button start
-
 		Button mainMenuButton = new Button("Main Menu");
 		gardenInfoGroup.getChildren().add(mainMenuButton);
 		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
@@ -147,7 +146,6 @@ public class GardenInfoScene extends Scene {
 		};
 
 		mainMenuButton.setOnAction(mainMenuButtonAction);
-
 		// main menu button end
 	}
 

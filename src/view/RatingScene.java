@@ -1,5 +1,6 @@
 package view;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,15 +33,15 @@ public class RatingScene extends Scene {
 	private HBox ratingbox;
 	private FlowPane improveBox;
 
-    /**
-     * Creates the rating scene which displays a calculated
-     * rating for the user's constructed garden
-     */
-    public RatingScene() {
-        super(container);
-        this.ratingSceneGroup = new BorderPane();
-        this.ratingSceneGroup.setPadding(new Insets(10));
-        container.getChildren().add(this.ratingSceneGroup);
+	/**
+	 * Creates the rating scene which displays a calculated rating for the user's
+	 * constructed garden
+	 */
+	public RatingScene() {
+		super(container);
+		this.ratingSceneGroup = new BorderPane();
+		this.ratingSceneGroup.setPadding(new Insets(10));
+		container.getChildren().add(this.ratingSceneGroup);
 
 		VBox left = new VBox();
 		left.setAlignment(Pos.CENTER);
@@ -79,6 +80,18 @@ public class RatingScene extends Scene {
 		});
 		// Save/Load end
 
+		// main menu button start
+		Button mainMenuButton = new Button("Main Menu");
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		// main menu button end
+
 		HBox buttonGroup = new HBox();
 		buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
 		buttonGroup.setSpacing(10);
@@ -92,6 +105,8 @@ public class RatingScene extends Scene {
 		center.getChildren().add(buttonGroup);
 		// add save/load button
 		center.getChildren().add(saveLoadButton);
+		// add main menu button
+		center.getChildren().add(mainMenuButton);
 
 		AnchorPane top = new AnchorPane();
 		top.setPadding(new Insets(200, 410, 200, 410));
