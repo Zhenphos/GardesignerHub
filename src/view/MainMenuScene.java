@@ -23,7 +23,7 @@ public class MainMenuScene extends Scene {
 
 	public void createMainMenu() {
 		// TODO split this up into different functions
-		
+
 		Canvas mainMenuCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext mainMenuGC;
 		mainMenuGroup.getChildren().add(mainMenuCanvas);
@@ -57,19 +57,14 @@ public class MainMenuScene extends Scene {
 		// they can probably be removed or modified when
 		// the other buttons are implemented
 
+		/*
 		// "previous screen" button
 		Button prevButton = new Button("prev");
 		mainMenuGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
 
-		// "next screen" button
-		Button nextButton = new Button("next");
-		mainMenuGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
-
-		// prevButton event handler 
+		// prevButton event handler
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("prev button triggered");
@@ -79,6 +74,13 @@ public class MainMenuScene extends Scene {
 
 		// prevButton on click action
 		prevButton.setOnAction(prevButtonAction);
+		*/
+
+		// "next screen" button
+		Button nextButton = new Button("next");
+		mainMenuGroup.getChildren().add(nextButton);
+		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
+		nextButton.setTranslateY(600);
 
 		// nextButton event handler
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {

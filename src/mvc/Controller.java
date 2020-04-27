@@ -17,7 +17,6 @@ public class Controller extends Application {
 	 * @param args - an array of strings
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello");
 		launch(args);
 	}
 

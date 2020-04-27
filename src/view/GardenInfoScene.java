@@ -46,6 +46,20 @@ public class GardenInfoScene extends Scene {
 		};
 
 		prevButton.setOnAction(prevButtonAction);
+		
+		Button nextButton = new Button("next");
+		gardenInfoGroup.getChildren().add(nextButton);
+		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
+		nextButton.setTranslateY(600);
+		
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("next button triggered");
+				View.getStage().setScene(View.getTutorialScene());
+			}
+		};
+
+		nextButton.setOnAction(nextButtonAction);
 	}
 
 }

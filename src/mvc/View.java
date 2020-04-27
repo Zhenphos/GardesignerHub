@@ -30,6 +30,7 @@ import javafx.scene.control.Label;
 import objects.GardenObject;
 import view.GardenInfoScene;
 import view.MainMenuScene;
+import view.TutorialScene;
 
 /**
  * 
@@ -50,6 +51,7 @@ public class View {
 
 	static GardenInfoScene gardenInfoScene = new GardenInfoScene();
 	static MainMenuScene mainMenuScene = new MainMenuScene();
+	static TutorialScene tutorialScene = new TutorialScene();
 
 	public View(Stage stage) {
 		theStage = stage;
@@ -180,5 +182,9 @@ public class View {
 
 	public static GardenInfoScene getGardenInfoScene() {
 		return gardenInfoScene;
+	}
+
+	public static TutorialScene getTutorialScene() {
+		return tutorialScene;
 	}
 }
