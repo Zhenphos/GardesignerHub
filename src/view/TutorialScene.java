@@ -65,6 +65,8 @@ public class TutorialScene extends Scene {
 		BorderPane.setMargin(center, new Insets(20, 5, 5, 200));
 		center.setStyle("-fx-border-color: black");
 		center.setPadding(new Insets(25, 25, 25, 25));
+		
+		/*
 
 		Button prevButton = new Button("prev");
 		tutorialGroup.getChildren().add(prevButton);
@@ -91,22 +93,24 @@ public class TutorialScene extends Scene {
 		};
 
 		nextButton.setOnAction(nextButtonAction);
+		
+		*/
 
-		// "MAIN MENU" button
-		Button mainMenuButton = new Button("MAIN MENU");
+		// "Main Menu" button
+		Button mainMenuButton = new Button("Main Menu");
 		tutorialGroup.getChildren().add(mainMenuButton);
 		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		mainMenuButton.setTranslateY(600);
 
-		// "MAIN MENU" Button event handler
+		// "Main Menu" Button event handler
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("MAIN MENU button triggered");
+				System.out.println("Main Menu button triggered");
 				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
-		// "TUTORIAL" Button on click action
+		// "Main Menu" Button on click action
 		mainMenuButton.setOnAction(mainMenuButtonAction);
 
 	}

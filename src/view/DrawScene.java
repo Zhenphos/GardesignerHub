@@ -93,7 +93,7 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTutorialScene());
+				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 

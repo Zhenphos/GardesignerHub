@@ -71,21 +71,21 @@ public class MainMenuScene extends Scene {
 			}
 		});
 
-		// "TUTORIAL" button
-		Button tutorialButton = new Button("TUTORIAL");
+		// "Tutorial" button
+		Button tutorialButton = new Button("Tutorial");
 		mainMenuGroup.getChildren().add(tutorialButton);
 		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		tutorialButton.setTranslateY(500);
 
-		// "TUTORIAL" Button event handler
+		// "Tutorial" Button event handler
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("TUTORIAL button triggered");
+				System.out.println("Tutorial button triggered");
 				View.getStage().setScene(View.getTutorialScene());
 			}
 		};
 
-		// "TUTORIAL" Button on click action
+		// "Tutorial" Button on click action
 		tutorialButton.setOnAction(tutorialButtonAction);
 	}
 }
