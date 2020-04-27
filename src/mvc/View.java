@@ -36,6 +36,7 @@ import view.GardenInfoScene;
 import view.LoadingScene;
 import view.MainMenuScene;
 import view.TutorialScene;
+import view.TimesScene;
 
 /**
  *
@@ -61,6 +62,7 @@ public class View {
 	static TutorialScene tutorialScene = new TutorialScene();
 	static DrawScene drawScene = new DrawScene();
 	static LoadingScene loadingScene = new LoadingScene();
+	static TimesScene timesScene = new TimesScene();
 
 
 
@@ -415,6 +417,10 @@ public class View {
 
 	public static DrawScene getDrawScene() {
 		return drawScene;
+	}
+	
+	public static TimesScene getTimesScene() {
+		return timesScene;
 	}
 
 }
