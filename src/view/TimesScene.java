@@ -89,8 +89,14 @@ public class TimesScene extends Scene {
 		slider.setShowTickLabels(true);
 		slider.setMajorTickUnit(1);
 		
-		VBox radioBox = new VBox(rb1, rb2, rb3, rb4);
-		radioBox.setAlignment(Pos.CENTER);
+		GridPane radioBox = new GridPane();
+		radioBox.add(rb1, 0,0);
+		radioBox.add(rb2, 0,1);
+		radioBox.add(rb3, 0,2);
+		radioBox.add(rb4, 0,3);
+		radioBox.setVgap(10);
+		radioBox.setHgap(10);
+
 		
 		VBox sliderBox = new VBox(years, slider);
 		sliderBox.setAlignment(Pos.CENTER);
