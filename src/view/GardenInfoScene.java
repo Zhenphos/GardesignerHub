@@ -40,7 +40,6 @@ public class GardenInfoScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("prev button triggered");
 				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
@@ -54,7 +53,6 @@ public class GardenInfoScene extends Scene {
 		
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("next button triggered");
 				View.getStage().setScene(View.getTutorialScene());
 			}
 		};

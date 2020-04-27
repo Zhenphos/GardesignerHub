@@ -66,7 +66,6 @@ public class MainMenuScene extends Scene {
 		// nextButton event handler
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("next button triggered");
 				View.getStage().setScene(View.getGardenInfoScene());
 			}
 		};

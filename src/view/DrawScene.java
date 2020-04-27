@@ -13,47 +13,47 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import mvc.View;
 
-public class TutorialScene extends Scene {
-	static Group tutorialGroup = new Group();
+public class DrawScene extends Scene {
+	static Group drawGroup = new Group();
 
-	public TutorialScene() {
-		super(tutorialGroup);
-		createTutorial();
+	public DrawScene() {
+		super(drawGroup);
+		createDraw();
 	}
 
-	public void createTutorial() {
-		Canvas tutorialCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
-		GraphicsContext tutorialGC;
-		tutorialGroup.getChildren().add(tutorialCanvas);
-		tutorialGC = tutorialCanvas.getGraphicsContext2D();
+	public void createDraw() {
+		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
+		GraphicsContext drawGC;
+		drawGroup.getChildren().add(drawCanvas);
+		drawGC = drawCanvas.getGraphicsContext2D();
 
-		tutorialGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		Image tutorialBackground;
-		tutorialBackground = View.createImage("resources\\tutorialImage.png");
-		tutorialGC.drawImage(tutorialBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		
+		//Image drawBackground;
+		//drawBackground = View.createImage("resources\\tutorialImage.png");
+		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		Button prevButton = new Button("prev");
-		tutorialGroup.getChildren().add(prevButton);
+		drawGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getGardenInfoScene());
+				View.getStage().setScene(View.getTutorialScene());
 			}
 		};
 
 		prevButton.setOnAction(prevButtonAction);
 		
 		Button nextButton = new Button("next");
-		tutorialGroup.getChildren().add(nextButton);
+		drawGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
+				//View.getStage().setScene(View.getDrawScene());
 			}
 		};
 

@@ -28,6 +28,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import objects.GardenObject;
+import view.DrawScene;
 import view.GardenInfoScene;
 import view.MainMenuScene;
 import view.TutorialScene;
@@ -52,10 +53,13 @@ public class View {
 	static GardenInfoScene gardenInfoScene = new GardenInfoScene();
 	static MainMenuScene mainMenuScene = new MainMenuScene();
 	static TutorialScene tutorialScene = new TutorialScene();
+	static DrawScene drawScene = new DrawScene();
 
 	public View(Stage stage) {
+		// so far it is MainMenuScene <-> GardenInfoScene <-> TutorialScene <-> DrawScene
+		
 		theStage = stage;
-		theStage.setTitle("Garden Planner Alpha");
+		theStage.setTitle("Garden Planner Version Alpha");
 		theStage.setScene(mainMenuScene);
 
 		// TODO use some type of Pane so we don't have to manually put the button
@@ -186,5 +190,9 @@ public class View {
 
 	public static TutorialScene getTutorialScene() {
 		return tutorialScene;
+	}
+
+	public static DrawScene getDrawScene() {
+		return drawScene;
 	}
 }
