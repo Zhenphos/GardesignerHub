@@ -45,6 +45,8 @@ public class LoadingScene extends Scene {
 		super(loadingSceneGroup);
 		this.container = new BorderPane();
 		this.container.setPadding(new Insets(10));
+		this.container.setMinWidth(View.getCanvasWidth());
+		this.container.setMinHeight(View.getCanvasHeight());
 		loadingSceneGroup.getChildren().add(this.container);
 
 		this.btnSave = new Button("Save");
