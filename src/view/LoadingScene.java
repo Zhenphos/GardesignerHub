@@ -30,7 +30,7 @@ import java.io.File;
 
 public class LoadingScene extends Scene {
 
-	private static Group root = new Group();
+	private static Group loadingSceneGroup = new Group();
 
 	private BorderPane container;
 	private Button btnSave;
@@ -42,10 +42,10 @@ public class LoadingScene extends Scene {
 	private FlowPane infoBox;
 
 	public LoadingScene() {
-		super(root);
+		super(loadingSceneGroup);
 		this.container = new BorderPane();
 		this.container.setPadding(new Insets(10));
-		root.getChildren().add(this.container);
+		loadingSceneGroup.getChildren().add(this.container);
 
 		this.btnSave = new Button("Save");
 		this.btnSave.setMaxWidth(Double.MAX_VALUE);
@@ -67,7 +67,6 @@ public class LoadingScene extends Scene {
 		// "BACK" Button event handler
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("BACK button triggered");
 				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
