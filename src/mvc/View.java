@@ -404,22 +404,47 @@ public class View {
 		return theStage;
 	}
 
+	/**
+	 * Used to move to the main menu scene
+	 * 
+	 * @return the main menu scene
+	 */
 	public static Scene getMainMenuScene() {
 		return mainMenuScene;
 	}
 
+	/**
+	 * Used to move to the garden info scene
+	 * 
+	 * @return the garden info scene
+	 */
 	public static GardenInfoScene getGardenInfoScene() {
 		return gardenInfoScene;
 	}
 
+	/**
+	 * Used to move to the tutorial scene
+	 * 
+	 * @return the tutorial scene
+	 */
 	public static TutorialScene getTutorialScene() {
 		return tutorialScene;
 	}
 
+	/**
+	 * Used to move to the loading scene
+	 * 
+	 * @return the loading scene
+	 */
 	public static LoadingScene getLoadingScene() {
 		return loadingScene;
 	}
 
+	/**
+	 * Used to move to the draw scene
+	 * 
+	 * @return the draw scene
+	 */
 	public static DrawScene getDrawScene() {
 		return drawScene;
 	}
@@ -442,6 +467,11 @@ public class View {
 		return plantInfoScene;
 	}
 	
+	/**
+	 * Used to move to the times scene
+	 * 
+	 * @return the times scene
+	 */
 	public static TimesScene getTimesScene() {
 		return timesScene;
 	}

@@ -2,9 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,9 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -77,6 +73,7 @@ public class PlantInfoScene extends Scene {
 		center.getChildren().add(sceneTitle);
 		center.setAlignment(Pos.TOP_CENTER);
 		
+		// TODO realign everything to scale with changing sizes of images, text, and window
 		Label light = new Label("Light info") ;
 		Label water = new Label("Water info");
 		Label bloomTime = new Label("Bloom time info");

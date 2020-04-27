@@ -46,6 +46,10 @@ public class TimesScene extends Scene {
 		
 	}
 	
+	/**
+	 * Creates the times scene which allows the user to preview what
+	 * the garden would look like at different times of the year.
+	 */
 	public void createTimes() {
 		Canvas canvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext gc;

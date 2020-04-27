@@ -44,10 +44,20 @@ public class Controller extends Application {
 		theStage.show();
 	}
 
+	/**
+	 * Saves the current garden project to a file
+	 * 
+	 * @param file - the file to be saved
+	 */
 	public void saveFile(File file) {
 		System.out.println(file);
 	}
 
+	/**
+	 * Loads a saved garden project from a file
+	 * 
+	 * @param file - the garden project to be loaded
+	 */
 	public void loadFile(File file) {
 		System.out.println(file);
 	}
