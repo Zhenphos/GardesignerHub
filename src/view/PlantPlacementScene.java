@@ -12,12 +12,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import mvc.Controller;
 import mvc.View;
 
 /**
@@ -28,10 +31,14 @@ import mvc.View;
 
 public class PlantPlacementScene extends Scene {
 	static Group plantPlacementGroup = new Group();
+	private Controller imc = new Controller();
+	private ImageView iv1 = new ImageView(); // test
+	private final double WIDTH = 800; // test
+	private final double HEIGHT = 600; // test
 
 	public PlantPlacementScene() {
 		super(plantPlacementGroup);
-		placePlant();
+		placePlant();;
 	}
 
 	/**
@@ -44,14 +51,22 @@ public class PlantPlacementScene extends Scene {
 		plantPlacementGroup.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		BorderPane border = new BorderPane();
+		
+		// test
+		Image im1 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		iv1.setImage(im1);
+		iv1.setPreserveRatio(true);
+		iv1.setFitHeight(100);
+		iv1.setOnMouseDragged(imc.getHandlerForDrag());
+		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
+		
+		BorderPane border = new BorderPane(iv1);
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
 		plantPlacementGroup.getChildren().add(border);
 		AnchorPane center = new AnchorPane();
 		BorderPane.setMargin(top, new Insets(50, 12.5, 50, 12.5));
-
+		
 		border.setTop(top);
 		border.setCenter(center);
 		Text scenetitle = new Text("Drag and Drop Plants");
@@ -135,5 +150,21 @@ public class PlantPlacementScene extends Scene {
 		// main menu button end
 
 	}
+	
+	// test
+	public void setX(double x) {
+    	iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
+    }
+	
+	// test
+    public void setY(double y) {
+    	iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
+    }
+    
+    // experimental
+    public ImageView makeCopy() {
+    	ImageView iv2 = iv1;
+    	return iv2;
+    }
 
 }

@@ -21,6 +21,11 @@ public class Model {
 	private String soilType;
 	private static Collection<GardenObject> myObjects;
 	
+	private double x = 100;
+	private double y = 200;
+	private final double BOTTOM = 200;
+	
+	
 	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
@@ -71,5 +76,18 @@ public class Model {
 	 */
 	public static void removeGardenObject(GardenObject someObject) {
 
+	}
+	
+	public double getX() {
+		return x;
+	}
+	public void setX(double d) {
+		this.x = d;
+	}
+	public double getY() {
+		return y;
+	}
+	public void setY(double y) {
+		this.y = Math.min(y, BOTTOM);
 	}
 }

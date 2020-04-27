@@ -3,11 +3,16 @@ package mvc;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import view.PlantInfoScene;
+import view.PlantPlacementScene;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Controller class for Garden Planner
@@ -30,8 +35,13 @@ public class Controller extends Application {
 
 	private View view;
 	
+	// test
+	private PlantPlacementScene pps = new PlantPlacementScene();
+	private final boolean DEBUG = true;
+	ArrayList<ImageView> ivs = new ArrayList<ImageView>();
+	
 	public Controller() {
-		// TODO Auto-generated constructor stub
+		if (DEBUG) System.out.println("ic created");
 	}
 	
 	/**
@@ -60,6 +70,26 @@ public class Controller extends Application {
 	 */
 	public void loadFile(File file) {
 		System.out.println(file);
+	}
+
+	/**
+	 * Uses user mouse input to move plant image around on screen
+	 * 
+	 * @param event - event triggered by mouse click
+	 */
+	public void drag(MouseEvent event) {
+		Node n = (Node)event.getSource();
+		if (DEBUG) System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX() );
+		gardenModel.setX(gardenModel.getX() + event.getX()); //event.getX() is the amount of horiz drag
+		gardenModel.setY(gardenModel.getY() + event.getY());
+		pps.setX(gardenModel.getX());
+		pps.setY(gardenModel.getY());
+		//n.setTranslateX(n.getTranslateX() + event.getX()); //not MVC! what problem does this create?
+		//n.setTranslateY(n.getTranslateY() + event.getY());
+	}
+	
+	public EventHandler<MouseEvent> getHandlerForDrag() {
+		return event -> drag((MouseEvent) event);
 	}
 
 }
