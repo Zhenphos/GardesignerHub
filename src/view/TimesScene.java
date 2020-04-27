@@ -118,7 +118,7 @@ public class TimesScene extends Scene {
 				
 		root.getChildren().add(border);
 		
-		Button prevButton = new Button("prev");
+		Button prevButton = new Button("Prev");
 		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() * 3/8);
 		prevButton.setTranslateY(View.getCanvasHeight() - 50);

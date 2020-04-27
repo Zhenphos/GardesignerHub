@@ -107,7 +107,7 @@ public class GardenInfoScene extends Scene {
 		gardenInfoBackground = View.createImage("resources/gardenInfoImage.png");
 		gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
-		Button prevButton = new Button("prev");
+		Button prevButton = new Button("Prev");
 		gardenInfoGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
@@ -120,7 +120,7 @@ public class GardenInfoScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 
-		Button nextButton = new Button("next");
+		Button nextButton = new Button("Next");
 		gardenInfoGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);

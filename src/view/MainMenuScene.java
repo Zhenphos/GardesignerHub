@@ -79,7 +79,6 @@ public class MainMenuScene extends Scene {
 		// "Tutorial" Button event handler
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Tutorial button triggered");
 				View.getStage().setScene(View.getTutorialScene());
 			}
 		};

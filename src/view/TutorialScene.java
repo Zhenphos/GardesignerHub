@@ -68,7 +68,7 @@ public class TutorialScene extends Scene {
 		
 		/*
 
-		Button prevButton = new Button("prev");
+		Button prevButton = new Button("Prev");
 		tutorialGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
@@ -81,7 +81,7 @@ public class TutorialScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 
-		Button nextButton = new Button("next");
+		Button nextButton = new Button("Next");
 		tutorialGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);

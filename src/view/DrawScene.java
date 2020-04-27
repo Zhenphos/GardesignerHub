@@ -85,7 +85,7 @@ public class DrawScene extends Scene {
 		// drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
 		// View.getCanvasHeight());
 
-		Button prevButton = new Button("prev");
+		Button prevButton = new Button("Prev");
 		drawGardenGroup.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
@@ -98,7 +98,7 @@ public class DrawScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 
-		Button nextButton = new Button("next");
+		Button nextButton = new Button("Next");
 		drawGardenGroup.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);

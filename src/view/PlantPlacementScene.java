@@ -80,7 +80,7 @@ public class PlantPlacementScene extends Scene {
 		center.setStyle("-fx-border-color: black");
 		
 		
-		Button prevButton = new Button("prev");
+		Button prevButton = new Button("Prev");
 		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
@@ -93,7 +93,7 @@ public class PlantPlacementScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 		
-		Button nextButton = new Button("next");
+		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);

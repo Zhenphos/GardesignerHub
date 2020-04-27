@@ -49,7 +49,7 @@ public class RatingScene extends Scene {
         VBox center = new VBox();
         center.setAlignment(Pos.TOP_CENTER);
         center.setStyle("-fx-border-color: black");
-        Text improveText = new Text("How to Improve");
+        Text improveText = new Text("Recommendations");
         improveText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
         center.getChildren().add(improveText);
         this.improveBox = new FlowPane();
