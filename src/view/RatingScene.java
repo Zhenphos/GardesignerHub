@@ -16,6 +16,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import mvc.View;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public class RatingScene extends Scene {
 
     static Group container = new Group();
@@ -24,6 +30,10 @@ public class RatingScene extends Scene {
     private HBox ratingbox;
     private FlowPane improveBox;
 
+    /**
+     * Creates the rating scene which displays a calculated
+     * rating for the user's constructed garden
+     */
     public RatingScene() {
         super(container);
         this.root = new BorderPane();
