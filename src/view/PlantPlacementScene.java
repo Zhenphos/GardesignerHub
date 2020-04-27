@@ -3,6 +3,7 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -27,89 +29,96 @@ import mvc.View;
  *
  */
 
-public class DrawScene extends Scene {
-	static Group drawGroup = new Group();
-
-	public DrawScene() {
-		super(drawGroup);
-		createDraw();
+public class PlantPlacementScene extends Scene {
+	static Group root = new Group();
+	
+	public PlantPlacementScene() {
+		super(root);
+		placePlant();
 	}
-
-	public void createDraw() {
+	
+	public void placePlant() {
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
-		drawGroup.getChildren().add(drawCanvas);
+		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		BorderPane border = new BorderPane();
-		FlowPane left = new FlowPane();
-		HBox top = new HBox();
-		AnchorPane center = new AnchorPane();
-		drawGroup.getChildren().add(border);
-		border.setTop(top);
-		border.setLeft(left);
-		border.setCenter(center);
 		
-		Text scenetitle = new Text("\t\t\t\tDraw Garden");
+		BorderPane border = new BorderPane();
+		VBox top = new VBox(5);
+		HBox imageBar = new HBox(10);
+		root.getChildren().add(border);
+		AnchorPane center = new AnchorPane();
+		BorderPane.setMargin(top, new Insets( 50,12.5,50,12.5));
+
+		border.setTop(top);
+		border.setCenter(center);
+		Text scenetitle = new Text("Drag and Drop Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		top.getChildren().add(scenetitle); 
 		top.setAlignment(Pos.CENTER);
-		
+		imageBar.minHeight(100);
+		imageBar.minWidth(View.getCanvasWidth());
+		imageBar.maxHeight(100);
+		imageBar.setStyle("-fx-border-color: black");
+		imageBar.setPadding(new Insets(50,0,50,0));
+		for(int i=0; i<10; i++) {
+			imageBar.getChildren().add(new Label("{Plant image " + (int)(i+1)+"}"));
+			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
+		}
+		top.getChildren().add(imageBar);
 
-		Label plant = new Label("Plant \t {Plant Image}") ;
-		Label road = new Label("road \t {Road Image}");
-		Label stream = new Label("Stream \t {Stream Image}");
-		Label shade = new Label("Shade \t {Label Image}");
-		Label object = new Label("Object \t {Object Image}");
 		
-	    left.setPadding(new Insets(25, 25, 25, 25)); //(top, right. bottom, left)
-	    left.setStyle("-fx-border-color: black");
-	    left.setVgap(4);
-	    left.setHgap(4);
-	    left.setPrefWrapLength(150);
-	    BorderPane.setMargin(left, new Insets(100,25,25,25));
-		left.getChildren().addAll(plant, road, stream, shade, object);
-		
-		
-		center.setPadding(new Insets(150,450, 150, 150));
+		BorderPane.setMargin(center, new Insets(0,12.5,0,12.5));
+		center.setPadding(new Insets(View.getCanvasHeight()/2.5,50, 0, 0));
 		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(background_fill);
         center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
-
-	    BorderPane.setMargin(center, new Insets(100,0,0,100));
-
-		Image drawBackground;
-		drawBackground = View.createImage("resources/drawImage.png");
-		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
+		
 		
 		Button prevButton = new Button("prev");
-		drawGroup.getChildren().add(prevButton);
+		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTutorialScene());
+				View.getStage().setScene(View.getDrawScene());
 			}
 		};
 
 		prevButton.setOnAction(prevButtonAction);
 		
 		Button nextButton = new Button("next");
-		drawGroup.getChildren().add(nextButton);
+		root.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
+				View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
 		nextButton.setOnAction(nextButtonAction);
+
+		// TODO replace with selecting plant from image
+		Button plantButton = new Button("pick a plant");
+		root.getChildren().add(plantButton);
+		plantButton.setTranslateX(View.getCanvasWidth() / 3 + View.getCanvasWidth() / 4);
+		plantButton.setTranslateY(200);
+
+		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getPlantInfoScene());
+			}
+		};
+
+		plantButton.setOnAction(plantButtonAction);
 		
 	}
+
 }

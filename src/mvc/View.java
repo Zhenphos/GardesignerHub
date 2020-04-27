@@ -36,6 +36,7 @@ import view.GardenInfoScene;
 import view.LoadingScene;
 import view.MainMenuScene;
 import view.PlantInfoScene;
+import view.PlantPlacementScene;
 import view.TutorialScene;
 import view.TimesScene;
 
@@ -64,6 +65,7 @@ public class View {
 	static TutorialScene tutorialScene = new TutorialScene();
 	static DrawScene drawScene = new DrawScene();
 	static LoadingScene loadingScene = new LoadingScene();
+	static PlantPlacementScene plantPlacementScene = new PlantPlacementScene();
 	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
 
@@ -420,6 +422,15 @@ public class View {
 
 	public static DrawScene getDrawScene() {
 		return drawScene;
+	}
+	
+	/**
+	 * Used to move to plant placement scene
+	 * 
+	 * @return the plant placement scene
+	 */
+	public static PlantPlacementScene getPlantPlacementScene() {
+		return plantPlacementScene;
 	}
 	
 	/**

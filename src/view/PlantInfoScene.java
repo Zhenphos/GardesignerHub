@@ -76,8 +76,7 @@ public class PlantInfoScene extends Scene {
 		
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getPlantPlacementScene());
-				View.getStage().setScene(View.getDrawScene()); // TODO replace this with above line
+				View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 

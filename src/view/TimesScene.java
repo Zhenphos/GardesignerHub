@@ -106,7 +106,7 @@ public class TimesScene extends Scene {
         center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 		
-		border.setAlignment(canvas, Pos.CENTER);
+
 	    BorderPane.setMargin(center, new Insets(50, 75, 50, 75));
 
 	    
@@ -121,7 +121,7 @@ public class TimesScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getGardenScene());
+				View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 
