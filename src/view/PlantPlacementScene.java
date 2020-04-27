@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.View;
 
 /**
@@ -106,12 +108,19 @@ public class PlantPlacementScene extends Scene {
 		// TODO replace with selecting plant from image
 		Button plantButton = new Button("Choose a Plant");
 		plantPlacementGroup.getChildren().add(plantButton);
+<<<<<<< HEAD
 		plantButton.setTranslateX(View.getCanvasWidth() / 2 -20);
+=======
+		plantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+>>>>>>> 8a376defe8459dc1dabda3b985a31bdd8c07df2c
 		plantButton.setTranslateY(210);
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantInfoScene());
+				final Stage pInfoStage = new Stage();
+				pInfoStage.initModality(Modality.APPLICATION_MODAL);
+				pInfoStage.setScene(View.getPlantInfoScene());
+				pInfoStage.show();
 			}
 		};
 

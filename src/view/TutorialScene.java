@@ -55,7 +55,7 @@ public class TutorialScene extends Scene {
 
 		Text infoTutorial = new Text();
 		infoTutorial.setText(
-				"Please follow this short guide to help familiarize yourself with this program's features. \n \n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
+				"Please follow this short guide to help familiarize yourself with this program's features.\n \n If you already have a garden saved and want to edit it use the \"Save/Load\" button and select it with your file manager.\n \n Otherwise, select the \"New\" button to begin creating a garden.\n \n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.");
 		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
 		infoTutorial.wrappingWidthProperty().set(600);
 		center.getChildren().add(infoTutorial);
@@ -66,35 +66,6 @@ public class TutorialScene extends Scene {
 		center.setStyle("-fx-border-color: black");
 		center.setPadding(new Insets(25, 25, 25, 25));
 		
-		/*
-
-		Button prevButton = new Button("Prev");
-		tutorialGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
-
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getGardenInfoScene());
-			}
-		};
-
-		prevButton.setOnAction(prevButtonAction);
-
-		Button nextButton = new Button("Next");
-		tutorialGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
-
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
-			}
-		};
-
-		nextButton.setOnAction(nextButtonAction);
-		
-		*/
 
 		// "Main Menu" button
 		Button mainMenuButton = new Button("Main Menu");

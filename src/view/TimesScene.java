@@ -102,7 +102,7 @@ public class TimesScene extends Scene {
 		
 		HBox bottom = new HBox(sliderBox, radioBox);
 		bottom.setPadding(new Insets(10));
-		bottom.setSpacing(300);
+		bottom.setSpacing(View.getCanvasWidth()*3/8);
 		bottom.setAlignment(Pos.CENTER);
         bottom.setStyle("-fx-border-color: black");
         
@@ -110,16 +110,15 @@ public class TimesScene extends Scene {
 		
 		AnchorPane center = new AnchorPane();
 		
-		center.setPadding(new Insets(200, 410, 200, 410));
+		center.setPadding(new Insets(View.getCanvasHeight()*1/4, View.getCanvasWidth()*3/8, View.getCanvasHeight()*1/4, View.getCanvasWidth()*3/8));
 		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(background_fill);
         center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 		
 
-	    BorderPane.setMargin(center, new Insets(50, 75, 50, 75));
+	    BorderPane.setMargin(center, new Insets(View.getCanvasHeight()*1/16, View.getCanvasWidth()*1/8, View.getCanvasHeight()*1/16, View.getCanvasWidth()*1/8));
 
-	    
 		border.setCenter(center);
 				
 		root.getChildren().add(border);
@@ -127,7 +126,7 @@ public class TimesScene extends Scene {
 		Button prevButton = new Button("Prev");
 		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() * 3/8);
-		prevButton.setTranslateY(View.getCanvasHeight() - 50);
+		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -142,7 +141,7 @@ public class TimesScene extends Scene {
 		Button mainMenuButton = new Button("Main Menu");
 		root.getChildren().add(mainMenuButton);
 		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(View.getCanvasHeight() - 50);
+		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -159,7 +158,7 @@ public class TimesScene extends Scene {
 		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
 		nextButton.setTranslateX( View.getCanvasWidth() / 2 + View.getCanvasWidth() * 3/8);
-		nextButton.setTranslateY(View.getCanvasHeight() - 50);
+		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
