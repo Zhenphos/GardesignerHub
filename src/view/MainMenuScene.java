@@ -32,7 +32,7 @@ public class MainMenuScene extends Scene {
 		mainMenuGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		Image mainMenuBackground;
-		mainMenuBackground = View.createImage("resources\\mainMenuImage.png");
+		mainMenuBackground = View.createImage("resources/mainMenuImage.png");
 		mainMenuGC.drawImage(mainMenuBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		// "New" button
