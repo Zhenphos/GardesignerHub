@@ -1,6 +1,8 @@
 package view;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import mvc.Controller;
+import mvc.View;
 
 import java.io.File;
 
@@ -27,95 +30,121 @@ import java.io.File;
 
 public class LoadingScene extends Scene {
 
-    private static Group root = new Group();
+	private static Group root = new Group();
 
-    private BorderPane container;
-    private Button btnSave;
-    private Button btnLoad;
-    private TableView<Save> saves;
+	private BorderPane container;
+	private Button btnSave;
+	private Button btnLoad;
+	private Button backButton;
+	private TableView<Save> saves;
 
-    private Canvas canvas;
-    private FlowPane infoBox;
+	private Canvas canvas;
+	private FlowPane infoBox;
 
-    public LoadingScene() {
-        super(root);
-        this.container = new BorderPane();
-        this.container.setPadding(new Insets(10));
-        root.getChildren().add(this.container);
+	public LoadingScene() {
+		super(root);
+		this.container = new BorderPane();
+		this.container.setPadding(new Insets(10));
+		root.getChildren().add(this.container);
 
-        this.btnSave = new Button("Save");
-        this.btnSave.setMaxWidth(Double.MAX_VALUE);
+		this.btnSave = new Button("Save");
+		this.btnSave.setMaxWidth(Double.MAX_VALUE);
 
-        this.btnLoad = new Button("Load");
-        this.btnLoad.setMaxWidth(Double.MAX_VALUE);
+		this.btnLoad = new Button("Load");
+		this.btnLoad.setMaxWidth(Double.MAX_VALUE);
 
-        HBox buttonGroup = new HBox(this.btnSave, this.btnLoad);
-        HBox.setHgrow(this.btnSave, Priority.ALWAYS);
-        HBox.setHgrow(this.btnLoad, Priority.ALWAYS);
-        buttonGroup.setAlignment(Pos.CENTER);
-        buttonGroup.setSpacing(10);
+		this.backButton = new Button("BACK");
+		this.backButton.setMaxWidth(Double.MAX_VALUE);
 
-        this.saves = new TableView<>();
-        TableColumn<Save, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        this.saves.getColumns().add(nameColumn);
-        TableColumn<Save, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        this.saves.getColumns().add(dateColumn);
-        this.container.setLeft(this.saves);
+		HBox buttonGroup = new HBox(this.backButton, this.btnSave, this.btnLoad);
+		HBox.setHgrow(this.backButton, Priority.ALWAYS);
+		HBox.setHgrow(this.btnSave, Priority.ALWAYS);
+		HBox.setHgrow(this.btnLoad, Priority.ALWAYS);
 
-        VBox left = new VBox();
-        left.setPadding(new Insets(10));
-        left.setSpacing(10);
-        left.getChildren().addAll(buttonGroup, this.saves);
-        left.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        this.container.setLeft(left);
-        this.container.setMargin(left, new Insets(0, 10, 0, 0));
+		buttonGroup.setAlignment(Pos.CENTER);
+		buttonGroup.setSpacing(10);
 
-        Pane canvasContainer = new Pane();
-        this.canvas = new Canvas(400, 400);
-        canvasContainer.getChildren().add(this.canvas);
-        canvasContainer.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		// "BACK" Button event handler
+		System.out.println("hi");
+		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				System.out.println("BACK button triggered");
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
 
-        this.infoBox = new FlowPane();
-        VBox fileInfoGroup = new VBox();
-        fileInfoGroup.getChildren().addAll(new Label("File Info: "), this.infoBox);
-        fileInfoGroup.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        this.infoBox.getChildren().add(new Label("Some filler text..."));
+		// "BACK" Button on click action
+		backButton.setOnAction(backButtonAction);
 
-        VBox center = new VBox();
-        center.getChildren().addAll(canvasContainer, fileInfoGroup);
-        center.setSpacing(10);
-        VBox.setVgrow(fileInfoGroup, Priority.ALWAYS);
-        this.container.setCenter(center);
-    }
+		this.saves = new TableView<>();
+		TableColumn<Save, String> nameColumn = new TableColumn<>("Name");
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		this.saves.getColumns().add(nameColumn);
+		TableColumn<Save, String> dateColumn = new TableColumn<>("Date");
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+		this.saves.getColumns().add(dateColumn);
+		this.container.setLeft(this.saves);
 
+		VBox left = new VBox();
+		left.setPadding(new Insets(10));
+		left.setSpacing(10);
+		left.getChildren().addAll(buttonGroup, this.saves);
+		left.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		this.container.setLeft(left);
+		this.container.setMargin(left, new Insets(0, 10, 0, 0));
 
-    public Button getSaveButton() {
-        return this.btnSave;
-    }
+		Pane canvasContainer = new Pane();
+		this.canvas = new Canvas(400, 400);
+		canvasContainer.getChildren().add(this.canvas);
+		canvasContainer.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
-    public Button getLoadButton() {
-        return this.btnLoad;
-    }
+		this.infoBox = new FlowPane();
+		VBox fileInfoGroup = new VBox();
+		fileInfoGroup.getChildren().addAll(new Label("File Info: "), this.infoBox);
+		fileInfoGroup.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		this.infoBox.getChildren().add(new Label("Use the buttons on the left and either load or save a file."));
 
+		// TODO move the save/load to a Pane at the top so users can save/load anytime
 
-    public static class Save {
+		VBox center = new VBox();
+		center.getChildren().addAll(canvasContainer, fileInfoGroup);
+		center.setSpacing(10);
+		VBox.setVgrow(fileInfoGroup, Priority.ALWAYS);
+		this.container.setCenter(center);
 
-        private SimpleStringProperty name;
-        private SimpleStringProperty date;
+	}
 
-        public Save(String name, String date) {
-            this.name = new SimpleStringProperty(name);
-            this.date = new SimpleStringProperty(date);
-        }
+	public Button getSaveButton() {
+		return this.btnSave;
+	}
 
-        public String getName() {
-            return this.name.get();
-        }
+	public Button getLoadButton() {
+		return this.btnLoad;
+	}
 
-        public String getDate() {
-            return this.date.get();
-        }
-    }
+	public static class Save {
+
+		private SimpleStringProperty name;
+		private SimpleStringProperty date;
+
+		public Save(String name, String date) {
+			this.name = new SimpleStringProperty(name);
+			this.date = new SimpleStringProperty(date);
+		}
+
+		public String getName() {
+			return this.name.get();
+		}
+
+		public String getDate() {
+			return this.date.get();
+		}
+	}
+
+	public Button getBackButton() {
+		return backButton;
+	}
 }
