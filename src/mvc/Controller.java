@@ -2,7 +2,12 @@ package mvc;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 /**
  * 
@@ -33,9 +38,17 @@ public class Controller extends Application {
 	 */
 	@Override
 	public void start(Stage theStage) throws Exception {
-		view = new View(theStage);
+		view = new View(theStage, this);
 		gardenModel = new Model(view.getCanvasWidth(), view.getCanvasHeight());
 		theStage.show();
+	}
+
+	public void saveFile(File file) {
+		System.out.println(file);
+	}
+
+	public void loadFile(File file) {
+		System.out.println(file);
 	}
 
 }

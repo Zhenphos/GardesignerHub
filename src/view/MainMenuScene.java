@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import mvc.View;
 
@@ -32,7 +33,7 @@ public class MainMenuScene extends Scene {
 		mainMenuGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		Image mainMenuBackground;
-		mainMenuBackground = View.createImage("resources\\mainMenuImage.png");
+		mainMenuBackground = View.createImage("resources/mainMenuImage.png");
 		mainMenuGC.drawImage(mainMenuBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		// "New" button
@@ -52,6 +53,12 @@ public class MainMenuScene extends Scene {
 		mainMenuGroup.getChildren().add(loadButton);
 		loadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		loadButton.setTranslateY(500);
+		loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				View.getStage().setScene(View.loadingScene);
+			}
+		});
 
 		// TODO below are test buttons for screen flipping
 		// they can probably be removed or modified when
@@ -66,6 +73,7 @@ public class MainMenuScene extends Scene {
 		// nextButton event handler
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				System.out.println("next button triggered");
 				View.getStage().setScene(View.getGardenInfoScene());
 			}
 		};
