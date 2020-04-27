@@ -90,7 +90,7 @@ public class GardenInfoScene extends Scene {
 		grid.add(weatherInput, 1, 4);		
 		
 		Text infoTutorial = new Text();
-		infoTutorial.setText("Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you. If you are uncertain about any of these values or do not wish to answer, simply leave the box blank and press next. \n \n The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day. \n \n The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters. \n \n The \"Soil pH\" is how acidic or basic your soil is. You may not know this, which is fine. Simply skip over it. \n \n The \"Temperature\" is an estimate of the average temperature the land the garden is on is experiencing, in Fahrenheit.");
+		infoTutorial.setText("Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you. If you are uncertain about any of these values or do not wish to answer, simply leave the box blank and press next. \n \n The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day. \n \n The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters. \n \n The \"Soil pH\" is how acidic or basic your soil is. You may not know this, which is fine. Simply skip over it. \n \n The \"Temperature\" is an estimate of the average temperature the land the garden is on has experienced in the past week, in Fahrenheit.");
 		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
 		//infoTutorial.wrappingWidthProperty().set(500);
 		infoTutorial.wrappingWidthProperty().set(550);
