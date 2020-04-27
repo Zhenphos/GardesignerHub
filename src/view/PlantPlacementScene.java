@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.View;
 
 /**
@@ -111,7 +113,10 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantInfoScene());
+				final Stage pInfoStage = new Stage();
+				pInfoStage.initModality(Modality.APPLICATION_MODAL);
+				pInfoStage.setScene(View.getPlantInfoScene());
+				pInfoStage.show();
 			}
 		};
 
