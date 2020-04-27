@@ -9,6 +9,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import mvc.View;
 
 /**
@@ -77,14 +82,35 @@ public class MainMenuScene extends Scene {
 		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		tutorialButton.setTranslateY(500);
 
-		// "Tutorial" Button event handler
+		// "Tutorial" button event handler
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getTutorialScene());
 			}
 		};
 
-		// "Tutorial" Button on click action
+		// "Tutorial" button on click action
 		tutorialButton.setOnAction(tutorialButtonAction);
+
+		// "About" button
+		Button aboutButton = new Button();
+		aboutButton.setText("About");
+		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 15);
+		aboutButton.setTranslateY(600);
+		aboutButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				final Stage aboutStage = new Stage();
+				aboutStage.initModality(Modality.APPLICATION_MODAL);
+				VBox aboutVbox = new VBox(20);
+				aboutVbox.getChildren().add(new Text("    Authors:"));
+				aboutVbox.getChildren().add(new Text("    Jason H\n    Hamza M\n    Ntsee N\n    Haseeb S\n    Jonathan Z"));
+				Scene aboutScene = new Scene(aboutVbox, 100, 150);
+				aboutStage.setScene(aboutScene);
+				aboutStage.show();
+			}
+		});
+		
+		mainMenuGroup.getChildren().add(aboutButton);
 	}
 }
