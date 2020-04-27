@@ -57,25 +57,6 @@ public class MainMenuScene extends Scene {
 		// they can probably be removed or modified when
 		// the other buttons are implemented
 
-		/*
-		// "previous screen" button
-		Button prevButton = new Button("prev");
-		mainMenuGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
-
-		// prevButton event handler
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				System.out.println("prev button triggered");
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		// prevButton on click action
-		prevButton.setOnAction(prevButtonAction);
-		*/
-
 		// "next screen" button
 		Button nextButton = new Button("next");
 		mainMenuGroup.getChildren().add(nextButton);
