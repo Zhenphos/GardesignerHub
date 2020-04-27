@@ -138,7 +138,7 @@ public class TimesScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getRatingsScreen());
+				View.getStage().setScene(View.getRatingScene());
 			}
 		};
 

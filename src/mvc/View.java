@@ -31,14 +31,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import objects.GardenObject;
-import view.DrawScene;
-import view.GardenInfoScene;
-import view.LoadingScene;
-import view.MainMenuScene;
-import view.PlantInfoScene;
-import view.PlantPlacementScene;
-import view.TutorialScene;
-import view.TimesScene;
+import view.*;
 
 /**
  * View class for Garden Planner
@@ -68,6 +61,7 @@ public class View {
 	static PlantPlacementScene plantPlacementScene = new PlantPlacementScene();
 	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
+	static RatingScene ratingScene = new RatingScene();
 
 
 
@@ -475,5 +469,12 @@ public class View {
 	public static TimesScene getTimesScene() {
 		return timesScene;
 	}
+
+	/**
+	 * Used to move to the times scene
+	 *
+	 * @return the rating scene
+	 */
+	public static RatingScene getRatingScene() { return ratingScene; }
 
 }
