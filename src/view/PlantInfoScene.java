@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -49,18 +50,20 @@ public class PlantInfoScene extends Scene {
 		plantInfoBackground = View.createImage("resources/gardenInfoImage.png");
 		plantInfoGC.drawImage(plantInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		BorderPane border = new BorderPane();
-		HBox top = new HBox();
-		FlowPane left = new FlowPane();
-		
 		Image plantImage;
 		// TODO replace with variable that gets image corresponding to selected plant
 		plantImage = View.createImage("resources/commonMilkweed.png");
 		plantInfoGC.drawImage(plantImage, 0, View.getCanvasHeight() / 6, View.getCanvasWidth() / 2, View.getCanvasHeight() / 2);
 		
+		BorderPane border = new BorderPane();
+		HBox top = new HBox();
+		FlowPane left = new FlowPane();
+		AnchorPane center = new AnchorPane();
+		
 		plantInfoGroup.getChildren().add(border);
 		border.setTop(top);
 		border.setLeft(left);
+		border.setCenter(center);
 		
 		// TODO replace with file of plant names and change to take corresponding plant name from file
 		Text sceneTitle = new Text("\nPlant Name");
