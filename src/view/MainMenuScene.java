@@ -59,12 +59,12 @@ public class MainMenuScene extends Scene {
 		// "New" Button on click action
 		newButton.setOnAction(newButtonAction);
 
-		// "Load" button
-		Button loadButton = new Button("Load");
-		mainMenuGroup.getChildren().add(loadButton);
-		loadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		loadButton.setTranslateY(500);
-		loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		// "Save/Load" button
+		Button saveLoadButton = new Button("Save/Load");
+		mainMenuGroup.getChildren().add(saveLoadButton);
+		saveLoadButton.setTranslateX(View.getCanvasWidth() / 2 + 230);
+		saveLoadButton.setTranslateY(500);
+		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				View.getStage().setScene(View.getLoadingScene());

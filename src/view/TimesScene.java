@@ -131,14 +131,14 @@ public class TimesScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 		
-		Button nextButton = new Button("next");
+		Button nextButton = new Button("Main Menu");
 		root.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() * 3/8);
+		nextButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		nextButton.setTranslateY(View.getCanvasHeight() - 50);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getRatingsScreen());
+				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
