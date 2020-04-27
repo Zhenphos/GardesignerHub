@@ -94,7 +94,7 @@ public class TimesScene extends Scene {
 		radioBox.add(rb2, 0,1);
 		radioBox.add(rb3, 0,2);
 		radioBox.add(rb4, 0,3);
-		radioBox.setVgap(10);
+		radioBox.setVgap(5);
 		radioBox.setHgap(10);
 
 		
