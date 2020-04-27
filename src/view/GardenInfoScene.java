@@ -86,9 +86,6 @@ public class GardenInfoScene extends Scene {
 		grid.add(weatherInput, 1, 4);
 		
 		
-		Text rightBoxTitle = new Text("How To Get Information");
-		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		rightBox.getChildren().add(rightBoxTitle);
 		
 		
 		Text infoTutorial = new Text();

@@ -1,5 +1,4 @@
 package view;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -99,7 +98,7 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getDrawScene());
+				View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 

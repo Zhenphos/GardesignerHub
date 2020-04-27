@@ -100,7 +100,7 @@ public class TimesScene extends Scene {
         center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 		
-		border.setAlignment(canvas, Pos.CENTER);
+
 	    BorderPane.setMargin(center, new Insets(50, 75, 50, 75));
 
 	    
