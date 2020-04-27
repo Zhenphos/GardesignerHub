@@ -49,18 +49,19 @@ public class TutorialScene extends Scene {
 		BorderPane border = new BorderPane();
 		HBox center = new HBox();
 		Text scenetitle = new Text("Tutorial");
-		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
 		border.setTop(scenetitle);
 		BorderPane.setMargin(scenetitle, new Insets(50,0,0,150));
 
 		Text infoTutorial = new Text();
-		infoTutorial.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
-		infoTutorial.wrappingWidthProperty().set(500);
+		infoTutorial.setText("Please follow this short guide to help familiarize yourself with this program's features. \n \n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
+		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
+		infoTutorial.wrappingWidthProperty().set(600);
 		center.getChildren().add(infoTutorial);
 		border.setCenter(center);
 		tutorialGroup.getChildren().add(border);
 		BorderPane.setAlignment(scenetitle, Pos.CENTER);
-		BorderPane.setMargin(center, new Insets(75,0,0,150));
+		BorderPane.setMargin(center, new Insets(20,5,5,160));
 		center.setStyle("-fx-border-color: black");
 		center.setPadding(new Insets(25,25,25,25));
 		

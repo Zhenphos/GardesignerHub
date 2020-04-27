@@ -58,7 +58,6 @@ public class MainMenuScene extends Scene {
 
 		// "New" Button on click action
 		newButton.setOnAction(newButtonAction);
-		
 
 		// "Load" button
 		Button loadButton = new Button("Load");
