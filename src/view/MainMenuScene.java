@@ -58,12 +58,7 @@ public class MainMenuScene extends Scene {
 
 		// "New" Button on click action
 		newButton.setOnAction(newButtonAction);
-
-		// "Import" button
-		Button importButton = new Button("Import");
-		mainMenuGroup.getChildren().add(importButton);
-		importButton.setTranslateX(View.getCanvasWidth() / 2);
-		importButton.setTranslateY(500);
+		
 
 		// "Load" button
 		Button loadButton = new Button("Load");
