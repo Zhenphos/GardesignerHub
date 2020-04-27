@@ -41,8 +41,8 @@ public class RatingScene extends Scene {
 		super(container);
 		this.ratingSceneGroup = new BorderPane();
 		this.ratingSceneGroup.setPadding(new Insets(10));
-		this.root.setMinWidth(View.getCanvasWidth());
-		this.root.setMinHeight(View.getCanvasHeight());
+		this.ratingSceneGroup.setMinWidth(View.getCanvasWidth());
+		this.ratingSceneGroup.setMinHeight(View.getCanvasHeight());
 		container.getChildren().add(this.ratingSceneGroup);
 
 		VBox left = new VBox();
