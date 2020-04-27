@@ -30,11 +30,7 @@ public class TutorialScene extends Scene {
 		tutorialGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
 		Image tutorialBackground;
-<<<<<<< HEAD
 		tutorialBackground = View.createImage("/resources/tutorialImage.png");
-=======
-		tutorialBackground = View.createImage("resources/tutorialImage.png");
->>>>>>> 57af490f19d8cc0c3b55e18ed67844f0f69628e5
 		tutorialGC.drawImage(tutorialBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		Button prevButton = new Button("prev");
