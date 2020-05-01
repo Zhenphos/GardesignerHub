@@ -62,6 +62,10 @@ public class View {
 	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
 	static RatingScene ratingScene = new RatingScene();
+	
+	public final static int sGap = 5;
+	public final static int mGap = 10;
+	public final static int lGap = 25;
 
 	public View(Stage stage, Controller controller) {
 		theStage = stage;

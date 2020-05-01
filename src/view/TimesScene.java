@@ -59,7 +59,7 @@ public class TimesScene extends Scene {
 		gc.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		border = new BorderPane();
-		border.setPadding(new Insets(10));
+		border.setPadding(new Insets(View.mGap));
 		
 		final ToggleGroup tGroup = new ToggleGroup();
 		
@@ -94,15 +94,15 @@ public class TimesScene extends Scene {
 		radioBox.add(rb2, 0,1);
 		radioBox.add(rb3, 0,2);
 		radioBox.add(rb4, 0,3);
-		radioBox.setVgap(5);
-		radioBox.setHgap(10);
+		radioBox.setVgap(View.sGap);
+		radioBox.setHgap(View.mGap);
 
 		
 		VBox sliderBox = new VBox(years, slider);
 		sliderBox.setAlignment(Pos.CENTER);
 		
 		HBox bottom = new HBox(sliderBox, radioBox);
-		bottom.setPadding(new Insets(10));
+		bottom.setPadding(new Insets(View.mGap));
 		bottom.setSpacing(View.getCanvasWidth()*3/8);
 		bottom.setAlignment(Pos.CENTER);
         bottom.setStyle("-fx-border-color: black");
@@ -177,7 +177,7 @@ public class TimesScene extends Scene {
 		
 		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
-		nextButton.setTranslateX( View.getCanvasWidth() / 2 + View.getCanvasWidth() * 3/8);
+		nextButton.setTranslateX( View.getCanvasWidth() * 7/8);
 		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {

@@ -51,7 +51,7 @@ public class TutorialScene extends Scene {
 		Text scenetitle = new Text("Tutorial");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
 		border.setTop(scenetitle);
-		BorderPane.setMargin(scenetitle, new Insets(50, 0, 0, 0));
+		BorderPane.setMargin(scenetitle, new Insets(View.lGap * 2, 0, 0, 0));
 
 		Text infoTutorial = new Text();
 		infoTutorial.setText(
@@ -62,9 +62,9 @@ public class TutorialScene extends Scene {
 		border.setCenter(center);
 		tutorialGroup.getChildren().add(border);
 		BorderPane.setAlignment(scenetitle, Pos.CENTER);
-		BorderPane.setMargin(center, new Insets(50));
+		BorderPane.setMargin(center, new Insets(View.lGap * 2));
 		center.setStyle("-fx-border-color: black");
-		center.setPadding(new Insets(25));
+		center.setPadding(new Insets(View.lGap));
 
 	}
 }

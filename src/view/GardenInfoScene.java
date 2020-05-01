@@ -54,14 +54,14 @@ public class GardenInfoScene extends Scene {
 		HBox rightBox = new HBox();
 		border.setRight(rightBox);
 		rightBox.setStyle("-fx-border-color: black");
-		rightBox.setPadding(new Insets(25, 25, 25, 25));
+		rightBox.setPadding(new Insets(View.lGap));
 		gardenInfoGroup.getChildren().add(border);
 
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
+		grid.setPadding(new Insets(View.lGap));
 		hbox.getChildren().add(grid);
 		Text scenetitle = new Text("\t\tInformation Input \t\t\t\t\tHow To Get Information");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));

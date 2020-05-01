@@ -66,12 +66,12 @@ public class DrawScene extends Scene {
 		Label shade = new Label("Shade \t {Label Image}");
 		Label object = new Label("Object \t {Object Image}");
 
-		left.setPadding(new Insets(25, 25, 25, 25)); // (top, right. bottom, left)
+		left.setPadding(new Insets(View.lGap)); // (top, right. bottom, left)
 		left.setStyle("-fx-border-color: black");
 		left.setVgap(4);
 		left.setHgap(4);
 		left.setPrefWrapLength(150);
-		BorderPane.setMargin(left, new Insets(100, 25, 25, 25));
+		BorderPane.setMargin(left, new Insets(100, View.lGap, View.lGap, View.lGap));
 		left.getChildren().addAll(plant, road, stream, shade, object);
 
 		center.setPadding(new Insets(150, 450, 150, 150));

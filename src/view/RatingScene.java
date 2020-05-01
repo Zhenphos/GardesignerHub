@@ -40,7 +40,7 @@ public class RatingScene extends Scene {
 	public RatingScene() {
 		super(container);
 		this.ratingSceneGroup = new BorderPane();
-		this.ratingSceneGroup.setPadding(new Insets(10));
+		this.ratingSceneGroup.setPadding(new Insets(View.mGap));
 		this.ratingSceneGroup.setMinWidth(View.getCanvasWidth());
 		this.ratingSceneGroup.setMinHeight(View.getCanvasHeight());
 		container.getChildren().add(this.ratingSceneGroup);
@@ -96,7 +96,7 @@ public class RatingScene extends Scene {
 
 		HBox buttonGroup = new HBox();
 		buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
-		buttonGroup.setSpacing(10);
+		buttonGroup.setSpacing(View.mGap);
 		Button btnPrev = new Button("Prev");
 		btnPrev.setOnMouseClicked(event -> {
 			View.getStage().setScene(View.getTimesScene());

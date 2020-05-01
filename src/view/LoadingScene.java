@@ -44,7 +44,7 @@ public class LoadingScene extends Scene {
 	public LoadingScene() {
 		super(loadingSceneGroup);
 		this.container = new BorderPane();
-		this.container.setPadding(new Insets(10));
+		this.container.setPadding(new Insets(View.mGap));
 		this.container.setMinWidth(View.getCanvasWidth());
 		this.container.setMinHeight(View.getCanvasHeight());
 		loadingSceneGroup.getChildren().add(this.container);
@@ -92,7 +92,7 @@ public class LoadingScene extends Scene {
 		left.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.container.setLeft(left);
-		this.container.setMargin(left, new Insets(0, 10, 0, 0));
+		this.container.setMargin(left, new Insets(0, View.mGap, 0, 0));
 
 		Pane canvasContainer = new Pane();
 		this.canvas = new Canvas(400, 400);
@@ -111,7 +111,7 @@ public class LoadingScene extends Scene {
 
 		VBox center = new VBox();
 		center.getChildren().addAll(canvasContainer, fileInfoGroup);
-		center.setSpacing(10);
+		center.setSpacing(View.mGap);
 		VBox.setVgrow(fileInfoGroup, Priority.ALWAYS);
 		this.container.setCenter(center);
 
