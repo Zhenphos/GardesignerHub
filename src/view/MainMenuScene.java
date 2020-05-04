@@ -47,42 +47,54 @@ public class MainMenuScene extends Scene {
 		mainMenuBackground = View.createImage("resources/mainMenuImage.png");
 		mainMenuGC.drawImage(mainMenuBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
-		// "New" button
-		Button newButton = new Button("New");
+		Button newButton = createNewButton();
+
 		mainMenuGroup.getChildren().add(newButton);
 		newButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4 - 20);
-		newButton.setTranslateY(View.getCanvasHeight()*3/5);
+		newButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
-		// "New" Button event handler
-		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getGardenInfoScene());
-			}
-		};
+		Button saveLoadButton = createSaveLoadButton();
 
-		// "New" Button on click action
-		newButton.setOnAction(newButtonAction);
-
-		// "Save/Load" button
-		Button saveLoadButton = new Button("Save/Load");
 		mainMenuGroup.getChildren().add(saveLoadButton);
 		saveLoadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4 - 20);
-		saveLoadButton.setTranslateY(View.getCanvasHeight()*3/5);
-		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				View.getStage().setScene(View.getLoadingScene());
-			}
-		});
-		// Save/Load end
+		saveLoadButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
-		// "Help" button
-		Button tutorialButton = new Button("Help");
+		Button tutorialButton = createTutorialButton();
+
 		mainMenuGroup.getChildren().add(tutorialButton);
 		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 17);
-		tutorialButton.setTranslateY(View.getCanvasHeight()*3/5);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
-		// "Help" button event handler
+		Button aboutButton = createAboutButton();
+
+		mainMenuGroup.getChildren().add(aboutButton);
+	}
+
+	private Button createAboutButton() {
+		Button aboutButton = new Button();
+		aboutButton.setText("About");
+		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		aboutButton.setTranslateY(View.getCanvasHeight() * 7 / 10);
+		aboutButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				final Stage aboutStage = new Stage();
+				aboutStage.initModality(Modality.APPLICATION_MODAL);
+				VBox aboutVbox = new VBox(20);
+				aboutVbox.getChildren().add(new Text("    Authors:"));
+				aboutVbox.getChildren()
+						.add(new Text("    Jason H\n    Hamza M\n    Ntsee N\n    Haseeb S\n    Jonathan Z"));
+				Scene aboutScene = new Scene(aboutVbox, 100, 150);
+				aboutStage.setScene(aboutScene);
+				aboutStage.show();
+			}
+		});
+		return aboutButton;
+	}
+
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
+
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -92,28 +104,32 @@ public class MainMenuScene extends Scene {
 			}
 		};
 
-		// "Help" button on click action
 		tutorialButton.setOnAction(tutorialButtonAction);
+		return tutorialButton;
+	}
 
-		// "About" button
-		Button aboutButton = new Button();
-		aboutButton.setText("About");
-		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		aboutButton.setTranslateY(View.getCanvasHeight()*7/10);
-		aboutButton.setOnAction(new EventHandler<ActionEvent>() {
+	private Button createSaveLoadButton() {
+		Button saveLoadButton = new Button("Save/Load");
+
+		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(ActionEvent event) {
-				final Stage aboutStage = new Stage();
-				aboutStage.initModality(Modality.APPLICATION_MODAL);
-				VBox aboutVbox = new VBox(20);
-				aboutVbox.getChildren().add(new Text("    Authors:"));
-				aboutVbox.getChildren().add(new Text("    Jason H\n    Hamza M\n    Ntsee N\n    Haseeb S\n    Jonathan Z"));
-				Scene aboutScene = new Scene(aboutVbox, 100, 150);
-				aboutStage.setScene(aboutScene);
-				aboutStage.show();
+			public void handle(MouseEvent event) {
+				View.getStage().setScene(View.getLoadingScene());
 			}
 		});
-		
-		mainMenuGroup.getChildren().add(aboutButton);
+		return saveLoadButton;
+	}
+
+	private Button createNewButton() {
+		Button newButton = new Button("New");
+
+		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getGardenInfoScene());
+			}
+		};
+
+		newButton.setOnAction(newButtonAction);
+		return newButton;
 	}
 }
