@@ -79,77 +79,47 @@ public class PlantPlacementScene extends Scene {
 		center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 
-		Button prevButton = new Button("Prev");
+		Button prevButton = createPrevButton();
+
 		plantPlacementGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
-		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
-			}
-		};
+		Button nextButton = createNextButton();
 
-		prevButton.setOnAction(prevButtonAction);
-
-		Button nextButton = new Button("Next");
 		plantPlacementGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() * 7/8);
-		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
-
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTimesScene());
-			}
-		};
-
-		nextButton.setOnAction(nextButtonAction);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		// TODO replace with selecting plant from image
-		Button plantButton = new Button("Choose a Plant");
-		plantPlacementGroup.getChildren().add(plantButton);
+		Button choosePlantButton = createChoosePlantButton();
 
-		plantButton.setTranslateX(View.getCanvasWidth() / 2 -20);
+		plantPlacementGroup.getChildren().add(choosePlantButton);
 
-		plantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 
-		plantButton.setTranslateY(210);
+		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 
-		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				final Stage pInfoStage = new Stage();
-				pInfoStage.initModality(Modality.APPLICATION_MODAL);
-				pInfoStage.setScene(View.getPlantInfoScene());
-				pInfoStage.show();
-			}
-		};
+		choosePlantButton.setTranslateY(210);
 
-		plantButton.setOnAction(plantButtonAction);
+		Button mainMenuButton = createMainMenuButton();
 
-		// main menu button start
-
-		Button mainMenuButton = new Button("Main Menu");
 		plantPlacementGroup.getChildren().add(mainMenuButton);
 
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
+		Button tutorialButton = createTutorialButton();
 
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-
-		// main menu button end
-		
-		// "Help" button start
-		Button tutorialButton = new Button("Help");
 		plantPlacementGroup.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
-		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
-		
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+	}
+
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
+
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -160,9 +130,62 @@ public class PlantPlacementScene extends Scene {
 		};
 
 		tutorialButton.setOnAction(tutorialButtonAction);
-		
-		// "Help" button end
+		return tutorialButton;
+	}
 
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+
+	private Button createChoosePlantButton() {
+		Button choosePlantButton = new Button("Choose a Plant");
+
+		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage pInfoStage = new Stage();
+				pInfoStage.initModality(Modality.APPLICATION_MODAL);
+				pInfoStage.setScene(View.getPlantInfoScene());
+				pInfoStage.show();
+			}
+		};
+
+		choosePlantButton.setOnAction(plantButtonAction);
+		return choosePlantButton;
+	}
+
+	private Button createNextButton() {
+		Button nextButton = new Button("Next");
+
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getTimesScene());
+			}
+		};
+
+		nextButton.setOnAction(nextButtonAction);
+		return nextButton;
+	}
+
+	private Button createPrevButton() {
+		Button prevButton = new Button("Prev");
+
+		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getDrawScene());
+			}
+		};
+
+		prevButton.setOnAction(prevButtonAction);
+		return prevButton;
 	}
 
 }
