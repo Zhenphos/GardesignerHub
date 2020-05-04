@@ -69,6 +69,7 @@ public class View {
 
 	public View(Stage stage, Controller controller) {
 		theStage = stage;
+		theStage.setResizable(false);
 		theStage.setTitle("Garden Planner Alpha");
 		theStage.setScene(mainMenuScene);
 		this.controller = controller;
