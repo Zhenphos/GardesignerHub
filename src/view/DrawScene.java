@@ -90,30 +90,26 @@ public class DrawScene extends Scene {
 		Button prevButton = createPrevButton();
 
 		drawGardenGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		Button nextButton = createNextButton();
 
 		drawGardenGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
-		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		Button mainMenuButton = createMainMenuButton();
 
 		drawGardenGroup.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		Button tutorialButton = createTutorialButton();
 
 		drawGardenGroup.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
-		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
 	}
 
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
+
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -131,6 +127,9 @@ public class DrawScene extends Scene {
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
 
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getMainMenuScene());
@@ -144,6 +143,9 @@ public class DrawScene extends Scene {
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getPlantPlacementScene());
@@ -156,6 +158,9 @@ public class DrawScene extends Scene {
 
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
+
+		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {

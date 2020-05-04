@@ -96,13 +96,14 @@ public class PlantInfoScene extends Scene {
 		Button backButton = createBackButton();
 
 		plantInfoGroup.getChildren().add(backButton);
-		backButton.setTranslateX(View.getCanvasWidth() / 2);
-		backButton.setTranslateY(600);
 
 	}
 
 	private Button createBackButton() {
 		Button backButton = new Button("Go Back");
+
+		backButton.setTranslateX(View.getCanvasWidth() / 2);
+		backButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {

@@ -34,8 +34,6 @@ public class MainMenuScene extends Scene {
 	 * Creates the main menu scene
 	 */
 	public void createMainMenu() {
-		// TODO split this up into different functions
-
 		Canvas mainMenuCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext mainMenuGC;
 		mainMenuGroup.getChildren().add(mainMenuCanvas);
@@ -50,20 +48,14 @@ public class MainMenuScene extends Scene {
 		Button newButton = createNewButton();
 
 		mainMenuGroup.getChildren().add(newButton);
-		newButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4 - 20);
-		newButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
 		Button saveLoadButton = createSaveLoadButton();
 
 		mainMenuGroup.getChildren().add(saveLoadButton);
-		saveLoadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4 - 20);
-		saveLoadButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
 		Button tutorialButton = createTutorialButton();
 
 		mainMenuGroup.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 17);
-		tutorialButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
 		Button aboutButton = createAboutButton();
 
@@ -95,6 +87,9 @@ public class MainMenuScene extends Scene {
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
 
+		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 17);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
+
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -111,6 +106,9 @@ public class MainMenuScene extends Scene {
 	private Button createSaveLoadButton() {
 		Button saveLoadButton = new Button("Save/Load");
 
+		saveLoadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4 - 20);
+		saveLoadButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
+
 		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -122,6 +120,9 @@ public class MainMenuScene extends Scene {
 
 	private Button createNewButton() {
 		Button newButton = new Button("New");
+
+		newButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4 - 20);
+		newButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
 
 		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
