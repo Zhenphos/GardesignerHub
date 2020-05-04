@@ -87,55 +87,34 @@ public class DrawScene extends Scene {
 		// drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
 		// View.getCanvasHeight());
 
-		Button prevButton = new Button("Prev");
+		Button prevButton = createPrevButton();
+
 		drawGardenGroup.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
-		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
+		Button nextButton = createNextButton();
 
-		prevButton.setOnAction(prevButtonAction);
-
-		Button nextButton = new Button("Next");
 		drawGardenGroup.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() * 7/8);
-		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
-			}
-		};
+		Button mainMenuButton = createMainMenuButton();
 
-		nextButton.setOnAction(nextButtonAction);
-
-		// main menu button start
-
-		Button mainMenuButton = new Button("Main Menu");
 		drawGardenGroup.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
+		Button tutorialButton = createTutorialButton();
 
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-
-		// main menu button end
-		
-		// "Help" button start
-		Button tutorialButton = new Button("Help");
 		drawGardenGroup.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
-		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
-		
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+	}
+
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
+
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -146,7 +125,45 @@ public class DrawScene extends Scene {
 		};
 
 		tutorialButton.setOnAction(tutorialButtonAction);
-		
-		// "Help" button end
+		return tutorialButton;
+	}
+
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+
+	private Button createNextButton() {
+		Button nextButton = new Button("Next");
+
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getPlantPlacementScene());
+			}
+		};
+
+		nextButton.setOnAction(nextButtonAction);
+		return nextButton;
+	}
+
+	private Button createPrevButton() {
+		Button prevButton = new Button("Prev");
+
+		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		prevButton.setOnAction(prevButtonAction);
+		return prevButton;
 	}
 }
