@@ -30,12 +30,12 @@ import mvc.View;
 
 public class PlantInfoScene extends Scene {
 	static Group plantInfoGroup = new Group();
-	
+
 	public PlantInfoScene() {
 		super(plantInfoGroup);
 		createPlantInfo();
 	}
-	
+
 	/**
 	 * Creates the plant info scene
 	 */
@@ -45,60 +45,65 @@ public class PlantInfoScene extends Scene {
 		plantInfoGroup.getChildren().add(plantInfoCanvas);
 		plantInfoGC = plantInfoCanvas.getGraphicsContext2D();
 		plantInfoGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
+
 		Image plantInfoBackground;
 		// TODO replace with new background
 		plantInfoBackground = View.createImage("resources/gardenInfoImage.png");
 		plantInfoGC.drawImage(plantInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
+
 		Image plantImage;
 		// TODO replace with variable that gets image corresponding to selected plant
 		plantImage = View.createImage("resources/commonMilkweed.png");
-		plantInfoGC.drawImage(plantImage, -20, View.getCanvasHeight() / 5.6, View.getCanvasWidth() / 2, View.getCanvasHeight() / 2);
-		
+		plantInfoGC.drawImage(plantImage, -20, View.getCanvasHeight() / 5.6, View.getCanvasWidth() / 2,
+				View.getCanvasHeight() / 2);
+
 		BorderPane border = new BorderPane();
 		FlowPane left = new FlowPane();
 		HBox center = new HBox();
 		VBox right = new VBox();
-		
+
 		plantInfoGroup.getChildren().add(border);
 		border.setLeft(left);
 		border.setCenter(center);
 		border.setRight(right);
-		
-		// TODO replace with file of plant names and change to take corresponding plant name from file
+
+		// TODO replace with file of plant names and change to take corresponding plant
+		// name from file
 		Text sceneTitle = new Text("\n\tPlant Name");
 		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		sceneTitle.setTextAlignment(TextAlignment.CENTER);
 		center.getChildren().add(sceneTitle);
 		center.setAlignment(Pos.TOP_CENTER);
-		
-		// TODO realign everything to scale with changing sizes of images, text, and window
-		Label light = new Label("Light info") ;
+
+		// TODO realign everything to scale with changing sizes of images, text, and
+		// window
+		Label light = new Label("Light info");
 		Label water = new Label("Water info");
 		Label bloomTime = new Label("Bloom time info");
 		Label food = new Label("Food info");
 		Label bloomColor = new Label("Bloom color info");
 		Label soilReqs = new Label("Soil requirements info");
-		
-	    right.minHeight(View.getCanvasHeight());
-	    right.minWidth(View.getCanvasWidth() / 2);
-	    right.maxHeight(View.getCanvasHeight());
-	    right.setPadding(new Insets(100, 200, 100, 50));
-	    right.setStyle("-fx-border-color: black");
-		right.getChildren().addAll(light, new Label(""), 
-				water, new Label(""), 
-				bloomTime, new Label(""), 
-				food, new Label(""), 
-				bloomColor, new Label(""), 
-				soilReqs);
+
+		right.minHeight(View.getCanvasHeight());
+		right.minWidth(View.getCanvasWidth() / 2);
+		right.maxHeight(View.getCanvasHeight());
+		right.setPadding(new Insets(100, 200, 100, 50));
+		right.setStyle("-fx-border-color: black");
+		right.getChildren().addAll(light, new Label(""), water, new Label(""), bloomTime, new Label(""), food,
+				new Label(""), bloomColor, new Label(""), soilReqs);
 		BorderPane.setMargin(right, new Insets(View.getCanvasHeight() / 7, 50, 0, 0));
-		
-		Button backButton = new Button("Go Back");
+
+		Button backButton = createBackButton();
+
 		plantInfoGroup.getChildren().add(backButton);
 		backButton.setTranslateX(View.getCanvasWidth() / 2);
 		backButton.setTranslateY(600);
-		
+
+	}
+
+	private Button createBackButton() {
+		Button backButton = new Button("Go Back");
+
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getPlantPlacementScene());
@@ -106,5 +111,6 @@ public class PlantInfoScene extends Scene {
 		};
 
 		backButton.setOnAction(backButtonAction);
+		return backButton;
 	}
 }
