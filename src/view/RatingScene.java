@@ -82,12 +82,9 @@ public class RatingScene extends Scene {
 		Button prevButton = createPrevButton();
 		
 		buttonGroup.getChildren().add(prevButton);
-		// add save/load button
 		buttonGroup.getChildren().add(saveLoadButton);
 		center.getChildren().add(buttonGroup);
-		// add save/load button
 		center.getChildren().add(saveLoadButton);
-		// add main menu button
 		center.getChildren().add(mainMenuButton);
 
 		AnchorPane top = new AnchorPane();
