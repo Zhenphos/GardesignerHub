@@ -55,7 +55,8 @@ public class LoadingScene extends Scene {
 		this.btnLoad = new Button("Load");
 		this.btnLoad.setMaxWidth(Double.MAX_VALUE);
 
-		this.backButton = new Button("BACK");
+		createBackButton();
+
 		this.backButton.setMaxWidth(Double.MAX_VALUE);
 
 		HBox buttonGroup = new HBox(this.backButton, this.btnSave, this.btnLoad);
@@ -65,16 +66,6 @@ public class LoadingScene extends Scene {
 
 		buttonGroup.setAlignment(Pos.CENTER);
 		buttonGroup.setSpacing(10);
-
-		// "BACK" Button event handler
-		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		// "BACK" Button on click action
-		backButton.setOnAction(backButtonAction);
 
 		this.saves = new TableView<>();
 		TableColumn<Save, String> nameColumn = new TableColumn<>("Name");
@@ -115,6 +106,18 @@ public class LoadingScene extends Scene {
 		VBox.setVgrow(fileInfoGroup, Priority.ALWAYS);
 		this.container.setCenter(center);
 
+	}
+
+	private void createBackButton() {
+		backButton = new Button("BACK");
+
+		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		backButton.setOnAction(backButtonAction);
 	}
 
 	public Button getSaveButton() {
