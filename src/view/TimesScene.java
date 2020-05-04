@@ -38,18 +38,18 @@ import mvc.View;
 public class TimesScene extends Scene {
 
 	private static Group root = new Group();
-	
+
 	private BorderPane border;
-	
+
 	public TimesScene() {
 		super(root);
 		createTimes();
-		
+
 	}
-	
+
 	/**
-	 * Creates the times scene which allows the user to preview what
-	 * the garden would look like at different times of the year.
+	 * Creates the times scene which allows the user to preview what the garden
+	 * would look like at different times of the year.
 	 */
 	public void createTimes() {
 		Canvas canvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
@@ -57,109 +57,114 @@ public class TimesScene extends Scene {
 		root.getChildren().add(canvas);
 		gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
+
 		border = new BorderPane();
 		border.setPadding(new Insets(View.mGap));
-		
+
 		final ToggleGroup tGroup = new ToggleGroup();
-		
+
 		HBox top = new HBox();
 		Text title = new Text("Timelapse Visualization");
 		title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 40));
 		title.setTextAlignment(TextAlignment.CENTER);
-		top.getChildren().add(title); 
+		top.getChildren().add(title);
 		top.setAlignment(Pos.CENTER);
-		
+
 		border.setTop(top);
-		
-		
+
 		RadioButton rb1 = new RadioButton("Spring");
 		rb1.setToggleGroup(tGroup);
 		rb1.setSelected(true);
-		RadioButton rb2 = new RadioButton("Summer");	
+		RadioButton rb2 = new RadioButton("Summer");
 		rb2.setToggleGroup(tGroup);
 		RadioButton rb3 = new RadioButton("Autumn");
 		rb3.setToggleGroup(tGroup);
 		RadioButton rb4 = new RadioButton("Winter");
 		rb4.setToggleGroup(tGroup);
-		
+
 		final Label years = new Label("Years");
 		Slider slider = new Slider(0, 3, 1);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		slider.setMajorTickUnit(1);
-		
+
 		GridPane radioBox = new GridPane();
-		radioBox.add(rb1, 0,0);
-		radioBox.add(rb2, 0,1);
-		radioBox.add(rb3, 0,2);
-		radioBox.add(rb4, 0,3);
+		radioBox.add(rb1, 0, 0);
+		radioBox.add(rb2, 0, 1);
+		radioBox.add(rb3, 0, 2);
+		radioBox.add(rb4, 0, 3);
 		radioBox.setVgap(View.sGap);
 		radioBox.setHgap(View.mGap);
 
-		
 		VBox sliderBox = new VBox(years, slider);
 		sliderBox.setAlignment(Pos.CENTER);
-		
+
 		HBox bottom = new HBox(sliderBox, radioBox);
 		bottom.setPadding(new Insets(View.mGap));
-		bottom.setSpacing(View.getCanvasWidth()*3/8);
+		bottom.setSpacing(View.getCanvasWidth() * 3 / 8);
 		bottom.setAlignment(Pos.CENTER);
-        bottom.setStyle("-fx-border-color: black");
-        
-		border.setBottom(bottom);
-		
-		AnchorPane center = new AnchorPane();
-		
-		center.setPadding(new Insets(View.getCanvasHeight()*1/4, View.getCanvasWidth()*3/8, View.getCanvasHeight()*1/4, View.getCanvasWidth()*3/8));
-		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
-        Background background = new Background(background_fill);
-        center.setBackground(background);
-		center.setStyle("-fx-border-color: black");
-		
+		bottom.setStyle("-fx-border-color: black");
 
-	    BorderPane.setMargin(center, new Insets(View.getCanvasHeight()*1/16, View.getCanvasWidth()*1/8, View.getCanvasHeight()*1/16, View.getCanvasWidth()*1/8));
+		border.setBottom(bottom);
+
+		AnchorPane center = new AnchorPane();
+
+		center.setPadding(new Insets(View.getCanvasHeight() * 1 / 4, View.getCanvasWidth() * 3 / 8,
+				View.getCanvasHeight() * 1 / 4, View.getCanvasWidth() * 3 / 8));
+		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
+		Background background = new Background(background_fill);
+		center.setBackground(background);
+		center.setStyle("-fx-border-color: black");
+
+		BorderPane.setMargin(center, new Insets(View.getCanvasHeight() * 1 / 16, View.getCanvasWidth() * 1 / 8,
+				View.getCanvasHeight() * 1 / 16, View.getCanvasWidth() * 1 / 8));
 
 		border.setCenter(center);
-				
+
 		root.getChildren().add(border);
-		
-		Button prevButton = new Button("Prev");
+
+		Button prevButton = createPrevButton();
+
 		root.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() * 1/8);
-		prevButton.setTranslateY(View.getCanvasHeight()*7/8);
+		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
-			}
-		};
+		Button mainMenuButton = createMainMenuButton();
 
-		prevButton.setOnAction(prevButtonAction);
-		
-		// main menu button start
-		
-		Button mainMenuButton = new Button("Main Menu");
 		root.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2/3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight()*7/8);
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+		Button tutorialButton = createTutorialButton();
+
+		root.getChildren().add(tutorialButton);
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		Button nextButton = createNextButton();
+
+		root.getChildren().add(nextButton);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+	}
+
+	private Button createNextButton() {
+		Button nextButton = new Button("Next");
+
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				View.getStage().setScene(View.getRatingScene());
 			}
 		};
 
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-		
-		// main menu button end
-		
-		// "Help" button start
+		nextButton.setOnAction(nextButtonAction);
+		return nextButton;
+	}
+
+	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
-		root.getChildren().add(tutorialButton);
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1/3);
-		tutorialButton.setTranslateY(View.getCanvasHeight()*7/8);
-				
+
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -170,26 +175,33 @@ public class TimesScene extends Scene {
 		};
 
 		tutorialButton.setOnAction(tutorialButtonAction);
-				
-		// "Help" button end
-		
-		// next button start
-		
-		Button nextButton = new Button("Next");
-		root.getChildren().add(nextButton);
-		nextButton.setTranslateX( View.getCanvasWidth() * 7/8);
-		nextButton.setTranslateY(View.getCanvasHeight()*7/8);
+		return tutorialButton;
+	}
 
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getRatingScene());
+				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
-		nextButton.setOnAction(nextButtonAction);
-		
-		// next button end
-		
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+
+	private Button createPrevButton() {
+		Button prevButton = new Button("Prev");
+
+		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getPlantPlacementScene());
+			}
+		};
+
+		prevButton.setOnAction(prevButtonAction);
+		return prevButton;
 	}
 
 }
