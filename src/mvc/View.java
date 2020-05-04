@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -47,8 +48,10 @@ public class View {
 	private TilePane gardenTilePane;
 	private HashMap<String, String> plants;
 
-	static int canvasWidth = 1000;
-	static int canvasHeight = 750;
+	static Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
+	static int canvasWidth = (int) screenBoundary.getWidth() * 6 / 8;
+	static int canvasHeight = (int) screenBoundary.getHeight() * 6 / 8;
+
 	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
 	static Stage theStage;
@@ -62,7 +65,7 @@ public class View {
 	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
 	static RatingScene ratingScene = new RatingScene();
-	
+
 	public final static int sGap = 5;
 	public final static int mGap = 10;
 	public final static int lGap = 25;
