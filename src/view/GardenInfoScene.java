@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -106,6 +108,7 @@ public class GardenInfoScene extends Scene {
 //		grid.add(lightInput, 1, 1);
 
 		Image gardenInfoBackground;
+		System.out.println();
 		gardenInfoBackground = View.createImage("resources/gardenInfoImage.png");
 		gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 

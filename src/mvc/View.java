@@ -1,5 +1,6 @@
 package mvc;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -90,8 +91,8 @@ public class View {
 		});
 	}
 
-	public static Image createImage(String file) {
-		Image someImage = new Image(file);
+	public static Image createImage(String pathToFile) {
+		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
 	}
 
