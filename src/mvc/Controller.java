@@ -31,11 +31,15 @@ public class Controller extends Application {
 	 */
 	public static void main(String[] args) {
 		ArrayList<Plant2> allPlants = importPlants();
+		// System.out.println("allPlants is " + allPlants);
 		launch(args);
 	}
 
 	public static ArrayList<Plant2> importPlants() {
+		ArrayList<Plant2> plantList = new ArrayList<>();
+
 		String csvFile = "";
+
 		try {
 			csvFile = "resources/NewMoonNurseryPlants.csv";
 			System.out.println("Found CSV file");
@@ -43,20 +47,16 @@ public class Controller extends Application {
 			System.out.println("Error getting CSV file");
 		}
 
-		// should be an ArrayList of Plant2 objects
 		BufferedReader bReader = null;
 		String line = "";
-		String splitCSVBy = ";";
+		String charToSplitBy = ";";
+		String[] csvLine = null;
 
 		try {
-			
 			bReader = new BufferedReader(new FileReader(csvFile));
 			while ((line = bReader.readLine()) != null) {
-				// use comma as separator
-				String[] lineFromCSV = line.split(splitCSVBy);
-				// System.out.println("Country [code= " + lineFromCSV[4] + " , name=" +
-				// lineFromCSV[5] + "]");
-				System.out.println(Arrays.toString(lineFromCSV));
+				csvLine = line.split(charToSplitBy);
+				plantList.add(new Plant2(csvLine[0], csvLine[1], csvLine[2], csvLine[3], csvLine[4], csvLine[5]));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -72,7 +72,7 @@ public class Controller extends Application {
 			}
 		}
 
-		return null;
+		return plantList;
 
 	}
 
