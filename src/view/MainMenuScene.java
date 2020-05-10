@@ -45,7 +45,7 @@ public class MainMenuScene extends Scene {
 		mainMenuBackground = View.createImage("resources/mainMenuImage.png");
 
 		mainMenuGC.drawImage(mainMenuBackground, View.getCanvasWidth() / 2 - mainMenuBackground.getWidth() / 2,
-				View.getCanvasHeight() / 2 - mainMenuBackground.getHeight() / 2);
+				View.getCanvasHeight() / 3 - mainMenuBackground.getHeight() / 2);
 
 		Button newButton = createNewButton();
 
