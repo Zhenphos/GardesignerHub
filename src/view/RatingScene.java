@@ -53,7 +53,7 @@ public class RatingScene extends Scene {
 		left.getChildren().add(ratingText);
 		this.ratingbox = new HBox();
 		for (int i = 0; i < 5; i++) {
-			ImageView iv = new ImageView(new Image("resources/star.png"));
+			ImageView iv = new ImageView(View.createImage("resources/star.png"));
 			iv.setFitHeight(100);
 			iv.setPreserveRatio(true);
 			this.ratingbox.getChildren().add(iv);
