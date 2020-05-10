@@ -53,18 +53,6 @@ public class MainMenuScene extends Scene {
 
 		mainMenuGC.drawImage(mainMenuBackground, View.getCanvasWidth() / 2 - mainMenuBackground.getWidth() / 2,
 				View.getCanvasHeight() / 3 - mainMenuBackground.getHeight() / 2);
-		
-		HBox hbox = new HBox(); 
-		
-		// create a background fill 
-        BackgroundFill background_fill = new BackgroundFill(Color.PINK,  
-                                      CornerRadii.EMPTY, Insets.EMPTY); 
-
-        // create Background 
-        Background background = new Background(background_fill); 
-
-        // set background 
-        hbox.setBackground(background); 
 
 		Button newButton = createNewButton();
 
