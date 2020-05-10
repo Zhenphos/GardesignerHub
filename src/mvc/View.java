@@ -36,7 +36,7 @@ import objects.GardenObject;
 import view.*;
 
 /**
- * View class for Garden Planner
+ * View class for Garden Designer
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -74,7 +74,7 @@ public class View {
 	public View(Stage stage, Controller controller) {
 		theStage = stage;
 		theStage.setResizable(false);
-		theStage.setTitle("Garden Planner Alpha");
+		theStage.setTitle("Garden Designer");
 		theStage.setScene(mainMenuScene);
 		this.controller = controller;
 		this.initializeLoadingScene();

@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -9,7 +10,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
@@ -46,6 +53,18 @@ public class MainMenuScene extends Scene {
 
 		mainMenuGC.drawImage(mainMenuBackground, View.getCanvasWidth() / 2 - mainMenuBackground.getWidth() / 2,
 				View.getCanvasHeight() / 3 - mainMenuBackground.getHeight() / 2);
+		
+		HBox hbox = new HBox(); 
+		
+		// create a background fill 
+        BackgroundFill background_fill = new BackgroundFill(Color.PINK,  
+                                      CornerRadii.EMPTY, Insets.EMPTY); 
+
+        // create Background 
+        Background background = new Background(background_fill); 
+
+        // set background 
+        hbox.setBackground(background); 
 
 		Button newButton = createNewButton();
 

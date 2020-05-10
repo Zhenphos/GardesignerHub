@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Controller class for Garden Planner
+ * Controller class for Garden Designer
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
