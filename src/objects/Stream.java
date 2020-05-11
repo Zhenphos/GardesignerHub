@@ -9,9 +9,10 @@ import javafx.scene.paint.Color;
  */
 
 public class Stream extends GardenObject {
-	Shape shape;
 	
 	public Stream() {
 		shape = new Shape(Color.LIGHTBLUE);
+		xLoc = this.shape.getXValue();
+		yLoc = this.shape.getYValue();
 	}
 }

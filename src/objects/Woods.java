@@ -9,9 +9,10 @@ import javafx.scene.paint.Color;
  */
 
 public class Woods extends GardenObject {
-	Shape shape;
 	
 	public Woods() {
 		shape = new Shape(Color.FORESTGREEN);
+		xLoc = this.shape.getXValue();
+		yLoc = this.shape.getYValue();
 	}
 }

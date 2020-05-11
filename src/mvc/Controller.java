@@ -2,6 +2,7 @@ package mvc;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -11,6 +12,9 @@ import javafx.stage.Stage;
 import view.PlantInfoScene;
 import view.PlantPlacementScene;
 import objects.Plant2;
+import objects.GardenObject;
+import objects.Grass;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -97,7 +101,7 @@ public class Controller extends Application {
 
 	}
 
-	private Model gardenModel;
+	private Model model;
 
 	private View view;
 	private PlantPlacementScene pps;
@@ -111,7 +115,7 @@ public class Controller extends Application {
 	
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
-		gardenModel = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		model = new Model(View.getCanvasWidth(), View.getCanvasHeight());
 		if (DEBUG) System.out.println("ic created");
 	}
 
@@ -121,7 +125,7 @@ public class Controller extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		view = new View(theStage, this);
-		gardenModel = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		model = new Model(view.getCanvasWidth(), view.getCanvasHeight());
 		theStage.show();
 	}
 
@@ -138,7 +142,7 @@ public class Controller extends Application {
 			ObjectOutputStream out = new ObjectOutputStream(file);
 
 			// Method for serialization of object
-			out.writeObject(this.gardenModel);
+			out.writeObject(this.model);
 
 			out.close();
 			file.close();
@@ -199,10 +203,10 @@ public class Controller extends Application {
 	public void drag(MouseEvent event) {
 		Node n = (Node)event.getSource();
 		if (DEBUG) System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX() );
-		gardenModel.setX(gardenModel.getX() + event.getX()); //event.getX() is the amount of horiz drag
-		gardenModel.setY(gardenModel.getY() + event.getY());
-		pps.setX(gardenModel.getX());
-		pps.setY(gardenModel.getY());
+		model.setX(model.getX() + event.getX()); //event.getX() is the amount of horiz drag
+		model.setY(model.getY() + event.getY());
+		pps.setX(model.getX());
+		pps.setY(model.getY());
 	}
 	
     public void makeCopy(MouseEvent event) {
@@ -220,17 +224,30 @@ public class Controller extends Application {
 	}
 
 	public double getStartingX() {
-		return gardenModel.getX();
+		return model.getX();
 	}
 	
 	public double getStartingY() {
-		return gardenModel.getY();
+		return model.getY();
 	}
 	
 	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
-		this.gardenModel.setAmountOfLight(light);
-		this.gardenModel.setAmountOfRain(rain);
-		this.gardenModel.setSoilPH(soilPH);
-		this.gardenModel.setTemperature(temp);
+		this.model.setAmountOfLight(light);
+		System.out.println("Light: " + light);
+		this.model.setAmountOfRain(rain);
+		System.out.println("Rain: " + rain);
+		this.model.setSoilPH(soilPH);
+		System.out.println("Soil pH: " + soilPH);
+		this.model.setTemperature(temp);
+		System.out.println("Temperature: " + temp);
+	}
+	
+	/**
+	 * 
+	 * @param object the object that will be loaded into the model
+	 */
+	public void addGardenObject(GardenObject object) {
+		this.model.addGardenObject(object);
+		System.out.println("Added object");
 	}
 }

@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,7 +21,13 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import mvc.Controller;
 import mvc.View;
+import objects.Grass;
+import objects.Road;
+import objects.Shade;
+import objects.Stream;
+import objects.Woods;
 
 /**
  * 
@@ -30,6 +37,15 @@ import mvc.View;
 
 public class DrawScene extends Scene {
 	static Group drawGardenGroup = new Group();
+	private BorderPane border;
+	AnchorPane center;
+	private Controller controller;
+	private Button grassButton;
+	private Button roadButton;
+	private Button streamButton;
+	private Button woodsButton;
+	private Button shadeButton;
+	private Button deleteButton;
 
 	public DrawScene() {
 		super(drawGardenGroup);
@@ -46,10 +62,10 @@ public class DrawScene extends Scene {
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
-		BorderPane border = new BorderPane();
+		border = new BorderPane();
 		FlowPane left = new FlowPane();
 		HBox top = new HBox();
-		AnchorPane center = new AnchorPane();
+		center = new AnchorPane();
 		drawGardenGroup.getChildren().add(border);
 		border.setTop(top);
 		border.setLeft(left);
@@ -64,22 +80,22 @@ public class DrawScene extends Scene {
 		Label grass = new Label("Grass \t\t");
 		Label road = new Label("Road \t\t");
 		Label stream = new Label("Stream \t\t");
+		Label woods = new Label("Woods \t\t");
 		Label shade = new Label("Shade \t\t");
-		Label object = new Label("Object \t\t");
 		Label delete = new Label("Delete \t \t");
 		
-		Button grassButton = new Button("Grass");
-		Button roadButton = new Button("Road");
-		Button streamButton = new Button("Stream");
-		Button shadeButton = new Button("Shade");
-		Button objectButton = new Button("Object");
-		Button deleteButton = new Button("Delete");
+		grassButton = new Button("Grass");
+		roadButton = new Button("Road");
+		streamButton = new Button("Stream");
+		woodsButton = new Button("Woods");
+		shadeButton = new Button("Shade");
+		deleteButton = new Button("Delete");
 		
 		HBox grassBox = new HBox(grass, grassButton);
 		HBox roadBox = new HBox(road, roadButton);
 		HBox streamBox = new HBox(stream, streamButton);
+		HBox woodsBox = new HBox(woods, woodsButton);
 		HBox shadeBox = new HBox(shade, shadeButton);
-		HBox objectBox = new HBox(object, objectButton);
 		HBox deleteBox = new HBox(delete, deleteButton);
 		
 		GridPane items = new GridPane();
@@ -87,8 +103,8 @@ public class DrawScene extends Scene {
 		items.add(grassBox, 0, 0);
 		items.add(roadBox, 0, 1);
 		items.add(streamBox, 0, 2);
-		items.add(shadeBox, 0, 3);
-		items.add(objectBox, 0, 4);
+		items.add(woodsBox, 0, 3);
+		items.add(shadeBox, 0, 4);
 		items.add(deleteBox, 0, 5);
 		items.setVgap(View.sGap);
 		items.setHgap(View.mGap);
@@ -162,5 +178,60 @@ public class DrawScene extends Scene {
 
 		prevButton.setOnAction(prevButtonAction);
 		return prevButton;
+	}
+	
+	public void setController(Controller controller) {
+		this.controller = controller;
+		
+		EventHandler<ActionEvent> grassButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Grass grass = new Grass();
+				center.getChildren().add(grass.getShape().getPolygon());
+				controller.addGardenObject(grass);
+			}
+		};
+		this.grassButton.setOnAction(grassButtonAction);
+		
+		EventHandler<ActionEvent> roadButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Road road = new Road();
+				center.getChildren().add(road.getShape().getPolygon());
+				controller.addGardenObject(road);
+			}
+		};
+		this.roadButton.setOnAction(roadButtonAction);
+
+		EventHandler<ActionEvent> streamButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Stream stream = new Stream();
+				center.getChildren().add(stream.getShape().getPolygon());
+				controller.addGardenObject(new Stream());
+			}
+		};
+		this.streamButton.setOnAction(streamButtonAction);
+		
+		EventHandler<ActionEvent> woodsButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Woods woods = new Woods();
+				center.getChildren().add(woods.getShape().getPolygon());
+				controller.addGardenObject(new Woods());
+			}
+		};
+		this.woodsButton.setOnAction(woodsButtonAction);
+		
+		EventHandler<ActionEvent> shadeButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Shade shade = new Shade();
+				center.getChildren().add(shade.getShape().getPolygon());
+				controller.addGardenObject(new Shade());
+			}
+		};
+		this.shadeButton.setOnAction(shadeButtonAction);
+		
+		EventHandler<ActionEvent> deleteButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+			}
+		};
+		this.deleteButton.setOnAction(deleteButtonAction);
 	}
 }

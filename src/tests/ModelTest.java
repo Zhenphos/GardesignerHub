@@ -23,7 +23,7 @@ public class ModelTest {
 		Plant p = new Plant();
 		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
 		Collection<GardenObject> c = m.getGardenObjects();
-		Model.addGardenObject(p);
+		m.addGardenObject(p);
 		assertEquals(c.size(), c.size() + 1);
 
 	}
@@ -47,7 +47,8 @@ public class ModelTest {
 	@Test
 	public void testRemoveGardenObject() {
 		Plant p = new Plant();
-		Model.removeGardenObject(p);
+		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		m.removeGardenObject(p);
 		assertNull("Should be null", p);
 
 	}

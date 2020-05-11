@@ -1,6 +1,7 @@
 package mvc;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import objects.GardenObject;
@@ -30,6 +31,7 @@ public class Model implements Serializable {
 	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
+		this.myObjects = new ArrayList<GardenObject>();
 	}
 
 	public void setAmountOfLight(int light) {
@@ -106,8 +108,8 @@ public class Model implements Serializable {
 	 * 
 	 * @param someObject the garden object you want to add
 	 */
-	public static void addGardenObject(GardenObject someObject) {
-
+	public void addGardenObject(GardenObject someObject) {
+		myObjects.add(someObject);
 	}
 
 	/**
@@ -115,7 +117,7 @@ public class Model implements Serializable {
 	 * 
 	 * @param someObject The object you wish to remove from your garden
 	 */
-	public static void removeGardenObject(GardenObject someObject) {
+	public void removeGardenObject(GardenObject someObject) {
 
 	}
 	
