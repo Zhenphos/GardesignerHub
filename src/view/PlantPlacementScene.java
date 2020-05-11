@@ -72,7 +72,6 @@ public class PlantPlacementScene extends Scene {
 		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
 		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
 		
-		//BorderPane border = new BorderPane(iv1);
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
@@ -104,7 +103,10 @@ public class PlantPlacementScene extends Scene {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
-				View.getStage().setScene(View.getPlantInfoScene());
+				final Stage pInfoStage = new Stage();
+				pInfoStage.initModality(Modality.APPLICATION_MODAL);
+				pInfoStage.setScene(View.getPlantInfoScene());
+				pInfoStage.show();
 			}
 		});
 		
@@ -139,9 +141,9 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(nextButton);
 
 		// TODO replace with selecting plant from image
-		Button choosePlantButton = createChoosePlantButton();
+		//Button choosePlantButton = createChoosePlantButton();
 
-		root.getChildren().add(choosePlantButton);
+		//root.getChildren().add(choosePlantButton);
 
 		Button mainMenuButton = createMainMenuButton();
 
@@ -188,7 +190,7 @@ public class PlantPlacementScene extends Scene {
 		return mainMenuButton;
 	}
 
-	private Button createChoosePlantButton() {
+	/*private Button createChoosePlantButton() {
 		Button choosePlantButton = new Button("Choose a Plant");
 
 		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
@@ -205,7 +207,7 @@ public class PlantPlacementScene extends Scene {
 
 		choosePlantButton.setOnAction(plantButtonAction);
 		return choosePlantButton;
-	}
+	}*/
 
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
