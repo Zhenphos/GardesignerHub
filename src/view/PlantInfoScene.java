@@ -10,16 +10,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import mvc.Controller;
 import mvc.View;
+import objects.Plant2;
 
 /**
  * The scene that displays information about a selected plant.
@@ -54,18 +55,30 @@ public class PlantInfoScene extends Scene {
 		Image plantImage;
 		// TODO replace with variable that gets image corresponding to selected plant
 		plantImage = View.createImage("resources/commonMilkweed.png");
-		plantInfoGC.drawImage(plantImage, -20, View.getCanvasHeight() / 5.6, View.getCanvasWidth() / 2,
+		plantInfoGC.drawImage(plantImage, 100, View.getCanvasHeight() / 5.6, View.getCanvasWidth() / 2,
 				View.getCanvasHeight() / 2);
 
 		BorderPane border = new BorderPane();
 		FlowPane left = new FlowPane();
 		HBox center = new HBox();
 		VBox right = new VBox();
+		FlowPane bottom = new FlowPane();
+		border.setPadding(new Insets(100, 0, 0, 0));
+
+
+		ListView view = new ListView();
+		view.setMinHeight(View.getCanvasHeight());
+		for (Plant2 plant : Controller.allPlants) {
+			view.getItems().add(plant.getPlantBotanicalName());
+		}
+		border.getChildren().add(view);
 
 		plantInfoGroup.getChildren().add(border);
 		border.setLeft(left);
 		border.setCenter(center);
 		border.setRight(right);
+
+		border.setBottom(bottom);
 
 		// TODO replace with file of plant names and change to take corresponding plant
 		// name from file
@@ -95,6 +108,7 @@ public class PlantInfoScene extends Scene {
 
 		Button backButton = createBackButton();
 
+		plantInfoGroup.getChildren().add(view);
 		plantInfoGroup.getChildren().add(backButton);
 
 	}

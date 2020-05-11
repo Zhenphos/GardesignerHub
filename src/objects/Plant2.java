@@ -29,6 +29,30 @@ public class Plant2 extends GardenObject {
 	String USDAHardinessZone;
 	String bloomColors;
 
+	public String getPlantBotanicalName() {
+		return plantBotanicalName;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public String getSpread() {
+		return spread;
+	}
+
+	public String getSpacing() {
+		return spacing;
+	}
+
+	public String getUSDAHardinessZone() {
+		return USDAHardinessZone;
+	}
+
+	public String getBloomColors() {
+		return bloomColors;
+	}
+
 	@Override
 	public String toString() {
 		return "Plant2 [plantBotanicalName=" + plantBotanicalName + ", height=" + height + ", spread=" + spread

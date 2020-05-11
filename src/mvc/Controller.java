@@ -33,8 +33,10 @@ public class Controller extends Application {
 	 * @param args - an array of strings
 	 * @throws FileNotFoundException
 	 */
+
+	public static ArrayList<Plant2> allPlants;
 	public static void main(String[] args) throws FileNotFoundException {
-		ArrayList<Plant2> allPlants = importPlants();
+		allPlants = importPlants();
 		// System.out.println("allPlants is " + allPlants);
 		launch(args);
 	}
