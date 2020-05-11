@@ -139,4 +139,11 @@ public class Controller extends Application {
 		System.out.println(file);
 	}
 
+	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
+		this.gardenModel.setAmountOfLight(light);
+		this.gardenModel.setAmountOfRain(rain);
+		this.gardenModel.setSoilPH(soilPH);
+		this.gardenModel.setTemperature(temp);
+	}
+
 }

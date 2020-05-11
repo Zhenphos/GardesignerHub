@@ -12,19 +12,35 @@ import objects.GardenObject;
  *
  */
 
-public class Model implements Serializable{
+public class Model implements Serializable {
+
 	private int amountOfLight;
 	private int amountOfRain;
-	private int maxTemperature;
-	private int minTemperature;
+	private int temperature;
 	private int canvasHeight;
 	private int canvasWidth;
-	private String soilType;
+	private double soilPH;
 	private Collection<GardenObject> myObjects;
 	
 	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
+	}
+
+	public void setAmountOfLight(int light) {
+		this.amountOfLight = light;
+	}
+
+	public void setAmountOfRain(int rain) {
+		this.amountOfRain = rain;
+	}
+
+	public void setTemperature(int temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setSoilPH(double soilPH) {
+		this.soilPH = soilPH;
 	}
 	
 	/**

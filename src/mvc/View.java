@@ -78,6 +78,7 @@ public class View {
 		theStage.setScene(mainMenuScene);
 		this.controller = controller;
 		this.initializeLoadingScene();
+		gardenInfoScene.setController(controller);
 	}
 
 	public void initializeLoadingScene() {
