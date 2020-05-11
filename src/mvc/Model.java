@@ -1,7 +1,10 @@
 package mvc;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> master
 import java.util.Collection;
 
 import objects.GardenObject;
@@ -27,6 +30,46 @@ public class Model implements Serializable {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 		this.myObjects = new ArrayList<GardenObject>();
+	}
+
+	public void setAmountOfLight(int light) {
+		this.amountOfLight = light;
+	}
+
+	public void setAmountOfRain(int rain) {
+		this.amountOfRain = rain;
+	}
+
+	public void setTemperature(int temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setSoilPH(double soilPH) {
+		this.soilPH = soilPH;
+	}
+
+	public int getAmountOfLight() {
+		return this.amountOfLight;
+	}
+
+	public int getAmountOfRain() {
+		return this.amountOfRain;
+	}
+
+	public int getTemperature() {
+		return this.temperature;
+	}
+
+	public double getSoilPH() {
+		return this.soilPH;
+	}
+
+	public int getCanvasWidth() {
+		return this.canvasWidth;
+	}
+
+	public int getCanvasHeight() {
+		return this.canvasHeight;
 	}
 
 	public void setAmountOfLight(int light) {
