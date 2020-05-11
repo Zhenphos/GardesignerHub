@@ -63,14 +63,16 @@ public class Controller extends Application {
 
 			while ((line = bReader.readLine()) != null) {
 				csvLine = line.split(charToSplitBy);
+				/*
 				Pattern searchPattern = Pattern.compile("\\d+");
 				Matcher matcher = searchPattern.matcher(csvLine[1]);
 				while (matcher.find()) {
 					int testInt = Integer.parseInt(matcher.group());
 					System.out.println("int is " + testInt);
 				}
+				*/
 				plantList.add(new Plant2(csvLine[0], csvLine[1], csvLine[2], csvLine[3], csvLine[4], csvLine[5]));
-				System.out.println("break");
+				//System.out.println("break");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
