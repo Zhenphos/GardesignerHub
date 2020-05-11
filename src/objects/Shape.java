@@ -13,7 +13,7 @@ import javafx.scene.shape.Polygon;
  */
 
 public class Shape {
-	ArrayList<Vertex> vertices = new ArrayList<Vertex>(8);
+	ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	Polygon shape = new Polygon();
 	
 	/**
@@ -40,6 +40,10 @@ public class Shape {
 		vertices.add(p6);
 		vertices.add(p7);
 		vertices.add(p8);
+		
+		for (Vertex vertex : vertices) {
+            shape.getPoints().addAll(vertex.getPoint());
+        }
 	}
 
 	/**
@@ -55,9 +59,6 @@ public class Shape {
 	 * @return a new polygon with default size and shape
 	 */
 	public Polygon getPolygon() {
-		for (Vertex vertex : vertices) {
-            shape.getPoints().addAll(vertex.getPoint());
-        }
 		return shape;
 	}
 	
@@ -68,7 +69,7 @@ public class Shape {
 	public double getXValue() {
 		double min;
 		double max;
-		if (vertices.get(0) != null) {
+		if (vertices.size() != 0) {
 			min = vertices.get(0).getX();
 			max = vertices.get(0).getX();
 			for (Vertex vertex:vertices) {
@@ -92,7 +93,7 @@ public class Shape {
 	public double getYValue() {
 		double min;
 		double max;
-		if (vertices.get(0) != null) {
+		if (vertices.size() != 0) {
 			min = vertices.get(0).getY();
 			max = vertices.get(0).getY();
 			for (Vertex vertex:vertices) {

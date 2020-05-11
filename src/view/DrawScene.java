@@ -203,6 +203,8 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> streamButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				Stream stream = new Stream();
+				center.getChildren().add(stream.getShape().getPolygon());
 				controller.addGardenObject(new Stream());
 			}
 		};
@@ -210,6 +212,8 @@ public class DrawScene extends Scene {
 		
 		EventHandler<ActionEvent> woodsButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				Woods woods = new Woods();
+				center.getChildren().add(woods.getShape().getPolygon());
 				controller.addGardenObject(new Woods());
 			}
 		};
@@ -217,6 +221,8 @@ public class DrawScene extends Scene {
 		
 		EventHandler<ActionEvent> shadeButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				Shade shade = new Shade();
+				center.getChildren().add(shade.getShape().getPolygon());
 				controller.addGardenObject(new Shade());
 			}
 		};
