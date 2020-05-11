@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -61,8 +63,8 @@ public class PlantPlacementScene extends Scene {
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		// test
-		Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
+		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("/resources/commonMilkweed.png"));
+		Image im1 = new Image(new File("resources/commonMilkweed.png").toURI().toString());
 		iv1.setImage(im1);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
