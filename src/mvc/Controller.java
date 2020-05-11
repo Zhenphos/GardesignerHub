@@ -165,16 +165,12 @@ public class Controller extends Application {
 		try
         {    
             // Reading the object from a file 
-            FileInputStream file = new FileInputStream("resource/garden.ser"); 
+            FileInputStream file = new FileInputStream("resources/garden.ser");
             ObjectInputStream in = new ObjectInputStream(file); 
 
             // Method for deserialization of object 
             Model model = null;
-            while (in.available()>0) {
-            	model = (Model)in.readObject();
-                System.out.println("hello");
-               // System.out.println(employee.toString());
-            }
+            model = (Model)in.readObject();
             System.out.println("working");
 
             in.close(); 
