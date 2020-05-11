@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -30,14 +31,17 @@ import mvc.View;
  */
 
 public class PlantPlacementScene extends Scene {
-	static Group plantPlacementGroup = new Group();
-	private Controller imc;// = new Controller(this);
-	private ImageView iv1 = new ImageView(); // test
-	private final double WIDTH = 800; // test
-	private final double HEIGHT = 600; // test
+	static Group root = new Group();
+	// test
+	public Controller imc;
+	public ImageView iv1;
+	public final double WIDTH = 1000; //800;
+	public final double HEIGHT = 750; //600;
 
 	public PlantPlacementScene() {
-		super(plantPlacementGroup);
+		super(root);
+		iv1 = new ImageView();
+		imc = new Controller(this);
 		placePlant();
 	}
 
@@ -48,24 +52,27 @@ public class PlantPlacementScene extends Scene {
 	public void placePlant() {
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
-		plantPlacementGroup.getChildren().add(drawCanvas);
+		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		// test
-		/*Image im1 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
 		iv1.setImage(im1);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setOnMouseDragged(imc.getHandlerForDrag());
-		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());*/
+		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
 		
 		//BorderPane border = new BorderPane(iv1);
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
-		plantPlacementGroup.getChildren().add(border);
-		AnchorPane center = new AnchorPane();
+		root.getChildren().add(border);
+		AnchorPane center = new AnchorPane(); // ----------------------------------
+		//iv1.setTranslateX(100);
+    	//iv1.setTranslateY(100);
+		
 		BorderPane.setMargin(top, new Insets(50, 12.5, 50, 12.5));
 		
 		border.setTop(top);
@@ -84,17 +91,18 @@ public class PlantPlacementScene extends Scene {
 			imageBar.getChildren().add(new Label("{Plant image " + (int) (i + 1) + "}"));
 			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
+		imageBar.getChildren().add(iv1);
 		top.getChildren().add(imageBar);
 
 		BorderPane.setMargin(center, new Insets(0, 12.5, 0, 12.5));
 		center.setPadding(new Insets(View.getCanvasHeight() / 2.5, 50, 0, 0));
-		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
-		Background background = new Background(background_fill);
-		center.setBackground(background);
+		//BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
+		//Background background = new Background(background_fill);
+		//center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 
 		Button prevButton = new Button("Prev");
-		plantPlacementGroup.getChildren().add(prevButton);
+		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
 		prevButton.setTranslateY(600);
 
@@ -107,22 +115,22 @@ public class PlantPlacementScene extends Scene {
 		prevButton.setOnAction(prevButtonAction);
 
 		Button nextButton = new Button("Next");
-		plantPlacementGroup.getChildren().add(nextButton);
+		root.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
 		nextButton.setTranslateY(600);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getTimesScene());
-				View.getStage().setScene(View.getMovingImageView());
+				View.getStage().setScene(View.getTimesScene());
+				//View.getStage().setScene(View.getMovingImageView());
 			}
 		};
 
 		nextButton.setOnAction(nextButtonAction);
 
 		// TODO replace with selecting plant from image
-		Button plantButton = new Button("Choose a Plant");
-		plantPlacementGroup.getChildren().add(plantButton);
+		/*Button plantButton = new Button("Choose a Plant");
+		root.getChildren().add(plantButton);
 		plantButton.setTranslateX(View.getCanvasWidth() / 2);
 		plantButton.setTranslateY(210);
 
@@ -132,12 +140,12 @@ public class PlantPlacementScene extends Scene {
 			}
 		};
 
-		plantButton.setOnAction(plantButtonAction);
+		plantButton.setOnAction(plantButtonAction);*/
 
 		// main menu button start
 
 		Button mainMenuButton = new Button("Main Menu");
-		plantPlacementGroup.getChildren().add(mainMenuButton);
+		root.getChildren().add(mainMenuButton);
 		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
 		mainMenuButton.setTranslateY(600);
 
@@ -154,19 +162,19 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	// test
-	/*public void setX(double x) {
-    	iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
-    }
-	
-	// test
-    public void setY(double y) {
-    	iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
+    public void setX(double x) {
+    	//iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
+    	iv1.setTranslateX(iv1.getLayoutX() + WIDTH / 2 + x);
     }
     
-    // experimental
+    public void setY(double y) {
+    	//iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
+    	iv1.setTranslateY(iv1.getLayoutY() + HEIGHT / 2 + y);
+    }
+    
     public ImageView makeCopy() {
     	ImageView iv2 = iv1;
     	return iv2;
-    }*/
+    }
 
 }

@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import view.MovingImageView;
+//import view.MovingImageView;
 import view.PlantInfoScene;
 import view.PlantPlacementScene;
 
@@ -35,7 +35,7 @@ public class Controller extends Application {
 	private Model gardenModel;
 
 	private View view;
-	private MovingImageView miv;
+	private PlantPlacementScene pps;
 	
 	private final boolean DEBUG = true;
 	ArrayList<ImageView> ivs = new ArrayList<ImageView>();
@@ -44,9 +44,9 @@ public class Controller extends Application {
 		//TODO put something here?
 	}
 	
-	public Controller(MovingImageView miv) {
-		this.miv = miv;
-		gardenModel = new Model(View.getCanvasHeight(), View.getCanvasWidth());
+	public Controller(PlantPlacementScene pps) {
+		this.pps = pps;
+		gardenModel = new Model(View.getCanvasWidth(), View.getCanvasHeight());
 		if (DEBUG) System.out.println("ic created");
 	}
 	
@@ -56,7 +56,7 @@ public class Controller extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		view = new View(theStage, this);
-		gardenModel = new Model(View.getCanvasHeight(), View.getCanvasWidth());
+		gardenModel = new Model(View.getCanvasWidth(), View.getCanvasHeight());
 		theStage.show();
 	}
 
@@ -88,8 +88,8 @@ public class Controller extends Application {
 		if (DEBUG) System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX() );
 		gardenModel.setX(gardenModel.getX() + event.getX()); //event.getX() is the amount of horiz drag
 		gardenModel.setY(gardenModel.getY() + event.getY());
-		miv.setX(gardenModel.getX());
-		miv.setY(gardenModel.getY());
+		pps.setX(gardenModel.getX());
+		pps.setY(gardenModel.getY());
 		//n.setTranslateX(n.getTranslateX() + event.getX()); //not MVC! what problem does this create?
 		//n.setTranslateY(n.getTranslateY() + event.getY());
 	}

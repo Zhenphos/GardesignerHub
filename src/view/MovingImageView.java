@@ -28,16 +28,15 @@ import mvc.View;
 public class MovingImageView extends Scene {
 
 	static Group root = new Group();
-	private Controller imc;
-	private ImageView iv1;
-	private final double WIDTH = 800;
-	private final double HEIGHT = 600;
-	//Scene scene;
+	public Controller imc;
+	public ImageView iv1;
+	public final double WIDTH = 1000; //800;
+	public final double HEIGHT = 750; //600;
 	
 	public MovingImageView(){
 		super(root);
 		iv1 = new ImageView();
-		imc = new Controller(this);
+		//imc = new Controller(this);
     	movePlants();
 	}
 	
@@ -48,7 +47,7 @@ public class MovingImageView extends Scene {
 		gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		Image im1 = new Image(ClassLoader.getSystemResourceAsStream("resources/commonMilkweed.png"));
+		Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
     	//Image im1 = new Image(getClass().getResourceAsStream("resources/commonMilkweed.png"));
     	iv1.setImage(im1);
     	iv1.setPreserveRatio(true);
@@ -90,18 +89,22 @@ public class MovingImageView extends Scene {
     	
         //stage.setScene(scene);
         
-		iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + imc.getStartingX());
-		iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + imc.getStartingY());
+		//iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + imc.getStartingX());
+		//iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + imc.getStartingY());
+    	iv1.setTranslateX(100);
+    	iv1.setTranslateY(100);
 
         //stage.show();
     }
 	
     public void setX(double x) {
-    	iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
+    	//iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
+    	iv1.setTranslateX(iv1.getLayoutX() + WIDTH / 2 + x);
     }
     
     public void setY(double y) {
-    	iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
+    	//iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
+    	iv1.setTranslateY(iv1.getLayoutY() + HEIGHT / 2 + y);
     }
     
     public ImageView makeCopy() {
