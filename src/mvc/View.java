@@ -59,6 +59,7 @@ public class View {
 	static DrawScene drawScene = new DrawScene();
 	static LoadingScene loadingScene = new LoadingScene();
 	static PlantPlacementScene plantPlacementScene = new PlantPlacementScene();
+	static MovingImageView miv = new MovingImageView(); // TEST --------------------------------
 	static PlantInfoScene plantInfoScene = new PlantInfoScene();
 	static TimesScene timesScene = new TimesScene();
 	static RatingScene ratingScene = new RatingScene();
@@ -266,6 +267,11 @@ public class View {
 	 */
 	public static TimesScene getTimesScene() {
 		return timesScene;
+	}
+	
+	// TEST ----------------------------------------------------------------------
+	public static MovingImageView getMovingImageView() {
+		return miv;
 	}
 
 	/**

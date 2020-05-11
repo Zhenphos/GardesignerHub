@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import view.MovingImageView;
 import view.PlantInfoScene;
 import view.PlantPlacementScene;
 
@@ -36,13 +37,11 @@ public class Controller extends Application {
 	private View view;
 	private MovingImageView miv;
 	
-	// test
-	//private PlantPlacementScene pps = new PlantPlacementScene();
 	private final boolean DEBUG = true;
 	ArrayList<ImageView> ivs = new ArrayList<ImageView>();
 	
 	public Controller() {
-		
+		//TODO put something here?
 	}
 	
 	public Controller(MovingImageView miv) {

@@ -31,10 +31,10 @@ import mvc.View;
 
 public class PlantPlacementScene extends Scene {
 	static Group plantPlacementGroup = new Group();
-	//private Controller imc;// = new Controller(this);
-	//private ImageView iv1 = new ImageView(); // test
-	//private final double WIDTH = 800; // test
-	//private final double HEIGHT = 600; // test
+	private Controller imc;// = new Controller(this);
+	private ImageView iv1 = new ImageView(); // test
+	private final double WIDTH = 800; // test
+	private final double HEIGHT = 600; // test
 
 	public PlantPlacementScene() {
 		super(plantPlacementGroup);
@@ -113,7 +113,8 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTimesScene());
+				//View.getStage().setScene(View.getTimesScene());
+				View.getStage().setScene(View.getMovingImageView());
 			}
 		};
 
@@ -153,8 +154,7 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	// test
-	/*
-	public void setX(double x) {
+	/*public void setX(double x) {
     	iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
     }
 	
