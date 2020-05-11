@@ -127,11 +127,11 @@ public class TimesScene extends Scene {
 
 		root.getChildren().add(prevButton);
 
-		Button mainMenuButton = createMainMenuButton();
+		Button mainMenuButton = View.createMainMenuButton();
 
 		root.getChildren().add(mainMenuButton);
 
-		Button tutorialButton = createTutorialButton();
+		Button tutorialButton = View.createTutorialButton();
 
 		root.getChildren().add(tutorialButton);
 
@@ -155,41 +155,6 @@ public class TimesScene extends Scene {
 
 		nextButton.setOnAction(nextButtonAction);
 		return nextButton;
-	}
-
-	private Button createTutorialButton() {
-		Button tutorialButton = new Button("Help");
-
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
-		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				final Stage helpStage = new Stage();
-				helpStage.initModality(Modality.APPLICATION_MODAL);
-				helpStage.setScene(View.getTutorialScene());
-				helpStage.show();
-			}
-		};
-
-		tutorialButton.setOnAction(tutorialButtonAction);
-		return tutorialButton;
-	}
-
-	private Button createMainMenuButton() {
-		Button mainMenuButton = new Button("Main Menu");
-
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-		return mainMenuButton;
 	}
 
 	private Button createPrevButton() {
