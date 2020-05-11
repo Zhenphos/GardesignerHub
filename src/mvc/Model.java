@@ -1,5 +1,6 @@
 package mvc;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import objects.GardenObject;
@@ -11,7 +12,7 @@ import objects.GardenObject;
  *
  */
 
-public class Model {
+public class Model implements Serializable{
 	private int amountOfLight;
 	private int amountOfRain;
 	private int maxTemperature;
@@ -19,7 +20,7 @@ public class Model {
 	private int canvasHeight;
 	private int canvasWidth;
 	private String soilType;
-	private static Collection<GardenObject> myObjects;
+	private Collection<GardenObject> myObjects;
 	
 	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
@@ -31,7 +32,7 @@ public class Model {
 	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
-	public static Collection<GardenObject> getGardenObjects() {
+	public Collection<GardenObject> getGardenObjects() {
 		return myObjects;
 	}
 	
@@ -50,7 +51,7 @@ public class Model {
 	 * @param fileName the file which contains a map you wish to load in
 	 * @return a collection of garden objects which creates your map
 	 */
-	public static Collection<GardenObject> load(String fileName) {
+	public Collection<GardenObject> load(String fileName) {
 		return myObjects;
 
 	}
