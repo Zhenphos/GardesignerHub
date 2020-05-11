@@ -130,9 +130,7 @@ public class Controller extends Application {
 	 * 
 	 * @param file - the file to be saved
 	 */
-	public void saveFile() {
-		String filename = "resources/garden.ser";
-
+	public void saveFile(File filename) {
 		// Serialization
 		try {
 			// Saving of object in a file
@@ -161,20 +159,16 @@ public class Controller extends Application {
 	 * 
 	 * @param file - the garden project to be loaded
 	 */
-	public void loadFile(File fie) {
+	public void loadFile(File filename) {
 		try
         {    
             // Reading the object from a file 
-            FileInputStream file = new FileInputStream("resource/garden.ser"); 
+            FileInputStream file = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(file); 
 
             // Method for deserialization of object 
             Model model = null;
-            while (in.available()>0) {
-            	model = (Model)in.readObject();
-                System.out.println("hello");
-               // System.out.println(employee.toString());
-            }
+            model = (Model)in.readObject();
             System.out.println("working");
 
             in.close(); 
