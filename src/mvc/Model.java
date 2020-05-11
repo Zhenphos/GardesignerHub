@@ -42,6 +42,30 @@ public class Model implements Serializable {
 	public void setSoilPH(double soilPH) {
 		this.soilPH = soilPH;
 	}
+
+	public int getAmountOfLight() {
+		return this.amountOfLight;
+	}
+
+	public int getAmountOfRain() {
+		return this.amountOfRain;
+	}
+
+	public int getTemperature() {
+		return this.temperature;
+	}
+
+	public double getSoilPH() {
+		return this.soilPH;
+	}
+
+	public int getCanvasWidth() {
+		return this.canvasWidth;
+	}
+
+	public int getCanvasHeight() {
+		return this.canvasHeight;
+	}
 	
 	/**
 	 * Gets the GardenObjects in your garden
