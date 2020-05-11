@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-//import view.MovingImageView;
 import view.PlantInfoScene;
 import view.PlantPlacementScene;
 
@@ -38,7 +37,7 @@ public class Controller extends Application {
 	private PlantPlacementScene pps;
 	
 	private final boolean DEBUG = true;
-	ArrayList<ImageView> ivs = new ArrayList<ImageView>();
+	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
 	
 	public Controller() {
 		//TODO put something here?
@@ -90,8 +89,16 @@ public class Controller extends Application {
 		gardenModel.setY(gardenModel.getY() + event.getY());
 		pps.setX(gardenModel.getX());
 		pps.setY(gardenModel.getY());
-		//n.setTranslateX(n.getTranslateX() + event.getX()); //not MVC! what problem does this create?
-		//n.setTranslateY(n.getTranslateY() + event.getY());
+	}
+	
+    public void makeCopy(MouseEvent event) {
+    	Node n = (Node)event.getSource();
+    	if (DEBUG) System.out.println("Copy made");
+    	ImageView iv2 = (ImageView) n;
+    }
+	
+	public EventHandler<MouseEvent> getHandlerForDragEntered() {
+		return event -> makeCopy((MouseEvent) event);
 	}
 	
 	public EventHandler<MouseEvent> getHandlerForDrag() {

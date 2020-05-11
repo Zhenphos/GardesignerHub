@@ -32,15 +32,18 @@ import mvc.View;
 
 public class PlantPlacementScene extends Scene {
 	static Group root = new Group();
-	// test
 	public Controller imc;
 	public ImageView iv1;
+	public ImageView iv2;
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
+	public final double buttonYPos = 740;
+	public int numCopies = 0;
 
 	public PlantPlacementScene() {
 		super(root);
 		iv1 = new ImageView();
+		iv2 = new ImageView();
 		imc = new Controller(this);
 		placePlant();
 	}
@@ -61,7 +64,8 @@ public class PlantPlacementScene extends Scene {
 		iv1.setImage(im1);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
-		iv1.setOnMouseDragged(imc.getHandlerForDrag());
+		//iv1.setOnMouseDragEntered(imc.getHandlerForDragEntered());
+		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
 		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
 		
 		//BorderPane border = new BorderPane(iv1);
@@ -93,6 +97,29 @@ public class PlantPlacementScene extends Scene {
 		}
 		imageBar.getChildren().add(iv1);
 		top.getChildren().add(imageBar);
+		
+		iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("Mouse clicked");
+				View.getStage().setScene(View.getPlantInfoScene());
+			}
+		});
+		
+		iv1.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("Mouse dragged");
+				iv2.setImage(im1);
+				iv2.setPreserveRatio(true);
+				iv2.setFitHeight(100);
+				iv2.setOnMouseDragged(imc.getHandlerForDrag());
+				imc.ivs.add(iv2);
+				StackPane sp = new StackPane(imc.ivs.get(numCopies));
+				center.getChildren().add(sp);
+				numCopies++;
+			}
+		});
 
 		BorderPane.setMargin(center, new Insets(0, 12.5, 0, 12.5));
 		center.setPadding(new Insets(View.getCanvasHeight() / 2.5, 50, 0, 0));
@@ -104,7 +131,7 @@ public class PlantPlacementScene extends Scene {
 		Button prevButton = new Button("Prev");
 		root.getChildren().add(prevButton);
 		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(600);
+		prevButton.setTranslateY(buttonYPos);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -117,12 +144,11 @@ public class PlantPlacementScene extends Scene {
 		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
 		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(600);
+		nextButton.setTranslateY(buttonYPos);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getTimesScene());
-				//View.getStage().setScene(View.getMovingImageView());
 			}
 		};
 
@@ -132,7 +158,7 @@ public class PlantPlacementScene extends Scene {
 		/*Button plantButton = new Button("Choose a Plant");
 		root.getChildren().add(plantButton);
 		plantButton.setTranslateX(View.getCanvasWidth() / 2);
-		plantButton.setTranslateY(210);
+		plantButton.setTranslateY(210);*/
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -140,14 +166,14 @@ public class PlantPlacementScene extends Scene {
 			}
 		};
 
-		plantButton.setOnAction(plantButtonAction);*/
+		//plantButton.setOnAction(plantButtonAction);
 
 		// main menu button start
 
 		Button mainMenuButton = new Button("Main Menu");
 		root.getChildren().add(mainMenuButton);
 		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(600);
+		mainMenuButton.setTranslateY(buttonYPos);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -164,17 +190,18 @@ public class PlantPlacementScene extends Scene {
 	// test
     public void setX(double x) {
     	//iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
-    	iv1.setTranslateX(iv1.getLayoutX() + WIDTH / 2 + x);
+    	iv2.setTranslateX(iv1.getLayoutX() + WIDTH / 2 + x);
     }
     
     public void setY(double y) {
     	//iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
-    	iv1.setTranslateY(iv1.getLayoutY() + HEIGHT / 2 + y);
+    	iv2.setTranslateY(iv1.getLayoutY() + HEIGHT / 2 + y);
     }
     
-    public ImageView makeCopy() {
-    	ImageView iv2 = iv1;
-    	return iv2;
+    public ImageView makeCopy(ImageView iv) {
+    	ImageView newImageView = iv;
+    	imc.ivs.add(newImageView);
+    	return newImageView;
     }
 
 }
