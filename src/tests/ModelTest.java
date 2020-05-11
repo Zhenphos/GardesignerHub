@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.junit.Test;
 
 import mvc.Model;
+import mvc.View;
 import objects.GardenObject;
 import objects.Plant;
 
@@ -20,7 +21,8 @@ public class ModelTest {
 	@Test
 	public void testAddGardenObject() {
 		Plant p = new Plant();
-		Collection<GardenObject> c = Model.getGardenObjects();
+		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		Collection<GardenObject> c = m.getGardenObjects();
 		Model.addGardenObject(p);
 		assertEquals(c.size(), c.size() + 1);
 
@@ -35,7 +37,8 @@ public class ModelTest {
 	public void testLoad() {
 		fail("Not yet implemented"); // TODO
 		String filename = " ";
-		Collection<GardenObject> c = Model.load(filename);
+		Model model = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		Collection<GardenObject> c = model.load(filename);
 		if (c.size() == 0)
 			fail("No object loaded in the collection");
 
