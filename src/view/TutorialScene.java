@@ -51,7 +51,7 @@ public class TutorialScene extends Scene {
 		Text scenetitle = new Text("Tutorial");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 24));
 		border.setTop(scenetitle);
-		BorderPane.setMargin(scenetitle, new Insets(View.lGap * 2, 0, 0, 0));
+		BorderPane.setMargin(scenetitle, new Insets(View.lGap));
 
 		Text infoTutorial = new Text();
 		infoTutorial.setText(

@@ -100,7 +100,7 @@ public class TimesScene extends Scene {
 		sliderBox.setAlignment(Pos.CENTER);
 
 		HBox bottom = new HBox(sliderBox, radioBox);
-		bottom.setPadding(new Insets(View.mGap));
+		bottom.setPadding(new Insets(View.sGap));
 		bottom.setSpacing(View.getCanvasWidth() * 3 / 8);
 		bottom.setAlignment(Pos.CENTER);
 		bottom.setStyle("-fx-border-color: black");

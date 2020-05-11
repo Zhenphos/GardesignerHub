@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -60,26 +61,52 @@ public class DrawScene extends Scene {
 		top.getChildren().add(scenetitle);
 		top.setAlignment(Pos.CENTER);
 
-		Label plant = new Label("Plant \t {Plant Image}");
-		Label road = new Label("Road \t {Road Image}");
-		Label stream = new Label("Stream \t {Stream Image}");
-		Label shade = new Label("Shade \t {Label Image}");
-		Label object = new Label("Object \t {Object Image}");
+		Label grass = new Label("Grass \t\t");
+		Label road = new Label("Road \t\t");
+		Label stream = new Label("Stream \t\t");
+		Label shade = new Label("Shade \t\t");
+		Label object = new Label("Object \t\t");
+		Label delete = new Label("Delete \t \t");
+		
+		Button grassButton = new Button("Grass");
+		Button roadButton = new Button("Road");
+		Button streamButton = new Button("Stream");
+		Button shadeButton = new Button("Shade");
+		Button objectButton = new Button("Object");
+		Button deleteButton = new Button("Delete");
+		
+		HBox grassBox = new HBox(grass, grassButton);
+		HBox roadBox = new HBox(road, roadButton);
+		HBox streamBox = new HBox(stream, streamButton);
+		HBox shadeBox = new HBox(shade, shadeButton);
+		HBox objectBox = new HBox(object, objectButton);
+		HBox deleteBox = new HBox(delete, deleteButton);
+		
+		GridPane items = new GridPane();
+				
+		items.add(grassBox, 0, 0);
+		items.add(roadBox, 0, 1);
+		items.add(streamBox, 0, 2);
+		items.add(shadeBox, 0, 3);
+		items.add(objectBox, 0, 4);
+		items.add(deleteBox, 0, 5);
+		items.setVgap(View.sGap);
+		items.setHgap(View.mGap);
 
-		left.setPadding(new Insets(View.lGap)); // (top, right. bottom, left)
+		left.setPadding(new Insets(View.lGap)); // (top, right, bottom, left)
 		left.setStyle("-fx-border-color: black");
 		left.setVgap(4);
 		left.setHgap(4);
 		left.setPrefWrapLength(150);
 		BorderPane.setMargin(left, new Insets(100, View.lGap, View.lGap, View.lGap));
-		left.getChildren().addAll(plant, road, stream, shade, object);
+		left.getChildren().add(items);
 
-		center.setPadding(new Insets(150, 450, 150, 150));
-		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
+		center.setPadding(new Insets(150, 300, 150, 300));
+		BackgroundFill background_fill = new BackgroundFill(null, CornerRadii.EMPTY, Insets.EMPTY);
 		Background background = new Background(background_fill);
 		center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
-
+		
 		BorderPane.setMargin(center, new Insets(100, 0, 0, 100));
 
 		Image drawBackground;

@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.scene.paint.Color;
+
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
@@ -7,7 +9,9 @@ package objects;
  */
 
 public class Stream extends GardenObject {
+	Shape shape;
+	
 	public Stream() {
-		// TODO Auto-generated constructor stub
+		shape = new Shape(Color.LIGHTBLUE);
 	}
 }
