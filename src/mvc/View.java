@@ -79,6 +79,7 @@ public class View {
 		theStage.setScene(mainMenuScene);
 		this.controller = controller;
 		this.initializeLoadingScene();
+		gardenInfoScene.setController(controller);
 	}
 
 	public void initializeLoadingScene() {
@@ -88,7 +89,8 @@ public class View {
 		});
 		loadingScene.getSaveButton().setOnMouseClicked(event -> {
 			FileChooser chooser = new FileChooser();
-			this.controller.saveFile(chooser.showSaveDialog(theStage));
+			//this.controller.saveFile(chooser.showSaveDialog(theStage));
+			this.controller.saveFile();
 		});
 	}
 

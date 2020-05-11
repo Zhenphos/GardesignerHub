@@ -11,8 +11,10 @@ import objects.Plant2;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,22 +26,23 @@ import java.util.Arrays;
  */
 
 public class Controller extends Application {
+
 	/**
 	 * the main method for the program
 	 * 
 	 * @param args - an array of strings
+	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		ArrayList<Plant2> allPlants = importPlants();
 		// System.out.println("allPlants is " + allPlants);
 		launch(args);
 	}
 
-	public static ArrayList<Plant2> importPlants() {
+	public static ArrayList<Plant2> importPlants() throws FileNotFoundException {
 		ArrayList<Plant2> plantList = new ArrayList<>();
 
 		String csvFile = "";
-
 		try {
 			csvFile = "resources/NewMoonNurseryPlants.csv";
 			System.out.println("Found CSV file");
@@ -54,6 +57,8 @@ public class Controller extends Application {
 
 		try {
 			bReader = new BufferedReader(new FileReader(csvFile));
+			System.out.println("Found CSV file");
+
 			while ((line = bReader.readLine()) != null) {
 				csvLine = line.split(charToSplitBy);
 				plantList.add(new Plant2(csvLine[0], csvLine[1], csvLine[2], csvLine[3], csvLine[4], csvLine[5]));
@@ -99,8 +104,30 @@ public class Controller extends Application {
 	 * 
 	 * @param file - the file to be saved
 	 */
-	public void saveFile(File file) {
-		System.out.println(file);
+	public void saveFile() {
+		String filename = "resources/garden.ser";
+
+		// Serialization
+		try {
+			// Saving of object in a file
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			// Method for serialization of object
+			out.writeObject(this.gardenModel);
+
+			out.close();
+			file.close();
+
+			System.out.println("Object has been serialized");
+
+		}
+
+		catch (IOException ex) {
+			System.out.println("IOException is caught");
+		}
+
+		// System.out.println(file);
 	}
 
 	/**
@@ -110,6 +137,13 @@ public class Controller extends Application {
 	 */
 	public void loadFile(File file) {
 		System.out.println(file);
+	}
+
+	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
+		this.gardenModel.setAmountOfLight(light);
+		this.gardenModel.setAmountOfRain(rain);
+		this.gardenModel.setSoilPH(soilPH);
+		this.gardenModel.setTemperature(temp);
 	}
 
 }

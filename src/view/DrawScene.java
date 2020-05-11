@@ -111,7 +111,7 @@ public class DrawScene extends Scene {
 
 		Image drawBackground;
 		drawBackground = View.createImage("resources/drawImage.png");
-		// drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
+		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
 		// View.getCanvasHeight());
 
 		Button prevButton = createPrevButton();
