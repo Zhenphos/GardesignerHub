@@ -155,6 +155,11 @@ public class PlantPlacementScene extends Scene {
 
 	}
 
+	/**
+	 * Creates the tutorial button
+	 * 
+	 * @return the tutorial button
+	 */
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
 
@@ -174,6 +179,11 @@ public class PlantPlacementScene extends Scene {
 		return tutorialButton;
 	}
 
+	/**
+	 * Creates the main menu button
+	 * 
+	 * @return the main menu button
+	 */
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
 
@@ -209,6 +219,11 @@ public class PlantPlacementScene extends Scene {
 		return choosePlantButton;
 	}*/
 
+	/**
+	 * Creates the next button
+	 * 
+	 * @return the next button
+	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);

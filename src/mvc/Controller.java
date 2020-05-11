@@ -209,6 +209,12 @@ public class Controller extends Application {
 		pps.setY(model.getY());
 	}
 	
+	/**
+	 * Makes a copy of an ImageView if there is user mouse input on
+	 * one of the ImageViews in the dock.
+	 * 
+	 * @param event - event triggered by mouse click
+	 */
     public void makeCopy(MouseEvent event) {
     	Node n = (Node)event.getSource();
     	if (DEBUG) System.out.println("Copy made");
@@ -243,6 +249,7 @@ public class Controller extends Application {
 	}
 	
 	/**
+	 * Adds a garden object to the plot
 	 * 
 	 * @param object the object that will be loaded into the model
 	 */
