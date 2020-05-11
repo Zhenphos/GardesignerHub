@@ -22,6 +22,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mvc.View;
 
 /**
@@ -37,7 +39,7 @@ public class PlantPlacementScene extends Scene {
 	public ImageView iv2;
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
-	public final double buttonYPos = 740;
+	//public final double buttonYPos = 740;
 	public int numCopies = 0;
 
 	public PlantPlacementScene() {
@@ -73,9 +75,7 @@ public class PlantPlacementScene extends Scene {
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
 		root.getChildren().add(border);
-		AnchorPane center = new AnchorPane(); // ----------------------------------
-		//iv1.setTranslateX(100);
-    	//iv1.setTranslateY(100);
+		AnchorPane center = new AnchorPane();
 		
 		BorderPane.setMargin(top, new Insets(50, 12.5, 50, 12.5));
 		
@@ -128,52 +128,53 @@ public class PlantPlacementScene extends Scene {
 		//center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 
-		Button prevButton = new Button("Prev");
+		Button prevButton = createPrevButton();
+
 		root.getChildren().add(prevButton);
-		prevButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4);
-		prevButton.setTranslateY(buttonYPos);
 
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
-			}
-		};
+		Button nextButton = createNextButton();
 
-		prevButton.setOnAction(prevButtonAction);
-
-		Button nextButton = new Button("Next");
 		root.getChildren().add(nextButton);
-		nextButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4);
-		nextButton.setTranslateY(buttonYPos);
-
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTimesScene());
-			}
-		};
-
-		nextButton.setOnAction(nextButtonAction);
 
 		// TODO replace with selecting plant from image
-		/*Button plantButton = new Button("Choose a Plant");
-		root.getChildren().add(plantButton);
-		plantButton.setTranslateX(View.getCanvasWidth() / 2);
-		plantButton.setTranslateY(210);*/
+		Button choosePlantButton = createChoosePlantButton();
 
-		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
+		root.getChildren().add(choosePlantButton);
+
+		Button mainMenuButton = createMainMenuButton();
+
+		root.getChildren().add(mainMenuButton);
+
+		Button tutorialButton = createTutorialButton();
+
+		root.getChildren().add(tutorialButton);
+
+	}
+
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
+
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantInfoScene());
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
 			}
 		};
 
-		//plantButton.setOnAction(plantButtonAction);
+		tutorialButton.setOnAction(tutorialButtonAction);
+		return tutorialButton;
+	}
 
-		// main menu button start
-
+	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
-		root.getChildren().add(mainMenuButton);
-		mainMenuButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		mainMenuButton.setTranslateY(buttonYPos);
+
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -182,22 +183,68 @@ public class PlantPlacementScene extends Scene {
 		};
 
 		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
 
-		// main menu button end
+	private Button createChoosePlantButton() {
+		Button choosePlantButton = new Button("Choose a Plant");
 
+		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
+		choosePlantButton.setTranslateY(210);
+
+		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage pInfoStage = new Stage();
+				pInfoStage.initModality(Modality.APPLICATION_MODAL);
+				pInfoStage.setScene(View.getPlantInfoScene());
+				pInfoStage.show();
+			}
+		};
+
+		choosePlantButton.setOnAction(plantButtonAction);
+		return choosePlantButton;
+	}
+
+	private Button createNextButton() {
+		Button nextButton = new Button("Next");
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getTimesScene());
+			}
+		};
+
+		nextButton.setOnAction(nextButtonAction);
+		return nextButton;
+	}
+
+	private Button createPrevButton() {
+		Button prevButton = new Button("Prev");
+
+		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getDrawScene());
+			}
+		};
+
+		prevButton.setOnAction(prevButtonAction);
+		return prevButton;
 	}
 	
-	// test
     public void setX(double x) {
-    	//iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
     	iv2.setTranslateX(iv1.getLayoutX() + WIDTH / 2 + x);
     }
     
     public void setY(double y) {
-    	//iv1.setTranslateY(iv1.getLayoutY() - HEIGHT/2 + y);
     	iv2.setTranslateY(iv1.getLayoutY() + HEIGHT / 2 + y);
     }
     
+    // experimental
     public ImageView makeCopy(ImageView iv) {
     	ImageView newImageView = iv;
     	imc.ivs.add(newImageView);

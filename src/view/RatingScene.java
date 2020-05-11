@@ -40,7 +40,9 @@ public class RatingScene extends Scene {
 	public RatingScene() {
 		super(container);
 		this.ratingSceneGroup = new BorderPane();
-		this.ratingSceneGroup.setPadding(new Insets(10));
+		this.ratingSceneGroup.setPadding(new Insets(View.mGap));
+		this.ratingSceneGroup.setMinWidth(View.getCanvasWidth());
+		this.ratingSceneGroup.setMinHeight(View.getCanvasHeight());
 		container.getChildren().add(this.ratingSceneGroup);
 
 		VBox left = new VBox();
@@ -51,7 +53,7 @@ public class RatingScene extends Scene {
 		left.getChildren().add(ratingText);
 		this.ratingbox = new HBox();
 		for (int i = 0; i < 5; i++) {
-			ImageView iv = new ImageView(new Image("resources/star.png"));
+			ImageView iv = new ImageView(View.createImage("resources/star.png"));
 			iv.setFitHeight(100);
 			iv.setPreserveRatio(true);
 			this.ratingbox.getChildren().add(iv);
@@ -69,43 +71,20 @@ public class RatingScene extends Scene {
 		center.getChildren().add(this.improveBox);
 		this.ratingSceneGroup.setCenter(center);
 
-		// "Save/Load" button
-		Button saveLoadButton = new Button("Save/Load");
-
-		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				View.getStage().setScene(View.getLoadingScene());
-			}
-		});
-		// Save/Load end
-
-		// main menu button start
-		Button mainMenuButton = new Button("Main Menu");
-
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-		// main menu button end
+		Button saveLoadButton = createSaveLoadButton();
+		
+		Button mainMenuButton = createMainMenuButton();
 
 		HBox buttonGroup = new HBox();
 		buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
-		buttonGroup.setSpacing(10);
-		Button btnPrev = new Button("Prev");
-		btnPrev.setOnMouseClicked(event -> {
-			View.getStage().setScene(View.getTimesScene());
-		});
-		buttonGroup.getChildren().add(btnPrev);
-		// add save/load button
+		buttonGroup.setSpacing(View.mGap);
+		
+		Button prevButton = createPrevButton();
+		
+		buttonGroup.getChildren().add(prevButton);
 		buttonGroup.getChildren().add(saveLoadButton);
 		center.getChildren().add(buttonGroup);
-		// add save/load button
 		center.getChildren().add(saveLoadButton);
-		// add main menu button
 		center.getChildren().add(mainMenuButton);
 
 		AnchorPane top = new AnchorPane();
@@ -115,5 +94,40 @@ public class RatingScene extends Scene {
 		top.setStyle("-fx-border-color: black");
 		this.ratingSceneGroup.setTop(top);
 
+	}
+
+	private Button createPrevButton() {
+		Button prevButton = new Button("Prev");
+		
+		prevButton.setOnMouseClicked(event -> {
+			View.getStage().setScene(View.getTimesScene());
+		});
+		return prevButton;
+	}
+
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+
+	private Button createSaveLoadButton() {
+		Button saveLoadButton = new Button("Save/Load");
+
+		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				View.getStage().setScene(View.getLoadingScene());
+			}
+		});
+
+		return saveLoadButton;
 	}
 }

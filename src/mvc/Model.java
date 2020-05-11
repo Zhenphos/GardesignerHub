@@ -1,5 +1,6 @@
 package mvc;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import objects.GardenObject;
@@ -10,16 +11,16 @@ import objects.GardenObject;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-// TEST COMMENT
-public class Model {
+
+public class Model implements Serializable {
+
 	private int amountOfLight;
 	private int amountOfRain;
-	private int maxTemperature;
-	private int minTemperature;
+	private int temperature;
 	private int canvasHeight;
 	private int canvasWidth;
-	private String soilType;
-	private static Collection<GardenObject> myObjects;
+	private double soilPH;
+	private Collection<GardenObject> myObjects;
 	
 	private double x = 100;
 	private double y = 200;
@@ -30,13 +31,53 @@ public class Model {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
 	}
+
+	public void setAmountOfLight(int light) {
+		this.amountOfLight = light;
+	}
+
+	public void setAmountOfRain(int rain) {
+		this.amountOfRain = rain;
+	}
+
+	public void setTemperature(int temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setSoilPH(double soilPH) {
+		this.soilPH = soilPH;
+	}
+
+	public int getAmountOfLight() {
+		return this.amountOfLight;
+	}
+
+	public int getAmountOfRain() {
+		return this.amountOfRain;
+	}
+
+	public int getTemperature() {
+		return this.temperature;
+	}
+
+	public double getSoilPH() {
+		return this.soilPH;
+	}
+
+	public int getCanvasWidth() {
+		return this.canvasWidth;
+	}
+
+	public int getCanvasHeight() {
+		return this.canvasHeight;
+	}
 	
 	/**
 	 * Gets the GardenObjects in your garden
 	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
-	public static Collection<GardenObject> getGardenObjects() {
+	public Collection<GardenObject> getGardenObjects() {
 		return myObjects;
 	}
 	
@@ -55,7 +96,7 @@ public class Model {
 	 * @param fileName the file which contains a map you wish to load in
 	 * @return a collection of garden objects which creates your map
 	 */
-	public static Collection<GardenObject> load(String fileName) {
+	public Collection<GardenObject> load(String fileName) {
 		return myObjects;
 
 	}

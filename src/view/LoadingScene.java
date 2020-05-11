@@ -44,7 +44,9 @@ public class LoadingScene extends Scene {
 	public LoadingScene() {
 		super(loadingSceneGroup);
 		this.container = new BorderPane();
-		this.container.setPadding(new Insets(10));
+		this.container.setPadding(new Insets(View.mGap));
+		this.container.setMinWidth(View.getCanvasWidth());
+		this.container.setMinHeight(View.getCanvasHeight());
 		loadingSceneGroup.getChildren().add(this.container);
 
 		this.btnSave = new Button("Save");
@@ -53,7 +55,8 @@ public class LoadingScene extends Scene {
 		this.btnLoad = new Button("Load");
 		this.btnLoad.setMaxWidth(Double.MAX_VALUE);
 
-		this.backButton = new Button("BACK");
+		createBackButton();
+
 		this.backButton.setMaxWidth(Double.MAX_VALUE);
 
 		HBox buttonGroup = new HBox(this.backButton, this.btnSave, this.btnLoad);
@@ -63,16 +66,6 @@ public class LoadingScene extends Scene {
 
 		buttonGroup.setAlignment(Pos.CENTER);
 		buttonGroup.setSpacing(10);
-
-		// "BACK" Button event handler
-		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		// "BACK" Button on click action
-		backButton.setOnAction(backButtonAction);
 
 		this.saves = new TableView<>();
 		TableColumn<Save, String> nameColumn = new TableColumn<>("Name");
@@ -90,7 +83,7 @@ public class LoadingScene extends Scene {
 		left.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.container.setLeft(left);
-		this.container.setMargin(left, new Insets(0, 10, 0, 0));
+		this.container.setMargin(left, new Insets(0, View.mGap, 0, 0));
 
 		Pane canvasContainer = new Pane();
 		this.canvas = new Canvas(400, 400);
@@ -109,10 +102,22 @@ public class LoadingScene extends Scene {
 
 		VBox center = new VBox();
 		center.getChildren().addAll(canvasContainer, fileInfoGroup);
-		center.setSpacing(10);
+		center.setSpacing(View.mGap);
 		VBox.setVgrow(fileInfoGroup, Priority.ALWAYS);
 		this.container.setCenter(center);
 
+	}
+
+	private void createBackButton() {
+		backButton = new Button("BACK");
+
+		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		backButton.setOnAction(backButtonAction);
 	}
 
 	public Button getSaveButton() {

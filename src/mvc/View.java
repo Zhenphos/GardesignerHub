@@ -1,5 +1,6 @@
 package mvc;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -11,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -34,7 +37,7 @@ import objects.GardenObject;
 import view.*;
 
 /**
- * View class for Garden Planner
+ * View class for Garden Designer
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -47,8 +50,10 @@ public class View {
 	private TilePane gardenTilePane;
 	private HashMap<String, String> plants;
 
-	static int canvasWidth = 1000;
-	static int canvasHeight = 750;
+	static Rectangle2D screenBoundary = Screen.getPrimary().getVisualBounds();
+	static int canvasWidth = (int) screenBoundary.getWidth() * 6 / 8;
+	static int canvasHeight = (int) screenBoundary.getHeight() * 6 / 8;
+
 	GraphicsContext mainMenuGC;
 	Image mainMenuBackground;
 	static Stage theStage;
@@ -63,12 +68,18 @@ public class View {
 	static TimesScene timesScene = new TimesScene();
 	static RatingScene ratingScene = new RatingScene();
 
+	public final static int sGap = 5;
+	public final static int mGap = 10;
+	public final static int lGap = 25;
+
 	public View(Stage stage, Controller controller) {
 		theStage = stage;
-		theStage.setTitle("Garden Planner Alpha");
+		theStage.setResizable(false);
+		theStage.setTitle("Garden Designer");
 		theStage.setScene(mainMenuScene);
 		this.controller = controller;
 		this.initializeLoadingScene();
+		gardenInfoScene.setController(controller);
 	}
 
 	public void initializeLoadingScene() {
@@ -78,12 +89,13 @@ public class View {
 		});
 		loadingScene.getSaveButton().setOnMouseClicked(event -> {
 			FileChooser chooser = new FileChooser();
-			this.controller.saveFile(chooser.showSaveDialog(theStage));
+			//this.controller.saveFile(chooser.showSaveDialog(theStage));
+			this.controller.saveFile();
 		});
 	}
 
-	public static Image createImage(String file) {
-		Image someImage = new Image(file);
+	public static Image createImage(String pathToFile) {
+		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
 	}
 
@@ -275,6 +287,41 @@ public class View {
 	 */
 	public static RatingScene getRatingScene() {
 		return ratingScene;
+	}
+	
+	public static Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
+
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
+
+		tutorialButton.setOnAction(tutorialButtonAction);
+		return tutorialButton;
+	}
+
+	public static Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
 	}
 
 }

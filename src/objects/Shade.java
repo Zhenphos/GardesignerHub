@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.scene.paint.Color;
+
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
@@ -9,9 +11,10 @@ package objects;
 public class Shade extends GardenObject {
 	double darknessLevel;
 	String direction;
+	Shape shape;
 	
 	public Shade() {
-		// TODO Auto-generated constructor stub
+		shape = new Shape(Color.GREY);
 	}
 
 }
