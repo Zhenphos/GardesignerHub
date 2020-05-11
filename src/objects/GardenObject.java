@@ -1,7 +1,5 @@
 package objects;
 
-import javafx.scene.shape.Shape;
-
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
@@ -9,16 +7,30 @@ import javafx.scene.shape.Shape;
  */
 
 public abstract class GardenObject {
-	int height;
-	Shape someShape;
-	int width;
-	int xLoc;
-	int yLoc;
+	Shape shape;
+	double xLoc;
+	double yLoc;
 
 	/**
 	 * creates a GardenObject of a specific shape
 	 */
 	public void makeShape() {
 
+	}
+	
+	/**
+	 * 
+	 * @return the shape of the object
+	 */
+	public Shape getShape() {
+		return shape;
+	}
+	
+	public double getX() {
+		return xLoc;
+	}
+	
+	public double getY() {
+		return yLoc;
 	}
 }

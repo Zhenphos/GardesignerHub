@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
  *
  */
 
-public class Road extends GardenObject {
+public class Grass extends GardenObject {
 	
-	public Road() {
-		shape = new Shape(Color.LIGHTYELLOW);
+	public Grass() {
+		shape = new Shape(Color.LAWNGREEN);
 		xLoc = this.shape.getXValue();
 		yLoc = this.shape.getYValue();
 	}
-	
 }

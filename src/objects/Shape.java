@@ -12,8 +12,8 @@ import javafx.scene.shape.Polygon;
  *
  */
 
-public class Shape extends GardenObject {
-	Collection<Vertex> vertices = new ArrayList<Vertex>();
+public class Shape {
+	ArrayList<Vertex> vertices = new ArrayList<Vertex>(8);
 	Polygon shape = new Polygon();
 	
 	/**
@@ -46,7 +46,7 @@ public class Shape extends GardenObject {
 	 * 
 	 * @return the collection of vertexes for the polygon
 	 */
-	public Collection<Vertex> getVertices() {		
+	public ArrayList<Vertex> getVertices() {		
 		return vertices;
 	}
 	
@@ -55,6 +55,57 @@ public class Shape extends GardenObject {
 	 * @return a new polygon with default size and shape
 	 */
 	public Polygon getPolygon() {
+		for (Vertex vertex : vertices) {
+            shape.getPoints().addAll(vertex.getPoint());
+        }
 		return shape;
+	}
+	
+	/**
+	 * 
+	 * @return the x position of the shape
+	 */
+	public double getXValue() {
+		double min;
+		double max;
+		if (vertices.get(0) != null) {
+			min = vertices.get(0).getX();
+			max = vertices.get(0).getX();
+			for (Vertex vertex:vertices) {
+				if (vertex.getX() < min) {
+					min = vertex.getX();
+				}
+				if (vertex.getX() > max) {
+					max = vertex.getX();
+				}
+			}
+			return (min + max)/2;
+		} else {
+			return 0;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return the y position of the shape
+	 */
+	public double getYValue() {
+		double min;
+		double max;
+		if (vertices.get(0) != null) {
+			min = vertices.get(0).getY();
+			max = vertices.get(0).getY();
+			for (Vertex vertex:vertices) {
+				if (vertex.getY() < min) {
+					min = vertex.getY();
+				}
+				if (vertex.getY() > max) {
+					max = vertex.getY();
+				}
+			}
+			return (min + max)/2;
+		} else {
+			return 0;
+		}
 	}
 }
