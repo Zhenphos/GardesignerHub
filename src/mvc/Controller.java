@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Controller class for Garden Designer
@@ -35,7 +37,7 @@ public class Controller extends Application {
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		ArrayList<Plant2> allPlants = importPlants();
-		// System.out.println("allPlants is " + allPlants);
+		System.out.println("allPlants is " + allPlants);
 		launch(args);
 	}
 
@@ -61,7 +63,14 @@ public class Controller extends Application {
 
 			while ((line = bReader.readLine()) != null) {
 				csvLine = line.split(charToSplitBy);
+				Pattern searchPattern = Pattern.compile("\\d+");
+				Matcher matcher = searchPattern.matcher(csvLine[1]);
+				while (matcher.find()) {
+					int testInt = Integer.parseInt(matcher.group());
+					System.out.println("int is " + testInt);
+				}
 				plantList.add(new Plant2(csvLine[0], csvLine[1], csvLine[2], csvLine[3], csvLine[4], csvLine[5]));
+				System.out.println("break");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
