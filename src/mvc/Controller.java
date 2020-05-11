@@ -13,10 +13,12 @@ import view.PlantPlacementScene;
 import objects.Plant2;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,9 +161,41 @@ public class Controller extends Application {
 	 * 
 	 * @param file - the garden project to be loaded
 	 */
-	public void loadFile(File file) {
-		System.out.println(file);
+	public void loadFile(File fie) {
+		try
+        {    
+            // Reading the object from a file 
+            FileInputStream file = new FileInputStream("resource/garden.ser"); 
+            ObjectInputStream in = new ObjectInputStream(file); 
+
+            // Method for deserialization of object 
+            Model model = null;
+            while (in.available()>0) {
+            	model = (Model)in.readObject();
+                System.out.println("hello");
+               // System.out.println(employee.toString());
+            }
+            System.out.println("working");
+
+            in.close(); 
+            file.close(); 
+              
+            System.out.println("Object has been deserialized "); 
+            System.out.println("amount of light = " + model.getAmountOfLight()); 
+        } 
+          
+        catch(IOException ex) 
+        {
+        	ex.printStackTrace();
+        } 
+          
+        catch(ClassNotFoundException ex) 
+        { 
+            System.out.println("ClassNotFoundException is caught"); 
+        } 
+		//System.out.println(file);
 	}
+
 
 	/**
 	 * Uses user mouse input to move plant image around on screen
