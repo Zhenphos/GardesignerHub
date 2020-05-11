@@ -90,8 +90,8 @@ public class View {
 		});
 		loadingScene.getSaveButton().setOnMouseClicked(event -> {
 			FileChooser chooser = new FileChooser();
-			//this.controller.saveFile(chooser.showSaveDialog(theStage));
-			this.controller.saveFile();
+			this.controller.saveFile(chooser.showSaveDialog(theStage));
+			//this.controller.saveFile();
 		});
 	}
 
