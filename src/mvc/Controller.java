@@ -18,8 +18,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.opencsv.CSVReader;
-
 /**
  * Controller class for Garden Designer
  * 
@@ -28,14 +26,12 @@ import com.opencsv.CSVReader;
  */
 
 public class Controller extends Application {
-	// My eclipse has some problems with relative paths so I've to use absolute path to my resources folder, please ignore this
-	// You can change the path to your resource folder and it will work fine
-	public static String pathToResourceFolder = "/Users/hamza/Developer/CSC275/team-11-2/resources";
+
 	/**
 	 * the main method for the program
 	 * 
 	 * @param args - an array of strings
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		ArrayList<Plant2> allPlants = importPlants();
@@ -45,10 +41,10 @@ public class Controller extends Application {
 
 	public static ArrayList<Plant2> importPlants() throws FileNotFoundException {
 		ArrayList<Plant2> plantList = new ArrayList<>();
-		
+
 		String csvFile = "";
 		try {
-			csvFile = pathToResourceFolder + "/NewMoonNurseryPlants.csv";
+			csvFile = "resources/NewMoonNurseryPlants.csv";
 			System.out.println("Found CSV file");
 		} catch (Exception e) {
 			System.out.println("Error getting CSV file");
@@ -109,34 +105,29 @@ public class Controller extends Application {
 	 * @param file - the file to be saved
 	 */
 	public void saveFile() {
-		String filename = pathToResourceFolder + "/garden.ser"; 
-        
-        // Serialization  
-        try
-        {    
-            //Saving of object in a file 
-            FileOutputStream file = new FileOutputStream(filename); 
-            ObjectOutputStream out = new ObjectOutputStream(file); 
-              
-            // Method for serialization of object 
-            out.writeObject(this.gardenModel); 
-              
-            out.close(); 
-            file.close(); 
-              
-            System.out.println("Object has been serialized"); 
-  
-        } 
-          
-        catch(IOException ex) 
-        { 
-            System.out.println("IOException is caught"); 
-        } 
-  
-  
-      
+		String filename = "resources/garden.ser";
 
-		//System.out.println(file);
+		// Serialization
+		try {
+			// Saving of object in a file
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+
+			// Method for serialization of object
+			out.writeObject(this.gardenModel);
+
+			out.close();
+			file.close();
+
+			System.out.println("Object has been serialized");
+
+		}
+
+		catch (IOException ex) {
+			System.out.println("IOException is caught");
+		}
+
+		// System.out.println(file);
 	}
 
 	/**
