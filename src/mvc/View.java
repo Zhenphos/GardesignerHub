@@ -80,10 +80,7 @@ public class View {
 		this.controller = controller;
 		this.initializeLoadingScene();
 		gardenInfoScene.setController(controller);
-<<<<<<< HEAD
 		drawScene.setController(controller);
-=======
->>>>>>> master
 	}
 
 	public void initializeLoadingScene() {

@@ -23,11 +23,7 @@ public class ModelTest {
 		Plant p = new Plant();
 		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
 		Collection<GardenObject> c = m.getGardenObjects();
-<<<<<<< HEAD
 		m.addGardenObject(p);
-=======
-		Model.addGardenObject(p);
->>>>>>> master
 		assertEquals(c.size(), c.size() + 1);
 
 	}

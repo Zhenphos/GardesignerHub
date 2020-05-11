@@ -117,11 +117,7 @@ public class Controller extends Application {
 			ObjectOutputStream out = new ObjectOutputStream(file);
 
 			// Method for serialization of object
-<<<<<<< HEAD
 			out.writeObject(this.model);
-=======
-			out.writeObject(this.gardenModel);
->>>>>>> master
 
 			out.close();
 			file.close();
@@ -147,7 +143,6 @@ public class Controller extends Application {
 	}
 
 	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
-<<<<<<< HEAD
 		this.model.setAmountOfLight(light);
 		System.out.println("Light: " + light);
 		this.model.setAmountOfRain(rain);
@@ -165,12 +160,6 @@ public class Controller extends Application {
 	public void addGardenObject(GardenObject object) {
 		this.model.addGardenObject(object);
 		System.out.println("Added object");
-=======
-		this.gardenModel.setAmountOfLight(light);
-		this.gardenModel.setAmountOfRain(rain);
-		this.gardenModel.setSoilPH(soilPH);
-		this.gardenModel.setTemperature(temp);
->>>>>>> master
 	}
 
 }
