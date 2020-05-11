@@ -31,14 +31,14 @@ import mvc.View;
 
 public class PlantPlacementScene extends Scene {
 	static Group plantPlacementGroup = new Group();
-	private Controller imc = new Controller();
-	private ImageView iv1 = new ImageView(); // test
-	private final double WIDTH = 800; // test
-	private final double HEIGHT = 600; // test
+	//private Controller imc;// = new Controller(this);
+	//private ImageView iv1 = new ImageView(); // test
+	//private final double WIDTH = 800; // test
+	//private final double HEIGHT = 600; // test
 
 	public PlantPlacementScene() {
 		super(plantPlacementGroup);
-		placePlant();;
+		placePlant();
 	}
 
 	/**
@@ -53,14 +53,15 @@ public class PlantPlacementScene extends Scene {
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
 		// test
-		Image im1 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		/*Image im1 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
 		iv1.setImage(im1);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setOnMouseDragged(imc.getHandlerForDrag());
-		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
+		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());*/
 		
-		BorderPane border = new BorderPane(iv1);
+		//BorderPane border = new BorderPane(iv1);
+		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
 		plantPlacementGroup.getChildren().add(border);
@@ -152,6 +153,7 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	// test
+	/*
 	public void setX(double x) {
     	iv1.setTranslateX(iv1.getLayoutX() - WIDTH/2 + x);
     }
@@ -165,6 +167,6 @@ public class PlantPlacementScene extends Scene {
     public ImageView makeCopy() {
     	ImageView iv2 = iv1;
     	return iv2;
-    }
+    }*/
 
 }
