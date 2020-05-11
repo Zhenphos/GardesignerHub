@@ -63,13 +63,17 @@ for url in listOfPlantURLs:
     print("Current URL: " + url)
     raw_html = simple_get(url)
     soup = BeautifulSoup(raw_html, 'html.parser')
+    
     # get plant name
     name_box = soup.find('h2', attrs={'class': 'layoutA'})
     plantName = name_box.text.strip()
-    # end get plant name
-    listOfPlantAttributes = soup.find_all('div', attrs={'class': 'attribute'})
-    cleanedArray = []
     oneString += plantName + ";"
+    # end get plant name
+
+    # put plant attributes into one list
+    listOfPlantAttributes = soup.find_all('div', attrs={'class': 'attribute'})
+
+    cleanedArray = []
     cleanedArray.append(plantName)
 
     for element in listOfPlantAttributes:
@@ -95,6 +99,7 @@ for url in listOfPlantURLs:
     sleep(5)
 
 # after this I replaced the '\' with '' and replaced ';;' with '; ;'
+# from the resulting CSV with a text replacement tool
 with open(csvFileName, 'w', newline="") as csvfile:
     csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_NONE, escapechar='\\', delimiter=";")
     csvwriter.writerow(csvFields)
