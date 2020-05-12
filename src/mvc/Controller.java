@@ -55,7 +55,9 @@ public class Controller extends Application {
 
 		String csvFile = "";
 		try {
+			
 			csvFile = "resources/NewMoonNurseryPlants.csv";
+			//csvFile="/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv";
 			System.out.println("Found CSV file");
 		} catch (Exception e) {
 			System.out.println("Error getting CSV file");
