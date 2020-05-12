@@ -1,8 +1,10 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import enums.Names;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +22,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
@@ -211,27 +214,61 @@ public class PlantPlacementScene extends Scene {
 		*/
 		
 		// testing plant import in here
-		Collection<Plant2> allPlants = Controller.importPlants();
-		
+		ArrayList<Plant2> allPlants = Controller.importPlants();
+		System.out.print(allPlants.size());
+		ArrayList <ImageView> plantImages = Controller.importImages();
 		ListView<Plant2> plantListView = new ListView<Plant2>();
+		//ListView<ImageView> imageListView = new ListView<ImageView>();
+		//imageListView.setMinHeight(MIN_HEIGHT);
 		plantListView.setMinHeight(MIN_HEIGHT);
 		
 	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
+	   // ObservableList<ImageView> rawData = FXCollections.observableArrayList(plantImages);
+
 	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
-	    
+	    //FilteredList<ImageView> filteredList= new FilteredList<>(rawData, data -> true);
+	    // counter for lambda iterations
+	    AtomicInteger runCount= new AtomicInteger(0);
+
+	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
+	    	private ImageView imageview = new ImageView();
+	    	@Override
+	    	public void updateItem(Plant2 plant, boolean empty) {
+	    		super.updateItem(plant, empty);
+	    		if (empty) {
+	    			setText("empty");
+	    			setGraphic(null);
+	    		}else {
+	    			
+	    			//imageview.setImage(plantImages.get(allPlants.indexOf(this)).getImage());
+	    			if(runCount.get()>=plantImages.size()) {
+	    				runCount.set(0);
+	    			}
+	    			imageview.setImage(plantImages.get(runCount.get()).getImage());
+	    			setText(allPlants.get(runCount.get()).toString());
+	    			imageview.setFitHeight(100);
+	    			setGraphic(imageview);
+	    			runCount.getAndIncrement();
+	    		}
+	    	}
+	    	
+	    });
 	    TextField searchBox = new TextField();
 	    
 	    // need to use textfield with filtered list
 	  
 	    Label label = new Label();
 	    topVbox.getChildren().addAll(plantListView, label);
+	    //topVbox.getChildren().addAll(imageListView);
 	    label.setLayoutX(10);
         label.setLayoutY(115);
 	    //label.setLayoutY(300);
         label.setFont(Font.font("Verdana", 20));
         
-        //plantListView.setItems(rawData);
+        //plantListView.setItems(rawData); //already commented
         plantListView.setItems(filteredList);
+       // imageListView.setItems(filteredList);
+       // imageListView.setItems(rawData);
 
 	}
 	
