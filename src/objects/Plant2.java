@@ -11,39 +11,38 @@ import java.util.HashSet;
 
 public class Plant2 extends GardenObject {
 
-	public Plant2(String plantBotanicalName, String height, String spread, String spacing, String usdaHardinessZone,
-			String bloomColors) {
+	public Plant2(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
+			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {
 		super();
 		this.plantBotanicalName = plantBotanicalName;
-		this.height = height;
-		this.spread = spread;
-		this.spacing = spacing;
-		this.USDAHardinessZone = usdaHardinessZone;
+		this.heightMinInches = heightMinInches;
+		this.heightMaxInches = heightMaxInches;
+		this.spreadMin = spreadMin;
+		this.spreadMax = spreadMax;
+		this.spacingMin = spacingMin;
+		this.spacingMax = spacingMax;
+		this.hardinessMin = hardinessMin;
+		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
 	}
 
 	String plantBotanicalName;
-	String height;
-	String spread;
-	String spacing;
-	String USDAHardinessZone;
+	int heightMinInches;
+	int heightMaxInches;
+	int spreadMin;
+	int spreadMax;
+	int spacingMin;
+	int spacingMax;
+	int hardinessMin;
+	int hardinessMax;
 	String bloomColors;
 
 	@Override
 	public String toString() {
-		return "Plant2 [plantBotanicalName=" + plantBotanicalName + ", height=" + height + ", spread=" + spread
-				+ ", spacing=" + spacing + ", USDAHardinessZone=" + USDAHardinessZone + ", bloomColors=" + bloomColors
-				+ "] \n";
+		return "Plant2 [plantBotanicalName=" + plantBotanicalName + ", heightMinInches=" + heightMinInches
+				+ ", heightMaxInches=" + heightMaxInches + ", spreadMin=" + spreadMin + ", spreadMax=" + spreadMax
+				+ ", spacingMin=" + spacingMin + ", spacingMax=" + spacingMax + ", hardinessMin=" + hardinessMin
+				+ ", hardinessMax=" + hardinessMax + ", bloomColors=" + bloomColors + "]";
 	}
-
-	/*
-	 * HashSet<String> nativeTo; String plantCaption; String plantCommonName;
-	 * HashSet<String> wildlifeAttracted; HashSet<String> plantAttributes;
-	 * HashSet<String> sunlightExposure; HashSet<String> deerResistant;
-	 * HashSet<String> floweringMonths; HashSet<String> foliageColor;
-	 * HashSet<String> groundcoverFootTrafficTolerances; HashSet<String> growthRate;
-	 * HashSet<String> saltTolerance; HashSet<String> seasonOfInterest;
-	 * HashSet<String> soilMoisturePreference;
-	 */
 
 }

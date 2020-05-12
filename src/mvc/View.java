@@ -100,7 +100,7 @@ public class View {
 
 	/**
 	 * Sets the active scene to the associated screen
-	 * @param name the key that gets the appropiate scene
+	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
 		this.stage.setScene(this.getScene(name));
