@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import enums.Season;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -38,6 +40,7 @@ public class View {
 	public static final int HEIGHT = 600;
 	public static final int SPACING = 10;
 
+	// Constant Variables for styling used by all scenes
 	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
@@ -82,7 +85,7 @@ public class View {
 		this.initializeRatings();
 		this.stage.setResizable(false);
 		this.stage.setTitle(TITLE);
-		this.stage.setScene(this.screens.get(Screen.MAIN_MENU));
+		this.stage.setScene(this.screens.get(Screen.TIMES));
 	}
 
 	/**
@@ -157,6 +160,10 @@ public class View {
 	 */
 	private void initializeTimes() {
 		TimesScene scene = (TimesScene) this.screens.get(Screen.TIMES);
+		scene.getPrevButton().setOnAction(event -> this.controller.onTimesPrev());
+		scene.getNextButton().setOnAction(event -> this.controller.onTimesNext());
+		scene.getAgeSlider().valueProperty().addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
+		scene.getSeasonGroup().selectedToggleProperty().addListener(((observable, oldValue, newValue) -> this.controller.onTimesSetSeason((Season)newValue.getUserData())));
 	}
 
 	/**

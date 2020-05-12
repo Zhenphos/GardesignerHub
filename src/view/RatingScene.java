@@ -1,5 +1,6 @@
 package view;
 
+import enums.Season;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -36,6 +37,7 @@ public class RatingScene extends Scene {
 	public RatingScene() {
 		super(new Group());
 	}
+
 
 	/**
 	 * Creates the rating scene which displays a calculated rating for the user's

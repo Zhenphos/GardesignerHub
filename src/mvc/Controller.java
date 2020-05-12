@@ -1,5 +1,6 @@
 package mvc;
 
+import enums.Season;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -159,6 +160,22 @@ public class Controller extends Application {
 	 */
 	public void onTimesNext() {
 		this.view.setScreen(View.Screen.RATING);
+	}
+
+	/**
+	 * Event handler for when the user selects a season radio button on the TimesScene
+	 * @param season the new season the garden is in
+	 */
+	public void onTimesSetSeason(Season season) {
+		// to do: update model and update image view for garden
+	}
+
+	/**
+	 * Event handler for when the user moves the age slider on the TimesScene
+	 * @param age the age in years of the garden to set to
+	 */
+	public void onTimesSetAge(double age) {
+		// to do: update model and update image view for garden
 	}
 
 	/**

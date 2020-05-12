@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import enums.Season;
 import objects.GardenObject;
 
 /**
@@ -21,6 +22,8 @@ public class Model implements Serializable {
 	private int canvasHeight;
 	private int canvasWidth;
 	private double soilPH;
+	private double age;
+	private Season season;
 	private Collection<GardenObject> myObjects;
 	
 	private double x = 100;
