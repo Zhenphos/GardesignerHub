@@ -104,18 +104,18 @@ public class PlantPlacementScene extends Scene {
 		imageView01.setPreserveRatio(true);
 		imageView01.setFitHeight(100);
 
-		BorderPane borderPane = new BorderPane();
+		BorderPane leftPane = new BorderPane();
 		VBox topVbox = new VBox(5);
 		
 		topVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
 
-		root.getChildren().add(borderPane);
+		root.getChildren().add(leftPane);
 		
 		BorderPane.setMargin(topVbox, new Insets(50, 12.5, 50, 12.5));
 		
 		//borderPane.setMinHeight(500);
 		
-		borderPane.setTop(topVbox);
+		leftPane.setTop(topVbox);
 		//border.setCenter(center);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -210,33 +210,10 @@ public class PlantPlacementScene extends Scene {
 	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
 	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
 	    
-	    TextField myTextField = new TextField();
+	    TextField searchBox = new TextField();
 	    
-	    /*
-	    myTextField.textProperty().addListener(obs->{
-	        String filter = myTextField.getText(); 
-	        if(filter == null || filter.length() == 0) {
-	            filteredData.setPredicate(s -> true);
-	        }
-	        else {
-	            filteredData.setPredicate(s -> s.contains(filter));
-	        }
-	    });
-	    */
-	    
-	    /*
-	    myTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
-	        filteredList.setPredicate(data -> {
-	            if (newValue == null || newValue.isEmpty()){
-	                return true;
-	            }
-	            String lowerCaseSearch = newValue.toLowerCase();
-	            return String.valueOf(data.contains(lowerCaseSearch);
-	        });
-	    }));
-	    */
-	    
-	    
+	    // need to use textfield with filtered list
+	  
 	    Label label = new Label();
 	    topVbox.getChildren().addAll(plantListView, label);
 	    label.setLayoutX(10);
