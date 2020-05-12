@@ -26,18 +26,15 @@ public class Plant extends GardenObject {
 	int minRain;
 	int maxRain;
 	int size;
-	String filename;
-	ImageView img;
+
 
 	/**
 	 * the constructor for Plant
 	 */
-	public Plant(int i) {
-		// TODO Auto-generated constructor stub
-		Image temp = new Image (new File("resources/plant1.jpg").toURI().toString());
-		img.setImage(temp);
+	
+	public Plant() {
+		
 	}
-	public Plant() {}
 
 	/**
 	 * 
@@ -163,13 +160,6 @@ public class Plant extends GardenObject {
 		size++;
 	}
 
-	public ImageView getImg() {
-		return img;
-	}
-
-	public void setImg(ImageView img) {
-		this.img = img;
-	}
 
 	/**
 	 * Checks if the plant meets minimum specified requirements.
