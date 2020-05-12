@@ -1,28 +1,29 @@
 package view;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import mvc.Controller;
 import mvc.View;
+import objects.GardenObject;
 import objects.Grass;
 import objects.Road;
 import objects.Shade;
@@ -107,12 +108,16 @@ public class DrawScene extends Scene {
 		border.setTop(top);
 		border.setLeft(left);
 		border.setCenter(center);
+		
+		border.setMargin(center, new Insets(View.lGap));
+		border.setMargin(left, new Insets(0, 0, 0, View.lGap));
 
 		Text scenetitle = new Text("\t\t\t\tDraw Garden");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		top.getChildren().add(scenetitle);
 		top.setAlignment(Pos.CENTER);
+		top.setPrefHeight(100);
 
 		Label grass = new Label("Grass \t\t");
 		Label road = new Label("Road \t\t");
@@ -148,19 +153,18 @@ public class DrawScene extends Scene {
 
 		left.setPadding(new Insets(View.lGap)); // (top, right, bottom, left)
 		left.setStyle("-fx-border-color: black");
-		left.setVgap(4);
-		left.setHgap(4);
+		left.setVgap(View.lGap);
+		left.setHgap(View.sGap);
 		left.setPrefWrapLength(150);
-		BorderPane.setMargin(left, new Insets(100, View.lGap, View.lGap, View.lGap));
 		left.getChildren().add(items);
+		left.setPrefHeight(View.getCanvasHeight() * 3/5);
 
-		center.setPadding(new Insets(150, 300, 150, 300));
+		center.setPrefHeight(View.getCanvasHeight() * 3/5);
+		center.setPrefWidth(View.getCanvasWidth() * 3/4);
 		BackgroundFill background_fill = new BackgroundFill(null, CornerRadii.EMPTY, Insets.EMPTY);
 		Background background = new Background(background_fill);
 		center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
-
-		BorderPane.setMargin(center, new Insets(100, 0, 0, 100));
 
 		Image drawBackground;
 		drawBackground = View.createImage("resources/drawImage.png");
@@ -210,10 +214,68 @@ public class DrawScene extends Scene {
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				//View.getStage().setScene(View.getMainMenuScene());
+				View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
 		prevButton.setOnAction(prevButtonAction);
 		return prevButton;
+	}
+	
+	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
+		return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Polygon polygon = object.getShape().getPolygon();
+				center.getChildren().add(polygon);
+				controller.addGardenObject(object);
+				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+				    }
+				});
+				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			        @Override
+			        public void handle(MouseEvent event) {
+			            double changeX = event.getSceneX() - mousePosition.get().getX();
+			            double changeY = event.getSceneY() - mousePosition.get().getY();
+			            
+			            if (polygon.getLayoutX() < 0) {
+			            	polygon.setLayoutX(0);
+			            } else { 
+				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+			            }
+			            
+			            if (polygon.getLayoutY() < 0) {
+			            	polygon.setLayoutY(0);
+			            } else {
+				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+			            }
+			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			        }
+			    });
+			}
+		};
+	}
+	
+	public void setController(Controller controller) {
+		this.controller = controller;
+		
+		this.grassButton.setOnAction(createButtonAction(new Grass()));
+
+		this.roadButton.setOnAction(createButtonAction(new Road()));
+
+		this.streamButton.setOnAction(createButtonAction(new Stream()));
+		
+		this.woodsButton.setOnAction(createButtonAction(new Woods()));
+
+		this.shadeButton.setOnAction(createButtonAction(new Shade()));
+		
+		EventHandler<ActionEvent> deleteButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+			}
+		};
+		this.deleteButton.setOnAction(deleteButtonAction);
 	}
 }

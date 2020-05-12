@@ -1,7 +1,12 @@
 package view;
 
 import java.io.File;
+import java.util.List;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +18,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +33,7 @@ import mvc.Controller;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
+import objects.Plant;
 
 /**
  * 
@@ -39,6 +46,8 @@ public class PlantPlacementScene extends Scene {
 	public Controller imc;
 	public ImageView iv1;
 	public ImageView iv2;
+	public ImageView imageview[] = new ImageView [10];
+	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
@@ -46,8 +55,14 @@ public class PlantPlacementScene extends Scene {
 
 	public PlantPlacementScene() {
 		super(root);
+		
+		//iv1 = new ImageView[10];
 		iv1 = new ImageView();
 		iv2 = new ImageView();
+		for(int i=0; i<10;i++) {
+			
+		}
+		
 		imc = new Controller(this);
 		placePlant();
 	}
@@ -63,16 +78,23 @@ public class PlantPlacementScene extends Scene {
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("/resources/commonMilkweed.png"));
-		Image im1 = new Image(new File("resources/commonMilkweed.png").toURI().toString());
+		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
+		
+		Image im1 = new Image(new File("/Users/hamza/Developer/CSC275/team-11-2/resources/commonMilkweed.png").toURI().toString());		
+		//Image temp = new Image (new File("resources/plant2.jpg").toURI().toString());
 		iv1.setImage(im1);
+		ImageView tempview = new ImageView();
+		
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
+		tempview.setPreserveRatio(true);
+		tempview.setFitHeight(100);
 		//iv1.setOnMouseDragEntered(imc.getHandlerForDragEntered());
 		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
 		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
-		
+
 		//BorderPane border = new BorderPane(iv1);
+
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
@@ -93,14 +115,34 @@ public class PlantPlacementScene extends Scene {
 		imageBar.maxHeight(100);
 		imageBar.setStyle("-fx-border-color: black");
 		imageBar.setPadding(new Insets(50, 0, 50, 0));
-		for (int i = 0; i < 10; i++) {
-			imageBar.getChildren().add(new Label("{Plant image " + (int) (i + 1) + "}"));
+
+		for (int i = 0,j=0; j < 20; j++) {
+			i=j%10;
+			System.out.println(i);
+			images[i] = View.createImage("resources/plant"+Integer.toString((i+1))+".jpg");
+
+			//images[i] = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant"+Integer.toString((i+1))+".jpg");
+			imageview[i]= new ImageView();
+			imageview[i].setImage(images[i]);
+			imageview[i].setPreserveRatio(true);
+			imageview[i].setFitHeight(100);
+			imageBar.getChildren().addAll(imageview[i]);
 			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
-		imageBar.getChildren().add(iv1);
-		top.getChildren().add(imageBar);
+		//Plant p = new Plant(0);
+		//imageBar.getChildren().addAll(iv1);
+		//imageBar.getChildren().addAll(p.getImg());
 		
-		/*iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+		top.getChildren().add(imageBar);
+				
+		// Scroll bar
+		ScrollBar sc = new ScrollBar();
+		sc.setMin(0);
+		sc.setMax(100);
+		sc.setValue(50);
+		top.getChildren().add(sc);
+		
+		imageview[0].addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
@@ -108,7 +150,7 @@ public class PlantPlacementScene extends Scene {
 			}
 		});*/
 		
-		iv1.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+		imageview[0].addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse dragged");
