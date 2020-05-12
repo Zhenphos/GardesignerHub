@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +28,7 @@ import mvc.Controller;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
+import objects.Plant;
 
 /**
  * 
@@ -39,6 +41,7 @@ public class PlantPlacementScene extends Scene {
 	public Controller imc;
 	public ImageView iv1;
 	public ImageView iv2;
+	public Plant plants[];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
@@ -46,8 +49,11 @@ public class PlantPlacementScene extends Scene {
 
 	public PlantPlacementScene() {
 		super(root);
+		
+		//iv1 = new ImageView[10];
 		iv1 = new ImageView();
 		iv2 = new ImageView();
+		
 		imc = new Controller(this);
 		placePlant();
 	}
@@ -63,15 +69,20 @@ public class PlantPlacementScene extends Scene {
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 		
-		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("/resources/commonMilkweed.png"));
-		Image im1 = new Image(new File("resources/commonMilkweed.png").toURI().toString());
+		Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
+		
+		//Image im1 = new Image(new File("/Users/hamza/Developer/CSC275/team-11-2/resources/commonMilkweed.png").toURI().toString());		
+		Image temp = new Image (new File("resources/plant2.jpg").toURI().toString());
 		iv1.setImage(im1);
+		ImageView tempview = new ImageView();
+		tempview.setImage(temp);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
+		tempview.setPreserveRatio(true);
+		tempview.setFitHeight(100);
 		//iv1.setOnMouseDragEntered(imc.getHandlerForDragEntered());
 		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
 		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
-		
 		//BorderPane border = new BorderPane(iv1);
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
@@ -93,11 +104,19 @@ public class PlantPlacementScene extends Scene {
 		imageBar.maxHeight(100);
 		imageBar.setStyle("-fx-border-color: black");
 		imageBar.setPadding(new Insets(50, 0, 50, 0));
-		for (int i = 0; i < 10; i++) {
-			imageBar.getChildren().add(new Label("{Plant image " + (int) (i + 1) + "}"));
+
+		for (int i = 1; i < 11; i++) {
+			
+		
+			plants[i] = new Plant(i);
+			System.out.println(i);
+			imageBar.getChildren().add(plants[i].getImg());
 			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
-		imageBar.getChildren().add(iv1);
+		//Plant p = new Plant(0);
+		//imageBar.getChildren().addAll(iv1);
+		//imageBar.getChildren().addAll(p.getImg());
+		
 		top.getChildren().add(imageBar);
 		
 		iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
