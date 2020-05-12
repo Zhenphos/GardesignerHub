@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
-
-
+import enums.Names;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +70,7 @@ public class PlantPlacementScene extends Scene {
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
 	public int numCopies = 0;
+	private Button btnPrev, btnHelp, btnLoad;
 
 	public Pane getCenter() {
 		return this.center;
@@ -78,6 +78,11 @@ public class PlantPlacementScene extends Scene {
 	
 	public PlantPlacementScene() {
 		super(root);
+		/*
+		this.btnPrev = this.createButton(NEW_BUTTON_TEXT);
+		this.btnHelp = this.createButton(HELP_BUTTON_TEXT);
+		this.btnLoad = this.createButton(LOAD_BUTTON_TEXT);
+		*/
 		
 		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
@@ -326,7 +331,7 @@ public class PlantPlacementScene extends Scene {
 			}
 		};
 
-		prevButton.setOnAction(prevButtonAction);
+		//prevButton.setOnAction(View.initializePlantPlacement());
 		return prevButton;
 	}
 	
@@ -344,5 +349,16 @@ public class PlantPlacementScene extends Scene {
     	imc.imageViewArrayList.add(newImageView);
     	return newImageView;
     }
+    
+    private Button createButton(String text) {
+		Button btn = new Button(text);
+		btn.setStyle(View.BUTTON_STYLE);
+		return btn;
+	}
+
+	public Button getBtnPrev() {
+		return btnPrev;
+	}
+
 
 }

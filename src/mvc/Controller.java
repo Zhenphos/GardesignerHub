@@ -419,12 +419,14 @@ public class Controller extends Application {
 				System.out.println("Added object");
 				model.addGardenObject(object);
 				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+				
 				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent event) {
 						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
 				    }
 				});
+				
 				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			        @Override
 			        public void handle(MouseEvent event) {
