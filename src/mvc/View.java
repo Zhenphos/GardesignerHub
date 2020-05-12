@@ -4,19 +4,20 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import enums.Season;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import objects.GardenObject;
@@ -35,12 +36,13 @@ public class View {
 	public final static int mGap = 10;
 	public final static int lGap = 25;
 
+	// Window Constants
 	public static final String TITLE = "Garden Designer";
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = (int) Screen.getPrimary().getBounds().getWidth() * 6 / 8;
+	public static final int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight() * 6 / 8;
 	public static final int SPACING = 10;
 
-	// Constant Variables for styling used by all scenes
+	// GUI Styling Constants
 	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
@@ -48,32 +50,73 @@ public class View {
 	public static final String BUTTON_STYLE = "-fx-font: 32 arial;";
 	public static final String TEXT_FIELD_STYLE = "";
 
+	// Button Texts
+	public static final String PREV_BUTTON_TEXT = "Previous";
+	public static final String NEXT_BUTTON_TEXT = "Next";
+	public static final String SAVE_BUTTON_TEXT = "Save";
+	public static final String BROWSE_BUTTON_TEXT = "Browse";
+	public static final String EDIT_BUTTON_TEXT = "Edit";
+
+	// Images
+	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
+
+	// Dialog Text
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
 	private static final String INVALID_INPUT_TEXT = "Please ensure all the fields are filled out with numeric values.";
 
-	public static final String PREV_BUTTON_TEXT = "Previous";
-	public static final String NEXT_BUTTON_TEXT = "Next";
+	private static final String DISCARD_TITLE = "Discard Changes";
+	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
+
+	private static final String GARDEN_FILE_EXTENSION = ".ser";
+	private static final String GARDEN_FILE_NAME = String.format("Garden Files *(%s)", GARDEN_FILE_EXTENSION);
 
 	private Stage stage;
 	private Controller controller;
 	private FileChooser chooser;
-	private Map<Screen, Scene> screens;
+	private Map<Name, Scene> screens;
 
 	public View(Stage stage, Controller controller) {
 		this.stage = stage;
 		this.controller = controller;
 		this.chooser = new FileChooser();
 		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		this.chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(GARDEN_FILE_NAME, GARDEN_FILE_EXTENSION));
 		this.screens = new HashMap<>();
-		this.screens.put(Screen.MAIN_MENU, new MainMenuScene());
-		this.screens.put(Screen.GARDEN_INFO, new GardenInfoScene());
-		this.screens.put(Screen.TUTORIAL, new TutorialScene());
-		this.screens.put(Screen.DRAW, new DrawScene());
-		this.screens.put(Screen.LOADING, new LoadingScene());
-		this.screens.put(Screen.PLANT_PLACEMENT, new PlantPlacementScene());
-		this.screens.put(Screen.PLANT_INFO, new PlantInfoScene());
-		this.screens.put(Screen.TIMES, new TimesScene());
-		this.screens.put(Screen.RATING, new RatingScene());
+		this.screens.put(Name.MAIN_MENU, new MainMenuScene());
+		this.screens.put(Name.GARDEN_INFO, new GardenInfoScene());
+		this.screens.put(Name.TUTORIAL, new TutorialScene());
+		this.screens.put(Name.DRAW, new DrawScene());
+		this.screens.put(Name.LOADING, new LoadingScene());
+		this.screens.put(Name.PLANT_PLACEMENT, new PlantPlacementScene());
+		this.screens.put(Name.PLANT_INFO, new PlantInfoScene());
+		this.screens.put(Name.TIMES, new TimesScene());
+		this.screens.put(Name.RATING, new RatingScene());
+		this.initializeEvents();
+		this.stage.setResizable(false);
+		this.stage.setTitle(TITLE);
+		this.stage.setScene(this.screens.get(Name.MAIN_MENU));
+	}
+
+	/**
+	 * Sets the active scene to the associated screen
+	 * @param name the key that gets the appropiate scene
+	 */
+	public void setScreen(Name name) {
+		this.stage.setScene(this.getScene(name));
+	}
+
+	/**
+	 * @param name
+	 * @return the scene associated with
+	 */
+	public Scene getScene (Name name) {
+		return this.screens.get(name);
+	}
+
+	/**
+	 * Initializes events for all the scenes.
+	 */
+	private void initializeEvents() {
 		this.initializeMainMenu();
 		this.initializeGardenInfo();
 		this.initializeTutorial();
@@ -83,28 +126,13 @@ public class View {
 		this.initializePlantInfo();
 		this.initializeTimes();
 		this.initializeRatings();
-		this.stage.setResizable(false);
-		this.stage.setTitle(TITLE);
-		this.stage.setScene(this.screens.get(Screen.TIMES));
-	}
-
-	/**
-	 * Sets the active scene to the associated screen
-	 * @param screen the key that gets the appropiate scene
-	 */
-	public void setScreen(Screen screen) {
-		this.stage.setScene(this.getScene(screen));
-	}
-
-	public Scene getScene (Screen screen) {
-		return this.screens.get(screen);
 	}
 
 	/**
 	 * Initializes event handlers for MainMenuScene
 	 */
 	private void initializeMainMenu() {
-		MainMenuScene scene = (MainMenuScene)this.screens.get(Screen.MAIN_MENU);
+		MainMenuScene scene = (MainMenuScene) this.screens.get(Name.MAIN_MENU);
 		scene.getNewButton().setOnAction(event -> this.controller.onMainMenuNew());
 		scene.getHelpButton().setOnAction(event -> this.controller.onMainMenuHelp());
 		scene.getLoadButton().setOnAction(event -> this.controller.onMainMenuLoad());
@@ -114,7 +142,7 @@ public class View {
 	 * Initializes event handlers for GardenInfoScene
 	 */
 	private void initializeGardenInfo() {
-		GardenInfoScene scene = (GardenInfoScene) this.screens.get(Screen.GARDEN_INFO);
+		GardenInfoScene scene = (GardenInfoScene) this.screens.get(Name.GARDEN_INFO);
 		scene.getPrevButton().setOnAction(event -> this.controller.onGardenInfoPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onGardenInfoNext());
 	}
@@ -123,7 +151,7 @@ public class View {
 	 * Initializes event handlers for TutorialScene
 	 */
 	private void initializeTutorial() {
-		TutorialScene scene = (TutorialScene) this.screens.get(Screen.TUTORIAL);
+		TutorialScene scene = (TutorialScene) this.screens.get(Name.TUTORIAL);
 		scene.getPrevButton().setOnAction(event -> this.controller.onTutorialPrev());
 	}
 
@@ -131,35 +159,46 @@ public class View {
 	 * Initializes event handlers for DrawScene
 	 */
 	private void initializeDraw() {
-		DrawScene scene = (DrawScene) this.screens.get(Screen.DRAW);
+		DrawScene scene = (DrawScene) this.screens.get(Name.DRAW);
+		scene.getPrevButton().setOnAction(event -> this.controller.onDrawPrev());
+		scene.getNextButton().setOnAction(event -> this.controller.onDrawNext());
+		scene.getGrassButton().setOnAction(event -> this.controller.onDrawGrass());
+		scene.getRoadbutton().setOnAction(event -> this.controller.onDrawRoad());
+		scene.getStreamButton().setOnAction(event -> this.controller.onDrawStream());
+		scene.getWoodsButton().setOnAction(event -> this.controller.onDrawWoods());
+		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
+		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawDelete());
 	}
 
 	/**
 	 * Initializes event handlers for LoadingScene
 	 */
 	private void initializeLoadingScene() {
-		LoadingScene scene = (LoadingScene) this.screens.get(Screen.LOADING);
+		LoadingScene scene = (LoadingScene) this.screens.get(Name.LOADING);
+		scene.getBrowseButton().setOnAction(event -> this.controller.onLoadingBrowse());
+		scene.getPrevButton().setOnAction(event -> this.controller.onLoadingPrev());
+		scene.getEditButton().setOnAction(event -> this.controller.onLoadingEdit());
 	}
 
 	/**
 	 * Initializes event handlers for PlantPlacementScene
 	 */
 	private void initializePlantPlacement() {
-		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Screen.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Name.PLANT_PLACEMENT);
 	}
 
 	/**
 	 * Initializes event handlers for PlantInfoScene
 	 */
 	private void initializePlantInfo() {
-		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Screen.PLANT_INFO);
+		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Name.PLANT_INFO);
 	}
 
 	/**
 	 * Initializes event handlers for TimesScene
 	 */
 	private void initializeTimes() {
-		TimesScene scene = (TimesScene) this.screens.get(Screen.TIMES);
+		TimesScene scene = (TimesScene) this.screens.get(Name.TIMES);
 		scene.getPrevButton().setOnAction(event -> this.controller.onTimesPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onTimesNext());
 		scene.getAgeSlider().valueProperty().addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
@@ -170,7 +209,9 @@ public class View {
 	 * Initializes event handlers for RatingsScene
 	 */
 	private void initializeRatings() {
-		RatingScene scene = (RatingScene) this.screens.get(Screen.RATING);
+		RatingScene scene = (RatingScene) this.screens.get(Name.RATING);
+		scene.getPrevButton().setOnAction(event -> this.controller.onRatingPrev());
+		scene.getSaveButton().setOnAction(event -> this.controller.onRatingSave());
 	}
 
 	/**
@@ -199,6 +240,13 @@ public class View {
 		return this.chooser.showOpenDialog(this.stage);
 	}
 
+	public Optional<ButtonType> showDiscardDialog() {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle(DISCARD_TITLE);
+		alert.setContentText(DISCARD_TEXT);
+		return alert.showAndWait();
+	}
+
 	public static Image createImage(String pathToFile) {
 		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
@@ -210,7 +258,7 @@ public class View {
 	 * @param someObjects a collection of garden objects which make up the map
 	 * @return an ImageView of the map so the user can see the map.
 	 */
-	ImageView generateMap(Collection<GardenObject> someObjects) {
+	public ImageView generateMap(Collection<GardenObject> someObjects) {
 		return null;
 	}
 
@@ -222,9 +270,8 @@ public class View {
 	 * @param season    the season in which the plant is shown
 	 * @return an ImageView of the plant
 	 */
-	ImageView generateView(String plantName, int year, Season season) {
+	public ImageView generateView(String plantName, int year, Season season) {
 		return null;
-
 	}
 
 	/**
@@ -247,7 +294,7 @@ public class View {
 		return HEIGHT;
 	}
 
-	public enum Screen {
+	public enum Name {
 		MAIN_MENU,
 		GARDEN_INFO,
 		TUTORIAL,

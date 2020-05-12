@@ -1,33 +1,15 @@
 package view;
 
 import enums.Season;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import mvc.Controller;
 import mvc.View;
 
 /**
@@ -37,10 +19,6 @@ import mvc.View;
  */
 
 public class TimesScene extends Scene {
-
-	private static Group root = new Group();
-
-	private BorderPane border;
 
 	private static final String HEADER_TEXT = "Timeline Visualization";
 	private static final String YEARS_TEXT = "Years";
@@ -66,7 +44,6 @@ public class TimesScene extends Scene {
 		this.gardenPane = new Pane();
 		this.gardenPane.setBackground(View.BACKGROUND);
 		this.gardenPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-		//this.container.setCenter(this.gardenPane);
 
 		this.seasonGroup = new ToggleGroup();
 		VBox radios = new VBox();
@@ -75,6 +52,7 @@ public class TimesScene extends Scene {
 			RadioButton button = new RadioButton(season.name());
 			button.setToggleGroup(this.seasonGroup);
 			button.setUserData(season);
+			button.setSelected(true);
 			radios.getChildren().add(button);
 		}
 		FlowPane group = new FlowPane(radios);
@@ -100,7 +78,6 @@ public class TimesScene extends Scene {
 		this.container.setCenter(center);
 		VBox.setVgrow(this.gardenPane, Priority.ALWAYS);
 
-
 		this.btnPrev = new Button(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setStyle(View.BUTTON_STYLE);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
@@ -111,7 +88,6 @@ public class TimesScene extends Scene {
 		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
 		HBox.setHgrow(this.btnNext, Priority.ALWAYS);
 		this.container.setBottom(buttons);
-
 	}
 
 	public ToggleGroup getSeasonGroup() {

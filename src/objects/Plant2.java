@@ -18,7 +18,7 @@ public class Plant2 extends GardenObject {
 		this.height = height;
 		this.spread = spread;
 		this.spacing = spacing;
-		USDAHardinessZone = usdaHardinessZone;
+		this.USDAHardinessZone = usdaHardinessZone;
 		this.bloomColors = bloomColors;
 	}
 

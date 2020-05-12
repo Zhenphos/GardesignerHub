@@ -28,112 +28,81 @@ import mvc.View;
 
 public class RatingScene extends Scene {
 
-	static Group container = new Group();
+	private static final String HEADER_TEXT = "Evaluation";
+	private static final String RATING_TEXT = "Rating";
+	private static final String RECOMMENDATIONS_TEXT = "Recommendations";
 
-	private BorderPane ratingSceneGroup;
-	private HBox ratingbox;
-	private FlowPane improveBox;
+	private BorderPane container;
+	private Label lblHeader;
+	private Pane gardenPane;
+	private Label lblRating, lblRecommendations, lblRecommendText;
+	private FlowPane stars;
+	private Button btnPrev, btnSave;
 
 	public RatingScene() {
-		super(new Group());
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
+		this.container.setMinSize(View.WIDTH, View.HEIGHT);
+		this.lblHeader = new Label(HEADER_TEXT);
+		this.lblHeader.setStyle(View.HEADER_LABEL_STYLE);
+		this.lblHeader.setMaxWidth(Double.MAX_VALUE);
+		this.lblHeader.setAlignment(Pos.CENTER);
+		this.gardenPane = new Pane();
+		this.gardenPane.setBackground(View.BACKGROUND);
+		this.lblRating = new Label(RATING_TEXT);
+		this.lblRating.setStyle(View.TEXT_LABEL_STYLE);
+		this.lblRating.setMaxWidth(Double.MAX_VALUE);
+		this.lblRating.setAlignment(Pos.CENTER);
+		this.lblRecommendations = new Label(RECOMMENDATIONS_TEXT);
+		this.lblRecommendations.setStyle(View.TEXT_LABEL_STYLE);
+		this.lblRecommendations.setMaxWidth(Double.MAX_VALUE);
+		this.lblRecommendations.setAlignment(Pos.CENTER);
+		this.lblRecommendText = new Label();
+		this.lblRecommendText.setStyle(View.TEXT_LABEL_STYLE);
+		this.lblRecommendText.setWrapText(true);
+		this.stars = new FlowPane();
+		this.stars.setAlignment(Pos.CENTER);
+		this.btnPrev = new Button(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setStyle(View.BUTTON_STYLE);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		this.btnSave = new Button(View.SAVE_BUTTON_TEXT);
+		this.btnSave.setStyle(View.BUTTON_STYLE);
+		this.btnSave.setMaxWidth(Double.MAX_VALUE);
+
+		VBox ratings = new VBox(this.lblRating, this.stars);
+		VBox recommends = new VBox(this.lblRecommendations, this.lblRecommendText);
+		HBox options = new HBox(ratings, recommends);
+		HBox.setHgrow(ratings, Priority.ALWAYS);
+		HBox.setHgrow(recommends, Priority.ALWAYS);
+		HBox buttons = new HBox(this.btnPrev, this.btnSave);
+		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
+		HBox.setHgrow(this.btnSave, Priority.ALWAYS);
+		VBox center = new VBox(this.gardenPane, options);
+		VBox.setVgrow(this.gardenPane, Priority.ALWAYS);
+
+		this.container.setTop(this.lblHeader);
+		this.container.setCenter(center);
+		this.container.setBottom(buttons);
+		this.setRating(5);
+
 	}
 
-
-	/**
-	 * Creates the rating scene which displays a calculated rating for the user's
-	 * constructed garden
-	 */
-	/*public RatingScene() {
-		super(container);
-		this.ratingSceneGroup = new BorderPane();
-		this.ratingSceneGroup.setPadding(new Insets(View.mGap));
-		this.ratingSceneGroup.setMinWidth(View.getCanvasWidth());
-		this.ratingSceneGroup.setMinHeight(View.getCanvasHeight());
-		container.getChildren().add(this.ratingSceneGroup);
-
-		VBox left = new VBox();
-		left.setAlignment(Pos.CENTER);
-		left.setStyle("-fx-border-color: black");
-		Text ratingText = new Text("Rating");
-		ratingText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		left.getChildren().add(ratingText);
-		this.ratingbox = new HBox();
-		for (int i = 0; i < 5; i++) {
-			ImageView iv = new ImageView(View.createImage("resources/star.png"));
-			iv.setFitHeight(100);
-			iv.setPreserveRatio(true);
-			this.ratingbox.getChildren().add(iv);
+	public void setRating(int rating) {
+		this.stars.getChildren().clear();
+		for (int i=0; i<rating; i++) {
+			ImageView imageView = new ImageView(View.STAR_IMAGE);
+			imageView.setFitHeight(View.HEIGHT / 8f);
+			imageView.setPreserveRatio(true);
+			this.stars.getChildren().add(imageView);
 		}
-		left.getChildren().add(this.ratingbox);
-		this.ratingSceneGroup.setLeft(left);
-
-		VBox center = new VBox();
-		center.setAlignment(Pos.TOP_CENTER);
-		center.setStyle("-fx-border-color: black");
-		Text improveText = new Text("Recommendations");
-		improveText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 18));
-		center.getChildren().add(improveText);
-		this.improveBox = new FlowPane();
-		center.getChildren().add(this.improveBox);
-		this.ratingSceneGroup.setCenter(center);
-
-		Button saveLoadButton = createSaveLoadButton();
-		
-		Button mainMenuButton = createMainMenuButton();
-
-		HBox buttonGroup = new HBox();
-		buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
-		buttonGroup.setSpacing(View.mGap);
-		
-		Button prevButton = createPrevButton();
-		
-		buttonGroup.getChildren().add(prevButton);
-		buttonGroup.getChildren().add(saveLoadButton);
-		center.getChildren().add(buttonGroup);
-		center.getChildren().add(saveLoadButton);
-		center.getChildren().add(mainMenuButton);
-
-		AnchorPane top = new AnchorPane();
-		top.setPadding(new Insets(200, 410, 200, 410));
-		Background background = new Background(new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY));
-		top.setBackground(background);
-		top.setStyle("-fx-border-color: black");
-		this.ratingSceneGroup.setTop(top);
-
-	}*/
-
-	/*private Button createPrevButton() {
-		Button prevButton = new Button("Prev");
-		
-		prevButton.setOnMouseClicked(event -> {
-			View.getStage().setScene(View.getTimesScene());
-		});
-		return prevButton;
 	}
 
-	private Button createMainMenuButton() {
-		Button mainMenuButton = new Button("Main Menu");
-
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-		return mainMenuButton;
+	public Button getPrevButton() {
+		return this.btnPrev;
 	}
 
-	private Button createSaveLoadButton() {
-		Button saveLoadButton = new Button("Save/Load");
+	public Button getSaveButton() {
+		return this.btnSave;
+	}
 
-		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				View.getStage().setScene(View.getLoadingScene());
-			}
-		});
-
-		return saveLoadButton;
-	}*/
 }

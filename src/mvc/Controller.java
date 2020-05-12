@@ -2,18 +2,16 @@ package mvc;
 
 import enums.Season;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import objects.*;
+import view.DrawScene;
 import view.GardenInfoScene;
 import view.PlantPlacementScene;
-import objects.Plant2;
-import objects.GardenObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +24,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -50,11 +47,9 @@ public class Controller extends Application {
 		launch(args);
 	}
 
-	public static final String PLANT_DATA_PATH = "resources/NewMoonNurseryPlants.csv";
-
 	public static Collection<Plant2> importPlants() {
 		Collection<Plant2> plantList = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader(PLANT_DATA_PATH))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
@@ -70,7 +65,7 @@ public class Controller extends Application {
 	private View view;
 	private PlantPlacementScene pps;
 	
-	private final boolean DEBUG = true;
+	private static final boolean DEBUG = true;
 	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
 
 	public Controller() {
@@ -79,7 +74,7 @@ public class Controller extends Application {
 
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
-		model = new Model(View.WIDTH, View.HEIGHT);
+		model = new Model();
 		if (DEBUG) System.out.println("ic created");
 	}
 
@@ -89,7 +84,7 @@ public class Controller extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		view = new View(theStage, this);
-		model = new Model(View.WIDTH, View.HEIGHT);
+		model = new Model();
 		theStage.show();
 	}
 
@@ -97,45 +92,44 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the new button on the main menu scene
 	 */
 	public void onMainMenuNew() {
-		this.view.setScreen(View.Screen.GARDEN_INFO);
+		this.view.setScreen(View.Name.GARDEN_INFO);
 	}
 
 	/**
 	 * Event handler for when the user presses the help button on the MainMenuScene
 	 */
 	public void onMainMenuHelp() {
-		this.view.setScreen(View.Screen.TUTORIAL);
+		this.view.setScreen(View.Name.TUTORIAL);
 	}
 
 	/**
 	 * Event handler for when the user presses the load button on the MainMenuScene
 	 */
 	public void onMainMenuLoad() {
-		this.view.setScreen(View.Screen.LOADING);
+		this.view.setScreen(View.Name.LOADING);
 	}
 
 	/**
 	 * Event handler for when the user presses the previous button on the GardenInfoscene
 	 */
 	public void onGardenInfoPrev() {
-		this.view.setScreen(View.Screen.MAIN_MENU);
+		Optional<ButtonType> response = this.view.showDiscardDialog();
+		if (response.isPresent() && response.get() == ButtonType.OK) {
+			this.view.setScreen(View.Name.MAIN_MENU);
+		}
 	}
 
 	/**
 	 * Event handler for when the user presses the next button on the GardenInfoScene
 	 */
 	public void onGardenInfoNext() {
-		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(View.Screen.GARDEN_INFO);
+		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(View.Name.GARDEN_INFO);
 		try {
-			int light = Integer.parseInt(scene.getSunlightTextfield().getText());
-			int rain = Integer.parseInt(scene.getRainTextfield().getText());
-			double soilPH = Double.parseDouble(scene.getSoilPHTextfield().getText());
-			int temperature = Integer.parseInt(scene.getTempTextfield().getText());
-			this.model.setAmountOfLight(light);
-			this.model.setAmountOfRain(rain);
-			this.model.setSoilPH(soilPH);
-			this.model.setTemperature(temperature);
-			this.view.setScreen(View.Screen.DRAW);
+			this.model.setLight(Integer.parseInt(scene.getSunlightTextfield().getText()));
+			this.model.setRain(Integer.parseInt(scene.getRainTextfield().getText()));
+			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
+			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
+			this.view.setScreen(View.Name.DRAW);
 		} catch (NumberFormatException e) {
 			this.view.showInvalidInputAlert();
 		}
@@ -145,21 +139,68 @@ public class Controller extends Application {
 	 * Event Handler for when the user presses the previous button on the Tutorialscene
 	 */
 	public void onTutorialPrev() {
-		this.view.setScreen(View.Screen.MAIN_MENU);
+		this.view.setScreen(View.Name.MAIN_MENU);
+	}
+
+	public void onDrawPrev() {
+		this.view.setScreen(View.Name.GARDEN_INFO);
+	}
+
+	public void onDrawNext() {
+		this.view.setScreen(View.Name.PLANT_PLACEMENT);
+	}
+
+	public void onDrawGrass() {
+		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		Grass grass = new Grass();
+		scene.getCenter().getChildren().add(grass.getShape().getPolygon());
+		this.model.addGardenObject(grass);
+	}
+
+	public void onDrawRoad() {
+		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		Road road = new Road();
+		scene.getCenter().getChildren().add(road.getShape().getPolygon());
+		this.model.addGardenObject(road);
+	}
+
+	public void onDrawStream() {
+		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		Stream stream = new Stream();
+		scene.getCenter().getChildren().add(stream.getShape().getPolygon());
+		this.model.addGardenObject(new Stream());
+	}
+
+	public void onDrawWoods() {
+		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		Woods woods = new Woods();
+		scene.getCenter().getChildren().add(woods.getShape().getPolygon());
+		this.model.addGardenObject(new Woods());
+	}
+
+	public void onDrawShader() {
+		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		Shade shade = new Shade();
+		scene.getCenter().getChildren().add(shade.getShape().getPolygon());
+		this.model.addGardenObject(shade);
+	}
+
+	public void onDrawDelete() {
+
 	}
 
 	/**
 	 * Event handler for when the user presses the previous button on the TimesScene
 	 */
 	public void onTimesPrev() {
-		this.view.setScreen(View.Screen.PLANT_PLACEMENT);
+		this.view.setScreen(View.Name.PLANT_PLACEMENT);
 	}
 
 	/**
 	 * Event Handler for when the user presses the next button on the TimesScene
 	 */
 	public void onTimesNext() {
-		this.view.setScreen(View.Screen.RATING);
+		this.view.setScreen(View.Name.RATING);
 	}
 
 	/**
@@ -182,7 +223,7 @@ public class Controller extends Application {
 	 * Event Handler for when the user presses the previous button on the RatingScene
 	 */
 	public void onRatingPrev() {
-		this.view.setScreen(View.Screen.TIMES);
+		this.view.setScreen(View.Name.TIMES);
 	}
 
 	/**
@@ -195,6 +236,7 @@ public class Controller extends Application {
 		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
 			out.writeObject(this.model);
 			if (DEBUG) System.out.println("Object has been serialized to file: " + file.getPath());
+			// to do: notify user successful save and move to load screen
 		} catch (IOException ex) {
 			// to do: notify user of saving error
 			System.out.println("IOException is caught");
@@ -204,7 +246,7 @@ public class Controller extends Application {
 	/**
 	 * Event handler for when the user wants to select a garden to load while on the LoadingScene
 	 */
-	public void onLoadingOpen() {
+	public void onLoadingBrowse() {
 		File file = this.view.showOpenDialog();
 		if (file == null) return;
 
@@ -212,13 +254,22 @@ public class Controller extends Application {
 			Model model = (Model) in.readObject();
 			if (DEBUG) {
 				System.out.println("Object has been deserialized ");
-				System.out.println("amount of light = " + model.getAmountOfLight());
+				System.out.println("amount of light = " + model.getLight());
 			}
-			// to do: update the scenes with data from new model and set the scene to the garden info scene
+			// to do: update the scenes with data from new model
+			// load other gardens in the same directory to the loading scene
 		} catch (IOException | ClassNotFoundException e) {
 			// To do: add error handeling
 			e.printStackTrace();
 		}
+	}
+
+	public void onLoadingPrev() {
+		this.view.setScreen(View.Name.MAIN_MENU);
+	}
+
+	public void onLoadingEdit() {
+		this.view.setScreen(View.Name.GARDEN_INFO);
 	}
 
 
