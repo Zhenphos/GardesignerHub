@@ -33,11 +33,15 @@ public class RatingScene extends Scene {
 	private HBox ratingbox;
 	private FlowPane improveBox;
 
+	public RatingScene() {
+		super(new Group());
+	}
+
 	/**
 	 * Creates the rating scene which displays a calculated rating for the user's
 	 * constructed garden
 	 */
-	public RatingScene() {
+	/*public RatingScene() {
 		super(container);
 		this.ratingSceneGroup = new BorderPane();
 		this.ratingSceneGroup.setPadding(new Insets(View.mGap));
@@ -94,9 +98,9 @@ public class RatingScene extends Scene {
 		top.setStyle("-fx-border-color: black");
 		this.ratingSceneGroup.setTop(top);
 
-	}
+	}*/
 
-	private Button createPrevButton() {
+	/*private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
 		
 		prevButton.setOnMouseClicked(event -> {
@@ -129,5 +133,5 @@ public class RatingScene extends Scene {
 		});
 
 		return saveLoadButton;
-	}
+	}*/
 }

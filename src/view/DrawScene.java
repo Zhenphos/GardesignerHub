@@ -47,6 +47,9 @@ public class DrawScene extends Scene {
 	private Button shadeButton;
 	private Button deleteButton;
 
+
+	private Button btnPrev, btnNext;
+
 	public DrawScene() {
 		super(drawGardenGroup);
 		createDraw();
@@ -138,13 +141,13 @@ public class DrawScene extends Scene {
 
 		drawGardenGroup.getChildren().add(nextButton);
 
-		Button mainMenuButton = View.createMainMenuButton();
+		//Button mainMenuButton = View.createMainMenuButton();
 
-		drawGardenGroup.getChildren().add(mainMenuButton);
+		//drawGardenGroup.getChildren().add(mainMenuButton);
 
-		Button tutorialButton = View.createTutorialButton();
+		//Button tutorialButton = View.createTutorialButton();
 
-		drawGardenGroup.getChildren().add(tutorialButton);
+		//drawGardenGroup.getChildren().add(tutorialButton);
 
 	}
 
@@ -156,7 +159,7 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
+				//View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 
@@ -172,7 +175,7 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 

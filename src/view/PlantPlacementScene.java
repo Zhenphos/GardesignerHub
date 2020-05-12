@@ -72,6 +72,7 @@ public class PlantPlacementScene extends Scene {
 		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
 		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
 		
+		//BorderPane border = new BorderPane(iv1);
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
 		HBox imageBar = new HBox(10);
@@ -99,16 +100,13 @@ public class PlantPlacementScene extends Scene {
 		imageBar.getChildren().add(iv1);
 		top.getChildren().add(imageBar);
 		
-		iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+		/*iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
-				final Stage pInfoStage = new Stage();
-				pInfoStage.initModality(Modality.APPLICATION_MODAL);
-				pInfoStage.setScene(View.getPlantInfoScene());
-				pInfoStage.show();
+				View.getStage().setScene(View.getPlantInfoScene());
 			}
-		});
+		});*/
 		
 		iv1.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
@@ -141,9 +139,9 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(nextButton);
 
 		// TODO replace with selecting plant from image
-		//Button choosePlantButton = createChoosePlantButton();
+		Button choosePlantButton = createChoosePlantButton();
 
-		//root.getChildren().add(choosePlantButton);
+		root.getChildren().add(choosePlantButton);
 
 		Button mainMenuButton = createMainMenuButton();
 
@@ -155,11 +153,6 @@ public class PlantPlacementScene extends Scene {
 
 	}
 
-	/**
-	 * Creates the tutorial button
-	 * 
-	 * @return the tutorial button
-	 */
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
 
@@ -170,7 +163,7 @@ public class PlantPlacementScene extends Scene {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
 				helpStage.initModality(Modality.APPLICATION_MODAL);
-				helpStage.setScene(View.getTutorialScene());
+				//helpStage.setScene(View.getTutorialScene());
 				helpStage.show();
 			}
 		};
@@ -179,11 +172,6 @@ public class PlantPlacementScene extends Scene {
 		return tutorialButton;
 	}
 
-	/**
-	 * Creates the main menu button
-	 * 
-	 * @return the main menu button
-	 */
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
 
@@ -192,7 +180,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
@@ -200,7 +188,7 @@ public class PlantPlacementScene extends Scene {
 		return mainMenuButton;
 	}
 
-	/*private Button createChoosePlantButton() {
+	private Button createChoosePlantButton() {
 		Button choosePlantButton = new Button("Choose a Plant");
 
 		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
@@ -210,20 +198,15 @@ public class PlantPlacementScene extends Scene {
 			public void handle(ActionEvent e) {
 				final Stage pInfoStage = new Stage();
 				pInfoStage.initModality(Modality.APPLICATION_MODAL);
-				pInfoStage.setScene(View.getPlantInfoScene());
+				//pInfoStage.setScene(View.getPlantInfoScene());
 				pInfoStage.show();
 			}
 		};
 
 		choosePlantButton.setOnAction(plantButtonAction);
 		return choosePlantButton;
-	}*/
+	}
 
-	/**
-	 * Creates the next button
-	 * 
-	 * @return the next button
-	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
@@ -231,7 +214,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTimesScene());
+				//View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
@@ -247,7 +230,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
+				//View.getStage().setScene(View.getDrawScene());
 			}
 		};
 

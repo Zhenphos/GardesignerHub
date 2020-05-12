@@ -127,13 +127,13 @@ public class TimesScene extends Scene {
 
 		root.getChildren().add(prevButton);
 
-		Button mainMenuButton = View.createMainMenuButton();
+		/*Button mainMenuButton = View.createMainMenuButton();
 
 		root.getChildren().add(mainMenuButton);
 
-		Button tutorialButton = View.createTutorialButton();
+		Button tutorialButton = View.createTutorialButton();*/
 
-		root.getChildren().add(tutorialButton);
+		//root.getChildren().add(tutorialButton);
 
 		Button nextButton = createNextButton();
 
@@ -149,7 +149,7 @@ public class TimesScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getRatingScene());
+				//View.getStage().setScene(View.getRatingScene());
 			}
 		};
 
@@ -165,7 +165,7 @@ public class TimesScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
+				//View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 

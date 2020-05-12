@@ -31,7 +31,7 @@ public class Model implements Serializable {
 	public Model(int canvasHeight, int canvasWidth) {
 		this.canvasHeight = canvasHeight;
 		this.canvasWidth = canvasWidth;
-		this.myObjects = new ArrayList<GardenObject>();
+		this.myObjects = new ArrayList<>();
 	}
 
 	public void setAmountOfLight(int light) {

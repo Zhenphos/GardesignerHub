@@ -15,13 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import mvc.Controller;
 import mvc.View;
-
-import java.io.File;
-
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
@@ -36,10 +30,14 @@ public class LoadingScene extends Scene {
 	private Button btnSave;
 	private Button btnLoad;
 	private Button backButton;
-	private TableView<Save> saves;
 
 	private Canvas canvas;
 	private FlowPane infoBox;
+
+
+
+	private TableView<Save> saves;
+	private Button btnPrev, btnNext;
 
 	public LoadingScene() {
 		super(loadingSceneGroup);
@@ -108,12 +106,20 @@ public class LoadingScene extends Scene {
 
 	}
 
+	public Button getPrevButton() {
+		return this.btnPrev;
+	}
+
+	public Button getNextButton() {
+		return this.btnNext;
+	}
+
 	private void createBackButton() {
 		backButton = new Button("BACK");
 
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 

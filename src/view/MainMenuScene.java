@@ -1,27 +1,17 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
+import javafx.scene.text.TextAlignment;
 import mvc.View;
+
+import java.awt.*;
 
 /**
  * 
@@ -30,116 +20,59 @@ import mvc.View;
  */
 
 public class MainMenuScene extends Scene {
-	static Group mainMenuGroup = new Group();
+
+	private static final String NEW_BUTTON_TEXT = "New";
+	private static final String HELP_BUTTON_TEXT = "Help";
+	private static final String LOAD_BUTTON_TEXT = "Load";
+	private static final String CREDITS_TEXT = "Jason H, Hamza M, Ntsee N, Haseeb S, Jonathan Z";
+
+	private BorderPane container;
+	private Label title, credits;
+	private Button btnNew, btnHelp, btnLoad;
 
 	public MainMenuScene() {
-		super(mainMenuGroup);
-		createMainMenu();
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
+		this.container.setMinWidth(View.WIDTH);
+		this.container.setMinHeight(View.HEIGHT);
+		this.title = new Label(View.TITLE);
+		this.title.setStyle(View.TITLE_LABEL_STYLE);
+		this.btnNew = this.createButton(NEW_BUTTON_TEXT);
+		this.btnHelp = this.createButton(HELP_BUTTON_TEXT);
+		this.btnLoad = this.createButton(LOAD_BUTTON_TEXT);
+		this.credits = new Label(CREDITS_TEXT);
+		this.container.setStyle(View.TEXT_LABEL_STYLE);
+
+		HBox buttons = new HBox();
+		buttons.setBackground(new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY)));
+		buttons.setAlignment(Pos.CENTER);
+		buttons.setSpacing(View.WIDTH / 8f);
+		buttons.getChildren().addAll(this.btnNew, this.btnHelp, this.btnLoad);
+
+		this.container.setTop(this.title);
+		this.container.setCenter(buttons);
+		this.container.setBottom(this.credits);
+
+		BorderPane.setAlignment(this.title, Pos.CENTER);
+		BorderPane.setAlignment(buttons, Pos.CENTER);
+		BorderPane.setAlignment(this.credits, Pos.CENTER);
 	}
 
-	/**
-	 * Creates the main menu scene
-	 */
-	public void createMainMenu() {
-		Canvas mainMenuCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
-		GraphicsContext mainMenuGC;
-		mainMenuGroup.getChildren().add(mainMenuCanvas);
-		mainMenuGC = mainMenuCanvas.getGraphicsContext2D();
-
-		mainMenuGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		Image mainMenuBackground;
-		mainMenuBackground = View.createImage("resources/mainMenuImage.png");
-
-		mainMenuGC.drawImage(mainMenuBackground, View.getCanvasWidth() / 2 - mainMenuBackground.getWidth() / 2,
-				View.getCanvasHeight() / 3 - mainMenuBackground.getHeight() / 2);
-
-		Button newButton = createNewButton();
-
-		mainMenuGroup.getChildren().add(newButton);
-
-		Button saveLoadButton = createSaveLoadButton();
-
-		mainMenuGroup.getChildren().add(saveLoadButton);
-
-		Button tutorialButton = createTutorialButton();
-
-		mainMenuGroup.getChildren().add(tutorialButton);
-
-		Button aboutButton = createAboutButton();
-
-		mainMenuGroup.getChildren().add(aboutButton);
+	private Button createButton(String text) {
+		Button btn = new Button(text);
+		btn.setStyle(View.BUTTON_STYLE);
+		return btn;
 	}
 
-	private Button createAboutButton() {
-		Button aboutButton = new Button();
-		aboutButton.setText("About");
-		aboutButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		aboutButton.setTranslateY(View.getCanvasHeight() * 7 / 10);
-		aboutButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				final Stage aboutStage = new Stage();
-				aboutStage.initModality(Modality.APPLICATION_MODAL);
-				VBox aboutVbox = new VBox(20);
-				aboutVbox.getChildren().add(new Text("    Authors:"));
-				aboutVbox.getChildren()
-						.add(new Text("    Jason H\n    Hamza M\n    Ntsee N\n    Haseeb S\n    Jonathan Z"));
-				Scene aboutScene = new Scene(aboutVbox, 100, 150);
-				aboutStage.setScene(aboutScene);
-				aboutStage.show();
-			}
-		});
-		return aboutButton;
+	public Button getNewButton() {
+		return this.btnNew;
 	}
 
-	private Button createTutorialButton() {
-		Button tutorialButton = new Button("Help");
-
-		tutorialButton.setTranslateX(View.getCanvasWidth() / 2 - 17);
-		tutorialButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
-
-		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				final Stage helpStage = new Stage();
-				helpStage.initModality(Modality.APPLICATION_MODAL);
-				helpStage.setScene(View.getTutorialScene());
-				helpStage.show();
-			}
-		};
-
-		tutorialButton.setOnAction(tutorialButtonAction);
-		return tutorialButton;
+	public Button getHelpButton() {
+		return this.btnHelp;
 	}
 
-	private Button createSaveLoadButton() {
-		Button saveLoadButton = new Button("Save/Load");
-
-		saveLoadButton.setTranslateX(View.getCanvasWidth() / 2 + View.getCanvasWidth() / 4 - 20);
-		saveLoadButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
-
-		saveLoadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				View.getStage().setScene(View.getLoadingScene());
-			}
-		});
-		return saveLoadButton;
-	}
-
-	private Button createNewButton() {
-		Button newButton = new Button("New");
-
-		newButton.setTranslateX(View.getCanvasWidth() / 2 - View.getCanvasWidth() / 4 - 20);
-		newButton.setTranslateY(View.getCanvasHeight() * 3 / 5);
-
-		EventHandler<ActionEvent> newButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getGardenInfoScene());
-			}
-		};
-
-		newButton.setOnAction(newButtonAction);
-		return newButton;
+	public Button getLoadButton() {
+		return this.btnLoad;
 	}
 }
