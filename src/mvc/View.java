@@ -188,7 +188,12 @@ public class View {
 	 */
 	private void initializePlantPlacement() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
+<<<<<<< HEAD
 
+=======
+		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
+		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
+>>>>>>> master
 	}
 
 	/**

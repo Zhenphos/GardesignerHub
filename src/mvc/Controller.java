@@ -51,8 +51,7 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		Collection<Plant2> allPlants = importPlants();
-		System.out.println("allPlants is " + allPlants);
+		//Collection<Plant2> allPlants = importPlants();
 		launch(args);
 	}
 
@@ -144,7 +143,7 @@ public class Controller extends Application {
 	private PlantPlacementScene pps;
 
 	private static final boolean DEBUG = true;
-	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
+	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	public Controller() {
 
@@ -215,6 +214,10 @@ public class Controller extends Application {
 			this.view.showInvalidInputAlert();
 		}
 	}
+	
+	public void onPlantPlacementPrev() {
+		this.view.setScreen(Names.GARDEN_INFO);
+	}
 
 	/**
 	 * Event Handler for when the user presses the previous button on the
@@ -240,6 +243,7 @@ public class Controller extends Application {
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(grass);
 		giveDragBehavior(polygon);
+
 	}
 
 	public void onDrawRoad() {
@@ -267,7 +271,6 @@ public class Controller extends Application {
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
 		giveDragBehavior(polygon);
-	}
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
