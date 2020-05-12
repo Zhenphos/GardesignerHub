@@ -39,6 +39,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
@@ -259,11 +260,11 @@ public class PlantPlacementScene extends Scene {
         //root.getChildren().add(bPane);
 		//root.getChildren().add(leftPane);
         
-        
         plantListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("clicked on " + plantListView.getSelectionModel().getSelectedItem());
+                System.out.println("bloom colors " + plantListView.getSelectionModel().getSelectedItem().getBloomColors());
             }
         });
         
