@@ -146,9 +146,9 @@ public class PlantPlacementScene extends Scene {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
-				View.getStage().setScene(View.getPlantInfoScene());
+				//View.getStage().setScene(View.getPlantInfoScene());
 			}
-		});*/
+		});
 		
 		imageview[0].addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override

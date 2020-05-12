@@ -214,7 +214,7 @@ public class DrawScene extends Scene {
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				//View.getStage().setScene(View.getMainMenuScene());
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
@@ -227,7 +227,7 @@ public class DrawScene extends Scene {
 			public void handle(ActionEvent e) {
 				Polygon polygon = object.getShape().getPolygon();
 				center.getChildren().add(polygon);
-				controller.addGardenObject(object);
+				//controller.addGardenObject(object);
 				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
 				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
 					@Override
@@ -260,7 +260,7 @@ public class DrawScene extends Scene {
 	}
 	
 	public void setController(Controller controller) {
-		this.controller = controller;
+		//this.controller = controller;
 		
 		this.grassButton.setOnAction(createButtonAction(new Grass()));
 
