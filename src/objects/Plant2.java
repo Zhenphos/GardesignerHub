@@ -28,6 +28,15 @@ public class Plant2 extends GardenObject {
 	String spacing;
 	String USDAHardinessZone;
 	String bloomColors;
+	
+	int heightMinInches;
+	int heightMaxInches;
+	int spreadMin;
+	int spreadMax;
+	int spacingMin;
+	int spacingMax;
+	int hardinessMin;
+	int hardinessMax;
 
 	@Override
 	public String toString() {
@@ -36,14 +45,5 @@ public class Plant2 extends GardenObject {
 				+ "] \n";
 	}
 
-	/*
-	 * HashSet<String> nativeTo; String plantCaption; String plantCommonName;
-	 * HashSet<String> wildlifeAttracted; HashSet<String> plantAttributes;
-	 * HashSet<String> sunlightExposure; HashSet<String> deerResistant;
-	 * HashSet<String> floweringMonths; HashSet<String> foliageColor;
-	 * HashSet<String> groundcoverFootTrafficTolerances; HashSet<String> growthRate;
-	 * HashSet<String> saltTolerance; HashSet<String> seasonOfInterest;
-	 * HashSet<String> soilMoisturePreference;
-	 */
 
 }

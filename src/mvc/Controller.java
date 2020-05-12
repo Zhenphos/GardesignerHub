@@ -53,7 +53,13 @@ public class Controller extends Application {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
+				
 				plantList.add(new Plant2(data[0], data[1], data[2], data[3], data[4], data[5]));
+				// data[0] plant name is fine
+				// data[1] should be split into min/max height
+				// data[2] should be split into min/max spread
+				// data[3] should be split into min/max hardiness zone
+				// data[4] bloom color is fine
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // to do:: add proper error handling
