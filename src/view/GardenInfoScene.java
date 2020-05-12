@@ -48,7 +48,12 @@ public class GardenInfoScene extends Scene {
 		super(gardenInfoGroup);
 		createGardenInfo();
 	}
-
+	public void setFields(int light, int rain, Double ph, int temp) {
+		this.tfLight.setText(Integer.toString(light));
+		this.tfRain.setText(Integer.toString(rain));
+		this.tfPH.setText(Double.toString(ph));
+		this.tfTemp.setText(Integer.toString(temp));
+	}
 	public void setController(Controller controller) {
 		this.controller = controller;
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
@@ -57,7 +62,7 @@ public class GardenInfoScene extends Scene {
 				try {
 					int light = Integer.parseInt(tfLight.getText());
 					int rain = Integer.parseInt(tfRain.getText());
-					int ph = Integer.parseInt(tfPH.getText());
+					Double ph = Double.valueOf(tfPH.getText());
 					int temp = Integer.parseInt(tfTemp.getText());
 					controller.setGardenProperties(light, rain, ph, temp);
 				} catch (NumberFormatException nfe) {

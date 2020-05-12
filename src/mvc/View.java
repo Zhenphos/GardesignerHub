@@ -87,6 +87,8 @@ public class View {
 		loadingScene.getLoadButton().setOnMouseClicked(event -> {
 			FileChooser chooser = new FileChooser();
 			this.controller.loadFile(chooser.showOpenDialog(theStage));
+			View.getStage().setScene(View.getGardenInfoScene());
+
 		});
 		loadingScene.getSaveButton().setOnMouseClicked(event -> {
 			FileChooser chooser = new FileChooser();

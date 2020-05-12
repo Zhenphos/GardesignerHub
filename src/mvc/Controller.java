@@ -174,12 +174,13 @@ public class Controller extends Application {
             Model model = null;
             model = (Model)in.readObject();
             System.out.println("working");
-
+            
             in.close(); 
             file.close(); 
               
             System.out.println("Object has been deserialized "); 
             System.out.println("amount of light = " + model.getAmountOfLight()); 
+            View.gardenInfoScene.setFields(model.getAmountOfLight(), model.getAmountOfRain(), model.getSoilPH(), model.getTemperature());
         } 
           
         catch(IOException ex) 
@@ -237,7 +238,7 @@ public class Controller extends Application {
 		return model.getY();
 	}
 	
-	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
+	public void setGardenProperties(int light, int rain, Double soilPH, int temp) {
 		this.model.setAmountOfLight(light);
 		System.out.println("Light: " + light);
 		this.model.setAmountOfRain(rain);
