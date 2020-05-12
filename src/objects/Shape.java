@@ -13,6 +13,8 @@ import javafx.scene.shape.Polygon;
  */
 
 public class Shape {
+	private static final double defaultSize = 50;
+	
 	ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	Polygon shape = new Polygon();
 	
@@ -20,16 +22,15 @@ public class Shape {
 	 * @param c the color of the shape
 	 */
 	public Shape(Color c) {
-		shape.setStroke(Color.BLACK);
 		shape.setFill(c);
-		Vertex p1 = new Vertex(5.0, 5.0);
-		Vertex p2 = new Vertex(5.0, 30.0);
-		Vertex p3 = new Vertex(5.0, 55.0);
-		Vertex p4 = new Vertex(30.0, 55.0);
-		Vertex p5 = new Vertex(55.0, 55.0);
-		Vertex p6 = new Vertex(55.0, 30.0);
-		Vertex p7 = new Vertex(55.0, 5.0);
-		Vertex p8 = new Vertex(30.0, 5.0);
+		Vertex p1 = new Vertex(1, 1);
+		Vertex p2 = new Vertex(1, defaultSize + 1);
+		Vertex p3 = new Vertex(1, defaultSize * 2 + 1);
+		Vertex p4 = new Vertex(defaultSize + 1, defaultSize * 2 + 1);
+		Vertex p5 = new Vertex(defaultSize * 2 + 1, defaultSize * 2 + 1);
+		Vertex p6 = new Vertex(defaultSize * 2 + 1, defaultSize + 1);
+		Vertex p7 = new Vertex(defaultSize * 2 + 1, 1);
+		Vertex p8 = new Vertex(defaultSize + 1, 1);
 		
 		ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 		vertices.add(p1);
