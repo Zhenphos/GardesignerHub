@@ -1,1 +1,3 @@
 *.ser
+src/view/PlantPlacementScene.java.orig
+.DS_STORE

@@ -3,8 +3,7 @@ package view;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -19,6 +18,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,6 +48,9 @@ public class PlantPlacementScene extends Scene {
 	public ImageView iv1;
 	public ImageView iv2;
 	public ImageView imageview[] = new ImageView [10];
+	HBox imageBar = new HBox(10);
+	AnchorPane center = new AnchorPane();
+
 	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
@@ -58,7 +62,7 @@ public class PlantPlacementScene extends Scene {
 		
 		//iv1 = new ImageView[10];
 		iv1 = new ImageView();
-		iv2 = new ImageView();
+		//iv2 = new ImageView();
 		for(int i=0; i<10;i++) {
 			
 		}
@@ -77,29 +81,15 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
-		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("resources/commonMilkweed.png"));
-		
-		Image im1 = new Image(new File("/Users/hamza/Developer/CSC275/team-11-2/resources/commonMilkweed.png").toURI().toString());		
-		//Image temp = new Image (new File("resources/plant2.jpg").toURI().toString());
-		iv1.setImage(im1);
-		ImageView tempview = new ImageView();
-		
+				
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
-		tempview.setPreserveRatio(true);
-		tempview.setFitHeight(100);
-		//iv1.setOnMouseDragEntered(imc.getHandlerForDragEntered());
-		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
-		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
-
-		//BorderPane border = new BorderPane(iv1);
+		
+		
 
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
-		HBox imageBar = new HBox(10);
 		root.getChildren().add(border);
-		AnchorPane center = new AnchorPane();
 		
 		BorderPane.setMargin(top, new Insets(50, 12.5, 50, 12.5));
 		
@@ -110,6 +100,7 @@ public class PlantPlacementScene extends Scene {
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		top.getChildren().add(scenetitle);
 		top.setAlignment(Pos.CENTER);
+		top.getChildren().add(imageBar);
 		imageBar.minHeight(100);
 		imageBar.minWidth(View.getCanvasWidth());
 		imageBar.maxHeight(100);
@@ -129,20 +120,10 @@ public class PlantPlacementScene extends Scene {
 			imageBar.getChildren().addAll(imageview[i]);
 			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
-		//Plant p = new Plant(0);
-		//imageBar.getChildren().addAll(iv1);
-		//imageBar.getChildren().addAll(p.getImg());
 		
-		top.getChildren().add(imageBar);
-				
-		// Scroll bar
-		ScrollBar sc = new ScrollBar();
-		sc.setMin(0);
-		sc.setMax(100);
-		sc.setValue(50);
-		top.getChildren().add(sc);
+	
 		
-		imageview[0].addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+		imageBar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
@@ -150,11 +131,15 @@ public class PlantPlacementScene extends Scene {
 			}
 		});
 		
-		imageview[0].addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+		imageBar.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse dragged");
-				iv2.setImage(im1);
+				final ImageView iv = (ImageView) (event.getTarget());
+				iv2 = new ImageView();
+				iv2.setImage(iv.getImage());
+				center.getChildren().add(iv2);
+				//iv2.setImage(im1);
 				iv2.setPreserveRatio(true);
 				iv2.setFitHeight(100);
 				iv2.setOnMouseDragged(imc.getHandlerForDrag());
@@ -167,9 +152,7 @@ public class PlantPlacementScene extends Scene {
 
 		BorderPane.setMargin(center, new Insets(0, 12.5, 0, 12.5));
 		center.setPadding(new Insets(View.getCanvasHeight() / 2.5, 50, 0, 0));
-		//BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
-		//Background background = new Background(background_fill);
-		//center.setBackground(background);
+		
 		center.setStyle("-fx-border-color: black");
 
 		Button prevButton = createPrevButton();
@@ -193,6 +176,23 @@ public class PlantPlacementScene extends Scene {
 
 		root.getChildren().add(tutorialButton);
 
+	}
+	
+	private Button createScrollLeftButton() {
+		Button btn = new Button("<<<");
+		btn.setTranslateX(View.getCanvasWidth()*1/20);
+		btn.setTranslateY(View.getCanvasHeight()*1/10);
+		
+		EventHandler<ActionEvent> scrollLeftAction = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				//imageBar.getChildren().get(10).get
+				
+				
+			}};
+		return btn;
 	}
 
 	private Button createTutorialButton() {
@@ -234,7 +234,7 @@ public class PlantPlacementScene extends Scene {
 		Button choosePlantButton = new Button("Choose a Plant");
 
 		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		choosePlantButton.setTranslateY(210);
+		choosePlantButton.setTranslateY(230);
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
