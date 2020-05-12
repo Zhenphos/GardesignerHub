@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
-
-
+import enums.Names;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +70,7 @@ public class PlantPlacementScene extends Scene {
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
 	public int numCopies = 0;
+	private Button btnPrev, btnNext;
 
 	public Pane getCenter() {
 		return this.center;
@@ -78,6 +78,11 @@ public class PlantPlacementScene extends Scene {
 	
 	public PlantPlacementScene() {
 		super(root);
+		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
 		
 		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
@@ -104,18 +109,18 @@ public class PlantPlacementScene extends Scene {
 		imageView01.setPreserveRatio(true);
 		imageView01.setFitHeight(100);
 
-		BorderPane borderPane = new BorderPane();
+		BorderPane leftPane = new BorderPane();
 		VBox topVbox = new VBox(5);
 		
 		topVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
 
-		root.getChildren().add(borderPane);
+		root.getChildren().add(leftPane);
 		
 		BorderPane.setMargin(topVbox, new Insets(50, 12.5, 50, 12.5));
 		
 		//borderPane.setMinHeight(500);
 		
-		borderPane.setTop(topVbox);
+		leftPane.setTop(topVbox);
 		//border.setCenter(center);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -184,22 +189,26 @@ public class PlantPlacementScene extends Scene {
 		center.setStyle("-fx-border-color: black");
 		*/
 
+		/*
 		Button prevButton = createPrevButton();
 		root.getChildren().add(prevButton);
 
 		Button nextButton = createNextButton();
 		root.getChildren().add(nextButton);
+		*/
 
 		// TODO replace with selecting plant from image
 		// Button choosePlantButton = createChoosePlantButton();
 
 		// root.getChildren().add(choosePlantButton);
 
+		/*
 		Button mainMenuButton = createMainMenuButton();
 		root.getChildren().add(mainMenuButton);
 
 		Button tutorialButton = createTutorialButton();
 		root.getChildren().add(tutorialButton);
+		*/
 		
 		// testing plant import in here
 		Collection<Plant2> allPlants = Controller.importPlants();
@@ -210,33 +219,10 @@ public class PlantPlacementScene extends Scene {
 	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
 	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
 	    
-	    TextField myTextField = new TextField();
+	    TextField searchBox = new TextField();
 	    
-	    /*
-	    myTextField.textProperty().addListener(obs->{
-	        String filter = myTextField.getText(); 
-	        if(filter == null || filter.length() == 0) {
-	            filteredData.setPredicate(s -> true);
-	        }
-	        else {
-	            filteredData.setPredicate(s -> s.contains(filter));
-	        }
-	    });
-	    */
-	    
-	    /*
-	    myTextField.textProperty().addListener(((observable, oldValue, newValue) -> {
-	        filteredList.setPredicate(data -> {
-	            if (newValue == null || newValue.isEmpty()){
-	                return true;
-	            }
-	            String lowerCaseSearch = newValue.toLowerCase();
-	            return String.valueOf(data.contains(lowerCaseSearch);
-	        });
-	    }));
-	    */
-	    
-	    
+	    // need to use textfield with filtered list
+	  
 	    Label label = new Label();
 	    topVbox.getChildren().addAll(plantListView, label);
 	    label.setLayoutX(10);
@@ -249,6 +235,7 @@ public class PlantPlacementScene extends Scene {
 
 	}
 	
+	/*
 	private Button createScrollLeftButton() {
 		Button btn = new Button("<<<");
 		btn.setTranslateX(View.getCanvasWidth()*1/20);
@@ -301,7 +288,7 @@ public class PlantPlacementScene extends Scene {
 		return mainMenuButton;
 	}
 	
-	/*
+	
 	private Button createChoosePlantButton() {
 		Button choosePlantButton = new Button("Choose a Plant");
 
@@ -320,7 +307,7 @@ public class PlantPlacementScene extends Scene {
 		choosePlantButton.setOnAction(plantButtonAction);
 		return choosePlantButton;
 	}
-	*/
+	
 
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
@@ -349,9 +336,10 @@ public class PlantPlacementScene extends Scene {
 			}
 		};
 
-		prevButton.setOnAction(prevButtonAction);
+		//prevButton.setOnAction(View.initializePlantPlacement());
 		return prevButton;
 	}
+	*/
 	
     public void setX(double x) {
     	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
@@ -367,5 +355,22 @@ public class PlantPlacementScene extends Scene {
     	imc.imageViewArrayList.add(newImageView);
     	return newImageView;
     }
+    
+    private Button createButton(String text) {
+		Button btn = new Button(text);
+		btn.setStyle(View.BUTTON_STYLE);
+		return btn;
+	}
+    
+    public Button getNextButton() {
+		return this.btnNext;
+	}
+
+	public Button getPrevButton() {
+		return this.btnPrev;
+	}
+	
+	
+
 
 }
