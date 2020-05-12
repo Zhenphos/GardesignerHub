@@ -233,8 +233,6 @@ public class Controller extends Application {
 		return event -> drag((MouseEvent) event);
 	}
 
-	}
-
 	public double getStartingX() {
 		return model.getX();
 	}
