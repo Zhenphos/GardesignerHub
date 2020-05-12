@@ -70,7 +70,7 @@ public class PlantPlacementScene extends Scene {
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
 	public int numCopies = 0;
-	private Button btnPrev, btnHelp, btnLoad;
+	private Button btnPrev, btnNext;
 
 	public Pane getCenter() {
 		return this.center;
@@ -78,11 +78,11 @@ public class PlantPlacementScene extends Scene {
 	
 	public PlantPlacementScene() {
 		super(root);
-		/*
-		this.btnPrev = this.createButton(NEW_BUTTON_TEXT);
-		this.btnHelp = this.createButton(HELP_BUTTON_TEXT);
-		this.btnLoad = this.createButton(LOAD_BUTTON_TEXT);
-		*/
+		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
 		
 		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
@@ -189,22 +189,26 @@ public class PlantPlacementScene extends Scene {
 		center.setStyle("-fx-border-color: black");
 		*/
 
+		/*
 		Button prevButton = createPrevButton();
 		root.getChildren().add(prevButton);
 
 		Button nextButton = createNextButton();
 		root.getChildren().add(nextButton);
+		*/
 
 		// TODO replace with selecting plant from image
 		// Button choosePlantButton = createChoosePlantButton();
 
 		// root.getChildren().add(choosePlantButton);
 
+		/*
 		Button mainMenuButton = createMainMenuButton();
 		root.getChildren().add(mainMenuButton);
 
 		Button tutorialButton = createTutorialButton();
 		root.getChildren().add(tutorialButton);
+		*/
 		
 		// testing plant import in here
 		Collection<Plant2> allPlants = Controller.importPlants();
@@ -231,6 +235,7 @@ public class PlantPlacementScene extends Scene {
 
 	}
 	
+	/*
 	private Button createScrollLeftButton() {
 		Button btn = new Button("<<<");
 		btn.setTranslateX(View.getCanvasWidth()*1/20);
@@ -283,7 +288,7 @@ public class PlantPlacementScene extends Scene {
 		return mainMenuButton;
 	}
 	
-	/*
+	
 	private Button createChoosePlantButton() {
 		Button choosePlantButton = new Button("Choose a Plant");
 
@@ -302,7 +307,7 @@ public class PlantPlacementScene extends Scene {
 		choosePlantButton.setOnAction(plantButtonAction);
 		return choosePlantButton;
 	}
-	*/
+	
 
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
@@ -334,6 +339,7 @@ public class PlantPlacementScene extends Scene {
 		//prevButton.setOnAction(View.initializePlantPlacement());
 		return prevButton;
 	}
+	*/
 	
     public void setX(double x) {
     	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
@@ -355,10 +361,16 @@ public class PlantPlacementScene extends Scene {
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
-
-	public Button getBtnPrev() {
-		return btnPrev;
+    
+    public Button getNextButton() {
+		return this.btnNext;
 	}
+
+	public Button getPrevButton() {
+		return this.btnPrev;
+	}
+	
+	
 
 
 }

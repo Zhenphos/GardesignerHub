@@ -214,6 +214,10 @@ public class Controller extends Application {
 			this.view.showInvalidInputAlert();
 		}
 	}
+	
+	public void onPlantPlacementPrev() {
+		this.view.setScreen(Names.GARDEN_INFO);
+	}
 
 	/**
 	 * Event Handler for when the user presses the previous button on the
