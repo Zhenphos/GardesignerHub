@@ -39,10 +39,7 @@ public class Plant2 extends GardenObject {
 
 	@Override
 	public String toString() {
-		return "Plant2 [plantBotanicalName=" + plantBotanicalName + ", heightMinInches=" + heightMinInches
-				+ ", heightMaxInches=" + heightMaxInches + ", spreadMin=" + spreadMin + ", spreadMax=" + spreadMax
-				+ ", spacingMin=" + spacingMin + ", spacingMax=" + spacingMax + ", hardinessMin=" + hardinessMin
-				+ ", hardinessMax=" + hardinessMax + ", bloomColors=" + bloomColors + "]";
+		return plantBotanicalName;
 	}
 
 }

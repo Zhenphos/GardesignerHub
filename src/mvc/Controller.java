@@ -51,8 +51,7 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		Collection<Plant2> allPlants = importPlants();
-		System.out.println("allPlants is " + allPlants);
+		//Collection<Plant2> allPlants = importPlants();
 		launch(args);
 	}
 
@@ -144,7 +143,7 @@ public class Controller extends Application {
 	private PlantPlacementScene pps;
 
 	private static final boolean DEBUG = true;
-	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
+	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	public Controller() {
 
