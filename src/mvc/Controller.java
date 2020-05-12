@@ -271,6 +271,7 @@ public class Controller extends Application {
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
 		giveDragBehavior(polygon);
+	}
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
