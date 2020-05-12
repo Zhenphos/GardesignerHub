@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -233,6 +234,26 @@ public class PlantPlacementScene extends Scene {
         //plantListView.setItems(rawData);
         plantListView.setItems(filteredList);
 
+  
+        Label label2 = new Label("this is a text example");
+        
+        BorderPane bPane = new BorderPane(label2);
+        bPane.setMinSize(View.getCanvasWidth(), View.getCanvasHeight());
+        
+        
+        
+        VBox plantInfoBox = new VBox();
+		plantInfoBox.getChildren().addAll(label2);
+		plantInfoBox.setAlignment(Pos.CENTER);
+		plantInfoBox.setSpacing(View.SPACING);
+		plantInfoBox.setBackground(View.BACKGROUND);
+		plantInfoBox.setPadding(new Insets(View.SPACING));
+        
+		bPane.setRight(plantInfoBox);
+		
+        
+        root.getChildren().add(bPane);
+        
 	}
 	
 	/*
