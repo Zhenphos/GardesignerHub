@@ -1,5 +1,6 @@
 package mvc;
 
+import enums.Names;
 import enums.Season;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -92,21 +93,21 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the new button on the main menu scene
 	 */
 	public void onMainMenuNew() {
-		this.view.setScreen(View.Name.GARDEN_INFO);
+		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
 	/**
 	 * Event handler for when the user presses the help button on the MainMenuScene
 	 */
 	public void onMainMenuHelp() {
-		this.view.setScreen(View.Name.TUTORIAL);
+		this.view.setScreen(Names.TUTORIAL);
 	}
 
 	/**
 	 * Event handler for when the user presses the load button on the MainMenuScene
 	 */
 	public void onMainMenuLoad() {
-		this.view.setScreen(View.Name.LOADING);
+		this.view.setScreen(Names.LOADING);
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class Controller extends Application {
 	public void onGardenInfoPrev() {
 		Optional<ButtonType> response = this.view.showDiscardDialog();
 		if (response.isPresent() && response.get() == ButtonType.OK) {
-			this.view.setScreen(View.Name.MAIN_MENU);
+			this.view.setScreen(Names.MAIN_MENU);
 		}
 	}
 
@@ -123,13 +124,13 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the next button on the GardenInfoScene
 	 */
 	public void onGardenInfoNext() {
-		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(View.Name.GARDEN_INFO);
+		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
 		try {
 			this.model.setLight(Integer.parseInt(scene.getSunlightTextfield().getText()));
 			this.model.setRain(Integer.parseInt(scene.getRainTextfield().getText()));
 			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
 			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
-			this.view.setScreen(View.Name.DRAW);
+			this.view.setScreen(Names.DRAW);
 		} catch (NumberFormatException e) {
 			this.view.showInvalidInputAlert();
 		}
@@ -139,47 +140,47 @@ public class Controller extends Application {
 	 * Event Handler for when the user presses the previous button on the Tutorialscene
 	 */
 	public void onTutorialPrev() {
-		this.view.setScreen(View.Name.MAIN_MENU);
+		this.view.setScreen(Names.MAIN_MENU);
 	}
 
 	public void onDrawPrev() {
-		this.view.setScreen(View.Name.GARDEN_INFO);
+		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
 	public void onDrawNext() {
-		this.view.setScreen(View.Name.PLANT_PLACEMENT);
+		this.view.setScreen(Names.PLANT_PLACEMENT);
 	}
 
 	public void onDrawGrass() {
-		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Grass grass = new Grass();
 		scene.getCenter().getChildren().add(grass.getShape().getPolygon());
 		this.model.addGardenObject(grass);
 	}
 
 	public void onDrawRoad() {
-		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
 		scene.getCenter().getChildren().add(road.getShape().getPolygon());
 		this.model.addGardenObject(road);
 	}
 
 	public void onDrawStream() {
-		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
 		scene.getCenter().getChildren().add(stream.getShape().getPolygon());
 		this.model.addGardenObject(new Stream());
 	}
 
 	public void onDrawWoods() {
-		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		scene.getCenter().getChildren().add(woods.getShape().getPolygon());
 		this.model.addGardenObject(new Woods());
 	}
 
 	public void onDrawShader() {
-		DrawScene scene = (DrawScene) this.view.getScene(View.Name.DRAW);
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
 		scene.getCenter().getChildren().add(shade.getShape().getPolygon());
 		this.model.addGardenObject(shade);
@@ -193,14 +194,14 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the previous button on the TimesScene
 	 */
 	public void onTimesPrev() {
-		this.view.setScreen(View.Name.PLANT_PLACEMENT);
+		this.view.setScreen(Names.PLANT_PLACEMENT);
 	}
 
 	/**
 	 * Event Handler for when the user presses the next button on the TimesScene
 	 */
 	public void onTimesNext() {
-		this.view.setScreen(View.Name.RATING);
+		this.view.setScreen(Names.RATING);
 	}
 
 	/**
@@ -223,7 +224,7 @@ public class Controller extends Application {
 	 * Event Handler for when the user presses the previous button on the RatingScene
 	 */
 	public void onRatingPrev() {
-		this.view.setScreen(View.Name.TIMES);
+		this.view.setScreen(Names.TIMES);
 	}
 
 	/**
@@ -265,11 +266,11 @@ public class Controller extends Application {
 	}
 
 	public void onLoadingPrev() {
-		this.view.setScreen(View.Name.MAIN_MENU);
+		this.view.setScreen(Names.MAIN_MENU);
 	}
 
 	public void onLoadingEdit() {
-		this.view.setScreen(View.Name.GARDEN_INFO);
+		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
 

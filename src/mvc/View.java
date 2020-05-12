@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import enums.Names;
 import enums.Season;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -73,7 +74,7 @@ public class View {
 	private Stage stage;
 	private Controller controller;
 	private FileChooser chooser;
-	private Map<Name, Scene> screens;
+	private Map<Names, Scene> screens;
 
 	public View(Stage stage, Controller controller) {
 		this.stage = stage;
@@ -82,26 +83,26 @@ public class View {
 		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		this.chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(GARDEN_FILE_NAME, GARDEN_FILE_EXTENSION));
 		this.screens = new HashMap<>();
-		this.screens.put(Name.MAIN_MENU, new MainMenuScene());
-		this.screens.put(Name.GARDEN_INFO, new GardenInfoScene());
-		this.screens.put(Name.TUTORIAL, new TutorialScene());
-		this.screens.put(Name.DRAW, new DrawScene());
-		this.screens.put(Name.LOADING, new LoadingScene());
-		this.screens.put(Name.PLANT_PLACEMENT, new PlantPlacementScene());
-		this.screens.put(Name.PLANT_INFO, new PlantInfoScene());
-		this.screens.put(Name.TIMES, new TimesScene());
-		this.screens.put(Name.RATING, new RatingScene());
+		this.screens.put(Names.MAIN_MENU, new MainMenuScene());
+		this.screens.put(Names.GARDEN_INFO, new GardenInfoScene());
+		this.screens.put(Names.TUTORIAL, new TutorialScene());
+		this.screens.put(Names.DRAW, new DrawScene());
+		this.screens.put(Names.LOADING, new LoadingScene());
+		this.screens.put(Names.PLANT_PLACEMENT, new PlantPlacementScene());
+		this.screens.put(Names.PLANT_INFO, new PlantInfoScene());
+		this.screens.put(Names.TIMES, new TimesScene());
+		this.screens.put(Names.RATING, new RatingScene());
 		this.initializeEvents();
 		this.stage.setResizable(false);
 		this.stage.setTitle(TITLE);
-		this.stage.setScene(this.screens.get(Name.MAIN_MENU));
+		this.stage.setScene(this.screens.get(Names.MAIN_MENU));
 	}
 
 	/**
 	 * Sets the active scene to the associated screen
 	 * @param name the key that gets the appropiate scene
 	 */
-	public void setScreen(Name name) {
+	public void setScreen(Names name) {
 		this.stage.setScene(this.getScene(name));
 	}
 
@@ -109,7 +110,7 @@ public class View {
 	 * @param name
 	 * @return the scene associated with
 	 */
-	public Scene getScene (Name name) {
+	public Scene getScene (Names name) {
 		return this.screens.get(name);
 	}
 
@@ -132,7 +133,7 @@ public class View {
 	 * Initializes event handlers for MainMenuScene
 	 */
 	private void initializeMainMenu() {
-		MainMenuScene scene = (MainMenuScene) this.screens.get(Name.MAIN_MENU);
+		MainMenuScene scene = (MainMenuScene) this.screens.get(Names.MAIN_MENU);
 		scene.getNewButton().setOnAction(event -> this.controller.onMainMenuNew());
 		scene.getHelpButton().setOnAction(event -> this.controller.onMainMenuHelp());
 		scene.getLoadButton().setOnAction(event -> this.controller.onMainMenuLoad());
@@ -142,7 +143,7 @@ public class View {
 	 * Initializes event handlers for GardenInfoScene
 	 */
 	private void initializeGardenInfo() {
-		GardenInfoScene scene = (GardenInfoScene) this.screens.get(Name.GARDEN_INFO);
+		GardenInfoScene scene = (GardenInfoScene) this.screens.get(Names.GARDEN_INFO);
 		scene.getPrevButton().setOnAction(event -> this.controller.onGardenInfoPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onGardenInfoNext());
 	}
@@ -151,7 +152,7 @@ public class View {
 	 * Initializes event handlers for TutorialScene
 	 */
 	private void initializeTutorial() {
-		TutorialScene scene = (TutorialScene) this.screens.get(Name.TUTORIAL);
+		TutorialScene scene = (TutorialScene) this.screens.get(Names.TUTORIAL);
 		scene.getPrevButton().setOnAction(event -> this.controller.onTutorialPrev());
 	}
 
@@ -159,7 +160,7 @@ public class View {
 	 * Initializes event handlers for DrawScene
 	 */
 	private void initializeDraw() {
-		DrawScene scene = (DrawScene) this.screens.get(Name.DRAW);
+		DrawScene scene = (DrawScene) this.screens.get(Names.DRAW);
 		scene.getPrevButton().setOnAction(event -> this.controller.onDrawPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onDrawNext());
 		scene.getGrassButton().setOnAction(event -> this.controller.onDrawGrass());
@@ -174,7 +175,7 @@ public class View {
 	 * Initializes event handlers for LoadingScene
 	 */
 	private void initializeLoadingScene() {
-		LoadingScene scene = (LoadingScene) this.screens.get(Name.LOADING);
+		LoadingScene scene = (LoadingScene) this.screens.get(Names.LOADING);
 		scene.getBrowseButton().setOnAction(event -> this.controller.onLoadingBrowse());
 		scene.getPrevButton().setOnAction(event -> this.controller.onLoadingPrev());
 		scene.getEditButton().setOnAction(event -> this.controller.onLoadingEdit());
@@ -184,21 +185,21 @@ public class View {
 	 * Initializes event handlers for PlantPlacementScene
 	 */
 	private void initializePlantPlacement() {
-		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Name.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 	}
 
 	/**
 	 * Initializes event handlers for PlantInfoScene
 	 */
 	private void initializePlantInfo() {
-		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Name.PLANT_INFO);
+		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Names.PLANT_INFO);
 	}
 
 	/**
 	 * Initializes event handlers for TimesScene
 	 */
 	private void initializeTimes() {
-		TimesScene scene = (TimesScene) this.screens.get(Name.TIMES);
+		TimesScene scene = (TimesScene) this.screens.get(Names.TIMES);
 		scene.getPrevButton().setOnAction(event -> this.controller.onTimesPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onTimesNext());
 		scene.getAgeSlider().valueProperty().addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
@@ -209,7 +210,7 @@ public class View {
 	 * Initializes event handlers for RatingsScene
 	 */
 	private void initializeRatings() {
-		RatingScene scene = (RatingScene) this.screens.get(Name.RATING);
+		RatingScene scene = (RatingScene) this.screens.get(Names.RATING);
 		scene.getPrevButton().setOnAction(event -> this.controller.onRatingPrev());
 		scene.getSaveButton().setOnAction(event -> this.controller.onRatingSave());
 	}
@@ -292,17 +293,5 @@ public class View {
 
 	public static int getCanvasHeight() {
 		return HEIGHT;
-	}
-
-	public enum Name {
-		MAIN_MENU,
-		GARDEN_INFO,
-		TUTORIAL,
-		DRAW,
-		LOADING,
-		PLANT_PLACEMENT,
-		PLANT_INFO,
-		TIMES,
-		RATING,
 	}
 }
