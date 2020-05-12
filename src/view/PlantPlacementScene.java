@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import enums.Names;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,7 +116,7 @@ public class PlantPlacementScene extends Scene {
 		
 		topVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
 
-		root.getChildren().add(leftPane);
+		
 		
 		BorderPane.setMargin(topVbox, new Insets(50, 12.5, 50, 12.5));
 		
@@ -237,8 +238,8 @@ public class PlantPlacementScene extends Scene {
   
         Label label2 = new Label("this is a text example");
         
-        BorderPane bPane = new BorderPane(label2);
-        bPane.setMinSize(View.getCanvasWidth(), View.getCanvasHeight());
+        //BorderPane bPane = new BorderPane(label2);
+        //bPane.setMinSize(View.getCanvasWidth(), View.getCanvasHeight());
         
         
         
@@ -248,12 +249,27 @@ public class PlantPlacementScene extends Scene {
 		plantInfoBox.setSpacing(View.SPACING);
 		plantInfoBox.setBackground(View.BACKGROUND);
 		plantInfoBox.setPadding(new Insets(View.SPACING));
-        
-		bPane.setRight(plantInfoBox);
 		
+       
         
-        root.getChildren().add(bPane);
+		//bPane.setRight(plantInfoBox);
+		//bPane.setRight(topVbox);
+		leftPane.setRight(plantInfoBox);
         
+        //root.getChildren().add(bPane);
+		//root.getChildren().add(leftPane);
+        
+        
+        plantListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + plantListView.getSelectionModel().getSelectedItem());
+            }
+        });
+        
+        leftPane.setTop(topVbox);
+        
+        root.getChildren().add(leftPane);
 	}
 	
 	/*
