@@ -235,41 +235,6 @@ public class Controller extends Application {
 
 	}
 
-
-	/**
-	 * Uses user mouse input to move plant image around on screen
-	 * 
-	 * @param event - event triggered by mouse click
-	 */
-	public void drag(MouseEvent event) {
-		Node n = (Node)event.getSource();
-		if (DEBUG) System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX() );
-		model.setX(model.getX() + event.getX()); //event.getX() is the amount of horiz drag
-		model.setY(model.getY() + event.getY());
-		pps.setX(model.getX());
-		pps.setY(model.getY());
-	}
-	
-	/**
-	 * Makes a copy of an ImageView if there is user mouse input on
-	 * one of the ImageViews in the dock.
-	 * 
-	 * @param event - event triggered by mouse click
-	 */
-    public void makeCopy(MouseEvent event) {
-    	Node n = (Node)event.getSource();
-    	if (DEBUG) System.out.println("Copy made");
-    	ImageView iv2 = (ImageView) n;
-    }
-	
-	public EventHandler<MouseEvent> getHandlerForDragEntered() {
-		return event -> makeCopy((MouseEvent) event);
-	}
-	
-	public EventHandler<MouseEvent> getHandlerForDrag() {
-		return event -> drag((MouseEvent) event);
-	}
-
 	public double getStartingX() {
 		return model.getX();
 	}
@@ -279,9 +244,6 @@ public class Controller extends Application {
 	}
 	
 	public void setGardenProperties(int light, int rain, Double soilPH, int temp) {
-
-	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
-
 		this.model.setAmountOfLight(light);
 		System.out.println("Light: " + light);
 		this.model.setAmountOfRain(rain);
