@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import enums.Season;
 import objects.GardenObject;
 
 /**
@@ -15,34 +16,51 @@ import objects.GardenObject;
 
 public class Model implements Serializable {
 
-	private int amountOfLight;
-	private int amountOfRain;
-	private int temperature;
-	private int canvasHeight;
-	private int canvasWidth;
+	private int width;
+	private int height;
+	private int light;
+	private int rain;
+	private double temperature;
 	private double soilPH;
+	private double age;
+	private Season season;
 	private Collection<GardenObject> myObjects;
+
 	
 	private double x = 100;
 	private double y = 200;
 	private final double BOTTOM = 200;
 	
 	
-	public Model(int canvasHeight, int canvasWidth) {
-		this.canvasHeight = canvasHeight;
-		this.canvasWidth = canvasWidth;
-		this.myObjects = new ArrayList<GardenObject>();
+	public Model() {
+		this.width = 0;
+		this.height = 0;
+		this.light = 0;
+		this.rain = 0;
+		this.temperature = 0;
+		this.soilPH = 0.0;
+		this.age = 0.0;
+		this.season = Season.SPRING;
+		this.myObjects = new ArrayList<>();
 	}
 
-	public void setAmountOfLight(int light) {
-		this.amountOfLight = light;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public void setAmountOfRain(int rain) {
-		this.amountOfRain = rain;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
-	public void setTemperature(int temperature) {
+	public void setLight(int light) {
+		this.light = light;
+	}
+
+	public void setRain(int rain) {
+		this.rain = rain;
+	}
+
+	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
 
@@ -50,15 +68,31 @@ public class Model implements Serializable {
 		this.soilPH = soilPH;
 	}
 
-	public int getAmountOfLight() {
-		return this.amountOfLight;
+	public void setAge(double age) {
+		this.age = age;
 	}
 
-	public int getAmountOfRain() {
-		return this.amountOfRain;
+	public void setSeason(Season season) {
+		this.season = season;
 	}
 
-	public int getTemperature() {
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public int getLight() {
+		return this.light;
+	}
+
+	public int getRain() {
+		return this.rain;
+	}
+
+	public double getTemperature() {
 		return this.temperature;
 	}
 
@@ -66,17 +100,16 @@ public class Model implements Serializable {
 		return this.soilPH;
 	}
 
-	public int getCanvasWidth() {
-		return this.canvasWidth;
+	public double getAge() {
+		return this.age;
 	}
 
-	public int getCanvasHeight() {
-		return this.canvasHeight;
+	public Season getSeason() {
+		return this.season;
 	}
-	
+
 	/**
 	 * Gets the GardenObjects in your garden
-	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
 	public Collection<GardenObject> getGardenObjects() {
@@ -85,22 +118,11 @@ public class Model implements Serializable {
 	
 	/**
 	 * Calculates each of your ratings based on your map and area details
-	 * 
 	 * @return the rating of your map on a scale of 1 to 5
 	 */
-	int calculateRating() {
-		return 0;
-	}
-	
-	/**
-	 * Loads a map from your files
-	 * 
-	 * @param fileName the file which contains a map you wish to load in
-	 * @return a collection of garden objects which creates your map
-	 */
-	public Collection<GardenObject> load(String fileName) {
-		return myObjects;
 
+	public int getRating() {
+		return 0;
 	}
 	
 	/**
@@ -124,12 +146,15 @@ public class Model implements Serializable {
 	public double getX() {
 		return x;
 	}
+
 	public void setX(double d) {
 		this.x = d;
 	}
+
 	public double getY() {
 		return y;
 	}
+
 	public void setY(double y) {
 		this.y = Math.min(y, BOTTOM);
 	}

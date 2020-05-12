@@ -1,7 +1,11 @@
 package view;
 
 import java.io.File;
+import java.util.List;
 
+
+
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +17,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +34,7 @@ import mvc.Controller;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
+import objects.Plant;
 
 /**
  * 
@@ -39,15 +47,30 @@ public class PlantPlacementScene extends Scene {
 	public Controller imc;
 	public ImageView iv1;
 	public ImageView iv2;
+	public ImageView imageview[] = new ImageView [10];
+	HBox imageBar = new HBox(10);
+	private Pane center = new Pane();
+
+	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
 	//public final double buttonYPos = 740;
 	public int numCopies = 0;
 
+	public Pane getCenter() {
+		return this.center;
+	}
+	
 	public PlantPlacementScene() {
 		super(root);
+		
+		//iv1 = new ImageView[10];
 		iv1 = new ImageView();
-		iv2 = new ImageView();
+		//iv2 = new ImageView();
+		for(int i=0; i<10;i++) {
+			
+		}
+		
 		imc = new Controller(this);
 		placePlant();
 	}
@@ -62,21 +85,15 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-		
-		//Image im1 = new Image(getClass().getClassLoader().getResourceAsStream("/resources/commonMilkweed.png"));
-		Image im1 = new Image(new File("resources/commonMilkweed.png").toURI().toString());
-		iv1.setImage(im1);
+				
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
-		//iv1.setOnMouseDragEntered(imc.getHandlerForDragEntered());
-		//iv1.setOnMouseDragged(imc.getHandlerForDrag()); // drag drop
-		//iv1.setOnMouseDragReleased(imc.getHandlerForRelease());
 		
+		
+
 		BorderPane border = new BorderPane();
 		VBox top = new VBox(5);
-		HBox imageBar = new HBox(10);
 		root.getChildren().add(border);
-		AnchorPane center = new AnchorPane();
 		
 		BorderPane.setMargin(top, new Insets(50, 12.5, 50, 12.5));
 		
@@ -87,34 +104,46 @@ public class PlantPlacementScene extends Scene {
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		top.getChildren().add(scenetitle);
 		top.setAlignment(Pos.CENTER);
+		top.getChildren().add(imageBar);
 		imageBar.minHeight(100);
 		imageBar.minWidth(View.getCanvasWidth());
 		imageBar.maxHeight(100);
 		imageBar.setStyle("-fx-border-color: black");
 		imageBar.setPadding(new Insets(50, 0, 50, 0));
-		for (int i = 0; i < 10; i++) {
-			imageBar.getChildren().add(new Label("{Plant image " + (int) (i + 1) + "}"));
+
+		for (int i = 0,j=0; j < 20; j++) {
+			i=j%10;
+			System.out.println(i);
+			images[i] = View.createImage("resources/plant"+Integer.toString((i+1))+".jpg");
+
+			//images[i] = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant"+Integer.toString((i+1))+".jpg");
+			imageview[i]= new ImageView();
+			imageview[i].setImage(images[i]);
+			imageview[i].setPreserveRatio(true);
+			imageview[i].setFitHeight(100);
+			imageBar.getChildren().addAll(imageview[i]);
 			imageBar.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
-		imageBar.getChildren().add(iv1);
-		top.getChildren().add(imageBar);
 		
-		iv1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+	
+		
+		imageBar.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse clicked");
-				final Stage pInfoStage = new Stage();
-				pInfoStage.initModality(Modality.APPLICATION_MODAL);
-				pInfoStage.setScene(View.getPlantInfoScene());
-				pInfoStage.show();
+				//View.getStage().setScene(View.getPlantInfoScene());
 			}
 		});
 		
-		iv1.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+		imageBar.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("Mouse dragged");
-				iv2.setImage(im1);
+				final ImageView iv = (ImageView) (event.getTarget());
+				iv2 = new ImageView();
+				iv2.setImage(iv.getImage());
+				center.getChildren().add(iv2);
+				//iv2.setImage(im1);
 				iv2.setPreserveRatio(true);
 				iv2.setFitHeight(100);
 				iv2.setOnMouseDragged(imc.getHandlerForDrag());
@@ -127,9 +156,7 @@ public class PlantPlacementScene extends Scene {
 
 		BorderPane.setMargin(center, new Insets(0, 12.5, 0, 12.5));
 		center.setPadding(new Insets(View.getCanvasHeight() / 2.5, 50, 0, 0));
-		//BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
-		//Background background = new Background(background_fill);
-		//center.setBackground(background);
+		
 		center.setStyle("-fx-border-color: black");
 
 		Button prevButton = createPrevButton();
@@ -141,9 +168,9 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(nextButton);
 
 		// TODO replace with selecting plant from image
-		//Button choosePlantButton = createChoosePlantButton();
+		Button choosePlantButton = createChoosePlantButton();
 
-		//root.getChildren().add(choosePlantButton);
+		root.getChildren().add(choosePlantButton);
 
 		Button mainMenuButton = createMainMenuButton();
 
@@ -154,12 +181,24 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(tutorialButton);
 
 	}
+	
+	private Button createScrollLeftButton() {
+		Button btn = new Button("<<<");
+		btn.setTranslateX(View.getCanvasWidth()*1/20);
+		btn.setTranslateY(View.getCanvasHeight()*1/10);
+		
+		EventHandler<ActionEvent> scrollLeftAction = new EventHandler<ActionEvent>() {
 
-	/**
-	 * Creates the tutorial button
-	 * 
-	 * @return the tutorial button
-	 */
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				//imageBar.getChildren().get(10).get
+				
+				
+			}};
+		return btn;
+	}
+
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
 
@@ -170,7 +209,7 @@ public class PlantPlacementScene extends Scene {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
 				helpStage.initModality(Modality.APPLICATION_MODAL);
-				helpStage.setScene(View.getTutorialScene());
+				//helpStage.setScene(View.getTutorialScene());
 				helpStage.show();
 			}
 		};
@@ -179,11 +218,6 @@ public class PlantPlacementScene extends Scene {
 		return tutorialButton;
 	}
 
-	/**
-	 * Creates the main menu button
-	 * 
-	 * @return the main menu button
-	 */
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
 
@@ -192,7 +226,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
@@ -200,30 +234,25 @@ public class PlantPlacementScene extends Scene {
 		return mainMenuButton;
 	}
 
-	/*private Button createChoosePlantButton() {
+	private Button createChoosePlantButton() {
 		Button choosePlantButton = new Button("Choose a Plant");
 
 		choosePlantButton.setTranslateX(View.getCanvasWidth() / 2 - 20);
-		choosePlantButton.setTranslateY(210);
+		choosePlantButton.setTranslateY(230);
 
 		EventHandler<ActionEvent> plantButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage pInfoStage = new Stage();
 				pInfoStage.initModality(Modality.APPLICATION_MODAL);
-				pInfoStage.setScene(View.getPlantInfoScene());
+				//pInfoStage.setScene(View.getPlantInfoScene());
 				pInfoStage.show();
 			}
 		};
 
 		choosePlantButton.setOnAction(plantButtonAction);
 		return choosePlantButton;
-	}*/
+	}
 
-	/**
-	 * Creates the next button
-	 * 
-	 * @return the next button
-	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
@@ -231,7 +260,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getTimesScene());
+				//View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
@@ -247,7 +276,7 @@ public class PlantPlacementScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getDrawScene());
+				//View.getStage().setScene(View.getDrawScene());
 			}
 		};
 

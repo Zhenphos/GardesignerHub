@@ -1,29 +1,13 @@
 package view;
 
-import java.io.File;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import mvc.Controller;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import mvc.View;
 
 /**
@@ -33,163 +17,130 @@ import mvc.View;
  */
 
 public class GardenInfoScene extends Scene {
-	static Group gardenInfoGroup = new Group();
 
-	private Controller controller;
+	private static final String INPUT_HEADER_TEXT = "Information Input";
+	private static final String INPUT_DESCRIPTION_HEADER_TEXT = "Description";
+	private static final String SUNLIGHT_LABEL_TEXT = "Hours of Sunlight: ";
+	private static final String RAIN_LABEL_TEXT = "Amount of Rain (millimeters):";
+	private static final String SOIL_LABEL_TEXT = "Soil pH:";
+	private static final String TEMP_LABEL_TEXT = "Temperature (Fahrenheit):";
 
-	private TextField tfLight;
-	private TextField tfRain;
-	private TextField tfPH;
-	private TextField tfTemp;
-	private Button next;
+	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
+	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day.";
+	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters.";
+	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale.";
+	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit.";
 
+	private HBox container;
+	private Label lblInputHeader, lblSunlight, lblRain, lblTemp, lblSoilPH;
+	private Label lblDescriptionHeader, lblDescription;
+	private TextField tfSunlight, tfRain, tfSoilPH, tfTemp;
+	private Button btnNext, btnPrev;
 
 	public GardenInfoScene() {
-		super(gardenInfoGroup);
-		createGardenInfo();
+		super(new HBox());
+		this.container = (HBox) this.getRoot();
+		this.container.setMinWidth(View.WIDTH);
+		this.container.setMinHeight(View.HEIGHT);
+		this.lblInputHeader = this.createHeader(INPUT_HEADER_TEXT);
+		this.lblInputHeader.setMaxWidth(Double.MAX_VALUE);
+		this.lblSunlight = this.createLabel(SUNLIGHT_LABEL_TEXT);
+		this.lblRain = this.createLabel(RAIN_LABEL_TEXT);
+		this.lblSoilPH = this.createLabel(SOIL_LABEL_TEXT);
+		this.lblTemp = this.createLabel(TEMP_LABEL_TEXT);
+		this.lblDescriptionHeader = this.createHeader(INPUT_DESCRIPTION_HEADER_TEXT);
+		this.lblDescriptionHeader.setMaxWidth(Double.MAX_VALUE);
+		this.lblDescription = this.createLabel(DEFAULT_INFO);
+		this.lblDescription.setWrapText(true);
+		this.lblDescription.setMaxHeight(Double.MAX_VALUE);
+		this.lblDescription.setTextAlignment(TextAlignment.CENTER);
+		this.lblDescription.setBackground(View.BACKGROUND);
+		this.lblDescription.setPadding(new Insets(View.SPACING));
+		this.tfSunlight = this.createTextField(SUNLIGHT_INFO);
+		this.tfRain = this.createTextField(RAIN_INFO);
+		this.tfSoilPH = this.createTextField(SOIL_INFO);
+		this.tfTemp = this.createTextField(TEMPERATURE_INFO);
+		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+
+		VBox inputs = new VBox();
+		inputs.getChildren().addAll(this.lblSunlight, this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
+		inputs.setAlignment(Pos.CENTER);
+		inputs.setSpacing(View.SPACING);
+		inputs.setBackground(View.BACKGROUND);
+		inputs.setPadding(new Insets(View.SPACING));
+		VBox leftSide = new VBox(this.lblInputHeader, inputs, this.btnPrev);
+		leftSide.setMaxWidth(View.WIDTH / 2f);
+		VBox.setVgrow(inputs, Priority.ALWAYS);
+
+		VBox rightSide = new VBox(this.lblDescriptionHeader, this.lblDescription, this.btnNext);
+		rightSide.setMaxWidth(View.WIDTH / 2f);
+		VBox.setVgrow(this.lblDescription, Priority.ALWAYS);
+		this.container.getChildren().addAll(leftSide, rightSide);
+
+		HBox.setHgrow(leftSide, Priority.ALWAYS);
+		HBox.setHgrow(rightSide, Priority.ALWAYS);
 	}
 
-	public void setController(Controller controller) {
-		this.controller = controller;
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
+	private Label createHeader(String text) {
+		Label label = new Label(text);
+		label.setStyle(View.HEADER_LABEL_STYLE);
+		label.setAlignment(Pos.CENTER);
+		return label;
+	}
 
-				try {
-					int light = Integer.parseInt(tfLight.getText());
-					int rain = Integer.parseInt(tfRain.getText());
-					int ph = Integer.parseInt(tfPH.getText());
-					int temp = Integer.parseInt(tfTemp.getText());
-					controller.setGardenProperties(light, rain, ph, temp);
-				} catch (NumberFormatException nfe) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setTitle("Invalid Input");
-					alert.setContentText("Please be sure you enter numeric values for your garden properties.");
-					alert.showAndWait();
-					return;
-				}
+	private Label createLabel(String text) {
+		Label label = new Label(text);
+		label.setStyle(View.TEXT_LABEL_STYLE);
+		return label;
+	}
 
-				View.getStage().setScene(View.getDrawScene());
+	private TextField createTextField(String description) {
+		TextField textField = new TextField();
+		textField.setStyle(View.TEXT_FIELD_STYLE);
+		textField.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+			if (!newValue) {
+				lblDescription.setText(DEFAULT_INFO);
+				return;
 			}
-		};
-		this.next.setOnAction(nextButtonAction);
+			lblDescription.setText(description);
+		}));
+		return textField;
 	}
 
-	/**
-	 * Creates the garden information scene
-	 */
-	public void createGardenInfo() {
-		Canvas gardenInfoCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
-		GraphicsContext gardenInfoGC;
-		gardenInfoGroup.getChildren().add(gardenInfoCanvas);
-		gardenInfoGC = gardenInfoCanvas.getGraphicsContext2D();
-		gardenInfoGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		BorderPane border = new BorderPane();
-		HBox hbox = new HBox();
-		HBox top = new HBox();
-		border.setTop(top);
-		border.setLeft(hbox);
-		HBox rightBox = new HBox();
-		border.setRight(rightBox);
-		rightBox.setStyle("-fx-border-color: black");
-		rightBox.setPadding(new Insets(View.lGap));
-		gardenInfoGroup.getChildren().add(border);
-
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(View.lGap));
-		hbox.getChildren().add(grid);
-		Text scenetitle = new Text("\t\tInformation Input \t\t\t\t\tHow To Get Information");
-		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		top.getChildren().add(scenetitle);
-
-		Label light = new Label("Hours of Sunlight :");
-		grid.add(light, 0, 1); // (col,row)
-
-		this.tfLight = new TextField();
-		grid.add(this.tfLight, 1, 1);
-
-		Label water = new Label("Amount of Rain (millimeters) :");
-		grid.add(water, 0, 2);
-
-		this.tfRain = new TextField();
-		grid.add(this.tfRain, 1, 2);
-
-		Label soil = new Label("Soil pH :");
-		grid.add(soil, 0, 3);
-
-		this.tfPH = new TextField();
-		grid.add(this.tfPH, 1, 3);
-
-		Label weather = new Label("Temperature (Fahrenheit) :");
-		grid.add(weather, 0, 4);
-
-		this.tfTemp = new TextField();
-		grid.add(this.tfTemp, 1, 4);
-
-		Text infoTutorial = new Text();
-		infoTutorial.setText(
-				"Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you. If you are uncertain about any of these values or do not wish to answer, simply leave the box blank and press next. \n \n The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day. \n \n The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters. \n \n The \"Soil pH\" is how acidic or basic your soil is. You may not know this, which is fine. Simply skip over it. \n \n The \"Temperature\" is the average temperature the land the garden will be on has experienced in the past week, in Fahrenheit.");
-		infoTutorial.setFont(Font.font("Tahoma", FontWeight.NORMAL, 22));
-		infoTutorial.wrappingWidthProperty().set(550);
-		// grid.add(infoTutorial, 3, 0, 10, 10);
-		rightBox.getChildren().add(infoTutorial);
-		//
-//		Label light = new Label("Light :");
-//		grid.add(light, 0, 1);
-//
-//		TextField lightInput = new TextField();
-//		grid.add(lightInput, 1, 1);
-
-		Image gardenInfoBackground;
-		System.out.println();
-		gardenInfoBackground = View.createImage("resources/gardenInfoImage.png");
-		gardenInfoGC.drawImage(gardenInfoBackground, 0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		Button prevButton = createPrevButton();
-
-		gardenInfoGroup.getChildren().add(prevButton);
-
-		this.next = createNextButton();
-
-		gardenInfoGroup.getChildren().add(next);
-
-		Button mainMenuButton = View.createMainMenuButton();
-
-		gardenInfoGroup.getChildren().add(mainMenuButton);
-
-		Button tutorialButton = View.createTutorialButton();
-
-		gardenInfoGroup.getChildren().add(tutorialButton);
-
-
-
+	private Button createButton(String text) {
+		Button btn = new Button(text);
+		btn.setStyle(View.BUTTON_STYLE);
+		return btn;
 	}
 
-	private Button createNextButton() {
-		Button nextButton = new Button("Next");
-
-		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
-		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-		return nextButton;
+	public Label getDescriptionLabel() {
+		return this.lblDescription;
 	}
 
-	private Button createPrevButton() {
-		Button prevButton = new Button("Prev");
-
-		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		prevButton.setOnAction(prevButtonAction);
-		return prevButton;
+	public TextField getSunlightTextfield() {
+		return this.tfSunlight;
 	}
 
+	public TextField getRainTextfield() {
+		return this.tfRain;
+	}
+
+	public TextField getSoilPHTextfield() {
+		return this.tfSoilPH;
+	}
+
+	public TextField getTempTextfield() {
+		return this.tfTemp;
+	}
+
+	public Button getNextButton() {
+		return this.btnNext;
+	}
+
+	public Button getPrevButton() {
+		return this.btnPrev;
+	}
 }

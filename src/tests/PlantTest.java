@@ -33,7 +33,7 @@ public class PlantTest {
 		System.out.println("Testing meetsRequirements()");
 		Plant testPlant = new Plant();
 		assertEquals(testPlant.meetsRequirements(), false);
-		Model model = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		Model model = new Model();
 		Iterator<GardenObject> plantIterator1 = model.getGardenObjects().iterator();
 		Iterator<GardenObject> plantIterator2 = model.getGardenObjects().iterator();
 		

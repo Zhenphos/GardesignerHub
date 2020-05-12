@@ -107,7 +107,7 @@ public class PlantInfoScene extends Scene {
 
 		EventHandler<ActionEvent> backButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
+				//View.getStage().setScene(View.getPlantPlacementScene());
 			}
 		};
 

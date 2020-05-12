@@ -1,32 +1,15 @@
 package view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import enums.Season;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import mvc.Controller;
 import mvc.View;
 
 /**
@@ -37,140 +20,89 @@ import mvc.View;
 
 public class TimesScene extends Scene {
 
-	private static Group root = new Group();
+	private static final String HEADER_TEXT = "Timeline Visualization";
+	private static final String YEARS_TEXT = "Years";
+	private static final double MINIMUM_AGE = 0;
+	private static final double MAXIMUM_AGE = 4;
 
-	private BorderPane border;
+	private BorderPane container;
+	private Label lblHeader;
+	private Pane gardenPane;
+	private ToggleGroup seasonGroup;
+	private Slider ageSlider;
+	private Button btnPrev, btnNext;
 
 	public TimesScene() {
-		super(root);
-		createTimes();
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
+		this.container.setMinSize(View.WIDTH, View.HEIGHT);
+		this.lblHeader = new Label(HEADER_TEXT);
+		this.lblHeader.setStyle(View.HEADER_LABEL_STYLE);
+		this.lblHeader.setAlignment(Pos.CENTER);
+		this.lblHeader.setMaxWidth(Double.MAX_VALUE);
+		this.container.setTop(this.lblHeader);
+		this.gardenPane = new Pane();
+		this.gardenPane.setBackground(View.BACKGROUND);
+		this.gardenPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+		this.seasonGroup = new ToggleGroup();
+		VBox radios = new VBox();
+		radios.setSpacing(View.SPACING);
+		for (Season season : Season.values()) {
+			RadioButton button = new RadioButton(season.name());
+			button.setToggleGroup(this.seasonGroup);
+			button.setUserData(season);
+			button.setSelected(true);
+			radios.getChildren().add(button);
+		}
+		FlowPane group = new FlowPane(radios);
+		group.setAlignment(Pos.CENTER);
+		group.setPadding(new Insets(View.SPACING));
+
+		this.ageSlider = new Slider(MINIMUM_AGE, MAXIMUM_AGE, MINIMUM_AGE);
+		this.ageSlider.setShowTickMarks(true);
+		this.ageSlider.setShowTickLabels(true);
+		this.ageSlider.setMajorTickUnit(1);
+		Label lblYears = new Label(YEARS_TEXT);
+		lblYears.setStyle(View.TEXT_LABEL_STYLE);
+		lblYears.setMaxWidth(Double.MAX_VALUE);
+		lblYears.setAlignment(Pos.CENTER);
+		VBox slider = new VBox(lblYears, this.ageSlider);
+		slider.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		slider.setPadding(new Insets(View.SPACING));
+
+		HBox options = new HBox(slider, group);
+		HBox.setHgrow(radios, Priority.ALWAYS);
+		HBox.setHgrow(slider, Priority.ALWAYS);
+		VBox center = new VBox(this.gardenPane, options);
+		this.container.setCenter(center);
+		VBox.setVgrow(this.gardenPane, Priority.ALWAYS);
+
+		this.btnPrev = new Button(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setStyle(View.BUTTON_STYLE);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		this.btnNext = new Button(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setStyle(View.BUTTON_STYLE);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		HBox buttons = new HBox(this.btnPrev, this.btnNext);
+		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
+		HBox.setHgrow(this.btnNext, Priority.ALWAYS);
+		this.container.setBottom(buttons);
 	}
 
-	/**
-	 * Creates the times scene which allows the user to preview what the garden
-	 * would look like at different times of the year.
-	 */
-	public void createTimes() {
-		Canvas canvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
-		GraphicsContext gc;
-		root.getChildren().add(canvas);
-		gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-		border = new BorderPane();
-		border.setPadding(new Insets(View.mGap));
-
-		final ToggleGroup tGroup = new ToggleGroup();
-
-		HBox top = new HBox();
-		Text title = new Text("Timelapse Visualization");
-		title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 40));
-		title.setTextAlignment(TextAlignment.CENTER);
-		top.getChildren().add(title);
-		top.setAlignment(Pos.CENTER);
-
-		border.setTop(top);
-
-		RadioButton rb1 = new RadioButton("Spring");
-		rb1.setToggleGroup(tGroup);
-		rb1.setSelected(true);
-		RadioButton rb2 = new RadioButton("Summer");
-		rb2.setToggleGroup(tGroup);
-		RadioButton rb3 = new RadioButton("Autumn");
-		rb3.setToggleGroup(tGroup);
-		RadioButton rb4 = new RadioButton("Winter");
-		rb4.setToggleGroup(tGroup);
-
-		final Label years = new Label("Years");
-		Slider slider = new Slider(0, 3, 1);
-		slider.setShowTickMarks(true);
-		slider.setShowTickLabels(true);
-		slider.setMajorTickUnit(1);
-
-		GridPane radioBox = new GridPane();
-		radioBox.add(rb1, 0, 0);
-		radioBox.add(rb2, 0, 1);
-		radioBox.add(rb3, 0, 2);
-		radioBox.add(rb4, 0, 3);
-		radioBox.setVgap(View.sGap);
-		radioBox.setHgap(View.mGap);
-
-		VBox sliderBox = new VBox(years, slider);
-		sliderBox.setAlignment(Pos.CENTER);
-
-		HBox bottom = new HBox(sliderBox, radioBox);
-		bottom.setPadding(new Insets(View.sGap));
-		bottom.setSpacing(View.getCanvasWidth() * 3 / 8);
-		bottom.setAlignment(Pos.CENTER);
-		bottom.setStyle("-fx-border-color: black");
-
-		border.setBottom(bottom);
-
-		AnchorPane center = new AnchorPane();
-
-		center.setPadding(new Insets(View.getCanvasHeight() * 1 / 4, View.getCanvasWidth() * 3 / 8,
-				View.getCanvasHeight() * 1 / 4, View.getCanvasWidth() * 3 / 8));
-		BackgroundFill background_fill = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
-		Background background = new Background(background_fill);
-		center.setBackground(background);
-		center.setStyle("-fx-border-color: black");
-
-		BorderPane.setMargin(center, new Insets(View.getCanvasHeight() * 1 / 16, View.getCanvasWidth() * 1 / 8,
-				View.getCanvasHeight() * 1 / 16, View.getCanvasWidth() * 1 / 8));
-
-		border.setCenter(center);
-
-		root.getChildren().add(border);
-
-		Button prevButton = createPrevButton();
-
-		root.getChildren().add(prevButton);
-
-		Button mainMenuButton = View.createMainMenuButton();
-
-		root.getChildren().add(mainMenuButton);
-
-		Button tutorialButton = View.createTutorialButton();
-
-		root.getChildren().add(tutorialButton);
-
-		Button nextButton = createNextButton();
-
-		root.getChildren().add(nextButton);
-
+	public ToggleGroup getSeasonGroup() {
+		return this.seasonGroup;
 	}
 
-	private Button createNextButton() {
-		Button nextButton = new Button("Next");
-
-		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
-		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getRatingScene());
-			}
-		};
-
-		nextButton.setOnAction(nextButtonAction);
-		return nextButton;
+	public Slider getAgeSlider() {
+		return this.ageSlider;
 	}
 
-	private Button createPrevButton() {
-		Button prevButton = new Button("Prev");
-
-		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
-			}
-		};
-
-		prevButton.setOnAction(prevButtonAction);
-		return prevButton;
+	public Button getPrevButton() {
+		return this.btnPrev;
 	}
 
+	public Button getNextButton() {
+		return this.btnNext;
+	}
 }

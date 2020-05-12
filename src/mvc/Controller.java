@@ -1,19 +1,23 @@
 package mvc;
 
-import javafx.animation.AnimationTimer;
+import enums.Names;
+import enums.Season;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
-import view.PlantInfoScene;
+import objects.*;
+import view.DrawScene;
+import view.GardenInfoScene;
 import view.PlantPlacementScene;
-import objects.Plant2;
-import objects.GardenObject;
-import objects.Grass;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,9 +29,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Controller class for Garden Designer
@@ -45,77 +48,39 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		ArrayList<Plant2> allPlants = importPlants();
+		Collection<Plant2> allPlants = importPlants();
 		System.out.println("allPlants is " + allPlants);
 		launch(args);
 	}
 
-	public static ArrayList<Plant2> importPlants() throws FileNotFoundException {
-		ArrayList<Plant2> plantList = new ArrayList<>();
-
-		String csvFile = "";
-		try {
-			csvFile = "resources/NewMoonNurseryPlants.csv";
-			System.out.println("Found CSV file");
-		} catch (Exception e) {
-			System.out.println("Error getting CSV file");
-		}
-
-		BufferedReader bReader = null;
-		String line = "";
-		String charToSplitBy = ";";
-		String[] csvLine = null;
-
-		try {
-			bReader = new BufferedReader(new FileReader(csvFile));
-			System.out.println("Found CSV file");
-
-			while ((line = bReader.readLine()) != null) {
-				csvLine = line.split(charToSplitBy);
-				/*
-				Pattern searchPattern = Pattern.compile("\\d+");
-				Matcher matcher = searchPattern.matcher(csvLine[1]);
-				while (matcher.find()) {
-					int testInt = Integer.parseInt(matcher.group());
-					System.out.println("int is " + testInt);
-				}
-				*/
-				plantList.add(new Plant2(csvLine[0], csvLine[1], csvLine[2], csvLine[3], csvLine[4], csvLine[5]));
-				//System.out.println("break");
+	public static Collection<Plant2> importPlants() {
+		Collection<Plant2> plantList = new ArrayList<>();
+		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] data = line.split(";");
+				plantList.add(new Plant2(data[0], data[1], data[2], data[3], data[4], data[5]));
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (bReader != null) {
-				try {
-					bReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			e.printStackTrace(); // to do:: add proper error handling
 		}
-
 		return plantList;
-
 	}
 
 	private Model model;
-
 	private View view;
 	private PlantPlacementScene pps;
 	
-	private final boolean DEBUG = true;
+	private static final boolean DEBUG = true;
 	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
-	
+
 	public Controller() {
-		
+
 	}
-	
+
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
-		model = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		model = new Model();
 		if (DEBUG) System.out.println("ic created");
 	}
 
@@ -125,73 +90,199 @@ public class Controller extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		view = new View(theStage, this);
-		model = new Model(view.getCanvasWidth(), view.getCanvasHeight());
+		model = new Model();
 		theStage.show();
 	}
 
 	/**
-	 * Saves the current garden project to a file
-	 * 
-	 * @param file - the file to be saved
+	 * Event handler for when the user presses the new button on the main menu scene
 	 */
-	public void saveFile(File filename) {
-		// Serialization
-		try {
-			// Saving of object in a file
-			FileOutputStream file = new FileOutputStream(filename);
-			ObjectOutputStream out = new ObjectOutputStream(file);
-
-			// Method for serialization of object
-			out.writeObject(this.model);
-
-			out.close();
-			file.close();
-
-			System.out.println("Object has been serialized");
-
-		}
-
-		catch (IOException ex) {
-			System.out.println("IOException is caught");
-		}
-
-		// System.out.println(file);
+	public void onMainMenuNew() {
+		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
 	/**
-	 * Loads a saved garden project from a file
-	 * 
-	 * @param file - the garden project to be loaded
+	 * Event handler for when the user presses the help button on the MainMenuScene
 	 */
-	public void loadFile(File filename) {
-		try
-        {    
-            // Reading the object from a file 
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file); 
+	public void onMainMenuHelp() {
+		this.view.setScreen(Names.TUTORIAL);
+	}
 
-            // Method for deserialization of object 
-            Model model = null;
-            model = (Model)in.readObject();
-            System.out.println("working");
+	/**
+	 * Event handler for when the user presses the load button on the MainMenuScene
+	 */
+	public void onMainMenuLoad() {
+		this.view.setScreen(Names.LOADING);
+	}
 
-            in.close(); 
-            file.close(); 
-              
-            System.out.println("Object has been deserialized "); 
-            System.out.println("amount of light = " + model.getAmountOfLight()); 
-        } 
-          
-        catch(IOException ex) 
-        {
-        	ex.printStackTrace();
-        } 
-          
-        catch(ClassNotFoundException ex) 
-        { 
-            System.out.println("ClassNotFoundException is caught"); 
-        } 
-		//System.out.println(file);
+	/**
+	 * Event handler for when the user presses the previous button on the GardenInfoscene
+	 */
+	public void onGardenInfoPrev() {
+		Optional<ButtonType> response = this.view.showDiscardDialog();
+		if (response.isPresent() && response.get() == ButtonType.OK) {
+			this.view.setScreen(Names.MAIN_MENU);
+		}
+	}
+
+	/**
+	 * Event handler for when the user presses the next button on the GardenInfoScene
+	 */
+	public void onGardenInfoNext() {
+		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
+		try {
+			this.model.setLight(Integer.parseInt(scene.getSunlightTextfield().getText()));
+			this.model.setRain(Integer.parseInt(scene.getRainTextfield().getText()));
+			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
+			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
+			this.view.setScreen(Names.DRAW);
+			this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
+		} catch (NumberFormatException e) {
+			this.view.showInvalidInputAlert();
+		}
+	}
+
+	/**
+	 * Event Handler for when the user presses the previous button on the Tutorialscene
+	 */
+	public void onTutorialPrev() {
+		this.view.setScreen(Names.MAIN_MENU);
+	}
+
+	public void onDrawPrev() {
+		this.view.setScreen(Names.GARDEN_INFO);
+	}
+
+	public void onDrawNext() {
+		this.view.setScreen(Names.PLANT_PLACEMENT);
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getCenter());
+	}
+
+	public void onDrawGrass() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Grass grass = new Grass();
+		scene.getCenter().getChildren().add(grass.getShape().getPolygon());
+		this.model.addGardenObject(grass);
+		System.out.println("Object Added");
+	}
+
+	public void onDrawRoad() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Road road = new Road();
+		scene.getCenter().getChildren().add(road.getShape().getPolygon());
+		this.model.addGardenObject(road);
+		System.out.println("Object Added");
+	}
+
+	public void onDrawStream() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Stream stream = new Stream();
+		scene.getCenter().getChildren().add(stream.getShape().getPolygon());
+		this.model.addGardenObject(stream);
+		System.out.println("Object Added");
+	}
+
+	public void onDrawWoods() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Woods woods = new Woods();
+		scene.getCenter().getChildren().add(woods.getShape().getPolygon());
+		this.model.addGardenObject(woods);
+		System.out.println("Object Added");
+	}
+
+	public void onDrawShader() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Shade shade = new Shade();
+		scene.getCenter().getChildren().add(shade.getShape().getPolygon());
+		this.model.addGardenObject(shade);
+		System.out.println("Object Added");
+	}
+
+	public void onDrawDelete() {
+
+	}
+
+	/**
+	 * Event handler for when the user presses the previous button on the TimesScene
+	 */
+	public void onTimesPrev() {
+		this.view.setScreen(Names.PLANT_PLACEMENT);
+	}
+
+	/**
+	 * Event Handler for when the user presses the next button on the TimesScene
+	 */
+	public void onTimesNext() {
+		this.view.setScreen(Names.RATING);
+	}
+
+	/**
+	 * Event handler for when the user selects a season radio button on the TimesScene
+	 * @param season the new season the garden is in
+	 */
+	public void onTimesSetSeason(Season season) {
+		// to do: update model and update image view for garden
+	}
+
+	/**
+	 * Event handler for when the user moves the age slider on the TimesScene
+	 * @param age the age in years of the garden to set to
+	 */
+	public void onTimesSetAge(double age) {
+		// to do: update model and update image view for garden
+	}
+
+	/**
+	 * Event Handler for when the user presses the previous button on the RatingScene
+	 */
+	public void onRatingPrev() {
+		this.view.setScreen(Names.TIMES);
+	}
+
+	/**
+	 * Event handler for when the user presses the save button on the RatingScene
+	 */
+	public void onRatingSave() {
+		File file = this.view.showSaveDialog();
+		if (file == null) return;
+
+		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
+			out.writeObject(this.model);
+			if (DEBUG) System.out.println("Object has been serialized to file: " + file.getPath());
+			// to do: notify user successful save and move to load screen
+		} catch (IOException ex) {
+			// to do: notify user of saving error
+			System.out.println("IOException is caught");
+		}
+	}
+
+	/**
+	 * Event handler for when the user wants to select a garden to load while on the LoadingScene
+	 */
+	public void onLoadingBrowse() {
+		File file = this.view.showOpenDialog();
+		if (file == null) return;
+
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+			Model model = (Model) in.readObject();
+			if (DEBUG) {
+				System.out.println("Object has been deserialized ");
+				System.out.println("amount of light = " + model.getLight());
+			}
+			// to do: update the scenes with data from new model
+			// load other gardens in the same directory to the loading scene
+		} catch (IOException | ClassNotFoundException e) {
+			// To do: add error handeling
+			e.printStackTrace();
+		}
+	}
+
+	public void onLoadingPrev() {
+		this.view.setScreen(Names.MAIN_MENU);
+	}
+
+	public void onLoadingEdit() {
+		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
 
@@ -209,12 +300,6 @@ public class Controller extends Application {
 		pps.setY(model.getY());
 	}
 	
-	/**
-	 * Makes a copy of an ImageView if there is user mouse input on
-	 * one of the ImageViews in the dock.
-	 * 
-	 * @param event - event triggered by mouse click
-	 */
     public void makeCopy(MouseEvent event) {
     	Node n = (Node)event.getSource();
     	if (DEBUG) System.out.println("Copy made");
@@ -237,24 +322,57 @@ public class Controller extends Application {
 		return model.getY();
 	}
 	
-	public void setGardenProperties(int light, int rain, int soilPH, int temp) {
-		this.model.setAmountOfLight(light);
-		System.out.println("Light: " + light);
-		this.model.setAmountOfRain(rain);
-		System.out.println("Rain: " + rain);
-		this.model.setSoilPH(soilPH);
-		System.out.println("Soil pH: " + soilPH);
-		this.model.setTemperature(temp);
-		System.out.println("Temperature: " + temp);
-	}
-	
 	/**
-	 * Adds a garden object to the plot
 	 * 
 	 * @param object the object that will be loaded into the model
 	 */
 	public void addGardenObject(GardenObject object) {
 		this.model.addGardenObject(object);
 		System.out.println("Added object");
+	}
+
+	/**
+	 * 
+	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
+	 */
+	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
+		return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Polygon polygon = object.getShape().getPolygon();
+				System.out.println("Added object");
+				model.addGardenObject(object);
+				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+				    }
+				});
+				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			        @Override
+			        public void handle(MouseEvent event) {
+			            double changeX = event.getSceneX() - mousePosition.get().getX();
+			            double changeY = event.getSceneY() - mousePosition.get().getY();
+			            
+			            if (polygon.getLayoutX() < 0) {
+			            	polygon.setLayoutX(0);
+			            } else { 
+				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+			            }
+			            
+			            if (polygon.getLayoutY() < 0) {
+			            	polygon.setLayoutY(0);
+			            } else {
+				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+			            }
+			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			        }
+			    });
+			}
+		};
+	}
+	
+	public Collection<GardenObject> loadMapObjects() {
+		return model.getGardenObjects();
 	}
 }

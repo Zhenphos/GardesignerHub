@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,28 +32,59 @@ import objects.Stream;
 import objects.Woods;
 
 /**
- * 
+ *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
 public class DrawScene extends Scene {
 	static Group drawGardenGroup = new Group();
+
 	private BorderPane border;
-	AnchorPane center;
-	private Controller controller;
-	private Button grassButton;
-	private Button roadButton;
-	private Button streamButton;
-	private Button woodsButton;
-	private Button shadeButton;
-	private Button deleteButton;
+	private Pane center;
+	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
 	public DrawScene() {
 		super(drawGardenGroup);
 		createDraw();
 	}
-	
+
+	public Pane getCenter() {
+		return this.center;
+	}
+
+	public Button getGrassButton() {
+		return this.grassButton;
+	}
+
+	public Button getRoadbutton() {
+		return this.roadButton;
+	}
+
+	public Button getStreamButton() {
+		return this.streamButton;
+	}
+
+	public Button getWoodsButton() {
+		return this.woodsButton;
+	}
+
+	public Button getShadeButton() {
+		return this.shadeButton;
+	}
+
+	public Button getDeleteButton() {
+		return this.deleteButton;
+	}
+
+	public Button getPrevButton() {
+		return this.btnPrev;
+	}
+
+	public Button getNextButton() {
+		return this.btnNext;
+	}
+
 	/**
 	 * Creates the draw scene which allows the user to draw their garden space.
 	 */
@@ -88,23 +120,23 @@ public class DrawScene extends Scene {
 		Label woods = new Label("Woods \t\t");
 		Label shade = new Label("Shade \t\t");
 		Label delete = new Label("Delete \t \t");
-		
+
 		grassButton = new Button("Grass");
 		roadButton = new Button("Road");
 		streamButton = new Button("Stream");
 		woodsButton = new Button("Woods");
 		shadeButton = new Button("Shade");
 		deleteButton = new Button("Delete");
-		
+
 		HBox grassBox = new HBox(grass, grassButton);
 		HBox roadBox = new HBox(road, roadButton);
 		HBox streamBox = new HBox(stream, streamButton);
 		HBox woodsBox = new HBox(woods, woodsButton);
 		HBox shadeBox = new HBox(shade, shadeButton);
 		HBox deleteBox = new HBox(delete, deleteButton);
-		
+
 		GridPane items = new GridPane();
-				
+
 		items.add(grassBox, 0, 0);
 		items.add(roadBox, 0, 1);
 		items.add(streamBox, 0, 2);
@@ -124,9 +156,6 @@ public class DrawScene extends Scene {
 
 		center.setPrefHeight(View.getCanvasHeight() * 3/5);
 		center.setPrefWidth(View.getCanvasWidth() * 3/4);
-		BackgroundFill background_fill = new BackgroundFill(null, CornerRadii.EMPTY, Insets.EMPTY);
-		Background background = new Background(background_fill);
-		center.setBackground(background);
 		center.setStyle("-fx-border-color: black");
 
 		Image drawBackground;
@@ -134,21 +163,21 @@ public class DrawScene extends Scene {
 		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
 		// View.getCanvasHeight());
 
-		Button prevButton = createPrevButton();
+		btnPrev = createPrevButton();
 
-		drawGardenGroup.getChildren().add(prevButton);
+		drawGardenGroup.getChildren().add(btnPrev);
 
-		Button nextButton = createNextButton();
+		btnNext = createNextButton();
 
-		drawGardenGroup.getChildren().add(nextButton);
+		drawGardenGroup.getChildren().add(btnNext);
 
-		Button mainMenuButton = View.createMainMenuButton();
+		//Button mainMenuButton = View.createMainMenuButton();
 
-		drawGardenGroup.getChildren().add(mainMenuButton);
+		//drawGardenGroup.getChildren().add(mainMenuButton);
 
-		Button tutorialButton = View.createTutorialButton();
+		//Button tutorialButton = View.createTutorialButton();
 
-		drawGardenGroup.getChildren().add(tutorialButton);
+		//drawGardenGroup.getChildren().add(tutorialButton);
 
 	}
 
@@ -158,13 +187,13 @@ public class DrawScene extends Scene {
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
 		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
+		/*EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				View.getStage().setScene(View.getPlantPlacementScene());
 			}
-		};
+		};*/
 
-		nextButton.setOnAction(nextButtonAction);
+		//nextButton.setOnAction(nextButtonAction);
 		return nextButton;
 	}
 
@@ -176,68 +205,12 @@ public class DrawScene extends Scene {
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
+				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
 
 		prevButton.setOnAction(prevButtonAction);
 		return prevButton;
-	}
-	
-	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
-		return new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Polygon polygon = object.getShape().getPolygon();
-				center.getChildren().add(polygon);
-				controller.addGardenObject(object);
-				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-				    }
-				});
-				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			        @Override
-			        public void handle(MouseEvent event) {
-			            double changeX = event.getSceneX() - mousePosition.get().getX();
-			            double changeY = event.getSceneY() - mousePosition.get().getY();
-			            
-			            if (polygon.getLayoutX() < 0) {
-			            	polygon.setLayoutX(0);
-			            } else { 
-				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
-			            }
-			            
-			            if (polygon.getLayoutY() < 0) {
-			            	polygon.setLayoutY(0);
-			            } else {
-				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
-			            }
-			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-			        }
-			    });
-			}
-		};
-	}
-	
-	public void setController(Controller controller) {
-		this.controller = controller;
-		
-		this.grassButton.setOnAction(createButtonAction(new Grass()));
-
-		this.roadButton.setOnAction(createButtonAction(new Road()));
-
-		this.streamButton.setOnAction(createButtonAction(new Stream()));
-		
-		this.woodsButton.setOnAction(createButtonAction(new Woods()));
-
-		this.shadeButton.setOnAction(createButtonAction(new Shade()));
-		
-		EventHandler<ActionEvent> deleteButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-			}
-		};
-		this.deleteButton.setOnAction(deleteButtonAction);
 	}
 }

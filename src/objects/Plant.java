@@ -1,6 +1,11 @@
 package objects;
 
+import java.io.File;
+
 import enums.PlantType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import mvc.View;
 
 /**
  * 
@@ -22,11 +27,13 @@ public class Plant extends GardenObject {
 	int maxRain;
 	int size;
 
+
 	/**
 	 * the constructor for Plant
 	 */
+	
 	public Plant() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -44,6 +51,7 @@ public class Plant extends GardenObject {
 	 * @param maxTemp
 	 * @param minRain
 	 * @param maxRain
+	 * @param filename
 	 */
 	public Plant(PlantType plantType, String color, double growTime, String name, int size, int minLight, int maxLight,
 			String[] soilTypes, int minTemp, int maxTemp, int minRain, int maxRain) {
@@ -60,7 +68,10 @@ public class Plant extends GardenObject {
 		this.maxTemp = maxTemp;
 		this.minRain = minRain;
 		this.maxRain = maxRain;
+		
 	}
+	
+	
 
 	/**
 	 * 
@@ -148,6 +159,7 @@ public class Plant extends GardenObject {
 	public void incrementSize() {
 		size++;
 	}
+
 
 	/**
 	 * Checks if the plant meets minimum specified requirements.

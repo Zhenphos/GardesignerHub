@@ -1,6 +1,8 @@
 package tests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -21,7 +23,7 @@ public class ModelTest {
 	@Test
 	public void testAddGardenObject() {
 		Plant p = new Plant();
-		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		Model m = new Model();
 		Collection<GardenObject> c = m.getGardenObjects();
 		m.addGardenObject(p);
 		assertEquals(c.size(), c.size() + 1);
@@ -37,8 +39,8 @@ public class ModelTest {
 	public void testLoad() {
 		fail("Not yet implemented"); // TODO
 		String filename = " ";
-		Model model = new Model(View.getCanvasWidth(), View.getCanvasHeight());
-		Collection<GardenObject> c = model.load(filename);
+		Model model = new Model();
+		Collection<GardenObject> c = new ArrayList<>();//model.load(filename);
 		if (c.size() == 0)
 			fail("No object loaded in the collection");
 
@@ -47,7 +49,7 @@ public class ModelTest {
 	@Test
 	public void testRemoveGardenObject() {
 		Plant p = new Plant();
-		Model m = new Model(View.getCanvasWidth(), View.getCanvasHeight());
+		Model m = new Model();
 		m.removeGardenObject(p);
 		assertNull("Should be null", p);
 
