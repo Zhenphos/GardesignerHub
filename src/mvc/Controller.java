@@ -3,9 +3,11 @@ package mvc;
 import enums.Names;
 import enums.Season;
 import javafx.application.Application;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -59,7 +62,76 @@ public class Controller extends Application {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
-				plantList.add(new Plant2(data[0], data[1], data[2], data[3], data[4], data[5]));
+				String plantBotName = data[0];
+				String bloomColor = data[5];
+				
+				
+				int minHeight = 0;
+				int maxHeight = 0;
+				String[] splittingArray = data[1].split("-", 2);
+				
+				try {
+					minHeight = Integer.parseInt(splittingArray[0]);
+				} catch (Exception e) {
+					minHeight = -1;
+				}
+				
+				try {
+					maxHeight = Integer.parseInt(splittingArray[1]);
+				} catch (Exception e) {
+					maxHeight = -1;
+				}
+
+				int spreadMin = 0;
+				int spreadMax = 0;
+				splittingArray = data[2].split("-", 2);
+
+				try {
+					spreadMin = Integer.parseInt(splittingArray[0]);
+				} catch (Exception e) {
+					spreadMin = -1;
+				}
+
+				try {
+					spreadMax = Integer.parseInt(splittingArray[1]);
+				} catch (Exception e) {
+					spreadMax = -1;
+				}
+
+				int spacingMin = 0;
+				int spacingMax = 0;
+				splittingArray = data[3].split("-", 2);
+
+				try {
+					spacingMin = Integer.parseInt(splittingArray[0]);
+				} catch (Exception e) {
+					spacingMin = -1;
+				}
+
+				try {
+					spacingMax = Integer.parseInt(splittingArray[1]);
+				} catch (Exception e) {
+					spacingMax = -1;
+				}
+
+				int hardinessMin = 0;
+				int hardinessMax = 0;
+				splittingArray = data[4].split("-", 2);
+
+				try {
+					hardinessMin = Integer.parseInt(splittingArray[0]);
+				} catch (Exception e) {
+					hardinessMin = -1;
+				}
+
+				try {
+					hardinessMax = Integer.parseInt(splittingArray[1]);
+				} catch (Exception e) {
+					hardinessMax = -1;
+				}
+
+				plantList.add(new Plant2(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
+						spacingMax, hardinessMin, hardinessMax, bloomColor));
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // to do:: add proper error handling
@@ -70,7 +142,7 @@ public class Controller extends Application {
 	private Model model;
 	private View view;
 	private PlantPlacementScene pps;
-	
+
 	private static final boolean DEBUG = true;
 	public ArrayList<ImageView> ivs = new ArrayList<ImageView>();
 
@@ -81,7 +153,8 @@ public class Controller extends Application {
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
 		model = new Model();
-		if (DEBUG) System.out.println("ic created");
+		if (DEBUG)
+			System.out.println("ic created");
 	}
 
 	/**
@@ -116,7 +189,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user presses the previous button on the GardenInfoscene
+	 * Event handler for when the user presses the previous button on the
+	 * GardenInfoscene
 	 */
 	public void onGardenInfoPrev() {
 		Optional<ButtonType> response = this.view.showDiscardDialog();
@@ -124,7 +198,7 @@ public class Controller extends Application {
 			this.view.setScreen(Names.MAIN_MENU);
 		}
 	}
-
+	
 	/**
 	 * Event handler for when the user presses the next button on the GardenInfoScene
 	 */
@@ -143,7 +217,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event Handler for when the user presses the previous button on the Tutorialscene
+	 * Event Handler for when the user presses the previous button on the
+	 * Tutorialscene
 	 */
 	public void onTutorialPrev() {
 		this.view.setScreen(Names.MAIN_MENU);
@@ -161,41 +236,46 @@ public class Controller extends Application {
 	public void onDrawGrass() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Grass grass = new Grass();
-		scene.getCenter().getChildren().add(grass.getShape().getPolygon());
+		Polygon polygon = grass.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(grass);
-		System.out.println("Object Added");
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawRoad() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
-		scene.getCenter().getChildren().add(road.getShape().getPolygon());
+		Polygon polygon = road.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(road);
-		System.out.println("Object Added");
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawStream() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
-		scene.getCenter().getChildren().add(stream.getShape().getPolygon());
-		this.model.addGardenObject(stream);
-		System.out.println("Object Added");
+		Polygon polygon = stream.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
+		this.model.addGardenObject(new Stream());
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawWoods() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
-		scene.getCenter().getChildren().add(woods.getShape().getPolygon());
-		this.model.addGardenObject(woods);
-		System.out.println("Object Added");
+		Polygon polygon = woods.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
+		this.model.addGardenObject(new Woods());
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
-		scene.getCenter().getChildren().add(shade.getShape().getPolygon());
+		Polygon polygon = shade.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(shade);
-		System.out.println("Object Added");
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawDelete() {
@@ -217,7 +297,9 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user selects a season radio button on the TimesScene
+	 * Event handler for when the user selects a season radio button on the
+	 * TimesScene
+	 * 
 	 * @param season the new season the garden is in
 	 */
 	public void onTimesSetSeason(Season season) {
@@ -226,6 +308,7 @@ public class Controller extends Application {
 
 	/**
 	 * Event handler for when the user moves the age slider on the TimesScene
+	 * 
 	 * @param age the age in years of the garden to set to
 	 */
 	public void onTimesSetAge(double age) {
@@ -233,7 +316,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event Handler for when the user presses the previous button on the RatingScene
+	 * Event Handler for when the user presses the previous button on the
+	 * RatingScene
 	 */
 	public void onRatingPrev() {
 		this.view.setScreen(Names.TIMES);
@@ -244,11 +328,13 @@ public class Controller extends Application {
 	 */
 	public void onRatingSave() {
 		File file = this.view.showSaveDialog();
-		if (file == null) return;
+		if (file == null)
+			return;
 
-		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
 			out.writeObject(this.model);
-			if (DEBUG) System.out.println("Object has been serialized to file: " + file.getPath());
+			if (DEBUG)
+				System.out.println("Object has been serialized to file: " + file.getPath());
 			// to do: notify user successful save and move to load screen
 		} catch (IOException ex) {
 			// to do: notify user of saving error
@@ -257,12 +343,13 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user wants to select a garden to load while on the LoadingScene
+	 * Event handler for when the user wants to select a garden to load while on the
+	 * LoadingScene
 	 */
 	public void onLoadingBrowse() {
 		File file = this.view.showOpenDialog();
-		if (file == null) return;
-
+		if (file == null)
+			return;
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
 			Model model = (Model) in.readObject();
 			if (DEBUG) {
@@ -285,31 +372,32 @@ public class Controller extends Application {
 		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
-
 	/**
 	 * Uses user mouse input to move plant image around on screen
 	 * 
 	 * @param event - event triggered by mouse click
 	 */
 	public void drag(MouseEvent event) {
-		Node n = (Node)event.getSource();
-		if (DEBUG) System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX() );
-		model.setX(model.getX() + event.getX()); //event.getX() is the amount of horiz drag
+		Node n = (Node) event.getSource();
+		if (DEBUG)
+			System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX());
+		model.setX(model.getX() + event.getX()); // event.getX() is the amount of horiz drag
 		model.setY(model.getY() + event.getY());
 		pps.setX(model.getX());
 		pps.setY(model.getY());
 	}
-	
-    public void makeCopy(MouseEvent event) {
-    	Node n = (Node)event.getSource();
-    	if (DEBUG) System.out.println("Copy made");
-    	ImageView iv2 = (ImageView) n;
-    }
-	
+
+	public void makeCopy(MouseEvent event) {
+		Node n = (Node) event.getSource();
+		if (DEBUG)
+			System.out.println("Copy made");
+		ImageView iv2 = (ImageView) n;
+	}
+
 	public EventHandler<MouseEvent> getHandlerForDragEntered() {
 		return event -> makeCopy((MouseEvent) event);
 	}
-	
+
 	public EventHandler<MouseEvent> getHandlerForDrag() {
 		return event -> drag((MouseEvent) event);
 	}
@@ -317,7 +405,7 @@ public class Controller extends Application {
 	public double getStartingX() {
 		return model.getX();
 	}
-	
+
 	public double getStartingY() {
 		return model.getY();
 	}
@@ -332,44 +420,38 @@ public class Controller extends Application {
 	}
 
 	/**
+	 * Gives a polygon the drag behavior
 	 * 
 	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
 	 */
-	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
-		return new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Polygon polygon = object.getShape().getPolygon();
-				System.out.println("Added object");
-				model.addGardenObject(object);
-				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-				    }
-				});
-				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			        @Override
-			        public void handle(MouseEvent event) {
-			            double changeX = event.getSceneX() - mousePosition.get().getX();
-			            double changeY = event.getSceneY() - mousePosition.get().getY();
-			            
-			            if (polygon.getLayoutX() < 0) {
-			            	polygon.setLayoutX(0);
-			            } else { 
-				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
-			            }
-			            
-			            if (polygon.getLayoutY() < 0) {
-			            	polygon.setLayoutY(0);
-			            } else {
-				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
-			            }
-			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-			        }
-			    });
-			}
-		};
+	public void giveDragBehavior(Polygon polygon) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+		    }
+		});
+		polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	            double changeX = event.getSceneX() - mousePosition.get().getX();
+	            double changeY = event.getSceneY() - mousePosition.get().getY();
+	            
+	            if (polygon.getLayoutX() < 0) {
+	            	polygon.setLayoutX(0);
+	            } else { 
+		        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+	            }
+	            
+	            if (polygon.getLayoutY() < 0) {
+	            	polygon.setLayoutY(0);
+	            } else {
+		            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+	            }
+	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+	        }
+		});
 	}
 	
 	public Collection<GardenObject> loadMapObjects() {
