@@ -1,5 +1,11 @@
 package enums;
 
+/**
+ * 
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+ *
+ */
+
 public enum Names {
 	MAIN_MENU,
 	GARDEN_INFO,

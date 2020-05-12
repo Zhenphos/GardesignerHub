@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
@@ -186,6 +188,7 @@ public class View {
 	 */
 	private void initializePlantPlacement() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
+
 	}
 
 	/**
@@ -293,5 +296,17 @@ public class View {
 
 	public static int getCanvasHeight() {
 		return HEIGHT;
+	}
+	
+	/**
+	 * Draws anything in the map that is not already there
+	 * 
+	 * @param pane The pane which will contain the map
+	 */
+	public void drawMap(Pane pane) {
+		for (GardenObject go:this.controller.loadMapObjects()) {
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+			pane.getChildren().add(go.getShape().getPolygon());
+		}
 	}
 }

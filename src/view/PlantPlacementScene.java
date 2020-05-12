@@ -49,7 +49,8 @@ public class PlantPlacementScene extends Scene {
 	public ImageView iv2;
 	public ImageView imageview[] = new ImageView [10];
 	HBox imageBar = new HBox(10);
-	AnchorPane center = new AnchorPane();
+
+	private Pane center = new Pane();
 
 	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
@@ -57,6 +58,10 @@ public class PlantPlacementScene extends Scene {
 	//public final double buttonYPos = 740;
 	public int numCopies = 0;
 
+	public Pane getCenter() {
+		return this.center;
+	}
+	
 	public PlantPlacementScene() {
 		super(root);
 		

@@ -3,11 +3,18 @@ package mvc;
 import enums.Names;
 import enums.Season;
 import javafx.application.Application;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
 import view.DrawScene;
@@ -125,7 +132,6 @@ public class Controller extends Application {
 
 				plantList.add(new Plant2(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
 						spacingMax, hardinessMin, hardinessMax, bloomColor));
-
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // to do:: add proper error handling
@@ -192,10 +198,9 @@ public class Controller extends Application {
 			this.view.setScreen(Names.MAIN_MENU);
 		}
 	}
-
+	
 	/**
-	 * Event handler for when the user presses the next button on the
-	 * GardenInfoScene
+	 * Event handler for when the user presses the next button on the GardenInfoScene
 	 */
 	public void onGardenInfoNext() {
 		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
@@ -205,6 +210,7 @@ public class Controller extends Application {
 			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
 			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
 			this.view.setScreen(Names.DRAW);
+			this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 		} catch (NumberFormatException e) {
 			this.view.showInvalidInputAlert();
 		}
@@ -224,6 +230,7 @@ public class Controller extends Application {
 
 	public void onDrawNext() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getCenter());
 	}
 
 	public void onDrawGrass() {
@@ -333,7 +340,6 @@ public class Controller extends Application {
 		File file = this.view.showOpenDialog();
 		if (file == null)
 			return;
-
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
 			Model model = (Model) in.readObject();
 			if (DEBUG) {
@@ -393,7 +399,7 @@ public class Controller extends Application {
 	public double getStartingY() {
 		return model.getY();
 	}
-
+	
 	/**
 	 * 
 	 * @param object the object that will be loaded into the model
@@ -401,5 +407,50 @@ public class Controller extends Application {
 	public void addGardenObject(GardenObject object) {
 		this.model.addGardenObject(object);
 		System.out.println("Added object");
+	}
+
+	/**
+	 * 
+	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
+	 */
+	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
+		return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Polygon polygon = object.getShape().getPolygon();
+				System.out.println("Added object");
+				model.addGardenObject(object);
+				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent event) {
+						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+				    }
+				});
+				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			        @Override
+			        public void handle(MouseEvent event) {
+			            double changeX = event.getSceneX() - mousePosition.get().getX();
+			            double changeY = event.getSceneY() - mousePosition.get().getY();
+			            
+			            if (polygon.getLayoutX() < 0) {
+			            	polygon.setLayoutX(0);
+			            } else { 
+				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+			            }
+			            
+			            if (polygon.getLayoutY() < 0) {
+			            	polygon.setLayoutY(0);
+			            } else {
+				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+			            }
+			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			        }
+			    });
+			}
+		};
+	}
+	
+	public Collection<GardenObject> loadMapObjects() {
+		return model.getGardenObjects();
 	}
 }
