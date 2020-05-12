@@ -92,13 +92,13 @@ public class PlantInfoScene extends Scene {
 		right.getChildren().addAll(light, new Label(""), water, new Label(""), bloomTime, new Label(""), food,
 				new Label(""), bloomColor, new Label(""), soilReqs);
 		BorderPane.setMargin(right, new Insets(View.getCanvasHeight() / 7, 50, 0, 0));
-
+		/*
 		Button backButton = createBackButton();
-
 		plantInfoGroup.getChildren().add(backButton);
+		*/
 
 	}
-
+	
 	private Button createBackButton() {
 		Button backButton = new Button("Go Back");
 
