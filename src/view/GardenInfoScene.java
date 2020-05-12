@@ -28,6 +28,7 @@ public class GardenInfoScene extends Scene {
 	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
 	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day.";
 	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters.";
+
 	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale.";
 	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit.";
 

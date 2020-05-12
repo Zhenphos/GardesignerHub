@@ -49,6 +49,7 @@ public class PlantPlacementScene extends Scene {
 	public ImageView iv2;
 	public ImageView imageview[] = new ImageView [10];
 	HBox imageBar = new HBox(10);
+
 	private Pane center = new Pane();
 
 	public Image images[] = new Image[10];

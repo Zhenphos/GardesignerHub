@@ -18,7 +18,14 @@ import mvc.View;
 public class TutorialScene extends Scene {
 
 	private static final String HEADER_TEXT = "Tutorial";
-	private static final String TUTORIAL_TEXT = "Please follow this short guide to help familiarize yourself with this program's features. If you already have a garden saved and want to edit it use the \"Save/Load\" button and select it with your file manager. Otherwise, select the \"New\" button to begin creating a garden.";
+
+	private static final String TUTORIAL_TEXT = "Please follow this short guide to help familiarize yourself with this program's features. "
+			+ "If you already have a garden saved and want to edit it use the \"Save/Load\" button and select it with your file manager. "
+			+ "Otherwise, select the \"New\" button to begin creating a garden."
+			+ "\n\nYou will begin by filling out some information about your garden, such as how many hours of sunlight it gets. "
+			+ "Then, you will drag and drop plants that you want in your garden. " 
+			+ "You will then be able to see recommended improvements and save/load the garden to a file.";
+
 
 	private VBox container;
 	private Label lblHeader;

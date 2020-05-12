@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
@@ -101,7 +102,7 @@ public class View {
 
 	/**
 	 * Sets the active scene to the associated screen
-	 * @param name the key that gets the appropiate scene
+	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
 		this.stage.setScene(this.getScene(name));
@@ -187,6 +188,7 @@ public class View {
 	 */
 	private void initializePlantPlacement() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
+
 	}
 
 	/**
@@ -304,7 +306,14 @@ public class View {
 	public void drawMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
 			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-			pane.getChildren().add(go.getShape().getPolygon());
+				pane.getChildren().add(go.getShape().getPolygon());
+		}
+	}
+	
+	public void drawEditMap(Pane pane) {
+		for (GardenObject go:this.controller.loadMapObjects()) {
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 }
