@@ -41,7 +41,7 @@ public class DrawScene extends Scene {
 	static Group drawGardenGroup = new Group();
 
 	private BorderPane border;
-	private Pane center;
+	private Pane gardenPane;
 	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
 	public DrawScene() {
@@ -49,8 +49,8 @@ public class DrawScene extends Scene {
 		createDraw();
 	}
 
-	public Pane getCenter() {
-		return this.center;
+	public Pane getGardenPane() {
+		return this.gardenPane;
 	}
 
 	public Button getGrassButton() {
@@ -98,13 +98,13 @@ public class DrawScene extends Scene {
 		border = new BorderPane();
 		FlowPane left = new FlowPane();
 		HBox top = new HBox();
-		center = new AnchorPane();
+		gardenPane = new AnchorPane();
 		drawGardenGroup.getChildren().add(border);
 		border.setTop(top);
 		border.setLeft(left);
-		border.setCenter(center);
+		border.setCenter(gardenPane);
 		
-		border.setMargin(center, new Insets(View.lGap));
+		border.setMargin(gardenPane, new Insets(View.lGap));
 		border.setMargin(left, new Insets(0, 0, 0, View.lGap));
 
 		Text scenetitle = new Text("\t\t\t\tDraw Garden");
@@ -154,9 +154,9 @@ public class DrawScene extends Scene {
 		left.getChildren().add(items);
 		left.setPrefHeight(View.getCanvasHeight() * 3/5);
 
-		center.setPrefHeight(View.getCanvasHeight() * 3/5);
-		center.setPrefWidth(View.getCanvasWidth() * 3/4);
-		center.setStyle("-fx-border-color: black");
+		gardenPane.setPrefHeight(View.getCanvasHeight() * 3/5);
+		gardenPane.setPrefWidth(View.getCanvasWidth() * 3/4);
+		gardenPane.setStyle("-fx-border-color: black");
 
 		Image drawBackground;
 		drawBackground = View.createImage("resources/drawImage.png");

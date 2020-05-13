@@ -24,6 +24,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import objects.GardenObject;
+import objects.Plant;
 import view.*;
 
 /**
@@ -317,17 +318,15 @@ public class View {
 	 */
 	public void drawMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (pane.getChildren().contains(go.getShape().getPolygon())) 
-				pane.getChildren().remove(go.getShape().getPolygon());
-			pane.getChildren().add(go.getShape().getPolygon());
+			if (!(pane.getChildren().contains(go.getShape().getPolygon()))) 
+				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 	
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (pane.getChildren().contains(go.getShape().getPolygon())) 
-				pane.getChildren().remove(go.getShape().getPolygon());
-			pane.getChildren().add(go.getShape().getPolygon());
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
+				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 }

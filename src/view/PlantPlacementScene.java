@@ -72,7 +72,7 @@ public class PlantPlacementScene extends Scene {
 	//public TilePane center = new TilePane();
 
 	HBox imageBar = new HBox(10);
-	private Pane center = new Pane();
+	private Pane gardenPane = new Pane();
 
 	//HBox imageBar = new HBox(10);
 	//AnchorPane center = new AnchorPane();
@@ -84,8 +84,8 @@ public class PlantPlacementScene extends Scene {
 	public int numCopies = 0;
 	private Button btnPrev, btnNext;
 
-	public Pane getCenter() {
-		return this.center;
+	public Pane getGardenPane() {
+		return this.gardenPane;
 	}
 	
 	public PlantPlacementScene() {
@@ -125,10 +125,10 @@ public class PlantPlacementScene extends Scene {
 		HBox leftVbox = new HBox(5);
 		VBox rightPane = new VBox(5);
 		
-		center.setPrefHeight(View.getCanvasHeight() * 3/5);
-		center.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
-		center.setStyle("-fx-border-color: black");
-		Pane.setMargin(center, new Insets(10,10,10,10));
+		gardenPane.setPrefHeight(View.getCanvasHeight() * 3/5);
+		gardenPane.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
+		gardenPane.setStyle("-fx-border-color: black");
+		Pane.setMargin(gardenPane, new Insets(10,10,10,10));
 		leftVbox.setMinSize(View.getCanvasWidth()-20, 150);
 		
 		root.getChildren().add(Pane);
@@ -138,7 +138,7 @@ public class PlantPlacementScene extends Scene {
 		
 		Pane.setTop(leftVbox);
 		Pane.setLeft(rightPane);
-		Pane.setCenter(center);
+		Pane.setCenter(gardenPane);
 		
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);

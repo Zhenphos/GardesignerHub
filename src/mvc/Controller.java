@@ -250,7 +250,7 @@ public class Controller extends Application {
 				this.model.setTemperature(Double.parseDouble(scene.getTempTextfield().getText()));
 			}
 			this.view.setScreen(Names.DRAW);
-			this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
+			this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
 		} catch (NumberFormatException e) {
 			this.view.showInvalidInputAlert();
 		}
@@ -258,12 +258,12 @@ public class Controller extends Application {
 	
 	public void onPlantPlacementPrev() {
 		this.view.setScreen(Names.DRAW);
-		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
+		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
 	}
 	
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
-		this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
+		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
 	}
 
 	/**
@@ -280,7 +280,7 @@ public class Controller extends Application {
 
 	public void onDrawNext() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
-		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getCenter());
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
 	}
 
 	public void onDrawGrass() {
@@ -337,7 +337,7 @@ public class Controller extends Application {
 		Polygon polygon = woods.getShape().getPolygon();
 
 		polygon.setFill(new ImagePattern(img));
-		scene.getCenter().getChildren().add(polygon);
+		scene.getGardenPane().getChildren().add(polygon);
 		this.model.addGardenObject(woods);
 		givePolyDragBehavior(polygon);
 	}
@@ -364,6 +364,7 @@ public class Controller extends Application {
 	 */
 	public void onTimesPrev() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
 	}
 
 	/**
@@ -371,6 +372,7 @@ public class Controller extends Application {
 	 */
 	public void onTimesNext() {
 		this.view.setScreen(Names.RATING);
+		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
 	}
 
 	/**
@@ -398,6 +400,7 @@ public class Controller extends Application {
 	 */
 	public void onRatingPrev() {
 		this.view.setScreen(Names.TIMES);
+		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
 	}
 
 	/**
@@ -507,7 +510,7 @@ public class Controller extends Application {
 	 */
 	public void createPolyDraggable(DrawScene scene, Polygon polygon) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-		scene.getCenter().getChildren().add(polygon);
+		scene.getGardenPane().getChildren().add(polygon);
 		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -534,7 +537,7 @@ public class Controller extends Application {
 	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
 	        }
 		});
-		scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
+		scene.getGardenPane().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 	}
 	
 	/**
