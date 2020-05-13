@@ -15,6 +15,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
@@ -77,7 +78,9 @@ public class Controller extends Application {
 	}
 	public static ArrayList<Plant2> importPlants() {
 		ArrayList<Plant2> plantList = new ArrayList<>();
+		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
@@ -236,7 +239,11 @@ public class Controller extends Application {
 	}
 	
 	public void onPlantPlacementPrev() {
-		this.view.setScreen(Names.GARDEN_INFO);
+		this.view.setScreen(Names.DRAW);
+	}
+	
+	public void onPlantPlacementNext() {
+		this.view.setScreen(Names.TIMES);
 	}
 
 	/**
@@ -260,6 +267,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Grass grass = new Grass();
 		Polygon polygon = grass.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/grass.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(grass);
 		giveDragBehavior(polygon);
@@ -270,6 +280,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
+//
+//		Image img = View.createImage("resources/road.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(road);
 		giveDragBehavior(polygon);
@@ -279,6 +292,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
 		Polygon polygon = stream.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/stream.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Stream());
 		giveDragBehavior(polygon);
@@ -288,15 +304,33 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/tree.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
 		giveDragBehavior(polygon);
 	}
+	public void onDragPlant(Image img) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		Woods woods = new Woods();
+		Polygon polygon = woods.getShape().getPolygon();
+
+		polygon.setFill(new ImagePattern(img));
+		scene.getCenter().getChildren().add(polygon);
+		this.model.addGardenObject(new Woods());
+		giveDragBehavior(polygon);
+	}
+	
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
 		Polygon polygon = shade.getShape().getPolygon();
+
+//		Image img = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.jpg");
+//		polygon.setStyle("--fx-opacity:0.3;");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(shade);
 		giveDragBehavior(polygon);
