@@ -381,7 +381,7 @@ public class Controller extends Application {
 	 * @param season the new season the garden is in
 	 */
 	public void onTimesSetSeason(Season season) {
-		// to do: update model and update image view for garden
+		this.model.setSeason(season);
 	}
 
 	/**
@@ -390,7 +390,7 @@ public class Controller extends Application {
 	 * @param age the age in years of the garden to set to
 	 */
 	public void onTimesSetAge(double age) {
-		// to do: update model and update image view for garden
+		this.model.setAge(age);
 	}
 
 	/**
