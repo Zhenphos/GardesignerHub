@@ -70,14 +70,12 @@ public class PlantPlacementScene extends Scene {
 
 	//public TilePane center = new TilePane();
 
-
 	HBox imageBar = new HBox(10);
 	private Pane center = new Pane();
 
 	//HBox imageBar = new HBox(10);
 	//AnchorPane center = new AnchorPane();
-
-
+	
 	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
@@ -450,11 +448,12 @@ public class PlantPlacementScene extends Scene {
 		
 	}
 	
+	/**
+	 * Gets the plantListView
+	 * 
+	 * @return the plantListView
+	 */
 	public ListView<Plant2> getPlantListView() {
 		return this.plantListView;
 	}
-	
-	
-
-
 }
