@@ -40,7 +40,7 @@ public class View {
 	public final static int lGap = 25;
 
 	// Window Constants
-	public static final String TITLE = "Garden Designer";
+	public static final String TITLE = "Gardesigner Hub";
 	public static final int WIDTH = (int) Screen.getPrimary().getBounds().getWidth() * 6 / 8;
 	public static final int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight() * 6 / 8;
 	public static final int SPACING = 10;
