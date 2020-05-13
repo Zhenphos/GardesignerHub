@@ -227,10 +227,12 @@ public class Controller extends Application {
 	public void onGardenInfoNext() {
 		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
 		try {
-			this.model.setLight(Integer.parseInt(scene.getSunlightTextfield().getText()));
-			this.model.setRain(Integer.parseInt(scene.getRainTextfield().getText()));
+			this.model.setWidth((int)Double.parseDouble(scene.getWidthTextfield().getText()));
+			this.model.setHeight((int)Double.parseDouble(scene.getHeightTextfield().getText()));
+			this.model.setLight((int)Double.parseDouble(scene.getSunlightTextfield().getText()));
+			this.model.setRain((int)Double.parseDouble(scene.getRainTextfield().getText()));
 			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
-			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
+			this.model.setTemperature(Double.parseDouble(scene.getTempTextfield().getText()));
 			this.view.setScreen(Names.DRAW);
 			this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 		} catch (NumberFormatException e) {
