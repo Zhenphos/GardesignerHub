@@ -3,11 +3,9 @@ package mvc;
 import enums.Names;
 import enums.Season;
 import javafx.application.Application;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -21,7 +19,6 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
 import view.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
