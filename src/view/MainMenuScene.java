@@ -44,7 +44,7 @@ public class MainMenuScene extends Scene {
 		this.container.setStyle(View.TEXT_LABEL_STYLE);
 
 		HBox buttons = new HBox();
-		buttons.setBackground(new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY)));
+		buttons.setBackground(View.BACKGROUND);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(View.WIDTH / 8f);
 		buttons.getChildren().addAll(this.btnNew, this.btnHelp, this.btnLoad);
