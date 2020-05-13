@@ -6,9 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javafx.geometry.*;
-
 import enums.Names;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -60,6 +58,8 @@ import objects.Plant2;
 public class PlantPlacementScene extends Scene {
 	private static final int VBOX_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
+	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
+
 	static Group root = new Group();
 	public Controller imc;
 	public ImageView imageView01;
@@ -72,14 +72,12 @@ public class PlantPlacementScene extends Scene {
 
 	//public TilePane center = new TilePane();
 
-
 	HBox imageBar = new HBox(10);
 	private Pane center = new Pane();
 
 	//HBox imageBar = new HBox(10);
 	//AnchorPane center = new AnchorPane();
-
-
+	
 	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
@@ -102,9 +100,9 @@ public class PlantPlacementScene extends Scene {
 		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
 		//iv2 = new ImageView();
-		for(int i=0; i<10;i++) {
+		/*for(int i=0; i<10;i++) {
 			
-		}
+		}*/
 		
 		imc = new Controller(this);
 		placePlant();
@@ -177,35 +175,36 @@ public class PlantPlacementScene extends Scene {
 	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
-	    	private ImageView imageview = new ImageView();
-	    	@Override
-	    	public void updateItem(Plant2 plant, boolean empty) {
-	    		super.updateItem(plant, empty);
-	    		if (empty) {
-	    			setText("empty");
-	    			setGraphic(null);
-	    		}else {
-	    			
-	    			if(runCount.get()>=plantImages.size()) {
-	    				runCount.set(0);
-	    			}
-	    			
-	    			imageview.setImage(plantImages.get(runCount.get()).getImage());
-	    			//imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
-	    			imageview.maxWidth(70);
-	    			imageview.minWidth(70);
-	    			imageview.maxHeight(70);
-	    			imageview.minHeight(70);	
-	    			setText(allPlants.get(runCount.get()).toString());
-	    			imageview.setFitHeight(100);
-	    			imageview.isPreserveRatio();
-	    			setGraphic(imageview);
-	    			runCount.getAndIncrement();
-	    		}
-	    	}
-	    	
-	    });
+		plantListView.setCellFactory(param -> new ListCell<Plant2>() {
+			private ImageView imageview = new ImageView();
+
+			@Override
+			public void updateItem(Plant2 plant, boolean empty) {
+				super.updateItem(plant, empty);
+				if (empty) {
+					setText("empty");
+					setGraphic(null);
+				} else {
+
+					if (runCount.get() >= plantImages.size()) {
+						runCount.set(0);
+					}
+
+					imageview.setImage(plantImages.get(runCount.get()).getImage());
+					// imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
+					imageview.maxWidth(70);
+					imageview.minWidth(70);
+					imageview.maxHeight(70);
+					imageview.minHeight(70);
+					setText(allPlants.get(runCount.get()).toString());
+					imageview.setFitHeight(100);
+					imageview.isPreserveRatio();
+					setGraphic(imageview);
+					runCount.getAndIncrement();
+				}
+			}
+
+		});
 	    TextField searchBox = new TextField();
 	    
 	    // need to use textfield with filtered list
@@ -220,40 +219,40 @@ public class PlantPlacementScene extends Scene {
 	    //label.setLayoutY(300);
         label.setFont(Font.font("Verdana", 20));
        
-	// Display plant information in the right pane
+        // Display plant information in the right pane
         
-        Label name = createLabel("Name :");
-        grid.add(name,0 , 0);
+		Label name = createLabel("Name: ");
+		grid.add(name, 0, 0);
 
-        Label maxHeight = createLabel("Maxium Height :");
-        grid.add(maxHeight,0 , 1);
+		Label maxHeight = createLabel("Maximum Height: ");
+		grid.add(maxHeight, 0, 1);
 
-        Label maxSpacing = createLabel("Maxium Spacing :");
-        grid.add(maxSpacing,0 , 2);
+		Label maxSpacing = createLabel("Maximum Spacing: ");
+		grid.add(maxSpacing, 0, 2);
 
-        Label hardiness = createLabel("Hardiness Required: ");
-        grid.add(hardiness,0 , 3);
+		Label hardiness = createLabel("Hardiness Required: ");
+		grid.add(hardiness, 0, 3);
 
-        Label colors = createLabel("Bloom Colors :");
-        grid.add(colors,0 , 4);
-        
-        Label error = createLabel("");
-        rightPane.getChildren().add(error);
-        error.setMaxWidth(300);
-        error.setWrapText(true);
-        
-        Label nameValue = createLabel("");
-        Label heightValue = createLabel("");
-        Label spacingValue = createLabel("");
-        Label hardinessValue = createLabel("");
-        Label colorsValue = createLabel("");
-        nameValue.setMaxWidth(100);
-        nameValue.setWrapText(true);
-        grid.add(nameValue,1 , 0);
-        grid.add(heightValue,1 , 1);
-        grid.add(spacingValue,1 , 2);
-        grid.add(hardinessValue,1 , 3);
-        grid.add(colorsValue,1 , 4);
+		Label colors = createLabel("Bloom Colors: ");
+		grid.add(colors, 0, 4);
+
+		Label error = createLabel("");
+		rightPane.getChildren().add(error);
+		error.setMaxWidth(300);
+		error.setWrapText(true);
+
+		Label nameValue = createLabel("");
+		Label heightValue = createLabel("");
+		Label spacingValue = createLabel("");
+		Label hardinessValue = createLabel("");
+		Label colorsValue = createLabel("");
+		nameValue.setMaxWidth(100);
+		nameValue.setWrapText(true);
+		grid.add(nameValue, 1, 0);
+		grid.add(heightValue, 1, 1);
+		grid.add(spacingValue, 1, 2);
+		grid.add(hardinessValue, 1, 3);
+		grid.add(colorsValue, 1, 4);
 
         
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -261,97 +260,109 @@ public class PlantPlacementScene extends Scene {
 			public void handle(MouseEvent event) {
 				try {
 					error.setText(" ");
-				System.out.println("Mouse clicked");
-				Text temp = null;
-				    Text plantlabel  = (Text) (event.getTarget());
+					System.out.println("Mouse clicked");
+					// Text temp = null;
+					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional <Plant2> plant=allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
-					 error.setText(" ");
-					  Plant2 p = plant.get();
-				System.out.println(allPlants.indexOf(p));
-				indexOfPlant=allPlants.indexOf(p);
-				nameValue.setText(p.getPlantBotanicalName());
-				if(p.getHeightMaxInches()==-1) heightValue.setText("No Data");
-				else heightValue.setText(Integer.toString(p.getHeightMaxInches()));
-				
-				if(p.getSpacingMax()==-1) spacingValue.setText("No Data");
-				else spacingValue.setText(Integer.toString(p.getSpacingMax()));
-				
-				
-				if (p.getHardinessMin()==-1) hardinessValue.setText("No Data");
-				else hardinessValue.setText(Integer.toString(p.getHardinessMin()));
-;
-				colorsValue.setText(p.getBloomColors());
-				event.consume();
-			}catch(NullPointerException e) {
-				error.setText("No Data found for this plant");
-				
-			}catch (ClassCastException e) {
-				error.setText("Please click on plant's name instead of picture");
-				System.out.println(event.getTarget().toString());
-				
-			}
-			}
-			});
-		
+					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
+							.findAny();
+					error.setText(" ");
+					Plant2 p = plant.get();
+					System.out.println(allPlants.indexOf(p));
+					indexOfPlant = allPlants.indexOf(p);
+					nameValue.setText(p.getPlantBotanicalName());
+					if (p.getHeightMaxInches() == -1)
+						heightValue.setText("No Data");
+					else
+						heightValue.setText(Integer.toString(p.getHeightMaxInches()));
 
+					if (p.getSpacingMax() == -1)
+						spacingValue.setText("No Data");
+					else
+						spacingValue.setText(Integer.toString(p.getSpacingMax()));
 
+					if (p.getHardinessMin() == -1)
+						hardinessValue.setText("No Data");
+					else
+						hardinessValue.setText(Integer.toString(p.getHardinessMin()));
+					;
+					colorsValue.setText(p.getBloomColors());
+					event.consume();
+				} catch (NullPointerException e) {
+					error.setText("No Data found for this plant");
+
+				} catch (ClassCastException e) {
+					error.setText("Please click on plant's name instead of picture");
+					System.out.println(event.getTarget().toString());
+
+				}
+			}
+		});
 	}
+	
+	/**
+	 * Creates a plant label
+	 * 
+	 * @param text - the label text
+	 * @return the plant label
+	 */
 	private Label createLabel(String text) {
 		Label label = new Label(text);
-		label.setStyle(View.TEXT_LABEL_STYLE);
+		label.setStyle(this.TEXT_LABEL_STYLE);
 		return label;
 	}
 
+	/*
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
 
-//	private Button createTutorialButton() {
-//		Button tutorialButton = new Button("Help");
-//
-//		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
-//		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-//
-//		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				final Stage helpStage = new Stage();
-//				helpStage.initModality(Modality.APPLICATION_MODAL);
-//				//helpStage.setScene(View.getTutorialScene());
-//				helpStage.show();
-//			}
-//		};
-//
-//		tutorialButton.setOnAction(tutorialButtonAction);
-//		return tutorialButton;
-//	}
-//
-//	private Button createMainMenuButton() {
-//		Button mainMenuButton = new Button("Main Menu");
-//
-//		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
-//		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-//
-//		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				//View.getStage().setScene(View.getMainMenuScene());
-//			}
-//		};
-//
-//		mainMenuButton.setOnAction(mainMenuButtonAction);
-//		return mainMenuButton;
-//	}
-//	
-//	
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-	
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				//helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
 
+		tutorialButton.setOnAction(tutorialButtonAction);
+		return tutorialButton;
+	}
+
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				//View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+	*/
+
+	/**
+	 * Creates the "next" button
+	 * 
+	 * @return the "next" button
+	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
-		nextButton.setTranslateX(View.getCanvasWidth() *7/8);
-		nextButton.setTranslateY(View.getCanvasHeight() -10);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getTimesScene());
+				// View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
@@ -359,11 +370,16 @@ public class PlantPlacementScene extends Scene {
 		return nextButton;
 	}
 
+	/**
+	 * Creates the "previous" button
+	 * 
+	 * @return the "previous" button
+	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
 
 		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() -10);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -375,46 +391,70 @@ public class PlantPlacementScene extends Scene {
 		return prevButton;
 	}
 	
-	
+	/**
+	 * Updates the x-coordinate of the dragged ImageView
+	 * 
+	 * @param x - the x-value the mouse has dragged the image
+	 */
     public void setX(double x) {
     	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
     }
     
+    /**
+	 * Updates the y-coordinate of the dragged ImageView
+	 * 
+	 * @param y - the y-value the mouse has dragged the image
+	 */
     public void setY(double y) {
     	iv2.setTranslateY(imageView01.getLayoutY() + HEIGHT / 2 + y);
     }
     
-    // experimental
-    public ImageView makeCopy(ImageView iv) {
-    	ImageView newImageView = iv;
-    	imc.imageViewArrayList.add(newImageView);
-    	return newImageView;
-    }
-    
+    /**
+     * Creates a button
+     * 
+     * @param text - the text displayed on the button
+     * @return the created button
+     */
     private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
     
+    /**
+     * Gets the next button
+     * 
+     * @return the next button
+     */
     public Button getNextButton() {
 		return this.btnNext;
 	}
 
+    /**
+     * Gets the prev button
+     * 
+     * @return the prev button
+     */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 	
+	/**
+	 * Gets the plant that was clicked
+	 * 
+	 * @return the ImageView of the plant that was clicked
+	 */
 	public ImageView getPlantClicked() {
 		return plantImages.get(indexOfPlant);
 		
 	}
 	
+	/**
+	 * Gets the plantListView
+	 * 
+	 * @return the plantListView
+	 */
 	public ListView<Plant2> getPlantListView() {
 		return this.plantListView;
 	}
-	
-	
-
-
 }

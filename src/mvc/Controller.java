@@ -228,10 +228,28 @@ public class Controller extends Application {
 	public void onGardenInfoNext() {
 		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
 		try {
-			this.model.setLight(Integer.parseInt(scene.getSunlightTextfield().getText()));
-			this.model.setRain(Integer.parseInt(scene.getRainTextfield().getText()));
-			this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
-			this.model.setTemperature(Integer.parseInt(scene.getTempTextfield().getText()));
+			this.model.setWidth((int)Double.parseDouble(scene.getWidthTextfield().getText()));
+			this.model.setHeight((int)Double.parseDouble(scene.getHeightTextfield().getText()));
+			if (scene.getSunlightTextfield().getText().isEmpty()) {
+				this.model.setLight(-1);
+			} else {
+				this.model.setLight((int) Double.parseDouble(scene.getSunlightTextfield().getText()));
+			}
+			if (scene.getRainTextfield().getText().isEmpty()) {
+				this.model.setRain(-1);
+			} else {
+				this.model.setRain((int) Double.parseDouble(scene.getRainTextfield().getText()));
+			}
+			if (scene.getSoilPHTextfield().getText().isEmpty()) {
+				this.model.setSoilPH(-1);
+			} else {
+				this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
+			}
+			if (scene.getTempTextfield().getText().isEmpty()) {
+				this.model.setTemperature(-1);
+			} else {
+				this.model.setTemperature(Double.parseDouble(scene.getTempTextfield().getText()));
+			}
 			this.view.setScreen(Names.DRAW);
 			this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 		} catch (NumberFormatException e) {
@@ -369,7 +387,7 @@ public class Controller extends Application {
 	 * @param season the new season the garden is in
 	 */
 	public void onTimesSetSeason(Season season) {
-		// to do: update model and update image view for garden
+		this.model.setSeason(season);
 	}
 
 	/**
@@ -378,7 +396,7 @@ public class Controller extends Application {
 	 * @param age the age in years of the garden to set to
 	 */
 	public void onTimesSetAge(double age) {
-		// to do: update model and update image view for garden
+		this.model.setAge(age);
 	}
 
 	/**

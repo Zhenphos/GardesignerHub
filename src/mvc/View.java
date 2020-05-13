@@ -46,7 +46,7 @@ public class View {
 	public static final int SPACING = 10;
 
 	// GUI Styling Constants
-	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
+	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("#90EE90"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
