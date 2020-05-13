@@ -54,13 +54,15 @@ import objects.Plant2;
  */
 
 public class PlantPlacementScene extends Scene {
-	private static final int VBOX_MIN_WIDTH = 300;
-	private static final int MIN_HEIGHT = View.getCanvasHeight() * 6/8;
+	private static final int VBOX_MIN_WIDTH = View.getCanvasWidth()-20;
+	private static final int MIN_HEIGHT = 300;
 	static Group root = new Group();
 	public Controller imc;
 	public ImageView imageView01;
 	public ImageView iv2;
 	public ImageView imageview[] = new ImageView [10];
+	//public TilePane center = new TilePane();
+
 
 	HBox imageBar = new HBox(10);
 	private Pane center = new Pane();
@@ -114,35 +116,39 @@ public class PlantPlacementScene extends Scene {
 		imageView01.setFitHeight(100);
 
 		BorderPane Pane = new BorderPane();
-		VBox leftVbox = new VBox(5);
+		HBox leftVbox = new HBox(5);
 		VBox rightPane = new VBox(5);
-		TilePane center = new TilePane();
-		center.setPrefColumns(10);
-		center.setPrefRows(10);
-		center.setStyle("-fx-background-color: red;");
-
-		leftVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
+		
+		center.setPrefHeight(View.getCanvasHeight() * 3/5);
+		center.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
+		center.setStyle("-fx-border-color: black");
+		Pane.setMargin(center, new Insets(10,10,10,10));
+		leftVbox.setMinSize(View.getCanvasWidth()-20, 150);
 		
 		root.getChildren().add(Pane);
 		
-		BorderPane.setMargin(leftVbox, new Insets(50, 12.5, 50, 12.5));
-		
+		BorderPane.setMargin(leftVbox, new Insets(10, 10, 10, 10));
 		//borderPane.setMinHeight(500);
 		
-		Pane.setLeft(leftVbox);
-		Pane.setRight(rightPane);
+		Pane.setTop(leftVbox);
+		Pane.setLeft(rightPane);
 		Pane.setCenter(center);
 		
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
 	    grid.setVgap(10);
-	    grid.setPadding(new Insets(0, 10, 0, 10));
+	    grid.setPadding(new Insets(10, 0, 0, 10));
 	    rightPane.getChildren().add(grid);
+	    rightPane.setMaxWidth(250);
+	    rightPane.setMinWidth(250);
+	    rightPane.setStyle("-fx-border-color: black");
+	    VBox.setMargin(rightPane, new Insets(10,10,10,10));
+	    GridPane.setHgrow(grid, Priority.NEVER);
 		//border.setCenter(center);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
-		leftVbox.getChildren().add(scenetitle);
+		//leftVbox.getChildren().add(scenetitle);
 		leftVbox.setAlignment(Pos.CENTER);
 		
 		/*
@@ -234,8 +240,13 @@ public class PlantPlacementScene extends Scene {
 		ListView<Plant2> plantListView = new ListView<Plant2>();
 		//ListView<ImageView> imageListView = new ListView<ImageView>();
 		//imageListView.setMinHeight(MIN_HEIGHT);
-		plantListView.setMinHeight(MIN_HEIGHT);
+		//plantListView.setMinHeight(MIN_HEIGHT);
+//		plantListView.setMaxWidth(300);
+		plantListView.setMinWidth(View.getCanvasWidth()-20);
+		plantListView.setMaxHeight(150);
 		
+		HBox.setHgrow(plantListView, Priority.NEVER);
+		plantListView.setOrientation(Orientation.HORIZONTAL);
 	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
 	   // ObservableList<ImageView> rawData = FXCollections.observableArrayList(plantImages);
 
@@ -243,7 +254,6 @@ public class PlantPlacementScene extends Scene {
 	    //FilteredList<ImageView> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-	    int indexOfPlantClicked;
 	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
 	    	private ImageView imageview = new ImageView();
 	    	@Override
@@ -274,7 +284,7 @@ public class PlantPlacementScene extends Scene {
 	    Label label = new Label();
 	    leftVbox.getChildren().addAll(plantListView, label);
         plantListView.setItems(filteredList);
-
+    
 	    //topVbox.getChildren().addAll(imageListView);
 	    label.setLayoutX(10);
         label.setLayoutY(115);
@@ -304,7 +314,7 @@ public class PlantPlacementScene extends Scene {
         grid.add(colors,0 , 4);
         
         Label error = createLabel("");
-        grid.add(error, 0, 5);
+        rightPane.getChildren().add(error);
         error.setMaxWidth(300);
         error.setWrapText(true);
         
@@ -313,7 +323,8 @@ public class PlantPlacementScene extends Scene {
         Label spacingValue = createLabel("");
         Label hardinessValue = createLabel("");
         Label colorsValue = createLabel("");
-        
+        nameValue.setMaxWidth(100);
+        nameValue.setWrapText(true);
         grid.add(nameValue,1 , 0);
         grid.add(heightValue,1 , 1);
         grid.add(spacingValue,1 , 2);
@@ -331,7 +342,8 @@ public class PlantPlacementScene extends Scene {
 				    Text plantlabel  = (Text) (event.getTarget());
 					error.setText(" ");
 				//	error.setText("Please click on the name of plant instead of Image");
-				
+					System.out.println(event.getTarget());
+
 				
 					Optional <Plant2> plant=allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
 					 error.setText(" ");
@@ -358,6 +370,8 @@ public class PlantPlacementScene extends Scene {
 				
 			}catch (ClassCastException e) {
 				error.setText("Please click on plant's name instead of picture");
+				System.out.println(event.getTarget().toString());
+				
 			}
 			}
 			});
