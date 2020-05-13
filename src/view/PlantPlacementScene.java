@@ -358,12 +358,12 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
-		nextButton.setTranslateX(View.getCanvasWidth() *7/8);
-		nextButton.setTranslateY(View.getCanvasHeight() -10);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getTimesScene());
+				// View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
@@ -380,7 +380,7 @@ public class PlantPlacementScene extends Scene {
 		Button prevButton = new Button("Prev");
 
 		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() -10);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
