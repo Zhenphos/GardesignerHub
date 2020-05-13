@@ -184,6 +184,7 @@ public class Controller extends Application {
 	 */
 	@Override
 	public void start(Stage theStage) throws Exception {
+		System.out.println(theStage);
 		view = new View(theStage, this);
 		model = new Model();
 		theStage.show();
@@ -301,6 +302,7 @@ public class Controller extends Application {
 	}
 
 	public void onDrawWoods() {
+		System.out.println(this.view);
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
@@ -312,6 +314,7 @@ public class Controller extends Application {
 		giveDragBehavior(polygon);
 	}
 	public void onDragPlant(Image img) {
+		System.out.println("In Drag plant");
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
@@ -330,7 +333,7 @@ public class Controller extends Application {
 
 //		Image img = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.jpg");
 //		polygon.setStyle("--fx-opacity:0.3;");
-//		polygon.setFill(new ImagePattern(img));
+//		polygon.setFill(new ImagePattern(img);
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(shade);
 		giveDragBehavior(polygon);

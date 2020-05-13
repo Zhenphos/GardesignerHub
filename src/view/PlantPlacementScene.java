@@ -68,6 +68,7 @@ public class PlantPlacementScene extends Scene {
 	public ImageView plantClicked;
 	int indexOfPlant=0;
 	ArrayList <ImageView> plantImages = Controller.importImages();
+	ListView<Plant2> plantListView = new ListView<Plant2>();
 
 	//public TilePane center = new TilePane();
 
@@ -165,7 +166,6 @@ public class PlantPlacementScene extends Scene {
 		// testing plant import in here
 		ArrayList<Plant2> allPlants = Controller.importPlants();
 		System.out.print(allPlants.size());
-		ListView<Plant2> plantListView = new ListView<Plant2>();
 	
 		plantListView.setMinWidth(View.getCanvasWidth()-20);
 		plantListView.setMaxHeight(150);
@@ -192,8 +192,14 @@ public class PlantPlacementScene extends Scene {
 	    			}
 	    			
 	    			imageview.setImage(plantImages.get(runCount.get()).getImage());
+	    			//imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
+	    			imageview.maxWidth(70);
+	    			imageview.minWidth(70);
+	    			imageview.maxHeight(70);
+	    			imageview.minHeight(70);	
 	    			setText(allPlants.get(runCount.get()).toString());
 	    			imageview.setFitHeight(100);
+	    			imageview.isPreserveRatio();
 	    			setGraphic(imageview);
 	    			runCount.getAndIncrement();
 	    		}
@@ -403,6 +409,12 @@ public class PlantPlacementScene extends Scene {
 		return plantImages.get(indexOfPlant);
 		
 	}
+	
+	public ListView<Plant2> getPlantListView() {
+		return this.plantListView;
+	}
+	
+	
 
 
 }
