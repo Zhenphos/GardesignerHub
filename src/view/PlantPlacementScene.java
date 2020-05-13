@@ -6,9 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javafx.geometry.*;
-
 import enums.Names;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -255,41 +253,45 @@ public class PlantPlacementScene extends Scene {
 			public void handle(MouseEvent event) {
 				try {
 					error.setText(" ");
-				System.out.println("Mouse clicked");
-				Text temp = null;
-				    Text plantlabel  = (Text) (event.getTarget());
+					System.out.println("Mouse clicked");
+					Text temp = null;
+					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional <Plant2> plant=allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
-					 error.setText(" ");
-					  Plant2 p = plant.get();
-				System.out.println(allPlants.indexOf(p));
-				indexOfPlant=allPlants.indexOf(p);
-				nameValue.setText(p.getPlantBotanicalName());
-				if(p.getHeightMaxInches()==-1) heightValue.setText("No Data");
-				else heightValue.setText(Integer.toString(p.getHeightMaxInches()));
-				
-				if(p.getSpacingMax()==-1) spacingValue.setText("No Data");
-				else spacingValue.setText(Integer.toString(p.getSpacingMax()));
-				
-				
-				if (p.getHardinessMin()==-1) hardinessValue.setText("No Data");
-				else hardinessValue.setText(Integer.toString(p.getHardinessMin()));
-;
-				colorsValue.setText(p.getBloomColors());
-				event.consume();
-			}catch(NullPointerException e) {
-				error.setText("No Data found for this plant");
-				
-			}catch (ClassCastException e) {
-				error.setText("Please click on plant's name instead of picture");
-				System.out.println(event.getTarget().toString());
-				
-			}
-			}
-			});
-		
+					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
+							.findAny();
+					error.setText(" ");
+					Plant2 p = plant.get();
+					System.out.println(allPlants.indexOf(p));
+					indexOfPlant = allPlants.indexOf(p);
+					nameValue.setText(p.getPlantBotanicalName());
+					if (p.getHeightMaxInches() == -1)
+						heightValue.setText("No Data");
+					else
+						heightValue.setText(Integer.toString(p.getHeightMaxInches()));
 
+					if (p.getSpacingMax() == -1)
+						spacingValue.setText("No Data");
+					else
+						spacingValue.setText(Integer.toString(p.getSpacingMax()));
+
+					if (p.getHardinessMin() == -1)
+						hardinessValue.setText("No Data");
+					else
+						hardinessValue.setText(Integer.toString(p.getHardinessMin()));
+					;
+					colorsValue.setText(p.getBloomColors());
+					event.consume();
+				} catch (NullPointerException e) {
+					error.setText("No Data found for this plant");
+
+				} catch (ClassCastException e) {
+					error.setText("Please click on plant's name instead of picture");
+					System.out.println(event.getTarget().toString());
+
+				}
+			}
+		});
 
 	}
 	private Label createLabel(String text) {
