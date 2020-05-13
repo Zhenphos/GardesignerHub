@@ -159,4 +159,13 @@ public class GardenInfoScene extends Scene {
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
+
+	public void clearTextFields() {
+		this.tfWidth.clear();
+		this.tfHeight.clear();
+		this.tfSunlight.clear();
+		this.tfRain.clear();
+		this.tfSoilPH.clear();
+		this.tfTemp.clear();
+	}
 }

@@ -217,6 +217,8 @@ public class Controller extends Application {
 	public void onGardenInfoPrev() {
 		Optional<ButtonType> response = this.view.showDiscardDialog();
 		if (response.isPresent() && response.get() == ButtonType.OK) {
+			GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
+			scene.clearTextFields();
 			this.view.setScreen(Names.MAIN_MENU);
 		}
 	}
@@ -455,7 +457,7 @@ public class Controller extends Application {
 
 	/**
 	 * Uses user mouse input to move plant image around on screen
-	 * 
+	 *
 	 * @param event - event triggered by mouse click
 	 */
 	public void drag(MouseEvent event) {
