@@ -6,9 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javafx.geometry.*;
-
 import enums.Names;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -102,9 +100,9 @@ public class PlantPlacementScene extends Scene {
 		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
 		//iv2 = new ImageView();
-		for(int i=0; i<10;i++) {
+		/*for(int i=0; i<10;i++) {
 			
-		}
+		}*/
 		
 		imc = new Controller(this);
 		placePlant();
@@ -177,35 +175,36 @@ public class PlantPlacementScene extends Scene {
 	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
-	    	private ImageView imageview = new ImageView();
-	    	@Override
-	    	public void updateItem(Plant2 plant, boolean empty) {
-	    		super.updateItem(plant, empty);
-	    		if (empty) {
-	    			setText("empty");
-	    			setGraphic(null);
-	    		}else {
-	    			
-	    			if(runCount.get()>=plantImages.size()) {
-	    				runCount.set(0);
-	    			}
-	    			
-	    			imageview.setImage(plantImages.get(runCount.get()).getImage());
-	    			//imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
-	    			imageview.maxWidth(70);
-	    			imageview.minWidth(70);
-	    			imageview.maxHeight(70);
-	    			imageview.minHeight(70);	
-	    			setText(allPlants.get(runCount.get()).toString());
-	    			imageview.setFitHeight(100);
-	    			imageview.isPreserveRatio();
-	    			setGraphic(imageview);
-	    			runCount.getAndIncrement();
-	    		}
-	    	}
-	    	
-	    });
+		plantListView.setCellFactory(param -> new ListCell<Plant2>() {
+			private ImageView imageview = new ImageView();
+
+			@Override
+			public void updateItem(Plant2 plant, boolean empty) {
+				super.updateItem(plant, empty);
+				if (empty) {
+					setText("empty");
+					setGraphic(null);
+				} else {
+
+					if (runCount.get() >= plantImages.size()) {
+						runCount.set(0);
+					}
+
+					imageview.setImage(plantImages.get(runCount.get()).getImage());
+					// imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
+					imageview.maxWidth(70);
+					imageview.minWidth(70);
+					imageview.maxHeight(70);
+					imageview.minHeight(70);
+					setText(allPlants.get(runCount.get()).toString());
+					imageview.setFitHeight(100);
+					imageview.isPreserveRatio();
+					setGraphic(imageview);
+					runCount.getAndIncrement();
+				}
+			}
+
+		});
 	    TextField searchBox = new TextField();
 	    
 	    // need to use textfield with filtered list
@@ -220,7 +219,7 @@ public class PlantPlacementScene extends Scene {
 	    //label.setLayoutY(300);
         label.setFont(Font.font("Verdana", 20));
        
-	// Display plant information in the right pane
+        // Display plant information in the right pane
         
         Label name = createLabel("Name :");
         grid.add(name,0 , 0);
@@ -261,41 +260,45 @@ public class PlantPlacementScene extends Scene {
 			public void handle(MouseEvent event) {
 				try {
 					error.setText(" ");
-				System.out.println("Mouse clicked");
-				Text temp = null;
-				    Text plantlabel  = (Text) (event.getTarget());
+					System.out.println("Mouse clicked");
+					//Text temp = null;
+					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional <Plant2> plant=allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
-					 error.setText(" ");
-					  Plant2 p = plant.get();
-				System.out.println(allPlants.indexOf(p));
-				indexOfPlant=allPlants.indexOf(p);
-				nameValue.setText(p.getPlantBotanicalName());
-				if(p.getHeightMaxInches()==-1) heightValue.setText("No Data");
-				else heightValue.setText(Integer.toString(p.getHeightMaxInches()));
-				
-				if(p.getSpacingMax()==-1) spacingValue.setText("No Data");
-				else spacingValue.setText(Integer.toString(p.getSpacingMax()));
-				
-				
-				if (p.getHardinessMin()==-1) hardinessValue.setText("No Data");
-				else hardinessValue.setText(Integer.toString(p.getHardinessMin()));
-;
-				colorsValue.setText(p.getBloomColors());
-				event.consume();
-			}catch(NullPointerException e) {
-				error.setText("No Data found for this plant");
-				
-			}catch (ClassCastException e) {
-				error.setText("Please click on plant's name instead of picture");
-				System.out.println(event.getTarget().toString());
-				
-			}
-			}
-			});
-		
+					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
+							.findAny();
+					error.setText(" ");
+					Plant2 p = plant.get();
+					System.out.println(allPlants.indexOf(p));
+					indexOfPlant = allPlants.indexOf(p);
+					nameValue.setText(p.getPlantBotanicalName());
+					if (p.getHeightMaxInches() == -1)
+						heightValue.setText("No Data");
+					else
+						heightValue.setText(Integer.toString(p.getHeightMaxInches()));
 
+					if (p.getSpacingMax() == -1)
+						spacingValue.setText("No Data");
+					else
+						spacingValue.setText(Integer.toString(p.getSpacingMax()));
+
+					if (p.getHardinessMin() == -1)
+						hardinessValue.setText("No Data");
+					else
+						hardinessValue.setText(Integer.toString(p.getHardinessMin()));
+					;
+					colorsValue.setText(p.getBloomColors());
+					event.consume();
+				} catch (NullPointerException e) {
+					error.setText("No Data found for this plant");
+
+				} catch (ClassCastException e) {
+					error.setText("Please click on plant's name instead of picture");
+					System.out.println(event.getTarget().toString());
+
+				}
+			}
+		});
 
 	}
 	
