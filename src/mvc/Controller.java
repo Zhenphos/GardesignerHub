@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,9 +20,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
-import view.DrawScene;
-import view.GardenInfoScene;
-import view.PlantPlacementScene;
+import view.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -388,6 +387,7 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the save button on the RatingScene
 	 */
 	public void onRatingSave() {
+		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
 		File file = this.view.showSaveDialog();
 		if (file == null)
 			return;
@@ -396,10 +396,12 @@ public class Controller extends Application {
 			out.writeObject(this.model);
 			if (DEBUG)
 				System.out.println("Object has been serialized to file: " + file.getPath());
-			// to do: notify user successful save and move to load screen
+			this.view.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
+			this.view.setScreen(Names.LOADING);
+			scene.addTableEntry(file);
+
 		} catch (IOException ex) {
-			// to do: notify user of saving error
-			System.out.println("IOException is caught");
+			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
 		}
 	}
 
@@ -411,17 +413,17 @@ public class Controller extends Application {
 		File file = this.view.showOpenDialog();
 		if (file == null)
 			return;
+
+		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-			Model model = (Model) in.readObject();
+			this.model = (Model) in.readObject();
 			if (DEBUG) {
 				System.out.println("Object has been deserialized ");
 				System.out.println("amount of light = " + model.getLight());
 			}
-			// to do: update the scenes with data from new model
-			// load other gardens in the same directory to the loading scene
+			scene.addTableEntry(file);
 		} catch (IOException | ClassNotFoundException e) {
-			// To do: add error handeling
-			e.printStackTrace();
+			this.view.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
 		}
 	}
 
