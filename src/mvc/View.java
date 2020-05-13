@@ -70,8 +70,8 @@ public class View {
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
 
-	private static final String GARDEN_FILE_EXTENSION = ".ser";
-	private static final String GARDEN_FILE_NAME = String.format("Garden Files *(%s)", GARDEN_FILE_EXTENSION);
+	private static final String GARDEN_FILE_EXTENSION = "*.ser";
+	private static final String GARDEN_FILE_NAME = String.format("Garden Files (%s)", GARDEN_FILE_EXTENSION);
 
 	private Stage stage;
 	private Controller controller;
@@ -252,6 +252,13 @@ public class View {
 		alert.setTitle(DISCARD_TITLE);
 		alert.setContentText(DISCARD_TEXT);
 		return alert.showAndWait();
+	}
+
+	public void showDialog(Alert.AlertType type, String title, String text) {
+		Alert alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setContentText(text);
+		alert.show();
 	}
 
 	public static Image createImage(String pathToFile) {
