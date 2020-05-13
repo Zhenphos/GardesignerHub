@@ -105,6 +105,7 @@ public class View {
 	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
+		System.out.println(name.toString());
 		this.stage.setScene(this.getScene(name));
 	}
 
@@ -190,7 +191,9 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-		//this.controller.onDragPlant(scene.getPlantClicked().getImage());
+		//scene.getPlantClicked().setOnMouseDragged();
+		//scene.getPlantClicked().setOnMouseClicked();
+		scene.getPlantListView().setOnMouseClicked(event-> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
 		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
 	}
 
