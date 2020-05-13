@@ -295,52 +295,61 @@ public class PlantPlacementScene extends Scene {
 		});
 
 	}
+	
+	/**
+	 * Creates a plant label
+	 * 
+	 * @param text - the label text
+	 * @return the plant label
+	 */
 	private Label createLabel(String text) {
 		Label label = new Label(text);
 		label.setStyle(View.TEXT_LABEL_STYLE);
 		return label;
 	}
 
+	/*
+	private Button createTutorialButton() {
+		Button tutorialButton = new Button("Help");
 
-//	private Button createTutorialButton() {
-//		Button tutorialButton = new Button("Help");
-//
-//		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
-//		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-//
-//		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				final Stage helpStage = new Stage();
-//				helpStage.initModality(Modality.APPLICATION_MODAL);
-//				//helpStage.setScene(View.getTutorialScene());
-//				helpStage.show();
-//			}
-//		};
-//
-//		tutorialButton.setOnAction(tutorialButtonAction);
-//		return tutorialButton;
-//	}
-//
-//	private Button createMainMenuButton() {
-//		Button mainMenuButton = new Button("Main Menu");
-//
-//		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
-//		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-//
-//		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				//View.getStage().setScene(View.getMainMenuScene());
-//			}
-//		};
-//
-//		mainMenuButton.setOnAction(mainMenuButtonAction);
-//		return mainMenuButton;
-//	}
-//	
-//	
+		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
+		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-	
+		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				final Stage helpStage = new Stage();
+				helpStage.initModality(Modality.APPLICATION_MODAL);
+				//helpStage.setScene(View.getTutorialScene());
+				helpStage.show();
+			}
+		};
 
+		tutorialButton.setOnAction(tutorialButtonAction);
+		return tutorialButton;
+	}
+
+	private Button createMainMenuButton() {
+		Button mainMenuButton = new Button("Main Menu");
+
+		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
+		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
+		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				//View.getStage().setScene(View.getMainMenuScene());
+			}
+		};
+
+		mainMenuButton.setOnAction(mainMenuButtonAction);
+		return mainMenuButton;
+	}
+	*/
+
+	/**
+	 * Creates the "next" button
+	 * 
+	 * @return the "next" button
+	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
@@ -356,6 +365,11 @@ public class PlantPlacementScene extends Scene {
 		return nextButton;
 	}
 
+	/**
+	 * Creates the "previous" button
+	 * 
+	 * @return the "previous" button
+	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
 
@@ -372,36 +386,59 @@ public class PlantPlacementScene extends Scene {
 		return prevButton;
 	}
 	
-	
+	/**
+	 * Updates the x-coordinate of the dragged ImageView
+	 * 
+	 * @param x - the x-value the mouse has dragged the image
+	 */
     public void setX(double x) {
     	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
     }
     
+    /**
+	 * Updates the y-coordinate of the dragged ImageView
+	 * 
+	 * @param y - the y-value the mouse has dragged the image
+	 */
     public void setY(double y) {
     	iv2.setTranslateY(imageView01.getLayoutY() + HEIGHT / 2 + y);
     }
     
-    // experimental
-    public ImageView makeCopy(ImageView iv) {
-    	ImageView newImageView = iv;
-    	imc.imageViewArrayList.add(newImageView);
-    	return newImageView;
-    }
-    
+    /**
+     * Creates a button
+     * 
+     * @param text - the text displayed on the button
+     * @return the created button
+     */
     private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
     
+    /**
+     * Gets the next button
+     * 
+     * @return the next button
+     */
     public Button getNextButton() {
 		return this.btnNext;
 	}
 
+    /**
+     * Gets the prev button
+     * 
+     * @return the prev button
+     */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 	
+	/**
+	 * Gets the plant that was clicked
+	 * 
+	 * @return the ImageView of the plant that was clicked
+	 */
 	public ImageView getPlantClicked() {
 		return plantImages.get(indexOfPlant);
 		
