@@ -162,7 +162,7 @@ public class GardenInfoScene extends Scene {
 
 	public void clearTextFields() {
 		this.tfWidth.clear();
-		this.tfHeight.clear();
+		this.tfLength.clear();
 		this.tfSunlight.clear();
 		this.tfRain.clear();
 		this.tfSoilPH.clear();
