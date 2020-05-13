@@ -49,7 +49,7 @@ public class View {
 	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
-	public static final String TEXT_LABEL_STYLE = "-fx-font: 24 arial;";
+	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
 	public static final String BUTTON_STYLE = "-fx-font: 32 arial;";
 	public static final String TEXT_FIELD_STYLE = "";
 
@@ -70,8 +70,8 @@ public class View {
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
 
-	private static final String GARDEN_FILE_EXTENSION = ".ser";
-	private static final String GARDEN_FILE_NAME = String.format("Garden Files *(%s)", GARDEN_FILE_EXTENSION);
+	private static final String GARDEN_FILE_EXTENSION = "*.ser";
+	private static final String GARDEN_FILE_NAME = String.format("Garden Files (%s)", GARDEN_FILE_EXTENSION);
 
 	private Stage stage;
 	private Controller controller;
@@ -105,6 +105,7 @@ public class View {
 	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
+		System.out.println(name.toString());
 		this.stage.setScene(this.getScene(name));
 	}
 
@@ -189,6 +190,10 @@ public class View {
 	private void initializePlantPlacement() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
+		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
+		//scene.getPlantClicked().setOnMouseDragged();
+		//scene.getPlantClicked().setOnMouseClicked();
+		scene.getPlantListView().setOnMouseClicked(event-> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
 		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
 	}
 
@@ -250,6 +255,13 @@ public class View {
 		alert.setTitle(DISCARD_TITLE);
 		alert.setContentText(DISCARD_TEXT);
 		return alert.showAndWait();
+	}
+
+	public void showDialog(Alert.AlertType type, String title, String text) {
+		Alert alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setContentText(text);
+		alert.show();
 	}
 
 	public static Image createImage(String pathToFile) {

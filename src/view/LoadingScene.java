@@ -16,6 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import mvc.View;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
@@ -89,6 +93,12 @@ public class LoadingScene extends Scene {
 
 	public Button getEditButton() {
 		return this.btnEdit;
+	}
+
+	public void addTableEntry(File file) {
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		Save save = new Save(file.getName(), format.format(file.lastModified()));
+		this.saves.getItems().add(save);
 	}
 
 	public static class Save {

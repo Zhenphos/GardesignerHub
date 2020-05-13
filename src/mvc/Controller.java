@@ -11,17 +11,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
-import view.DrawScene;
-import view.GardenInfoScene;
-import view.PlantPlacementScene;
+import view.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -78,7 +78,9 @@ public class Controller extends Application {
 	}
 	public static ArrayList<Plant2> importPlants() {
 		ArrayList<Plant2> plantList = new ArrayList<>();
+		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
@@ -182,6 +184,7 @@ public class Controller extends Application {
 	 */
 	@Override
 	public void start(Stage theStage) throws Exception {
+		System.out.println(theStage);
 		view = new View(theStage, this);
 		model = new Model();
 		theStage.show();
@@ -237,7 +240,11 @@ public class Controller extends Application {
 	}
 	
 	public void onPlantPlacementPrev() {
-		this.view.setScreen(Names.GARDEN_INFO);
+		this.view.setScreen(Names.DRAW);
+	}
+	
+	public void onPlantPlacementNext() {
+		this.view.setScreen(Names.TIMES);
 	}
 
 	/**
@@ -261,6 +268,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Grass grass = new Grass();
 		Polygon polygon = grass.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/grass.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(grass);
@@ -272,6 +282,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
+//
+//		Image img = View.createImage("resources/road.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(road);
@@ -282,6 +295,9 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
 		Polygon polygon = stream.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/stream.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(new Stream());
@@ -289,18 +305,39 @@ public class Controller extends Application {
 	}
 
 	public void onDrawWoods() {
+		System.out.println(this.view);
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
+
+//		Image img = View.createImage("resources/tree.jpg");
+//		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
 		givePolyDragBehavior(polygon);
 	}
+	
+	public void onDragPlant(Image img) {
+		System.out.println("In Drag plant");
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		Woods woods = new Woods();
+		Polygon polygon = woods.getShape().getPolygon();
+
+		polygon.setFill(new ImagePattern(img));
+		scene.getCenter().getChildren().add(polygon);
+		this.model.addGardenObject(new Woods());
+		givePolyDragBehavior(polygon);
+	}
+	
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
 		Polygon polygon = shade.getShape().getPolygon();
+
+//		Image img = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.jpg");
+//		polygon.setStyle("--fx-opacity:0.3;");
+//		polygon.setFill(new ImagePattern(img);
 		scene.getCenter().getChildren().add(polygon);
 	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(shade);
@@ -356,6 +393,7 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the save button on the RatingScene
 	 */
 	public void onRatingSave() {
+		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
 		File file = this.view.showSaveDialog();
 		if (file == null)
 			return;
@@ -364,10 +402,12 @@ public class Controller extends Application {
 			out.writeObject(this.model);
 			if (DEBUG)
 				System.out.println("Object has been serialized to file: " + file.getPath());
-			// to do: notify user successful save and move to load screen
+			this.view.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
+			this.view.setScreen(Names.LOADING);
+			scene.addTableEntry(file);
+
 		} catch (IOException ex) {
-			// to do: notify user of saving error
-			System.out.println("IOException is caught");
+			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
 		}
 	}
 
@@ -379,17 +419,17 @@ public class Controller extends Application {
 		File file = this.view.showOpenDialog();
 		if (file == null)
 			return;
+
+		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-			Model model = (Model) in.readObject();
+			this.model = (Model) in.readObject();
 			if (DEBUG) {
 				System.out.println("Object has been deserialized ");
 				System.out.println("amount of light = " + model.getLight());
 			}
-			// to do: update the scenes with data from new model
-			// load other gardens in the same directory to the loading scene
+			scene.addTableEntry(file);
 		} catch (IOException | ClassNotFoundException e) {
-			// To do: add error handeling
-			e.printStackTrace();
+			this.view.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
 		}
 	}
 
