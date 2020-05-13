@@ -12,8 +12,6 @@ public class Road extends GardenObject {
 	
 	public Road() {
 		shape = new Shape(Color.LIGHTYELLOW);
-		xLoc = this.shape.getXValue();
-		yLoc = this.shape.getYValue();
 	}
 	
 }

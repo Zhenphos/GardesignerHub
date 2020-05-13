@@ -12,8 +12,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
@@ -55,8 +57,27 @@ public class Controller extends Application {
 		launch(args);
 	}
 
-	public static Collection<Plant2> importPlants() {
-		Collection<Plant2> plantList = new ArrayList<>();
+	public static ArrayList <ImageView> importImages(){
+		ArrayList <ImageView> images = new ArrayList<>();
+		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+		File directory = new File("resources/plant-images");
+
+		File[] f = directory.listFiles();
+        for (File file : f) {
+            if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
+        		//images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/"+file.getName())));
+
+            	images.add(new ImageView(View.createImage("resources/plant-images/"+file.getName())));
+
+            }
+            
+        
+    }
+		return images;
+		
+	}
+	public static ArrayList<Plant2> importPlants() {
+		ArrayList<Plant2> plantList = new ArrayList<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -241,8 +262,9 @@ public class Controller extends Application {
 		Grass grass = new Grass();
 		Polygon polygon = grass.getShape().getPolygon();
 		scene.getCenter().getChildren().add(polygon);
+	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(grass);
-		giveDragBehavior(polygon);
+		givePolyDragBehavior(polygon);
 
 	}
 
@@ -251,8 +273,9 @@ public class Controller extends Application {
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
 		scene.getCenter().getChildren().add(polygon);
+	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(road);
-		giveDragBehavior(polygon);
+		givePolyDragBehavior(polygon);
 	}
 
 	public void onDrawStream() {
@@ -260,8 +283,9 @@ public class Controller extends Application {
 		Stream stream = new Stream();
 		Polygon polygon = stream.getShape().getPolygon();
 		scene.getCenter().getChildren().add(polygon);
+	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(new Stream());
-		giveDragBehavior(polygon);
+		givePolyDragBehavior(polygon);
 	}
 
 	public void onDrawWoods() {
@@ -270,7 +294,7 @@ public class Controller extends Application {
 		Polygon polygon = woods.getShape().getPolygon();
 		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
-		giveDragBehavior(polygon);
+		givePolyDragBehavior(polygon);
 	}
 
 	public void onDrawShader() {
@@ -278,8 +302,9 @@ public class Controller extends Application {
 		Shade shade = new Shade();
 		Polygon polygon = shade.getShape().getPolygon();
 		scene.getCenter().getChildren().add(polygon);
+	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(shade);
-		giveDragBehavior(polygon);
+		givePolyDragBehavior(polygon);
 	}
 
 	public void onDrawDelete() {
@@ -428,7 +453,7 @@ public class Controller extends Application {
 	 * 
 	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
 	 */
-	public void giveDragBehavior(Polygon polygon) {
+	public void givePolyDragBehavior(Polygon polygon) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
 		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
