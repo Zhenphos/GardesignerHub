@@ -26,6 +26,10 @@ public class Plant2 extends GardenObject {
 		this.bloomColors = bloomColors;
 	}
 
+	public Plant2() {
+		// TODO Auto-generated constructor stub
+	}
+
 	String plantBotanicalName;
 	int heightMinInches;
 	int heightMaxInches;
@@ -36,6 +40,30 @@ public class Plant2 extends GardenObject {
 	int hardinessMin;
 	int hardinessMax;
 	String bloomColors;
+
+	public int getHardinessMin() {
+		return hardinessMin;
+	}
+
+	public String getPlantBotanicalName() {
+		return plantBotanicalName;
+	}
+
+	public int getHeightMaxInches() {
+		return heightMaxInches;
+	}
+
+	public int getSpacingMax() {
+		return spacingMax;
+	}
+
+	public String getBloomColors() {
+		return bloomColors;
+	}
+
+	public void setHardinessMin(int hardinessMin) {
+		this.hardinessMin = hardinessMin;
+	}
 
 	@Override
 	public String toString() {

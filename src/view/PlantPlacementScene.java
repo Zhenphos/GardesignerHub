@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 import enums.Names;
 import javafx.beans.value.ObservableValue;
@@ -61,7 +63,6 @@ public class PlantPlacementScene extends Scene {
 	public ImageView imageview[] = new ImageView [10];
 
 	HBox imageBar = new HBox(10);
-
 	private Pane center = new Pane();
 
 	//HBox imageBar = new HBox(10);
@@ -112,24 +113,37 @@ public class PlantPlacementScene extends Scene {
 		imageView01.setPreserveRatio(true);
 		imageView01.setFitHeight(100);
 
-		BorderPane leftPane = new BorderPane();
-		VBox topVbox = new VBox(5);
-		
-		topVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
+		BorderPane Pane = new BorderPane();
+		VBox leftVbox = new VBox(5);
+		VBox rightPane = new VBox(5);
+		TilePane center = new TilePane();
+		center.setPrefColumns(10);
+		center.setPrefRows(10);
+		center.setStyle("-fx-background-color: red;");
 
-		root.getChildren().add(leftPane);
+		leftVbox.setMinSize(VBOX_MIN_WIDTH, MIN_HEIGHT);
 		
-		BorderPane.setMargin(topVbox, new Insets(50, 12.5, 50, 12.5));
+		root.getChildren().add(Pane);
+		
+		BorderPane.setMargin(leftVbox, new Insets(50, 12.5, 50, 12.5));
 		
 		//borderPane.setMinHeight(500);
 		
-		leftPane.setTop(topVbox);
+		Pane.setLeft(leftVbox);
+		Pane.setRight(rightPane);
+		Pane.setCenter(center);
+		
+		GridPane grid = new GridPane();
+	    grid.setHgap(10);
+	    grid.setVgap(10);
+	    grid.setPadding(new Insets(0, 10, 0, 10));
+	    rightPane.getChildren().add(grid);
 		//border.setCenter(center);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
-		topVbox.getChildren().add(scenetitle);
-		topVbox.setAlignment(Pos.CENTER);
+		leftVbox.getChildren().add(scenetitle);
+		leftVbox.setAlignment(Pos.CENTER);
 		
 		/*
 		top.getChildren().add(imageBar);
@@ -229,7 +243,7 @@ public class PlantPlacementScene extends Scene {
 	    //FilteredList<ImageView> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-
+	    int indexOfPlantClicked;
 	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
 	    	private ImageView imageview = new ImageView();
 	    	@Override
@@ -258,20 +272,111 @@ public class PlantPlacementScene extends Scene {
 	    // need to use textfield with filtered list
 	  
 	    Label label = new Label();
-	    topVbox.getChildren().addAll(plantListView, label);
+	    leftVbox.getChildren().addAll(plantListView, label);
+        plantListView.setItems(filteredList);
+
 	    //topVbox.getChildren().addAll(imageListView);
 	    label.setLayoutX(10);
         label.setLayoutY(115);
 	    //label.setLayoutY(300);
         label.setFont(Font.font("Verdana", 20));
+       
+	// Display plant information in the right pane
         
+        
+
         //plantListView.setItems(rawData); //already commented
-        plantListView.setItems(filteredList);
        // imageListView.setItems(filteredList);
        // imageListView.setItems(rawData);
+        Label name = createLabel("Name :");
+        grid.add(name,0 , 0);
+
+        Label maxHeight = createLabel("Maxium Height :");
+        grid.add(maxHeight,0 , 1);
+
+        Label maxSpacing = createLabel("Maxium Spacing :");
+        grid.add(maxSpacing,0 , 2);
+
+        Label hardiness = createLabel("Hardiness Required: ");
+        grid.add(hardiness,0 , 3);
+
+        Label colors = createLabel("Bloom Colors :");
+        grid.add(colors,0 , 4);
+        
+        Label error = createLabel("");
+        grid.add(error, 0, 5);
+        error.setMaxWidth(300);
+        error.setWrapText(true);
+        
+        Label nameValue = createLabel("");
+        Label heightValue = createLabel("");
+        Label spacingValue = createLabel("");
+        Label hardinessValue = createLabel("");
+        Label colorsValue = createLabel("");
+        
+        grid.add(nameValue,1 , 0);
+        grid.add(heightValue,1 , 1);
+        grid.add(spacingValue,1 , 2);
+        grid.add(hardinessValue,1 , 3);
+        grid.add(colorsValue,1 , 4);
+
+
+		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				try {
+					error.setText(" ");
+				System.out.println("Mouse clicked");
+				Text temp = null;
+				    Text plantlabel  = (Text) (event.getTarget());
+					error.setText(" ");
+				//	error.setText("Please click on the name of plant instead of Image");
+				
+				
+					Optional <Plant2> plant=allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
+					 error.setText(" ");
+					  Plant2 p = plant.get();
+
+					//error.setText("No Data found for this plant");
+				
+				
+				nameValue.setText(p.getPlantBotanicalName());
+				if(p.getHeightMaxInches()==-1) heightValue.setText("No Data");
+				else heightValue.setText(Integer.toString(p.getHeightMaxInches()));
+				
+				if(p.getSpacingMax()==-1) spacingValue.setText("No Data");
+				else spacingValue.setText(Integer.toString(p.getSpacingMax()));
+				
+				
+				if (p.getHardinessMin()==-1) hardinessValue.setText("No Data");
+				else hardinessValue.setText(Integer.toString(p.getHardinessMin()));
+;
+				colorsValue.setText(p.getBloomColors());
+				event.consume();
+			}catch(NullPointerException e) {
+				error.setText("No Data found for this plant");
+				
+			}catch (ClassCastException e) {
+				error.setText("Please click on plant's name instead of picture");
+			}
+			}
+			});
+		
+		
+//		 plantListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//	            @Override
+//	            public void handle(MouseEvent mouseEvent) {
+//	                System.out.println("Image!" + mouseEvent.getTarget());
+//	                mouseEvent.consume();
+//	            }
+//	        });
 
 	}
-	
+	private Label createLabel(String text) {
+		Label label = new Label(text);
+		label.setStyle(View.TEXT_LABEL_STYLE);
+		return label;
+	}
 	/*
 	private Button createScrollLeftButton() {
 		Button btn = new Button("<<<");
