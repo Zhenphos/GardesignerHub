@@ -21,7 +21,7 @@ public class GardenInfoScene extends Scene {
 	private static final String INPUT_HEADER_TEXT = "Information Input";
 	private static final String INPUT_DESCRIPTION_HEADER_TEXT = "Description";
 	private static final String WIDTH_TEXT = "Width (ft):";
-	private static final String LENGTH_TEXT = "LENGTH (ft):";
+	private static final String LENGTH_TEXT = "Length (ft):";
 	private static final String SUNLIGHT_LABEL_TEXT = "Hours of Sunlight: ";
 	private static final String RAIN_LABEL_TEXT = "Amount of Rain (millimeters):";
 	private static final String SOIL_LABEL_TEXT = "Soil pH:";
@@ -30,10 +30,14 @@ public class GardenInfoScene extends Scene {
 	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
 	private static final String WIDTH_INFO = "The \"Width\" is the total width of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
 	private static final String LENGTH_INFO = "The \"Length\" is the total length of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
-	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day.";
-	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters.";
-	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. " + "The ideal pH of your soil is 6.5.";
-	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit.";
+	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day."
+			+ "\nLeave this blank if you do not know the value.";
+	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters."
+			+ "\nLeave this blank if you do not know the value.";
+	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. "
+			+ "The ideal pH of your soil is 6.5." + "\nLeave this blank if you do not know the value.";
+	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit."
+			+ "\nLeave this blank if you do not know the value.";
 
 	private HBox container;
 	private Label lblInputHeader, lblWidth, lblLength, lblSunlight, lblRain, lblTemp, lblSoilPH;
