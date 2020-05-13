@@ -58,6 +58,8 @@ import objects.Plant2;
 public class PlantPlacementScene extends Scene {
 	private static final int VBOX_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
+	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
+
 	static Group root = new Group();
 	public Controller imc;
 	public ImageView imageView01;
@@ -308,7 +310,7 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private Label createLabel(String text) {
 		Label label = new Label(text);
-		label.setStyle(View.TEXT_LABEL_STYLE);
+		label.setStyle(this.TEXT_LABEL_STYLE);
 		return label;
 	}
 
