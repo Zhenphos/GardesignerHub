@@ -57,9 +57,7 @@ public class Plant2 extends GardenObject {
 		return spacingMax;
 	}
 
-	public String getBloomColors() {
-		return bloomColors;
-	}
+
 
 	public void setHardinessMin(int hardinessMin) {
 		this.hardinessMin = hardinessMin;
@@ -68,6 +66,37 @@ public class Plant2 extends GardenObject {
 	@Override
 	public String toString() {
 		return plantBotanicalName;
+	}
+
+	
+
+	public int getHeightMinInches() {
+		return heightMinInches;
+	}
+
+
+	public int getSpreadMin() {
+		return spreadMin;
+	}
+
+	public int getSpreadMax() {
+		return spreadMax;
+	}
+
+	public int getSpacingMin() {
+		return spacingMin;
+	}
+
+	
+
+
+
+	public int getHardinessMax() {
+		return hardinessMax;
+	}
+
+	public String getBloomColors() {
+		return bloomColors;
 	}
 
 }

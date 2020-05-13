@@ -307,7 +307,14 @@ public class View {
 	public void drawMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
 			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-			pane.getChildren().add(go.getShape().getPolygon());
+				pane.getChildren().add(go.getShape().getPolygon());
+		}
+	}
+	
+	public void drawEditMap(Pane pane) {
+		for (GardenObject go:this.controller.loadMapObjects()) {
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 }

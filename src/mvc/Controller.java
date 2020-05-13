@@ -259,36 +259,47 @@ public class Controller extends Application {
 	public void onDrawGrass() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Grass grass = new Grass();
-		scene.getCenter().getChildren().add(grass.getShape().getPolygon());
+		Polygon polygon = grass.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(grass);
+		giveDragBehavior(polygon);
+
 	}
 
 	public void onDrawRoad() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
-		scene.getCenter().getChildren().add(road.getShape().getPolygon());
+		Polygon polygon = road.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(road);
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawStream() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
-		scene.getCenter().getChildren().add(stream.getShape().getPolygon());
+		Polygon polygon = stream.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Stream());
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawWoods() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
-		scene.getCenter().getChildren().add(woods.getShape().getPolygon());
+		Polygon polygon = woods.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(new Woods());
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawShader() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
-		scene.getCenter().getChildren().add(shade.getShape().getPolygon());
+		Polygon polygon = shade.getShape().getPolygon();
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(shade);
+		giveDragBehavior(polygon);
 	}
 
 	public void onDrawDelete() {
@@ -433,46 +444,38 @@ public class Controller extends Application {
 	}
 
 	/**
+	 * Gives a polygon the drag behavior
 	 * 
 	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
 	 */
-	public EventHandler<ActionEvent> createButtonAction(GardenObject object) {
-		return new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				Polygon polygon = object.getShape().getPolygon();
-				System.out.println("Added object");
-				model.addGardenObject(object);
-				final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-				
-				polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent event) {
-						mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-				    }
-				});
-				
-				polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			        @Override
-			        public void handle(MouseEvent event) {
-			            double changeX = event.getSceneX() - mousePosition.get().getX();
-			            double changeY = event.getSceneY() - mousePosition.get().getY();
-			            
-			            if (polygon.getLayoutX() < 0) {
-			            	polygon.setLayoutX(0);
-			            } else { 
-				        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
-			            }
-			            
-			            if (polygon.getLayoutY() < 0) {
-			            	polygon.setLayoutY(0);
-			            } else {
-				            polygon.setLayoutY(polygon.getLayoutY() + changeY);
-			            }
-			            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-			        }
-			    });
-			}
-		};
+	public void giveDragBehavior(Polygon polygon) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+		    }
+		});
+		polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	            double changeX = event.getSceneX() - mousePosition.get().getX();
+	            double changeY = event.getSceneY() - mousePosition.get().getY();
+	            
+	            if (polygon.getLayoutX() < 0) {
+	            	polygon.setLayoutX(0);
+	            } else { 
+		        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+	            }
+	            
+	            if (polygon.getLayoutY() < 0) {
+	            	polygon.setLayoutY(0);
+	            } else {
+		            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+	            }
+	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+	        }
+		});
 	}
 	
 	public Collection<GardenObject> loadMapObjects() {
