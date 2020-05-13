@@ -20,7 +20,7 @@ import javafx.scene.shape.Polygon;
 
 public class Shape {
 	private static final double defaultSize = 100;
-	
+
 	Polygon shape = new Polygon();
 	
 	/**
