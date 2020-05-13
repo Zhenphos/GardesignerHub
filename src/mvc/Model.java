@@ -17,14 +17,14 @@ import objects.GardenObject;
 public class Model implements Serializable {
 
 	private int width;
-	private int height;
+	private int length;
 	private int light;
 	private int rain;
 	private double temperature;
 	private double soilPH;
 	private double age;
 	private Season season;
-	private Collection<GardenObject> myObjects;
+	private Collection<GardenObject> myObjects;	
 
 	
 	private double x = 100;
@@ -34,7 +34,7 @@ public class Model implements Serializable {
 	
 	public Model() {
 		this.width = 0;
-		this.height = 0;
+		this.length = 0;
 		this.light = 0;
 		this.rain = 0;
 		this.temperature = 0;
@@ -48,8 +48,8 @@ public class Model implements Serializable {
 		this.width = width;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+	public void setLength(int length) {
+		this.length = length;
 	}
 
 	public void setLight(int light) {
@@ -81,7 +81,7 @@ public class Model implements Serializable {
 	}
 
 	public int getHeight() {
-		return this.height;
+		return this.length;
 	}
 
 	public int getLight() {

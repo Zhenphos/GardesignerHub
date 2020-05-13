@@ -6,11 +6,11 @@ import javafx.application.Application;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -76,8 +75,8 @@ public class Controller extends Application {
 		return images;
 		
 	}
-	public static ArrayList<Plant2> importPlants() {
-		ArrayList<Plant2> plantList = new ArrayList<>();
+	public static ArrayList<Plant> importPlants() {
+		ArrayList<Plant> plantList = new ArrayList<>();
 		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 
@@ -152,7 +151,7 @@ public class Controller extends Application {
 					hardinessMax = -1;
 				}
 
-				plantList.add(new Plant2(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
+				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
 						spacingMax, hardinessMin, hardinessMax, bloomColor));
 			}
 		} catch (IOException e) {
@@ -229,7 +228,7 @@ public class Controller extends Application {
 		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
 		try {
 			this.model.setWidth((int)Double.parseDouble(scene.getWidthTextfield().getText()));
-			this.model.setHeight((int)Double.parseDouble(scene.getHeightTextfield().getText()));
+			this.model.setLength((int)Double.parseDouble(scene.getHeightTextfield().getText()));
 			if (scene.getSunlightTextfield().getText().isEmpty()) {
 				this.model.setLight(-1);
 			} else {
@@ -251,7 +250,7 @@ public class Controller extends Application {
 				this.model.setTemperature(Double.parseDouble(scene.getTempTextfield().getText()));
 			}
 			this.view.setScreen(Names.DRAW);
-			this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
+			this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 		} catch (NumberFormatException e) {
 			this.view.showInvalidInputAlert();
 		}
@@ -259,10 +258,12 @@ public class Controller extends Application {
 	
 	public void onPlantPlacementPrev() {
 		this.view.setScreen(Names.DRAW);
+		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 	}
 	
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
+		this.view.drawMap(((DrawScene) view.getScene(Names.DRAW)).getCenter());
 	}
 
 	/**
@@ -289,24 +290,20 @@ public class Controller extends Application {
 
 //		Image img = View.createImage("resources/grass.jpg");
 //		polygon.setFill(new ImagePattern(img));
-		scene.getCenter().getChildren().add(polygon);
-	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(grass);
-		givePolyDragBehavior(polygon);
-
+		createPolyDraggable(scene, polygon);
 	}
 
 	public void onDrawRoad() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
-//
+		
 //		Image img = View.createImage("resources/road.jpg");
 //		polygon.setFill(new ImagePattern(img));
-		scene.getCenter().getChildren().add(polygon);
-	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
+		
 		this.model.addGardenObject(road);
-		givePolyDragBehavior(polygon);
+		createPolyDraggable(scene, polygon);
 	}
 
 	public void onDrawStream() {
@@ -316,10 +313,9 @@ public class Controller extends Application {
 
 //		Image img = View.createImage("resources/stream.jpg");
 //		polygon.setFill(new ImagePattern(img));
-		scene.getCenter().getChildren().add(polygon);
-	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
-		this.model.addGardenObject(new Stream());
-		givePolyDragBehavior(polygon);
+		
+		this.model.addGardenObject(stream);
+		createPolyDraggable(scene, polygon);
 	}
 
 	public void onDrawWoods() {
@@ -330,9 +326,8 @@ public class Controller extends Application {
 
 //		Image img = View.createImage("resources/tree.jpg");
 //		polygon.setFill(new ImagePattern(img));
-		scene.getCenter().getChildren().add(polygon);
-		this.model.addGardenObject(new Woods());
-		givePolyDragBehavior(polygon);
+		this.model.addGardenObject(woods);
+		createPolyDraggable(scene, polygon);
 	}
 	
 	public void onDragPlant(Image img) {
@@ -343,7 +338,7 @@ public class Controller extends Application {
 
 		polygon.setFill(new ImagePattern(img));
 		scene.getCenter().getChildren().add(polygon);
-		this.model.addGardenObject(new Woods());
+		this.model.addGardenObject(woods);
 		givePolyDragBehavior(polygon);
 	}
 	
@@ -356,10 +351,8 @@ public class Controller extends Application {
 //		Image img = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.jpg");
 //		polygon.setStyle("--fx-opacity:0.3;");
 //		polygon.setFill(new ImagePattern(img);
-		scene.getCenter().getChildren().add(polygon);
-	    scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		this.model.addGardenObject(shade);
-		givePolyDragBehavior(polygon);
+		createPolyDraggable(scene, polygon);
 	}
 
 	public void onDrawDelete() {
@@ -507,6 +500,44 @@ public class Controller extends Application {
 	}
 
 	/**
+	 * Gives a polygon the drag behavior in the given DrawScene
+	 * 
+	 * @param scene	the scene which will contain the draggable polygon
+	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
+	 */
+	public void createPolyDraggable(DrawScene scene, Polygon polygon) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		scene.getCenter().getChildren().add(polygon);
+		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+		    }
+		});
+		polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	            double changeX = event.getSceneX() - mousePosition.get().getX();
+	            double changeY = event.getSceneY() - mousePosition.get().getY();
+	            
+	            if (polygon.getLayoutX() < 0) {
+	            	polygon.setLayoutX(0);
+	            } else { 
+		        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+	            }
+	            
+	            if (polygon.getLayoutY() < 0) {
+	            	polygon.setLayoutY(0);
+	            } else {
+		            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+	            }
+	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+	        }
+		});
+		scene.getCenter().getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
+	}
+	
+	/**
 	 * Gives a polygon the drag behavior
 	 * 
 	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
@@ -541,6 +572,10 @@ public class Controller extends Application {
 		});
 	}
 	
+	/**
+	 * 
+	 * @return the GardenObjects inside of model
+	 */
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}

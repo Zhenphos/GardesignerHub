@@ -285,7 +285,7 @@ public class View {
 	 * @param plantName the plant that will be shown in the image
 	 * @param year      the amount of years after the plant has been planted
 	 * @param season    the season in which the plant is shown
-	 * @return an ImageView of the plant
+	 * @return 			an ImageView of the plant
 	 */
 	public ImageView generateView(String plantName, int year, Season season) {
 		return null;
@@ -295,9 +295,8 @@ public class View {
 	 * Takes in the rating of a map and gives a message to tell the user how to
 	 * improve their map and their rating.
 	 *
-	 * @param someRating the rating of the map on a scale from 1 to 5
-	 * @return Text which will tell the user what they can do to improve based on
-	 *         the ratings
+	 * @param 	someRating the rating of the map on a scale from 1 to 5
+	 * @return 	Text which will tell the user what they can do to improve based on the ratings
 	 */
 	String howToImprove(int someRating) {
 		return null;
@@ -318,15 +317,17 @@ public class View {
 	 */
 	public void drawMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-				pane.getChildren().add(go.getShape().getPolygon());
+			if (pane.getChildren().contains(go.getShape().getPolygon())) 
+				pane.getChildren().remove(go.getShape().getPolygon());
+			pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 	
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-				pane.getChildren().add(go.getShape().getPolygon());
+			if (pane.getChildren().contains(go.getShape().getPolygon())) 
+				pane.getChildren().remove(go.getShape().getPolygon());
+			pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 }

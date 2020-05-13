@@ -47,7 +47,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
-import objects.Plant2;
 
 /**
  * 
@@ -68,7 +67,7 @@ public class PlantPlacementScene extends Scene {
 	public ImageView plantClicked;
 	int indexOfPlant=0;
 	ArrayList <ImageView> plantImages = Controller.importImages();
-	ListView<Plant2> plantListView = new ListView<Plant2>();
+	ListView<Plant> plantListView = new ListView<Plant>();
 
 	//public TilePane center = new TilePane();
 
@@ -162,7 +161,7 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().addAll(btnPrev, btnNext);
 		
 		// testing plant import in here
-		ArrayList<Plant2> allPlants = Controller.importPlants();
+		ArrayList<Plant> allPlants = Controller.importPlants();
 		System.out.print(allPlants.size());
 	
 		plantListView.setMinWidth(View.getCanvasWidth()-20);
@@ -170,16 +169,16 @@ public class PlantPlacementScene extends Scene {
 		
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
+	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
 
-	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
+	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-		plantListView.setCellFactory(param -> new ListCell<Plant2>() {
+		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
 
 			@Override
-			public void updateItem(Plant2 plant, boolean empty) {
+			public void updateItem(Plant plant, boolean empty) {
 				super.updateItem(plant, empty);
 				if (empty) {
 					setText("empty");
@@ -265,10 +264,10 @@ public class PlantPlacementScene extends Scene {
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
+					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
 							.findAny();
 					error.setText(" ");
-					Plant2 p = plant.get();
+					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
 					indexOfPlant = allPlants.indexOf(p);
 					nameValue.setText(p.getPlantBotanicalName());
@@ -454,7 +453,7 @@ public class PlantPlacementScene extends Scene {
 	 * 
 	 * @return the plantListView
 	 */
-	public ListView<Plant2> getPlantListView() {
+	public ListView<Plant> getPlantListView() {
 		return this.plantListView;
 	}
 }
