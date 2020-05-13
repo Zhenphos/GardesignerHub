@@ -12,7 +12,5 @@ public class Grass extends GardenObject {
 	
 	public Grass() {
 		shape = new Shape(Color.LAWNGREEN);
-		xLoc = this.shape.getXValue();
-		yLoc = this.shape.getYValue();
 	}
 }

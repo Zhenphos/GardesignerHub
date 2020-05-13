@@ -104,5 +104,9 @@ public class RatingScene extends Scene {
 	public Button getSaveButton() {
 		return this.btnSave;
 	}
+	
+	public Pane getGardenPane() {
+		return this.gardenPane;
+	}
 
 }

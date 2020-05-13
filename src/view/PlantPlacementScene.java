@@ -47,7 +47,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
-import objects.Plant2;
 
 /**
  * 
@@ -68,12 +67,12 @@ public class PlantPlacementScene extends Scene {
 	public ImageView plantClicked;
 	int indexOfPlant=0;
 	ArrayList <ImageView> plantImages = Controller.importImages();
-	ListView<Plant2> plantListView = new ListView<Plant2>();
+	ListView<Plant> plantListView = new ListView<Plant>();
 
 	//public TilePane center = new TilePane();
 
 	HBox imageBar = new HBox(10);
-	private Pane center = new Pane();
+	private Pane gardenPane = new Pane();
 
 	//HBox imageBar = new HBox(10);
 	//AnchorPane center = new AnchorPane();
@@ -85,8 +84,8 @@ public class PlantPlacementScene extends Scene {
 	public int numCopies = 0;
 	private Button btnPrev, btnNext;
 
-	public Pane getCenter() {
-		return this.center;
+	public Pane getGardenPane() {
+		return this.gardenPane;
 	}
 	
 	public PlantPlacementScene() {
@@ -126,10 +125,10 @@ public class PlantPlacementScene extends Scene {
 		HBox leftVbox = new HBox(5);
 		VBox rightPane = new VBox(5);
 		
-		center.setPrefHeight(View.getCanvasHeight() * 3/5);
-		center.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
-		center.setStyle("-fx-border-color: black");
-		Pane.setMargin(center, new Insets(10,10,10,10));
+		gardenPane.setPrefHeight(View.getCanvasHeight() * 3/5);
+		gardenPane.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
+		gardenPane.setStyle("-fx-border-color: black");
+		Pane.setMargin(gardenPane, new Insets(10,10,10,10));
 		leftVbox.setMinSize(View.getCanvasWidth()-20, 150);
 		
 		root.getChildren().add(Pane);
@@ -139,7 +138,7 @@ public class PlantPlacementScene extends Scene {
 		
 		Pane.setTop(leftVbox);
 		Pane.setLeft(rightPane);
-		Pane.setCenter(center);
+		Pane.setCenter(gardenPane);
 		
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
@@ -162,7 +161,7 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().addAll(btnPrev, btnNext);
 		
 		// testing plant import in here
-		ArrayList<Plant2> allPlants = Controller.importPlants();
+		ArrayList<Plant> allPlants = Controller.importPlants();
 		System.out.print(allPlants.size());
 	
 		plantListView.setMinWidth(View.getCanvasWidth()-20);
@@ -170,16 +169,16 @@ public class PlantPlacementScene extends Scene {
 		
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
+	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
 
-	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
+	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
-		plantListView.setCellFactory(param -> new ListCell<Plant2>() {
+		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
 
 			@Override
-			public void updateItem(Plant2 plant, boolean empty) {
+			public void updateItem(Plant plant, boolean empty) {
 				super.updateItem(plant, empty);
 				if (empty) {
 					setText("empty");
@@ -221,38 +220,38 @@ public class PlantPlacementScene extends Scene {
        
         // Display plant information in the right pane
         
-        Label name = createLabel("Name :");
-        grid.add(name,0 , 0);
+		Label name = createLabel("Name: ");
+		grid.add(name, 0, 0);
 
-        Label maxHeight = createLabel("Maxium Height :");
-        grid.add(maxHeight,0 , 1);
+		Label maxHeight = createLabel("Maximum Height: ");
+		grid.add(maxHeight, 0, 1);
 
-        Label maxSpacing = createLabel("Maxium Spacing :");
-        grid.add(maxSpacing,0 , 2);
+		Label maxSpacing = createLabel("Maximum Spacing: ");
+		grid.add(maxSpacing, 0, 2);
 
-        Label hardiness = createLabel("Hardiness Required: ");
-        grid.add(hardiness,0 , 3);
+		Label hardiness = createLabel("Hardiness Required: ");
+		grid.add(hardiness, 0, 3);
 
-        Label colors = createLabel("Bloom Colors :");
-        grid.add(colors,0 , 4);
-        
-        Label error = createLabel("");
-        rightPane.getChildren().add(error);
-        error.setMaxWidth(300);
-        error.setWrapText(true);
-        
-        Label nameValue = createLabel("");
-        Label heightValue = createLabel("");
-        Label spacingValue = createLabel("");
-        Label hardinessValue = createLabel("");
-        Label colorsValue = createLabel("");
-        nameValue.setMaxWidth(100);
-        nameValue.setWrapText(true);
-        grid.add(nameValue,1 , 0);
-        grid.add(heightValue,1 , 1);
-        grid.add(spacingValue,1 , 2);
-        grid.add(hardinessValue,1 , 3);
-        grid.add(colorsValue,1 , 4);
+		Label colors = createLabel("Bloom Colors: ");
+		grid.add(colors, 0, 4);
+
+		Label error = createLabel("");
+		rightPane.getChildren().add(error);
+		error.setMaxWidth(300);
+		error.setWrapText(true);
+
+		Label nameValue = createLabel("");
+		Label heightValue = createLabel("");
+		Label spacingValue = createLabel("");
+		Label hardinessValue = createLabel("");
+		Label colorsValue = createLabel("");
+		nameValue.setMaxWidth(100);
+		nameValue.setWrapText(true);
+		grid.add(nameValue, 1, 0);
+		grid.add(heightValue, 1, 1);
+		grid.add(spacingValue, 1, 2);
+		grid.add(hardinessValue, 1, 3);
+		grid.add(colorsValue, 1, 4);
 
         
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -261,14 +260,14 @@ public class PlantPlacementScene extends Scene {
 				try {
 					error.setText(" ");
 					System.out.println("Mouse clicked");
-					//Text temp = null;
+					// Text temp = null;
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
+					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
 							.findAny();
 					error.setText(" ");
-					Plant2 p = plant.get();
+					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
 					indexOfPlant = allPlants.indexOf(p);
 					nameValue.setText(p.getPlantBotanicalName());
@@ -299,7 +298,6 @@ public class PlantPlacementScene extends Scene {
 				}
 			}
 		});
-
 	}
 	
 	/**
@@ -358,12 +356,12 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
-		nextButton.setTranslateX(View.getCanvasWidth() *7/8);
-		nextButton.setTranslateY(View.getCanvasHeight() -10);
+		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
+		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getTimesScene());
+				// View.getStage().setScene(View.getTimesScene());
 			}
 		};
 
@@ -380,7 +378,7 @@ public class PlantPlacementScene extends Scene {
 		Button prevButton = new Button("Prev");
 
 		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() -10);
+		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
 		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -455,7 +453,7 @@ public class PlantPlacementScene extends Scene {
 	 * 
 	 * @return the plantListView
 	 */
-	public ListView<Plant2> getPlantListView() {
+	public ListView<Plant> getPlantListView() {
 		return this.plantListView;
 	}
 }

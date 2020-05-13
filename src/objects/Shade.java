@@ -14,8 +14,8 @@ public class Shade extends GardenObject {
 	
 	public Shade() {
 		shape = new Shape(Color.GREY);
-		xLoc = this.shape.getXValue();
-		yLoc = this.shape.getYValue();
+		shape.getPolygon().setStyle("--fx-opacity:0.3;");
+
 	}
 
 }

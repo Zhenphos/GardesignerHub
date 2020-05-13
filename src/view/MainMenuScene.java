@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -27,7 +28,8 @@ public class MainMenuScene extends Scene {
 	private static final String CREDITS_TEXT = "Jason H, Hamza M, Ntsee N, Haseeb S, Jonathan Z";
 
 	private BorderPane container;
-	private Label title, credits;
+	private ImageView logo;
+	private Label credits;
 	private Button btnNew, btnHelp, btnLoad;
 
 	public MainMenuScene() {
@@ -35,8 +37,9 @@ public class MainMenuScene extends Scene {
 		this.container = (BorderPane) this.getRoot();
 		this.container.setMinWidth(View.WIDTH);
 		this.container.setMinHeight(View.HEIGHT);
-		this.title = new Label(View.TITLE);
-		this.title.setStyle(View.TITLE_LABEL_STYLE);
+		this.logo = new ImageView(View.LOGO_IMAGE);
+		this.logo.setPreserveRatio(true);
+		this.logo.setFitHeight(View.HEIGHT * 3/5f);
 		this.btnNew = this.createButton(NEW_BUTTON_TEXT);
 		this.btnHelp = this.createButton(HELP_BUTTON_TEXT);
 		this.btnLoad = this.createButton(LOAD_BUTTON_TEXT);
@@ -44,16 +47,16 @@ public class MainMenuScene extends Scene {
 		this.container.setStyle(View.TEXT_LABEL_STYLE);
 
 		HBox buttons = new HBox();
-		buttons.setBackground(new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY)));
+		buttons.setBackground(View.BACKGROUND);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(View.WIDTH / 8f);
 		buttons.getChildren().addAll(this.btnNew, this.btnHelp, this.btnLoad);
 
-		this.container.setTop(this.title);
+		this.container.setTop(this.logo);
 		this.container.setCenter(buttons);
 		this.container.setBottom(this.credits);
 
-		BorderPane.setAlignment(this.title, Pos.CENTER);
+		BorderPane.setAlignment(this.logo, Pos.CENTER);
 		BorderPane.setAlignment(buttons, Pos.CENTER);
 		BorderPane.setAlignment(this.credits, Pos.CENTER);
 	}

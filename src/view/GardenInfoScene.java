@@ -20,22 +20,25 @@ public class GardenInfoScene extends Scene {
 
 	private static final String INPUT_HEADER_TEXT = "Information Input";
 	private static final String INPUT_DESCRIPTION_HEADER_TEXT = "Description";
+	private static final String WIDTH_TEXT = "Width (ft):";
+	private static final String LENGTH_TEXT = "LENGTH (ft):";
 	private static final String SUNLIGHT_LABEL_TEXT = "Hours of Sunlight: ";
 	private static final String RAIN_LABEL_TEXT = "Amount of Rain (millimeters):";
 	private static final String SOIL_LABEL_TEXT = "Soil pH:";
 	private static final String TEMP_LABEL_TEXT = "Temperature (Fahrenheit):";
 
 	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
+	private static final String WIDTH_INFO = "The \"Width\" is the total width of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
+	private static final String LENGTH_INFO = "The \"Length\" is the total length of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
 	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day.";
 	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters.";
-
 	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. " + "The ideal pH of your soil is 6.5.";
 	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit.";
 
 	private HBox container;
-	private Label lblInputHeader, lblSunlight, lblRain, lblTemp, lblSoilPH;
+	private Label lblInputHeader, lblWidth, lblLength, lblSunlight, lblRain, lblTemp, lblSoilPH;
 	private Label lblDescriptionHeader, lblDescription;
-	private TextField tfSunlight, tfRain, tfSoilPH, tfTemp;
+	private TextField tfWidth, tfLength, tfSunlight, tfRain, tfSoilPH, tfTemp;
 	private Button btnNext, btnPrev;
 
 	public GardenInfoScene() {
@@ -45,6 +48,8 @@ public class GardenInfoScene extends Scene {
 		this.container.setMinHeight(View.HEIGHT);
 		this.lblInputHeader = this.createHeader(INPUT_HEADER_TEXT);
 		this.lblInputHeader.setMaxWidth(Double.MAX_VALUE);
+		this.lblWidth = this.createLabel(WIDTH_TEXT);
+		this.lblLength = this.createLabel(LENGTH_TEXT);
 		this.lblSunlight = this.createLabel(SUNLIGHT_LABEL_TEXT);
 		this.lblRain = this.createLabel(RAIN_LABEL_TEXT);
 		this.lblSoilPH = this.createLabel(SOIL_LABEL_TEXT);
@@ -57,6 +62,8 @@ public class GardenInfoScene extends Scene {
 		this.lblDescription.setTextAlignment(TextAlignment.CENTER);
 		this.lblDescription.setBackground(View.BACKGROUND);
 		this.lblDescription.setPadding(new Insets(View.SPACING));
+		this.tfWidth = this.createTextField(WIDTH_INFO);
+		this.tfLength = this.createTextField(LENGTH_INFO);
 		this.tfSunlight = this.createTextField(SUNLIGHT_INFO);
 		this.tfRain = this.createTextField(RAIN_INFO);
 		this.tfSoilPH = this.createTextField(SOIL_INFO);
@@ -67,7 +74,7 @@ public class GardenInfoScene extends Scene {
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 
 		VBox inputs = new VBox();
-		inputs.getChildren().addAll(this.lblSunlight, this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
+		inputs.getChildren().addAll(this.lblWidth, this.tfWidth, this.lblLength, this.tfLength, this.lblSunlight, this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
 		inputs.setAlignment(Pos.CENTER);
 		inputs.setSpacing(View.SPACING);
 		inputs.setBackground(View.BACKGROUND);
@@ -121,6 +128,14 @@ public class GardenInfoScene extends Scene {
 		return this.lblDescription;
 	}
 
+	public TextField getWidthTextfield() {
+		return this.tfWidth;
+	}
+
+	public TextField getHeightTextfield() {
+		return this.tfLength;
+	}
+
 	public TextField getSunlightTextfield() {
 		return this.tfSunlight;
 	}
@@ -143,5 +158,14 @@ public class GardenInfoScene extends Scene {
 
 	public Button getPrevButton() {
 		return this.btnPrev;
+	}
+
+	public void clearTextFields() {
+		this.tfWidth.clear();
+		this.tfLength.clear();
+		this.tfSunlight.clear();
+		this.tfRain.clear();
+		this.tfSoilPH.clear();
+		this.tfTemp.clear();
 	}
 }

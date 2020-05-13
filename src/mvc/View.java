@@ -22,6 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import objects.GardenObject;
+import objects.Plant;
 import view.*;
 
 /**
@@ -38,13 +39,13 @@ public class View {
 	public final static int lGap = 25;
 
 	// Window Constants
-	public static final String TITLE = "Garden Designer";
+	public static final String TITLE = "Gardesigner Hub";
 	public static final int WIDTH = (int) Screen.getPrimary().getBounds().getWidth() * 6 / 8;
 	public static final int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight() * 6 / 8;
 	public static final int SPACING = 10;
 
 	// GUI Styling Constants
-	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
+	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("#24b300"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
@@ -60,6 +61,7 @@ public class View {
 
 	// Images
 	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
+	public static final Image LOGO_IMAGE = View.createImage("resources/Logo.png");
 
 	// Dialog Text
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
@@ -283,7 +285,7 @@ public class View {
 	 * @param plantName the plant that will be shown in the image
 	 * @param year      the amount of years after the plant has been planted
 	 * @param season    the season in which the plant is shown
-	 * @return an ImageView of the plant
+	 * @return 			an ImageView of the plant
 	 */
 	public ImageView generateView(String plantName, int year, Season season) {
 		return null;
@@ -293,9 +295,8 @@ public class View {
 	 * Takes in the rating of a map and gives a message to tell the user how to
 	 * improve their map and their rating.
 	 *
-	 * @param someRating the rating of the map on a scale from 1 to 5
-	 * @return Text which will tell the user what they can do to improve based on
-	 *         the ratings
+	 * @param 	someRating the rating of the map on a scale from 1 to 5
+	 * @return 	Text which will tell the user what they can do to improve based on the ratings
 	 */
 	String howToImprove(int someRating) {
 		return null;
@@ -316,14 +317,14 @@ public class View {
 	 */
 	public void drawMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+			if (!(pane.getChildren().contains(go.getShape().getPolygon()))) 
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
 	
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
