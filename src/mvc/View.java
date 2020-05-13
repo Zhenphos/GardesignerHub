@@ -49,7 +49,7 @@ public class View {
 	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("GREEN"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
-	public static final String TEXT_LABEL_STYLE = "-fx-font: 12 arial;";
+	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
 	public static final String BUTTON_STYLE = "-fx-font: 32 arial;";
 	public static final String TEXT_FIELD_STYLE = "";
 
