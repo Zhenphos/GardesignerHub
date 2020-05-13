@@ -164,88 +164,90 @@ public class PlantPlacementScene extends Scene {
 		ArrayList<Plant2> allPlants = Controller.importPlants();
 		System.out.print(allPlants.size());
 		ListView<Plant2> plantListView = new ListView<Plant2>();
-	
-		plantListView.setMinWidth(View.getCanvasWidth()-20);
+
+		plantListView.setMinWidth(View.getCanvasWidth() - 20);
 		plantListView.setMaxHeight(150);
 		
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
 	    ObservableList<Plant2> rawData = FXCollections.observableArrayList(allPlants);
 
-	    FilteredList<Plant2> filteredList= new FilteredList<>(rawData, data -> true);
-	    // counter for lambda iterations
-	    AtomicInteger runCount= new AtomicInteger(0);
-	    plantListView.setCellFactory(param -> new ListCell <Plant2>() {
-	    	private ImageView imageview = new ImageView();
-	    	@Override
-	    	public void updateItem(Plant2 plant, boolean empty) {
-	    		super.updateItem(plant, empty);
-	    		if (empty) {
-	    			setText("empty");
-	    			setGraphic(null);
-	    		}else {
-	    			
-	    			if(runCount.get()>=plantImages.size()) {
-	    				runCount.set(0);
-	    			}
-	    			
-	    			imageview.setImage(plantImages.get(runCount.get()).getImage());
-	    			setText(allPlants.get(runCount.get()).toString());
-	    			imageview.setFitHeight(100);
-	    			setGraphic(imageview);
-	    			runCount.getAndIncrement();
-	    		}
-	    	}
-	    	
-	    });
-	    TextField searchBox = new TextField();
-	    
-	    // need to use textfield with filtered list
-	  
-	    Label label = new Label();
-	    leftVbox.getChildren().addAll(plantListView, label);
-        plantListView.setItems(filteredList);
-    
-	    //topVbox.getChildren().addAll(imageListView);
-	    label.setLayoutX(10);
-        label.setLayoutY(115);
-	    //label.setLayoutY(300);
-        label.setFont(Font.font("Verdana", 20));
-       
-	// Display plant information in the right pane
+		FilteredList<Plant2> filteredList = new FilteredList<>(rawData, data -> true);
+		// counter for lambda iterations
+		AtomicInteger runCount = new AtomicInteger(0);
+		plantListView.setCellFactory(param -> new ListCell<Plant2>() {
+			private ImageView imageview = new ImageView();
+
+			@Override
+			public void updateItem(Plant2 plant, boolean empty) {
+				super.updateItem(plant, empty);
+				if (empty) {
+					setText("empty");
+					setGraphic(null);
+				} else {
+
+					if (runCount.get() >= plantImages.size()) {
+						runCount.set(0);
+					}
+
+					imageview.setImage(plantImages.get(runCount.get()).getImage());
+					setText(allPlants.get(runCount.get()).toString());
+					imageview.setFitHeight(100);
+					setGraphic(imageview);
+					runCount.getAndIncrement();
+				}
+			}
+
+		});
+
+		TextField searchBox = new TextField();
+
+		// need to use textfield with filtered list
+
+		Label label = new Label();
+		leftVbox.getChildren().addAll(plantListView, label);
+		plantListView.setItems(filteredList);
+
+		// topVbox.getChildren().addAll(imageListView);
+		label.setLayoutX(10);
+		label.setLayoutY(115);
+		// label.setLayoutY(300);
+		label.setFont(Font.font("Verdana", 20));
+
+		// Display plant information in the right pane
         
-        Label name = createLabel("Name :");
-        grid.add(name,0 , 0);
+		Label name = createLabel("Name: ");
+		grid.add(name, 0, 0);
 
-        Label maxHeight = createLabel("Maxium Height :");
-        grid.add(maxHeight,0 , 1);
+		Label maxHeight = createLabel("Maximum Height: ");
+		grid.add(maxHeight, 0, 1);
 
-        Label maxSpacing = createLabel("Maxium Spacing :");
-        grid.add(maxSpacing,0 , 2);
+		Label maxSpacing = createLabel("Maximum Spacing: ");
+		grid.add(maxSpacing, 0, 2);
 
-        Label hardiness = createLabel("Hardiness Required: ");
-        grid.add(hardiness,0 , 3);
+		Label hardiness = createLabel("Hardiness Required: ");
+		grid.add(hardiness, 0, 3);
 
-        Label colors = createLabel("Bloom Colors :");
-        grid.add(colors,0 , 4);
+		Label colors = createLabel("Bloom Colors: ");
+		grid.add(colors, 0, 4);
         
-        Label error = createLabel("");
-        rightPane.getChildren().add(error);
-        error.setMaxWidth(300);
-        error.setWrapText(true);
-        
-        Label nameValue = createLabel("");
-        Label heightValue = createLabel("");
-        Label spacingValue = createLabel("");
-        Label hardinessValue = createLabel("");
-        Label colorsValue = createLabel("");
-        nameValue.setMaxWidth(100);
-        nameValue.setWrapText(true);
-        grid.add(nameValue,1 , 0);
-        grid.add(heightValue,1 , 1);
-        grid.add(spacingValue,1 , 2);
-        grid.add(hardinessValue,1 , 3);
-        grid.add(colorsValue,1 , 4);
+		Label error = createLabel("");
+		rightPane.getChildren().add(error);
+		error.setMaxWidth(300);
+		error.setWrapText(true);
+
+		Label nameValue = createLabel("");
+		Label heightValue = createLabel("");
+		Label spacingValue = createLabel("");
+		Label hardinessValue = createLabel("");
+		Label colorsValue = createLabel("");
+		nameValue.setMaxWidth(100);
+		nameValue.setWrapText(true);
+		grid.add(nameValue, 1, 0);
+		grid.add(heightValue, 1, 1);
+		grid.add(spacingValue, 1, 2);
+		grid.add(hardinessValue, 1, 3);
+		grid.add(colorsValue, 1, 4);
 
         
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -254,7 +256,6 @@ public class PlantPlacementScene extends Scene {
 				try {
 					error.setText(" ");
 					System.out.println("Mouse clicked");
-					Text temp = null;
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
