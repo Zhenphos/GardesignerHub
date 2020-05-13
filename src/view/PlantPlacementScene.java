@@ -221,38 +221,38 @@ public class PlantPlacementScene extends Scene {
        
         // Display plant information in the right pane
         
-        Label name = createLabel("Name :");
-        grid.add(name,0 , 0);
+		Label name = createLabel("Name: ");
+		grid.add(name, 0, 0);
 
-        Label maxHeight = createLabel("Maxium Height :");
-        grid.add(maxHeight,0 , 1);
+		Label maxHeight = createLabel("Maximum Height: ");
+		grid.add(maxHeight, 0, 1);
 
-        Label maxSpacing = createLabel("Maxium Spacing :");
-        grid.add(maxSpacing,0 , 2);
+		Label maxSpacing = createLabel("Maximum Spacing: ");
+		grid.add(maxSpacing, 0, 2);
 
-        Label hardiness = createLabel("Hardiness Required: ");
-        grid.add(hardiness,0 , 3);
+		Label hardiness = createLabel("Hardiness Required: ");
+		grid.add(hardiness, 0, 3);
 
-        Label colors = createLabel("Bloom Colors :");
-        grid.add(colors,0 , 4);
-        
-        Label error = createLabel("");
-        rightPane.getChildren().add(error);
-        error.setMaxWidth(300);
-        error.setWrapText(true);
-        
-        Label nameValue = createLabel("");
-        Label heightValue = createLabel("");
-        Label spacingValue = createLabel("");
-        Label hardinessValue = createLabel("");
-        Label colorsValue = createLabel("");
-        nameValue.setMaxWidth(100);
-        nameValue.setWrapText(true);
-        grid.add(nameValue,1 , 0);
-        grid.add(heightValue,1 , 1);
-        grid.add(spacingValue,1 , 2);
-        grid.add(hardinessValue,1 , 3);
-        grid.add(colorsValue,1 , 4);
+		Label colors = createLabel("Bloom Colors: ");
+		grid.add(colors, 0, 4);
+
+		Label error = createLabel("");
+		rightPane.getChildren().add(error);
+		error.setMaxWidth(300);
+		error.setWrapText(true);
+
+		Label nameValue = createLabel("");
+		Label heightValue = createLabel("");
+		Label spacingValue = createLabel("");
+		Label hardinessValue = createLabel("");
+		Label colorsValue = createLabel("");
+		nameValue.setMaxWidth(100);
+		nameValue.setWrapText(true);
+		grid.add(nameValue, 1, 0);
+		grid.add(heightValue, 1, 1);
+		grid.add(spacingValue, 1, 2);
+		grid.add(hardinessValue, 1, 3);
+		grid.add(colorsValue, 1, 4);
 
         
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -261,7 +261,7 @@ public class PlantPlacementScene extends Scene {
 				try {
 					error.setText(" ");
 					System.out.println("Mouse clicked");
-					//Text temp = null;
+					// Text temp = null;
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
@@ -299,7 +299,6 @@ public class PlantPlacementScene extends Scene {
 				}
 			}
 		});
-
 	}
 	
 	/**
