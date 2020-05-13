@@ -65,7 +65,8 @@ public class View {
 
 	// Dialog Text
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
-	private static final String INVALID_INPUT_TEXT = "Please ensure all the fields are filled out with numeric values.";
+	private static final String INVALID_INPUT_TEXT = "Please ensure you fill out the width and height of your desired garden. "
+			+ "A good starting value for both is 10.";
 
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
