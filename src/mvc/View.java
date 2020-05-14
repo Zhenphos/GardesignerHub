@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import enums.Names;
 import enums.Season;
 import javafx.geometry.Insets;
@@ -16,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
@@ -24,6 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import objects.GardenObject;
+import objects.Plant;
 import view.*;
 
 /**
@@ -40,13 +39,14 @@ public class View {
 	public final static int lGap = 25;
 
 	// Window Constants
-	public static final String TITLE = "Garden Designer";
+	public static final String TITLE = "Gardesigner Hub";
 	public static final int WIDTH = (int) Screen.getPrimary().getBounds().getWidth() * 6 / 8;
 	public static final int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight() * 6 / 8;
 	public static final int SPACING = 10;
 
 	// GUI Styling Constants
-	public static final Background BACKGROUND = new Background(new BackgroundFill(Paint.valueOf("#90EE90"), CornerRadii.EMPTY, Insets.EMPTY));
+	public static final Background BACKGROUND = new Background(
+			new BackgroundFill(Paint.valueOf("#24b300"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
@@ -62,10 +62,12 @@ public class View {
 
 	// Images
 	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
+	public static final Image LOGO_IMAGE = View.createImage("resources/Logo.png");
 
 	// Dialog Text
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
-	private static final String INVALID_INPUT_TEXT = "Please ensure all the fields are filled out with numeric values.";
+	private static final String INVALID_INPUT_TEXT = "Please ensure you fill out the width and height of your desired garden. "
+			+ "A good starting value for both is 10.";
 
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
@@ -78,12 +80,21 @@ public class View {
 	private FileChooser chooser;
 	private Map<Names, Scene> screens;
 
+	/**
+	 * Constructor for View. Initializes the stage and scenes and the controller to
+	 * detect input on the View.
+	 * 
+	 * @param stage      - the stage which the scenes are placed on
+	 * @param controller - the controller that takes user inputs and controls the
+	 *                   View based on them
+	 */
 	public View(Stage stage, Controller controller) {
 		this.stage = stage;
 		this.controller = controller;
 		this.chooser = new FileChooser();
 		this.chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-		this.chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(GARDEN_FILE_NAME, GARDEN_FILE_EXTENSION));
+		this.chooser.getExtensionFilters()
+				.add(new FileChooser.ExtensionFilter(GARDEN_FILE_NAME, GARDEN_FILE_EXTENSION));
 		this.screens = new HashMap<>();
 		this.screens.put(Names.MAIN_MENU, new MainMenuScene());
 		this.screens.put(Names.GARDEN_INFO, new GardenInfoScene());
@@ -102,7 +113,8 @@ public class View {
 
 	/**
 	 * Sets the active scene to the associated screen
-	 * @param name the key that gets the appropriate scene
+	 * 
+	 * @param name - the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
 		System.out.println(name.toString());
@@ -110,15 +122,17 @@ public class View {
 	}
 
 	/**
-	 * @param name
-	 * @return the scene associated with
+	 * Gets the scene that corresponds to a scene name
+	 * 
+	 * @param name - the name of a scene
+	 * @return the scene associated with the name passed in
 	 */
-	public Scene getScene (Names name) {
+	public Scene getScene(Names name) {
 		return this.screens.get(name);
 	}
 
 	/**
-	 * Initializes events for all the scenes.
+	 * Initializes events for all the scenes
 	 */
 	private void initializeEvents() {
 		this.initializeMainMenu();
@@ -191,10 +205,7 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-		if (scene.isDoubleClick()) {
-		scene.getPlantListView().setOnMouseClicked(event-> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
-		scene.setDoubleClick(false);
-		}
+
 	}
 
 	/**
@@ -211,8 +222,10 @@ public class View {
 		TimesScene scene = (TimesScene) this.screens.get(Names.TIMES);
 		scene.getPrevButton().setOnAction(event -> this.controller.onTimesPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onTimesNext());
-		scene.getAgeSlider().valueProperty().addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
-		scene.getSeasonGroup().selectedToggleProperty().addListener(((observable, oldValue, newValue) -> this.controller.onTimesSetSeason((Season)newValue.getUserData())));
+		scene.getAgeSlider().valueProperty()
+				.addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
+		scene.getSeasonGroup().selectedToggleProperty().addListener(((observable, oldValue, newValue) -> this.controller
+				.onTimesSetSeason((Season) newValue.getUserData())));
 	}
 
 	/**
@@ -236,6 +249,7 @@ public class View {
 
 	/**
 	 * Opens a file chooser for the user to select a file to save to
+	 * 
 	 * @return the file selected by the user
 	 */
 	public File showSaveDialog() {
@@ -244,12 +258,19 @@ public class View {
 
 	/**
 	 * Opens a file chooser for the user to select a file to open
+	 * 
 	 * @return the file selected by the user
 	 */
 	public File showOpenDialog() {
 		return this.chooser.showOpenDialog(this.stage);
 	}
 
+	/**
+	 * Shows a pop-up alert which informs the user that if they proceed, their
+	 * garden will be discarded
+	 * 
+	 * @return the discard dialog alert
+	 */
 	public Optional<ButtonType> showDiscardDialog() {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle(DISCARD_TITLE);
@@ -257,6 +278,13 @@ public class View {
 		return alert.showAndWait();
 	}
 
+	/**
+	 * Shows a pop-up alert
+	 * 
+	 * @param type  - the type of alert
+	 * @param title - title of the alert
+	 * @param text  - text displayed by alert
+	 */
 	public void showDialog(Alert.AlertType type, String title, String text) {
 		Alert alert = new Alert(type);
 		alert.setTitle(title);
@@ -264,16 +292,22 @@ public class View {
 		alert.show();
 	}
 
+	/**
+	 * Creates an image
+	 * 
+	 * @param pathToFile - the file path of the image
+	 * @return the created image
+	 */
 	public static Image createImage(String pathToFile) {
 		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
 	}
 
 	/**
-	 * Draws the map out for the user to see.
+	 * Draws the map out for the user to see
 	 *
-	 * @param someObjects a collection of garden objects which make up the map
-	 * @return an ImageView of the map so the user can see the map.
+	 * @param someObjects - a collection of garden objects which make up the map
+	 * @return an ImageView of the map so the user can see the map
 	 */
 	public ImageView generateMap(Collection<GardenObject> someObjects) {
 		return null;
@@ -282,9 +316,9 @@ public class View {
 	/**
 	 * Finds the correct image for a plant
 	 *
-	 * @param plantName the plant that will be shown in the image
-	 * @param year      the amount of years after the plant has been planted
-	 * @param season    the season in which the plant is shown
+	 * @param plantName - the plant that will be shown in the image
+	 * @param year      - the amount of years after the plant has been planted
+	 * @param season    - the season in which the plant is shown
 	 * @return an ImageView of the plant
 	 */
 	public ImageView generateView(String plantName, int year, Season season) {
@@ -293,42 +327,53 @@ public class View {
 
 	/**
 	 * Takes in the rating of a map and gives a message to tell the user how to
-	 * improve their map and their rating.
+	 * improve their map and their rating
 	 *
-	 * @param someRating the rating of the map on a scale from 1 to 5
-	 * @return Text which will tell the user what they can do to improve based on
-	 *         the ratings
+	 * @param someRating - the rating of the map on a scale from 1 to 5
+	 * @return text which will tell the user what they can do to improve based on
+	 *         the given rating
 	 */
 	String howToImprove(int someRating) {
 		return null;
 	}
 
+	/**
+	 * Gets the width of the canvas
+	 * 
+	 * @return the width of the canvas
+	 */
 	public static int getCanvasWidth() {
 		return WIDTH;
 	}
 
+	/**
+	 * Gets the height of the canvas
+	 * 
+	 * @return the height of the canvas
+	 */
 	public static int getCanvasHeight() {
 		return HEIGHT;
-	}
-	
-	public Controller getController() {
-		return this.controller;
 	}
 	/**
 	 * Draws anything in the map that is not already there
 	 * 
-	 * @param pane The pane which will contain the map
+	 * @param pane - the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
-		for (GardenObject go:this.controller.loadMapObjects()) {
+		for (GardenObject go : this.controller.loadMapObjects()) {
 			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}
-	
+
+	/**
+	 * Draws the edit map
+	 * 
+	 * @param pane - the pane that contains the map
+	 */
 	public void drawEditMap(Pane pane) {
-		for (GardenObject go:this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+		for (GardenObject go : this.controller.loadMapObjects()) {
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}

@@ -105,4 +105,8 @@ public class TimesScene extends Scene {
 	public Button getNextButton() {
 		return this.btnNext;
 	}
+	
+	public Pane getGardenPane() {
+		return this.gardenPane;
+	}
 }

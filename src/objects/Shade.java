@@ -2,20 +2,22 @@ package objects;
 
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class Shade extends GardenObject {
+public class Shade extends GardenObject implements Serializable {
 	double darknessLevel;
 	String direction;
 	
 	public Shade() {
 		shape = new Shape(Color.GREY);
-		xLoc = this.shape.getXValue();
-		yLoc = this.shape.getYValue();
+		shape.getPolygon().setStyle("--fx-opacity:0.3;");
+
 	}
 
 }

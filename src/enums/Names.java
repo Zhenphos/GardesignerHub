@@ -1,6 +1,7 @@
 package enums;
 
 /**
+ * Enumeration of names for different scenes in garden designer
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
