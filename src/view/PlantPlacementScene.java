@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -38,6 +39,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -47,6 +50,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
+
+import objects.Woods;
 
 /**
  * 
@@ -66,6 +71,8 @@ public class PlantPlacementScene extends Scene {
 	public ImageView imageview[] = new ImageView [10];
 	public ImageView plantClicked;
 	int indexOfPlant=0;
+	boolean doubleClick=false;
+
 	ArrayList <ImageView> plantImages = Controller.importImages();
 	ListView<Plant> plantListView = new ListView<Plant>();
 
@@ -94,6 +101,26 @@ public class PlantPlacementScene extends Scene {
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
+		
+		
+		//iv1 = new ImageView[10];
+		imageView01 = new ImageView();
+		//iv2 = new ImageView();
+		/*for(int i=0; i<10;i++) {
+			
+		}*/
+		
+		imc = new Controller(this);
+		placePlant();
+	}
+	public PlantPlacementScene(View view) {
+		super(root);
+		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
 		
 		
 		//iv1 = new ImageView[10];
@@ -176,7 +203,7 @@ public class PlantPlacementScene extends Scene {
 	    AtomicInteger runCount= new AtomicInteger(0);
 		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
-
+			
 			@Override
 			public void updateItem(Plant plant, boolean empty) {
 				super.updateItem(plant, empty);
@@ -195,12 +222,11 @@ public class PlantPlacementScene extends Scene {
 					imageview.minWidth(70);
 					imageview.maxHeight(70);
 					imageview.minHeight(70);
-					setText(allPlants.get(runCount.get()).toString());
+					setText(allPlants.get(i+1).toString());
 					imageview.setFitHeight(100);
 					imageview.isPreserveRatio();
 					setGraphic(imageview);
 					runCount.getAndIncrement();
-				}
 			}
 
 		});
@@ -253,7 +279,6 @@ public class PlantPlacementScene extends Scene {
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
 
-        
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -264,12 +289,22 @@ public class PlantPlacementScene extends Scene {
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
-							.findAny();
+					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
 					error.setText(" ");
 					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
-					indexOfPlant = allPlants.indexOf(p);
+					if(event.getClickCount()==2) {
+						doubleClick=true;
+						indexOfPlant = allPlants.indexOf(p);
+						Woods woods = new Woods();
+						Polygon polygon = woods.getShape().getPolygon();
+
+						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant).getImage()));
+						center.getChildren().add(polygon);
+						//this.model.addGardenObject(new Woods());
+						Controller.dragPlant(polygon);
+
+					}
 					nameValue.setText(p.getPlantBotanicalName());
 					if (p.getHeightMaxInches() == -1)
 						heightValue.setText("No Data");
@@ -429,6 +464,15 @@ public class PlantPlacementScene extends Scene {
 	public ImageView getPlantClicked() {
 		return plantImages.get(indexOfPlant);
 		
+	}
+	
+	public boolean isDoubleClick() {
+		System.out.println("Double Clicked");
+		return doubleClick;
+	}
+	
+	public void setDoubleClick(boolean value) {
+		this.doubleClick=value;
 	}
 	
 	/**
