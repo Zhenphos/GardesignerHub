@@ -89,7 +89,9 @@ public class PlantPlacementScene extends Scene {
 
 	private Pane center = new Pane();
 
-
+/**
+ * constructor
+ */
 
 	public PlantPlacementScene() {
 		super(root);
@@ -174,6 +176,10 @@ public class PlantPlacementScene extends Scene {
 		PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
 		//plantListView.getItems().setAll(allPlants);
 		//plantListView((PlantWithImage p1, PlantWithImage p2) -> compare(p1.getImage(),p2.getImage()));
+		
+		/**
+		 * Defines how each cell of plantlistview will be displayed
+		 */
 		plantListView.setCellFactory(lv -> new ListCell<>() {
 
 			private final ImageView imageView = new ImageView();
@@ -384,6 +390,11 @@ public class PlantPlacementScene extends Scene {
 		return this.center;
 	}
 
+	/**
+	 * method to extract the index of images from its name. To be used in sorting
+	 * @param image
+	 * @return the index of image, extracted from its file path.
+	 */
 	public static int getIndex(Image image) {
 		String indexString = null;
 
@@ -412,7 +423,12 @@ public class PlantPlacementScene extends Scene {
 //	    }
 //	});
 	
-
+/**
+ * static class to encapsulate both image and plant object in a single object
+ * 
+ * @author hamza
+ *
+ */
 	private static class PlantWithImage implements Comparator{
 		private final Plant plant ;
 		private final Image image ;
