@@ -20,11 +20,13 @@ public class TutorialScene extends Scene {
 	private static final String HEADER_TEXT = "Tutorial";
 
 	private static final String TUTORIAL_TEXT = "Please follow this short guide to help familiarize yourself with this program's features. "
-			+ "If you already have a garden saved and want to edit it use the \"Save/Load\" button and select it with your file manager. "
+			+ "If you already have a garden saved and want to edit it use the \"Load\" button and select it with your file manager. "
 			+ "Otherwise, select the \"New\" button to begin creating a garden."
-			+ "\n\nYou will begin by filling out some information about your garden, such as how many hours of sunlight it gets. "
-			+ "Then, you will drag and drop plants that you want in your garden. " 
-			+ "You will then be able to see recommended improvements and save/load the garden to a file.";
+			+ "\n\nYou will begin by filling out some information about the garden you want to make, such as its width, length, hours of sunlight, and other things. "
+			+ "\n\nThen, you will choose the things surrounding your garden such as trees, rocks, and roads. " 
+			+ "\n\nFrom there you will drag and drop plants that you want in your garden. " 
+			+ "\n\nA timelapse visualization will be available after this to see what happens to your plants as time passes. " 
+			+ "\n\nYou will then be able to see recommended improvements and save the garden to a file.";
 
 
 	private VBox container;
