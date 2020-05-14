@@ -50,7 +50,6 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		// Collection<Plant2> allPlants = importPlants();
 		launch(args);
 	}
 
