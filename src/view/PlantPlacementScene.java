@@ -76,18 +76,13 @@ public class PlantPlacementScene extends Scene {
 	ArrayList <ImageView> plantImages = Controller.importImages();
 	ListView<Plant> plantListView = new ListView<Plant>();
 
-	//public TilePane center = new TilePane();
 
 	HBox imageBar = new HBox(10);
 	private Pane gardenPane = new Pane();
 
-	//HBox imageBar = new HBox(10);
-	//AnchorPane center = new AnchorPane();
-	
 	public Image images[] = new Image[10];
 	public final double WIDTH = 1000; //800;
 	public final double HEIGHT = 750; //600;
-	//public final double buttonYPos = 740;
 	public int numCopies = 0;
 	private Button btnPrev, btnNext;
 
@@ -102,37 +97,11 @@ public class PlantPlacementScene extends Scene {
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 		
-		
-		
-		//iv1 = new ImageView[10];
-		imageView01 = new ImageView();
-		//iv2 = new ImageView();
-		/*for(int i=0; i<10;i++) {
-			
-		}*/
-		
+	
 		imc = new Controller(this);
 		placePlant();
 	}
-	public PlantPlacementScene(View view) {
-		super(root);
-		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
-		this.btnNext.setMaxWidth(Double.MAX_VALUE);
-		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
-		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
-		
-		
-		
-		//iv1 = new ImageView[10];
-		imageView01 = new ImageView();
-		//iv2 = new ImageView();
-		/*for(int i=0; i<10;i++) {
-			
-		}*/
-		
-		imc = new Controller(this);
-		placePlant();
-	}
+
 
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
@@ -161,7 +130,6 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(Pane);
 		
 		BorderPane.setMargin(leftVbox, new Insets(10, 10, 10, 10));
-		//borderPane.setMinHeight(500);
 		
 		Pane.setTop(leftVbox);
 		Pane.setLeft(rightPane);
@@ -176,12 +144,10 @@ public class PlantPlacementScene extends Scene {
 	    rightPane.setMinWidth(250);
 	    rightPane.setStyle("-fx-border-color: black");
 	    VBox.setMargin(rightPane, new Insets(10,10,10,10));
-	    GridPane.setHgrow(grid, Priority.NEVER);
-		//border.setCenter(center);
+	    GridPane.setHgrow(grid, Priority.NEVER);		//border.setCenter(center);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
-		//leftVbox.getChildren().add(scenetitle);
 		leftVbox.setAlignment(Pos.CENTER);
 		btnNext = createNextButton();
 		btnPrev = createPrevButton();
@@ -199,8 +165,7 @@ public class PlantPlacementScene extends Scene {
 	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
 
 	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
-	    // counter for lambda iterations
-	    AtomicInteger runCount= new AtomicInteger(0);
+	    
 		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
 			
@@ -217,7 +182,6 @@ public class PlantPlacementScene extends Scene {
 					}
 
 					imageview.setImage(plantImages.get(runCount.get()).getImage());
-					// imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
 					imageview.maxWidth(70);
 					imageview.minWidth(70);
 					imageview.maxHeight(70);
@@ -232,13 +196,11 @@ public class PlantPlacementScene extends Scene {
 		});
 	    TextField searchBox = new TextField();
 	    
-	    // need to use textfield with filtered list
 	  
 	    Label label = new Label();
 	    leftVbox.getChildren().addAll(plantListView, label);
         plantListView.setItems(filteredList);
     
-	    //topVbox.getChildren().addAll(imageListView);
 	    label.setLayoutX(10);
         label.setLayoutY(115);
 	    //label.setLayoutY(300);
@@ -347,43 +309,7 @@ public class PlantPlacementScene extends Scene {
 		return label;
 	}
 
-	/*
-	private Button createTutorialButton() {
-		Button tutorialButton = new Button("Help");
-
-		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
-		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				final Stage helpStage = new Stage();
-				helpStage.initModality(Modality.APPLICATION_MODAL);
-				//helpStage.setScene(View.getTutorialScene());
-				helpStage.show();
-			}
-		};
-
-		tutorialButton.setOnAction(tutorialButtonAction);
-		return tutorialButton;
-	}
-
-	private Button createMainMenuButton() {
-		Button mainMenuButton = new Button("Main Menu");
-
-		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
-		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		mainMenuButton.setOnAction(mainMenuButtonAction);
-		return mainMenuButton;
-	}
-	*/
-
+	
 	/**
 	 * Creates the "next" button
 	 * 
