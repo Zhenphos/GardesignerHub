@@ -23,14 +23,12 @@ public class Model implements Serializable {
 	private double soilPH;
 	private double age;
 	private Season season;
-	private Collection<GardenObject> myObjects;	
+	private Collection<GardenObject> myObjects;
 
-	
 	private double x = 100;
 	private double y = 200;
 	private final double BOTTOM = 200;
-	
-	
+
 	public Model() {
 		this.width = 0;
 		this.length = 0;
@@ -109,21 +107,23 @@ public class Model implements Serializable {
 
 	/**
 	 * Gets the GardenObjects in your garden
+	 * 
 	 * @return All of the GardenObjects in your garden map
 	 */
 	public Collection<GardenObject> getGardenObjects() {
 		return myObjects;
 	}
-	
+
 	/**
 	 * Calculates each of your ratings based on your map and area details
+	 * 
 	 * @return the rating of your map on a scale of 1 to 5
 	 */
 
 	public int getRating() {
 		return 0;
 	}
-	
+
 	/**
 	 * Adds a garden object to the map being created
 	 * 
@@ -141,7 +141,7 @@ public class Model implements Serializable {
 	public void removeGardenObject(GardenObject someObject) {
 
 	}
-	
+
 	public double getX() {
 		return x;
 	}
