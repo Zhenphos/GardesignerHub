@@ -45,6 +45,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -79,15 +80,46 @@ public class PlantPlacementScene extends Scene {
 
 	static Group root = new Group();
 	public Controller imc;
-	int indexOfPlant=0;
-	boolean doubleClick=false;
+	private int indexOfPlant=0;
 
-	ArrayList<Plant> allPlants = Controller.importPlants();
-	ArrayList <Image> plantImages = Controller.importImages();
+	private ArrayList<Plant> allPlants = Controller.importPlants();
+	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 	private Map<Plant, ImageView> infoImageMap ;
 
-	private Pane center = new Pane();
+	private Pane gardenPane = new Pane();
+	
+	private Label error = createLabel("");
+	private Label nameValue = createLabel("");
+	private Label heightValue = createLabel("");
+	private Label spacingValue = createLabel("");
+	private Label hardinessValue = createLabel("");
+	private Label colorsValue = createLabel("");
+	
+	public Label getErrorLabel() {
+		return error;
+	}
+	
+	public Label getNameValue() {
+		return nameValue;
+	}
+	
+	public Label getHeightValue() {
+		return heightValue;
+	}
+	
+	public Label getSpacingValue() {
+		return spacingValue;
+	}
+	
+	public Label getHardinessValue() {
+		return hardinessValue;
+	}
+	
+	public Label getColorsValue() {
+		return colorsValue;
+	}
+
 
 /**
  * constructor
@@ -119,10 +151,10 @@ public class PlantPlacementScene extends Scene {
 		HBox topPane = new HBox(5);
 		VBox leftPane = new VBox(5);
 
-		center.setPrefHeight(CENTER_HEIGHT);
-		center.setPrefWidth(CENTER_WIDTH);
-		center.setStyle(BORDER_STYLE);
-		Pane.setMargin(center, new Insets(10,10,10,10));
+		gardenPane.setPrefHeight(CENTER_HEIGHT);
+		gardenPane.setPrefWidth(CENTER_WIDTH);
+		gardenPane.setStyle(BORDER_STYLE);
+		Pane.setMargin(gardenPane, new Insets(10,10,10,10));
 		topPane.setMinSize(View.getCanvasWidth()-20, 150);
 
 		root.getChildren().add(Pane);
@@ -132,7 +164,7 @@ public class PlantPlacementScene extends Scene {
 
 		Pane.setTop(topPane);
 		Pane.setLeft(leftPane);
-		Pane.setCenter(center);
+		Pane.setCenter(gardenPane);
 		topPane.getChildren().add(plantListView);
 		plantListView.setMinWidth(TOP_MIN_WIDTH);
 		plantListView.setMaxHeight(TOP_MAX_HEIGHT);
@@ -222,16 +254,10 @@ public class PlantPlacementScene extends Scene {
 		grid.add(colors, 0, 4);
 
 		// alert user when they click on image
-		Label error = createLabel("");
 		leftPane.getChildren().add(error);
 		error.setMaxWidth(300);
 		error.setWrapText(true);
 
-		Label nameValue = createLabel("");
-		Label heightValue = createLabel("");
-		Label spacingValue = createLabel("");
-		Label hardinessValue = createLabel("");
-		Label colorsValue = createLabel("");
 		nameValue.setMaxWidth(100);
 		nameValue.setWrapText(true);
 		grid.add(nameValue, 1, 0);
@@ -239,68 +265,7 @@ public class PlantPlacementScene extends Scene {
 		grid.add(spacingValue, 1, 2);
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
-
-		/**
-		 * Handles the click events, single click on plant name displays the information in right panel
-		 * double click puts the plant image on the garden
-		 */
-		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				try {
-					error.setText(" ");
-					System.out.println("Mouse clicked");
-					// Text temp = null;
-					Text plantlabel = (Text) (event.getTarget());
-					error.setText(" ");
-					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
-							.findAny();
-					error.setText(" ");
-					Plant p = plant.get();
-					System.out.println(allPlants.indexOf(p));
-					if(event.getClickCount()==2) {
-						doubleClick=true;
-						indexOfPlant = allPlants.indexOf(p);
-						Woods woods = new Woods();
-						Polygon polygon = woods.getShape().getPolygon();
-
-						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant)));
-						center.getChildren().add(polygon);
-						//this.model.addGardenObject(new Woods());
-						Controller.dragPlant(polygon);
-
-					}
-					nameValue.setText(p.getPlantBotanicalName());
-					if (p.getHeightMaxInches() == -1)
-						heightValue.setText("No Data");
-					else
-						heightValue.setText(Integer.toString(p.getHeightMaxInches()));
-
-					if (p.getSpacingMax() == -1)
-						spacingValue.setText("No Data");
-					else
-						spacingValue.setText(Integer.toString(p.getSpacingMax()));
-
-					if (p.getHardinessMin() == -1)
-						hardinessValue.setText("No Data");
-					else
-						hardinessValue.setText(Integer.toString(p.getHardinessMin()));
-					;
-					colorsValue.setText(p.getBloomColors());
-					event.consume();
-				} catch (NullPointerException e) {
-					error.setText("No Data found for this plant");
-
-				} catch (ClassCastException e) {
-					error.setText("Please click on plant's name instead of picture");
-					System.out.println(event.getTarget().toString());
-
-				}
-			}
-		});
 	}
-
-
 
 
 	/**
@@ -387,8 +352,24 @@ public class PlantPlacementScene extends Scene {
 	 * @return the center
 	 */
 
-	public Pane getCenter() {
-		return this.center;
+	public Pane getGardenPane() {
+		return this.gardenPane;
+	}
+	
+	public ArrayList<Plant> getAllPlants() {
+		return allPlants;
+	}
+	
+	public int getIndexOfPlant() {
+		return indexOfPlant;
+	}
+	
+	public void setIndexOfPlant(int index) {
+		indexOfPlant = index;
+	}
+	
+	public ArrayList<Image> getPlantImages() {
+		return plantImages;
 	}
 
 

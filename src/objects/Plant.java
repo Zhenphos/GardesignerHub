@@ -39,6 +39,8 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMin = hardinessMin;
 		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
+		
+		shape = new DrawShape(null, 20);
 	}
 
 	/**

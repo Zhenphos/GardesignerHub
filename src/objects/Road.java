@@ -16,6 +16,6 @@ public class Road extends GardenObject implements Serializable {
 	 * Constructs a road object and initializes the road shape color
 	 */
 	public Road() {
-		shape = new Shape(Color.LIGHTYELLOW);
+		shape = new DrawShape(Color.LIGHTYELLOW);
 	}
 }

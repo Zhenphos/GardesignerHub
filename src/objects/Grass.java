@@ -16,6 +16,6 @@ public class Grass extends GardenObject implements Serializable {
 	 * Constructs a grass object and initializes the grass shape color
 	 */
 	public Grass() {
-		shape = new Shape(Color.LAWNGREEN);
+		shape = new DrawShape(Color.LAWNGREEN);
 	}
 }

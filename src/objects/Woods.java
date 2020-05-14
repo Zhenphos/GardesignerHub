@@ -16,6 +16,6 @@ public class Woods extends GardenObject implements Serializable {
 	 * Constructs a woods object and initializes the woods shape color
 	 */
 	public Woods() {
-		shape = new Shape(Color.FORESTGREEN);
+		shape = new DrawShape(Color.FORESTGREEN);
 	}
 }

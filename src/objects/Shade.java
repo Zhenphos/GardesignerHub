@@ -18,7 +18,7 @@ public class Shade extends GardenObject implements Serializable {
 	 * Constructs a shade object and initializes the shade shape color
 	 */
 	public Shade() {
-		shape = new Shape(Color.GREY);
+		shape = new DrawShape(Color.GREY);
 		shape.getPolygon().setStyle("--fx-opacity:0.3;");
 	}
 }

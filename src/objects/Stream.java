@@ -16,6 +16,6 @@ public class Stream extends GardenObject implements Serializable {
 	 * Constructs a stream object and initializes the stream shape color
 	 */
 	public Stream() {
-		shape = new Shape(Color.LIGHTBLUE);
+		shape = new DrawShape(Color.LIGHTBLUE);
 	}
 }

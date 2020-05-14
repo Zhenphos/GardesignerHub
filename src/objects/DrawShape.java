@@ -2,6 +2,7 @@ package objects;
 
 import java.io.Serializable;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -11,17 +12,18 @@ import javafx.scene.shape.Polygon;
  *
  */
 
-public class Shape implements Serializable {
+public class DrawShape implements Serializable {
 	private static final double defaultSize = 100;
 
 	SerializablePolygon shape = new SerializablePolygon();
+	Circle circle = new Circle();
 
 	/**
 	 * Constructor for shape which configures the default shape
 	 * 
 	 * @param c the color of the shape
 	 */
-	public Shape(Color c) {
+	public DrawShape(Color c) {
 		shape.setFill(c);
 
 		shape.getPoints().addAll(new Double[] {				
@@ -36,6 +38,12 @@ public class Shape implements Serializable {
 			});
 	}
 	
+	public DrawShape(Color c, double radi) {
+		circle.setFill(c);
+		circle.setRadius(radi);
+		
+	}
+	
 	/**
 	 * Gets a default polygon
 	 * 
@@ -43,5 +51,14 @@ public class Shape implements Serializable {
 	 */
 	public Polygon getPolygon() {
 		return shape;
+	}
+	
+	/**
+	 * Gets a circle
+	 * 
+	 * @return a new cirlce with radius.
+	 */
+	public Circle getCircle() {
+		return circle;
 	}
 }
