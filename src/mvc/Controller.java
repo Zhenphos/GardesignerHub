@@ -5,17 +5,14 @@ import enums.Season;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -35,7 +32,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
- * Controller class for Garden Designer
+ * Controller class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

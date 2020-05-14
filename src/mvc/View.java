@@ -26,7 +26,7 @@ import objects.Plant;
 import view.*;
 
 /**
- * View class for Garden Designer
+ * View class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

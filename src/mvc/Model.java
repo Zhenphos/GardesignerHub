@@ -7,7 +7,7 @@ import enums.Season;
 import objects.GardenObject;
 
 /**
- * Model class for Garden Planner
+ * Model class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
