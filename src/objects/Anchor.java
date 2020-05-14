@@ -29,15 +29,32 @@ public class Anchor extends Circle implements Serializable {
 	private final DoubleProperty x, y;
     ArrayList<Anchor> anchors = new ArrayList<>();
 
+    /**
+     * Sets common Anchors
+     * 
+     * @param anchors the ArrayList of anchors
+     */
     public void setCommon(ArrayList<Anchor> anchors) {
         this.anchors = anchors;
     }
 
+    /**
+     * Adds an Anchor
+     * 
+     * @param anchor the anchor to be added
+     */
     public void addAnchor(Anchor anchor) {
         anchors.add(anchor);
         Controller.anchorDragBehavior(this);
     }
 
+	/**
+	 * Constructor for Anchor. Formats the characteristics of the Anchor.
+	 * 
+	 * @param color the color of the anchor
+	 * @param x     the x-coordinate of the anchor
+	 * @param y     the y-coordinate of the anchor
+	 */
     Anchor(Color color, DoubleProperty x, DoubleProperty y) {
         super(x.get(), y.get(), 10);
         setFill(color.deriveColor(1, 1, 1, 0.5));
@@ -93,7 +110,7 @@ public class Anchor extends Circle implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Enables Anchors to be dragged
 	 */
 	private void enableDrag() {
 		final Delta dragDelta = new Delta();

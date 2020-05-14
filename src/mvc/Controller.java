@@ -169,7 +169,7 @@ public class Controller extends Application {
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	/**
-	 * Default constructor for controller
+	 * Default constructor for Controller
 	 */
 	public Controller() {
 

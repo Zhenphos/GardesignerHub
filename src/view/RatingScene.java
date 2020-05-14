@@ -80,7 +80,7 @@ public class RatingScene extends Scene {
 	}
 
 	/**
-	 * Sets the rating
+	 * Sets the rating of the garden
 	 * 
 	 * @param rating the rating that is set
 	 */
