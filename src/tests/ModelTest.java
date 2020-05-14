@@ -1,24 +1,21 @@
 package tests;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.junit.Test;
-
 import mvc.Model;
-import mvc.View;
 import objects.GardenObject;
 import objects.Plant;
 
 /**
+ * ModelTest for Gardendesigner Hub. Tests Model class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class ModelTest {
+public class ModelTest { // TODO update
 
 	@Test
 	public void testAddGardenObject() {

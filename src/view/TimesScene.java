@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import mvc.View;
 
 /**
+ * TimesScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -32,6 +33,9 @@ public class TimesScene extends Scene {
 	private Slider ageSlider;
 	private Button btnPrev, btnNext;
 
+	/**
+	 * Constructor for TimesScene. Formats the panes in the scene.
+	 */
 	public TimesScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -55,6 +59,7 @@ public class TimesScene extends Scene {
 			button.setSelected(true);
 			radios.getChildren().add(button);
 		}
+
 		FlowPane group = new FlowPane(radios);
 		group.setAlignment(Pos.CENTER);
 		group.setPadding(new Insets(View.SPACING));
@@ -90,22 +95,47 @@ public class TimesScene extends Scene {
 		this.container.setBottom(buttons);
 	}
 
+	/**
+	 * Gets the season group
+	 * 
+	 * @return the season group toggle group
+	 */
 	public ToggleGroup getSeasonGroup() {
 		return this.seasonGroup;
 	}
 
+	/**
+	 * Gets the age slider
+	 * 
+	 * @return the age slider
+	 */
 	public Slider getAgeSlider() {
 		return this.ageSlider;
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+	 * Gets the next button
+	 * 
+	 * @return the next button
+	 */
 	public Button getNextButton() {
 		return this.btnNext;
 	}
-	
+
+	/**
+	 * Gets pane the garden is displayed in
+	 * 
+	 * @return the pane the garden is displayed in
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}

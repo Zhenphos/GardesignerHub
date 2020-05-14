@@ -1,16 +1,16 @@
 package tests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 /**
+ * ViewTest for Gardendesigner Hub. Tests View class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class ViewTest {
+public class ViewTest { // TODO update
 
 	@Test
 	public void testDiplayMainMenu() {

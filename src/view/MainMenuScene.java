@@ -1,20 +1,15 @@
 package view;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import mvc.View;
 
-import java.awt.*;
-
 /**
+ * MainMenuScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -32,6 +27,9 @@ public class MainMenuScene extends Scene {
 	private Label credits;
 	private Button btnNew, btnHelp, btnLoad;
 
+	/**
+	 * Constructor for MainMenuScene. Formats the panes in the scene.
+	 */
 	public MainMenuScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -61,20 +59,41 @@ public class MainMenuScene extends Scene {
 		BorderPane.setAlignment(this.credits, Pos.CENTER);
 	}
 
+	/**
+	 * Creates a button
+	 * 
+	 * @param text the text displayed on the button
+	 * @return the button
+	 */
 	private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
 
+	/**
+	 * Gets the new button
+	 * 
+	 * @return the new button
+	 */
 	public Button getNewButton() {
 		return this.btnNew;
 	}
 
+	/**
+	 * Gets the help button
+	 * 
+	 * @return the help button
+	 */
 	public Button getHelpButton() {
 		return this.btnHelp;
 	}
 
+	/**
+	 * Gets the load button
+	 * 
+	 * @return the load button
+	 */
 	public Button getLoadButton() {
 		return this.btnLoad;
 	}

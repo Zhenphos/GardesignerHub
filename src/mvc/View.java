@@ -88,8 +88,8 @@ public class View {
 	 * Constructor for View. Initializes the stage and scenes and the controller to
 	 * detect input on the View.
 	 * 
-	 * @param stage      - the stage which the scenes are placed on
-	 * @param controller - the controller that takes user inputs and controls the
+	 * @param stage      the stage which the scenes are placed on
+	 * @param controller the controller that takes user inputs and controls the
 	 *                   View based on them
 	 */
 	public View(Stage stage, Controller controller) {
@@ -118,7 +118,7 @@ public class View {
 	/**
 	 * Sets the active scene to the associated screen
 	 * 
-	 * @param name - the key that gets the appropriate scene
+	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
 		System.out.println(name.toString());
@@ -128,7 +128,7 @@ public class View {
 	/**
 	 * Gets the scene that corresponds to a scene name
 	 * 
-	 * @param name - the name of a scene
+	 * @param name the name of a scene
 	 * @return the scene associated with the name passed in
 	 */
 	public Scene getScene(Names name) {
@@ -296,9 +296,9 @@ public class View {
 	/**
 	 * Shows a pop-up alert
 	 * 
-	 * @param type  - the type of alert
-	 * @param title - title of the alert
-	 * @param text  - text displayed by alert
+	 * @param type  the type of alert
+	 * @param title title of the alert
+	 * @param text  text displayed by alert
 	 */
 	public void showDialog(Alert.AlertType type, String title, String text) {
 		Alert alert = new Alert(type);
@@ -310,7 +310,7 @@ public class View {
 	/**
 	 * Creates an image
 	 * 
-	 * @param pathToFile - the file path of the image
+	 * @param pathToFile the file path of the image
 	 * @return the created image
 	 */
 	public static Image createImage(String pathToFile) {
@@ -321,7 +321,7 @@ public class View {
 	/**
 	 * Draws the map out for the user to see
 	 *
-	 * @param someObjects - a collection of garden objects which make up the map
+	 * @param someObjects a collection of garden objects which make up the map
 	 * @return an ImageView of the map so the user can see the map
 	 */
 	public ImageView generateMap(Collection<GardenObject> someObjects) {
@@ -331,9 +331,9 @@ public class View {
 	/**
 	 * Finds the correct image for a plant
 	 *
-	 * @param plantName - the plant that will be shown in the image
-	 * @param year      - the amount of years after the plant has been planted
-	 * @param season    - the season in which the plant is shown
+	 * @param plantName the plant that will be shown in the image
+	 * @param year      the amount of years after the plant has been planted
+	 * @param season    the season in which the plant is shown
 	 * @return an ImageView of the plant
 	 */
 	public ImageView generateView(String plantName, int year, Season season) {
@@ -344,7 +344,7 @@ public class View {
 	 * Takes in the rating of a map and gives a message to tell the user how to
 	 * improve their map and their rating
 	 *
-	 * @param someRating - the rating of the map on a scale from 1 to 5
+	 * @param someRating the rating of the map on a scale from 1 to 5
 	 * @return text which will tell the user what they can do to improve based on
 	 *         the given rating
 	 */
@@ -372,7 +372,7 @@ public class View {
 	/**
 	 * Draws anything in the map that is not already there
 	 * 
-	 * @param pane - the pane which will contain the map
+	 * @param pane the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
 		for (GardenObject go : this.controller.loadMapObjects()) {
@@ -384,7 +384,7 @@ public class View {
 	/**
 	 * Draws the edit map
 	 * 
-	 * @param pane - the pane that contains the map
+	 * @param pane the pane that contains the map
 	 */
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go : this.controller.loadMapObjects()) {

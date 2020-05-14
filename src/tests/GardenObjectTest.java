@@ -1,18 +1,16 @@
 package tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import objects.Plant;
 
 /**
+ * GardenObjectTest for Gardendesigner Hub. Tests GardenObject class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class GardenObjectTest {
+public class GardenObjectTest { // TODO update
 
 	@Test
 	public void testMakeShape() {

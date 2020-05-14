@@ -2,7 +2,6 @@ package view;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,16 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -44,12 +39,12 @@ import objects.Woods;
  */
 
 public class PlantPlacementScene extends Scene {
-	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
+	private static final int TOP_MIN_WIDTH = View.getCanvasWidth() - 20;
 	private static final int MIN_HEIGHT = 300;
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
 	public static final int TOP_MAX_HEIGHT = 150;
-	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
-	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
+	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3 / 5;
+	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3 / 4) - 20;
 	public static final Insets GRID_PADDING = new Insets(10, 0, 0, 10);
 	public static final int HGAP = 10;
 	public static final int VGAP = 10;
@@ -59,17 +54,19 @@ public class PlantPlacementScene extends Scene {
 
 	static Group root = new Group();
 	public Controller imc;
-	int indexOfPlant=0;
-	boolean doubleClick=false;
-	
+	int indexOfPlant = 0;
+	boolean doubleClick = false;
+
 	ArrayList<Plant> allPlants = Controller.importPlants();
-	ArrayList <ImageView> plantImages = Controller.importImages();
+	ArrayList<ImageView> plantImages = Controller.importImages();
 	ListView<Plant> plantListView = new ListView<Plant>();
 
 	private Pane center = new Pane();
 
-	
-	
+	/**
+	 * Constructor for PlantPlacementScene. Creates buttons and prepares the
+	 * Controller to receive user inputs in this scene.
+	 */
 	public PlantPlacementScene() {
 		super(root);
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
@@ -79,11 +76,10 @@ public class PlantPlacementScene extends Scene {
 		imc = new Controller(this);
 		placePlant();
 	}
-	
 
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
-	 * plants onto the garden space they drew previously.
+	 * plants onto the garden space they drew previously
 	 */
 	public void placePlant() {
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
@@ -91,38 +87,38 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-				
+
 		BorderPane Pane = new BorderPane();
 		HBox topPane = new HBox(5);
 		VBox leftPane = new VBox(5);
-		
+
 		center.setPrefHeight(CENTER_HEIGHT);
 		center.setPrefWidth(CENTER_WIDTH);
 		center.setStyle(BORDER_STYLE);
-		Pane.setMargin(center, new Insets(10,10,10,10));
-		topPane.setMinSize(View.getCanvasWidth()-20, 150);
-		
+		Pane.setMargin(center, new Insets(10, 10, 10, 10));
+		topPane.setMinSize(View.getCanvasWidth() - 20, 150);
+
 		root.getChildren().add(Pane);
-		
+
 		BorderPane.setMargin(topPane, new Insets(10, 10, 10, 10));
-		//borderPane.setMinHeight(500);
-		
+		// borderPane.setMinHeight(500);
+
 		Pane.setTop(topPane);
 		Pane.setLeft(leftPane);
 		Pane.setCenter(center);
-	    topPane.getChildren().add(plantListView);
+		topPane.getChildren().add(plantListView);
 		plantListView.setMinWidth(TOP_MIN_WIDTH);
 		plantListView.setMaxHeight(TOP_MAX_HEIGHT);
 		GridPane grid = new GridPane();
-	    grid.setHgap(HGAP);
-	    grid.setVgap(VGAP);
-	    grid.setPadding(GRID_PADDING);
-	    leftPane.getChildren().add(grid);
-	    leftPane.setMaxWidth(250);
-	    leftPane.setMinWidth(250);
-	    leftPane.setStyle(BORDER_STYLE);
-	    VBox.setMargin(leftPane, new Insets(10,10,10,10));
-	    GridPane.setHgrow(grid, Priority.NEVER);
+		grid.setHgap(HGAP);
+		grid.setVgap(VGAP);
+		grid.setPadding(GRID_PADDING);
+		leftPane.getChildren().add(grid);
+		leftPane.setMaxWidth(250);
+		leftPane.setMinWidth(250);
+		leftPane.setStyle(BORDER_STYLE);
+		VBox.setMargin(leftPane, new Insets(10, 10, 10, 10));
+		GridPane.setHgrow(grid, Priority.NEVER);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
@@ -130,16 +126,14 @@ public class PlantPlacementScene extends Scene {
 		btnNext = createNextButton();
 		btnPrev = createPrevButton();
 		root.getChildren().addAll(btnPrev, btnNext);
-		
-	
-		
+
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
-	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
-	    plantListView.setItems(filteredList);
-	    System.out.println(allPlants.size());
-	    System.out.println(plantImages.size());
+		ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
+		FilteredList<Plant> filteredList = new FilteredList<>(rawData, data -> true);
+		plantListView.setItems(filteredList);
+		System.out.println(allPlants.size());
+		System.out.println(plantImages.size());
 		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
 
@@ -148,22 +142,22 @@ public class PlantPlacementScene extends Scene {
 				System.out.println("djfa");
 
 				super.updateIndex(i);
-					if(i==-1) i++;
-					imageview.setImage(plantImages.get(i).getImage());
-					imageview.maxWidth(70);
-					imageview.minWidth(70);
-					imageview.maxHeight(70);
-					imageview.minHeight(70);
-					setText(allPlants.get(i).toString());
-					imageview.setFitHeight(100);
-					imageview.isPreserveRatio();
-					setGraphic(imageview);
+				if (i == -1)
+					i++;
+				imageview.setImage(plantImages.get(i).getImage());
+				imageview.maxWidth(70);
+				imageview.minWidth(70);
+				imageview.maxHeight(70);
+				imageview.minHeight(70);
+				setText(allPlants.get(i).toString());
+				imageview.setFitHeight(100);
+				imageview.isPreserveRatio();
+				setGraphic(imageview);
 			}
 		});
-	   
-	      
-        // Display plant information in the right pane
-        
+
+		// Display plant information in the right pane
+
 		Label name = createLabel("Name: ");
 		grid.add(name, 0, 0);
 
@@ -178,7 +172,7 @@ public class PlantPlacementScene extends Scene {
 
 		Label colors = createLabel("Bloom Colors: ");
 		grid.add(colors, 0, 4);
-		
+
 		// alert user when they click on image
 		Label error = createLabel("");
 		leftPane.getChildren().add(error);
@@ -212,15 +206,15 @@ public class PlantPlacementScene extends Scene {
 					error.setText(" ");
 					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
-					if(event.getClickCount()==2) {
-						doubleClick=true;
+					if (event.getClickCount() == 2) {
+						doubleClick = true;
 						indexOfPlant = allPlants.indexOf(p);
 						Woods woods = new Woods();
 						Polygon polygon = woods.getShape().getPolygon();
 
 						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant).getImage()));
 						center.getChildren().add(polygon);
-						//this.model.addGardenObject(new Woods());
+						// this.model.addGardenObject(new Woods());
 						Controller.dragPlant(polygon);
 
 					}
@@ -253,11 +247,11 @@ public class PlantPlacementScene extends Scene {
 			}
 		});
 	}
-	
+
 	/**
 	 * Creates a plant label
 	 * 
-	 * @param text - the label text
+	 * @param text the label text
 	 * @return the plant label
 	 */
 	private Label createLabel(String text) {
@@ -266,12 +260,10 @@ public class PlantPlacementScene extends Scene {
 		return label;
 	}
 
-	
-
 	/**
-	 * Creates the "next" button
+	 * Creates the next button
 	 * 
-	 * @return the "next" button
+	 * @return the next button
 	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
@@ -281,9 +273,9 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * Creates the "previous" button
+	 * Creates the prev button
 	 * 
-	 * @return the "previous" button
+	 * @return the prev button
 	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
@@ -291,53 +283,51 @@ public class PlantPlacementScene extends Scene {
 		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 		return prevButton;
 	}
-	
 
-    /**
-     * Creates a button
-     * 
-     * @param text - the text displayed on the button
-     * @return the created button
-     */
-    private Button createButton(String text) {
+	/**
+	 * Creates a button
+	 * 
+	 * @param text the text displayed on the button
+	 * @return the created button
+	 */
+	private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
-    
-    /**
-     * Gets the next button
-     * 
-     * @return the next button
-     */
-    public Button getNextButton() {
+
+	/**
+	 * Gets the next button
+	 * 
+	 * @return the next button
+	 */
+	public Button getNextButton() {
 		return this.btnNext;
 	}
 
-    /**
-     * Gets the prev button
-     * 
-     * @return the prev button
-     */
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
-	
 
 	/**
-	 * Gets the plantListView
+	 * Gets the ListView of plants
 	 * 
-	 * @return the plantListView
+	 * @return the ListView of plants
 	 */
 	public ListView<Plant> getPlantListView() {
 		return this.plantListView;
 	}
-	
+
 	/**
-	 * gets the center of scene, i.e garden container
-	 * @return the center
+	 * Gets the center pane that the garden is displayed in
+	 * 
+	 * @return the center pane that the garden is displayed in
 	 */
-	
 	public Pane getCenter() {
 		return this.center;
 	}

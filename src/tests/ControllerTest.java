@@ -1,18 +1,17 @@
 package tests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import javafx.scene.input.MouseEvent;
 
 /**
+ * ControllerTest for Gardendesigner Hub. Tests Controller class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class GardenControllerTest {
+public class ControllerTest { // TODO update
 
 	@Test
 	public void testMain() {
@@ -27,7 +26,6 @@ public class GardenControllerTest {
 	@Test
 	public void testEventHandler() {
 		MouseEvent me;
-		//if (me
 	}
-
+	
 }
