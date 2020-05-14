@@ -42,7 +42,11 @@ public class GardenInfoScene extends Scene {
 			+ "\nLeave this blank if you do not know the value.";
 	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. "
 			+ "The ideal pH of your soil is 6.5." + "\nLeave this blank if you do not know the value.";
+<<<<<<< HEAD
 	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit."
+=======
+	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the garden will be on has experienced in the past week, in Fahrenheit."
+>>>>>>> master
 			+ "\nLeave this blank if you do not know the value.";
 
 	private BorderPane container;
