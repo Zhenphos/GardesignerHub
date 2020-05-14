@@ -60,16 +60,16 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<ImageView> importImages() {
 		ArrayList<ImageView> images = new ArrayList<>();
-		File directory = new File("resources/plant-images");
-		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+		//File directory = new File("resources/plant-images");
+		File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
 		
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
 
-				images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
-				//images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
+				//images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
+				images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
 
 			}
 		}
@@ -83,8 +83,8 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
+		//try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -303,8 +303,6 @@ public class Controller extends Application {
 		Grass grass = new Grass();
 		Polygon polygon = grass.getShape().getPolygon();
 
-//		Image img = View.createImage("resources/grass.jpg");
-//		polygon.setFill(new ImagePattern(img));
 		this.model.addGardenObject(grass);
 		createPolyDraggable(scene, polygon);
 	}
@@ -313,10 +311,7 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
-		
-//		Image img = View.createImage("resources/road.jpg");
-//		polygon.setFill(new ImagePattern(img));
-		
+	
 		this.model.addGardenObject(road);
 		createPolyDraggable(scene, polygon);
 	}
@@ -324,11 +319,7 @@ public class Controller extends Application {
 	public void onDrawStream() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Stream stream = new Stream();
-		Polygon polygon = stream.getShape().getPolygon();
-
-//		Image img = View.createImage("resources/stream.jpg");
-//		polygon.setFill(new ImagePattern(img));
-		
+		Polygon polygon = stream.getShape().getPolygon();		
 		this.model.addGardenObject(stream);
 		createPolyDraggable(scene, polygon);
 	}
@@ -338,9 +329,6 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
-
-//		Image img = View.createImage("resources/tree.jpg");
-//		polygon.setFill(new ImagePattern(img));
 		this.model.addGardenObject(woods);
 		createPolyDraggable(scene, polygon);
 	}
@@ -361,10 +349,6 @@ public class Controller extends Application {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		Shade shade = new Shade();
 		Polygon polygon = shade.getShape().getPolygon();
-
-//		Image img = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.jpg");
-//		polygon.setStyle("--fx-opacity:0.3;");
-//		polygon.setFill(new ImagePattern(img);
 		this.model.addGardenObject(shade);
 		createPolyDraggable(scene, polygon);
 	}
@@ -469,43 +453,6 @@ public class Controller extends Application {
 		this.view.setScreen(Names.GARDEN_INFO);
 	}
 
-	/**
-	 * Uses user mouse input to move plant image around on screen
-	 *
-	 * @param event - event triggered by mouse click
-	 */
-	public void drag(MouseEvent event) {
-		Node n = (Node) event.getSource();
-		if (DEBUG)
-			System.out.println("ic mouse drag tx: " + n.getTranslateX() + ", ex: " + event.getX());
-		model.setX(model.getX() + event.getX()); // event.getX() is the amount of horiz drag
-		model.setY(model.getY() + event.getY());
-		pps.setX(model.getX());
-		pps.setY(model.getY());
-	}
-
-	public void makeCopy(MouseEvent event) {
-		Node n = (Node) event.getSource();
-		if (DEBUG)
-			System.out.println("Copy made");
-		ImageView iv2 = (ImageView) n;
-	}
-
-	public EventHandler<MouseEvent> getHandlerForDragEntered() {
-		return event -> makeCopy((MouseEvent) event);
-	}
-
-	public EventHandler<MouseEvent> getHandlerForDrag() {
-		return event -> drag((MouseEvent) event);
-	}
-
-	public double getStartingX() {
-		return model.getX();
-	}
-
-	public double getStartingY() {
-		return model.getY();
-	}
 	
 	/**
 	 * 
