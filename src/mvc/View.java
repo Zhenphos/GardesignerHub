@@ -385,6 +385,9 @@ public class View {
 		for (GardenObject go : this.controller.loadMapObjects()) {
 			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
 				pane.getChildren().add(go.getShape().getPolygon());
+			
+			if (!(pane.getChildren().contains(go.getShape().getCircle())))
+				pane.getChildren().add(go.getShape().getCircle());
 		}
 	}
 
@@ -395,7 +398,7 @@ public class View {
 	 */
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}

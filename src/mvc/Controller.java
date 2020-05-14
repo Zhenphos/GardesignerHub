@@ -324,6 +324,8 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for grass and adds it to the garden model
+	 * 
+	 * @author Ntsee, Jason
 	 */
 	public void onDrawGrass() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -335,6 +337,8 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for a road and adds it to the garden model
+	 * 
+	 * @author Ntsee, Jason
 	 */
 	public void onDrawRoad() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -346,6 +350,8 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for a stream and adds it to the garden model
+	 * 
+	 * @author Ntsee, Jason
 	 */
 	public void onDrawStream() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -357,6 +363,8 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for woods and adds it to the garden model
+	 * 
+	 * @author Ntsee, Jason
 	 */
 	public void onDrawWoods() {
 		System.out.println(this.view);
@@ -372,6 +380,8 @@ public class Controller extends Application {
 	 * double click puts the plant image on the garden
 	 * 
 	 * @param event The MouseEvent on the plant
+	 * 
+	 * @author Hamza, Jason
 	 */
 	public void onDragPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
@@ -387,7 +397,7 @@ public class Controller extends Application {
 			System.out.println(scene.getAllPlants().indexOf(p));
 			if(event.getClickCount()==2) {
 				scene.setIndexOfPlant(scene.getAllPlants().indexOf(p));
-				Plant plant2 = new Plant();
+				Plant plant2 = p.copyOfPlant();
 				Circle circle = plant2.getShape().getCircle();
 				circle.setFill(new ImagePattern(scene.getPlantImages().get(scene.getIndexOfPlant())));
 				scene.getGardenPane().getChildren().add(circle);
@@ -556,6 +566,8 @@ public class Controller extends Application {
 	 * 
 	 * @param scene  	the scene which will contain the draggable polygon
 	 * @param polygon	the polygon will be created in a given DrawScene and become draggable
+	 * 
+	 * @author Jason
 	 */
 	public void createDrawPolyDraggable(DrawScene scene, Polygon polygon) {
 		scene.getGardenPane().getChildren().add(polygon);
@@ -567,6 +579,8 @@ public class Controller extends Application {
 	 * Gives any shape a simple drag behavior
 	 * 
 	 * @param shape the shape which will become draggable
+	 * 
+	 * @author Jason
 	 */
 	public void giveShapeDragBehavior(Shape shape) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
@@ -602,6 +616,8 @@ public class Controller extends Application {
 	 * Gives an Anchor object drag behavior
 	 * 
 	 * @param anchor the anchor which will receive the drag behavior
+	 * 
+	 * @author Jason
 	 */
 	public static void anchorDragBehavior(Anchor anchor) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
