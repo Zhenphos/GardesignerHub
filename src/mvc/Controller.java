@@ -60,15 +60,15 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<ImageView> importImages() {
 		ArrayList<ImageView> images = new ArrayList<>();
-		//File directory = new File("resources/plant-images");
-		File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+		File directory = new File("resources/plant-images");
+		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
 		
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
-				//images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
-				images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
+				images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
+				//images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
 
 			}
 		}
@@ -82,8 +82,8 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		//try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
-		try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 
 			String line;
 			while ((line = reader.readLine()) != null) {

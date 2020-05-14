@@ -189,7 +189,7 @@ public class PlantPlacementScene extends Scene {
 		// testing plant import in here
 		ArrayList<Plant> allPlants = Controller.importPlants();
 		System.out.print(allPlants.size());
-	
+		System.out.print(plantImages.size());
 		plantListView.setMinWidth(View.getCanvasWidth()-20);
 		plantListView.setMaxHeight(150);
 		
@@ -202,23 +202,25 @@ public class PlantPlacementScene extends Scene {
 	   
 		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
-			
 			@Override
 			public void updateIndex(int i) {
+				
 				super.updateIndex(i);
-					imageview.setImage(plantImages.get(i+1).getImage());
+					if(i==-1) i++;
+					imageview.setImage(plantImages.get(i).getImage());
 					imageview.maxWidth(70);
 					imageview.minWidth(70);
 					imageview.maxHeight(70);
 					imageview.minHeight(70);
-					setText(allPlants.get(i+1).toString());
+				
+					setText(allPlants.get(i).toString());
 					imageview.setFitHeight(100);
 					imageview.isPreserveRatio();
 					setGraphic(imageview);
 					runCount.getAndIncrement();
 			}
-
 		});
+	   
 	    TextField searchBox = new TextField();
 	    
 	    // need to use textfield with filtered list
