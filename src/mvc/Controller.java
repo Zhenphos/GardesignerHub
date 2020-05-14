@@ -75,8 +75,8 @@ public class Controller extends Application {
 		return images;
 		
 	}
-	public static ArrayList<Plant2> importPlants() {
-		ArrayList<Plant2> plantList = new ArrayList<>();
+	public static ArrayList<Plant> importPlants() {
+		ArrayList<Plant> plantList = new ArrayList<>();
 		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 
@@ -151,7 +151,7 @@ public class Controller extends Application {
 					hardinessMax = -1;
 				}
 
-				plantList.add(new Plant2(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
+				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
 						spacingMax, hardinessMin, hardinessMax, bloomColor));
 			}
 		} catch (IOException e) {
