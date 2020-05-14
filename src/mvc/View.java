@@ -68,6 +68,10 @@ public class View {
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
 	private static final String INVALID_INPUT_TEXT = "Please ensure you fill out the width and height of your desired garden. "
 			+ "A good starting value for both is 10.";
+	
+	private static final String INSTRUCTIONS_TITLE = "Instructions";
+	private static final String INSTRUCTIONS_TEXT = "Click on the plant name to show its information. Double click on the name of plant to put it in your garden.";
+
 
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
@@ -244,6 +248,17 @@ public class View {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle(INVALID_INPUT_TITLE);
 		alert.setContentText(INVALID_INPUT_TEXT);
+		alert.show();
+	}
+	
+	/**
+	 * Alerts the user with information about how to interact with PlantPlacementScene
+	 */
+	
+	public void showInformationAlert() {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle(INSTRUCTIONS_TITLE);
+		alert.setContentText(INSTRUCTIONS_TEXT);
 		alert.show();
 	}
 
