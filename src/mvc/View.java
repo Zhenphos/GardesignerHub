@@ -205,15 +205,12 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-<<<<<<< HEAD
 		// scene.getPlantClicked().setOnMouseDragged();
 		// scene.getPlantClicked().setOnMouseClicked();
 		scene.getPlantListView()
 				.setOnMouseClicked(event -> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
 		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
-=======
 
->>>>>>> master
 	}
 
 	/**
@@ -362,10 +359,7 @@ public class View {
 	public static int getCanvasHeight() {
 		return HEIGHT;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> master
+	
 	/**
 	 * Draws anything in the map that is not already there
 	 * 

@@ -647,30 +647,4 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
-	
-	/**
-	 * 
-	 * @param anchor the anchor which will receive the drag behavior
-	 */
-	public static void anchorDragBehavior(Anchor anchor) {
-		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-		anchor.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-		    }
-		});
-		anchor.setOnMouseDragged(new EventHandler<MouseEvent>() {
-	        @Override
-	        public void handle(MouseEvent event) {
-	            double changeX = event.getSceneX() - mousePosition.get().getX();
-	            double changeY = event.getSceneY() - mousePosition.get().getY();
-	            
-		        anchor.setCenterX(anchor.getCenterX() + changeX);
-		        anchor.setCenterY(anchor.getCenterY() + changeY);
-	            
-	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-	        }
-		});
-	}
 }
