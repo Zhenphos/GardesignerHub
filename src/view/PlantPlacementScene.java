@@ -78,7 +78,8 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	/**
-	 * 
+	 * Constructor for PlantPlacementScene. Creates buttons and prepares the
+	 * Controller to receive user inputs in this scene.
 	 */
 	public PlantPlacementScene() {
 		super(root);
@@ -87,13 +88,7 @@ public class PlantPlacementScene extends Scene {
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 		
-		
-		//iv1 = new ImageView[10];
 		imageView01 = new ImageView();
-		//iv2 = new ImageView();
-		/*for(int i=0; i<10;i++) {
-			
-		}*/
 		
 		imc = new Controller(this);
 		placePlant();
@@ -101,7 +96,7 @@ public class PlantPlacementScene extends Scene {
 
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
-	 * plants onto the garden space they drew previously.
+	 * plants onto the garden space they drew previously
 	 */
 	public void placePlant() {
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
