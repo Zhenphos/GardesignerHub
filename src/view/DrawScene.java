@@ -1,39 +1,16 @@
 package view;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Polygon;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import mvc.Controller;
 import mvc.View;
-import objects.GardenObject;
-import objects.Grass;
-import objects.Road;
-import objects.Shade;
-import objects.Stream;
-import objects.Woods;
 
 /**
+ * DrawScene class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -63,6 +40,9 @@ public class DrawScene extends Scene {
 	private Pane gardenPane;
 	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
+	/**
+	 * Constructor for DrawScene
+	 */
 	public DrawScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -103,6 +83,14 @@ public class DrawScene extends Scene {
 		this.container.setBottom(bottom);
 	}
 
+	/**
+	 * Creates a button
+	 * 
+	 * @param pane  the pane the button is added to
+	 * @param text  the string displayed on the button
+	 * @param image the image displayed under the button
+	 * @return the created button
+	 */
 	private Button createButton(Pane pane, String text, Image image) {
 		Button button = new Button(text);
 		button.setMaxWidth(Double.MAX_VALUE);
@@ -115,40 +103,85 @@ public class DrawScene extends Scene {
 		return button;
 	}
 
+	/**
+	 * Gets pane the garden is displayed in
+	 * 
+	 * @return the pane the garden is displayed in
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
 
+	/**
+	 * Gets the grass button
+	 * 
+	 * @return the grass button
+	 */
 	public Button getGrassButton() {
 		return this.grassButton;
 	}
 
+	/**
+	 * Gets the road button
+	 * 
+	 * @return the road button
+	 */
 	public Button getRoadbutton() {
 		return this.roadButton;
 	}
 
+	/**
+	 * Gets the stream button
+	 * 
+	 * @return the stream button
+	 */
 	public Button getStreamButton() {
 		return this.streamButton;
 	}
 
+	/**
+	 * Gets the woods button
+	 * 
+	 * @return the woods button
+	 */
 	public Button getWoodsButton() {
 		return this.woodsButton;
 	}
 
+	/**
+	 * Gets the shade button
+	 * 
+	 * @return the shade button
+	 */
 	public Button getShadeButton() {
 		return this.shadeButton;
 	}
 
+	/**
+	 * Gets the delete button
+	 * 
+	 * @return the delete button
+	 */
 	public Button getDeleteButton() {
 		return this.deleteButton;
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+     * Gets the next button
+     * 
+     * @return the next button
+     */
 	public Button getNextButton() {
 		return this.btnNext;
 	}
-
+	
 }
