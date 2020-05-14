@@ -1,6 +1,7 @@
 package enums;
 
 /**
+ * Enumeration of seasons for garden designer time scene
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
