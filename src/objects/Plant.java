@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -9,7 +10,7 @@ import java.util.HashSet;
  *
  */
 
-public class Plant extends GardenObject {
+public class Plant extends GardenObject implements Serializable {
 
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {

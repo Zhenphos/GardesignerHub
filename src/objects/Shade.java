@@ -2,13 +2,15 @@ package objects;
 
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class Shade extends GardenObject {
+public class Shade extends GardenObject implements Serializable {
 	double darknessLevel;
 	String direction;
 	
