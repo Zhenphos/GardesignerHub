@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import mvc.View;
@@ -19,13 +21,17 @@ import mvc.View;
 public class GardenInfoScene extends Scene {
 
 	private static final String INPUT_HEADER_TEXT = "Information Input";
-	private static final String INPUT_DESCRIPTION_HEADER_TEXT = "Description";
 	private static final String WIDTH_TEXT = "Width (ft):";
 	private static final String LENGTH_TEXT = "Length (ft):";
 	private static final String SUNLIGHT_LABEL_TEXT = "Hours of Sunlight: ";
 	private static final String RAIN_LABEL_TEXT = "Amount of Rain (millimeters):";
 	private static final String SOIL_LABEL_TEXT = "Soil pH:";
 	private static final String TEMP_LABEL_TEXT = "Temperature (Fahrenheit):";
+
+	private static final Image SUN_IMAGE = View.createImage("resources/sun.png");
+	private static final Image RAIN_IMAGE = View.createImage("resources/rain.png");
+	private static final Image SOIL_IMAGE = View.createImage("resources/soil.png");
+	private static final Image TEMPERATURE_IMAGE = View.createImage("resources/temperature.png");
 
 	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
 	private static final String WIDTH_INFO = "The \"Width\" is the total width of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
@@ -39,17 +45,17 @@ public class GardenInfoScene extends Scene {
 	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the land the garden will be on has experienced in the past week, in Fahrenheit."
 			+ "\nLeave this blank if you do not know the value.";
 
-	private HBox container;
+	private BorderPane container;
 	private Label lblInputHeader, lblWidth, lblLength, lblSunlight, lblRain, lblTemp, lblSoilPH;
-	private Label lblDescriptionHeader, lblDescription;
+	private ImageView imageView;
+	private Label lblDescription;
 	private TextField tfWidth, tfLength, tfSunlight, tfRain, tfSoilPH, tfTemp;
 	private Button btnNext, btnPrev;
 
 	public GardenInfoScene() {
-		super(new HBox());
-		this.container = (HBox) this.getRoot();
-		this.container.setMinWidth(View.WIDTH);
-		this.container.setMinHeight(View.HEIGHT);
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
+		this.container.setMinSize(View.WIDTH, View.HEIGHT);
 		this.lblInputHeader = this.createHeader(INPUT_HEADER_TEXT);
 		this.lblInputHeader.setMaxWidth(Double.MAX_VALUE);
 		this.lblWidth = this.createLabel(WIDTH_TEXT);
@@ -58,42 +64,46 @@ public class GardenInfoScene extends Scene {
 		this.lblRain = this.createLabel(RAIN_LABEL_TEXT);
 		this.lblSoilPH = this.createLabel(SOIL_LABEL_TEXT);
 		this.lblTemp = this.createLabel(TEMP_LABEL_TEXT);
-		this.lblDescriptionHeader = this.createHeader(INPUT_DESCRIPTION_HEADER_TEXT);
-		this.lblDescriptionHeader.setMaxWidth(Double.MAX_VALUE);
+		this.imageView = new ImageView();
+		this.imageView.setPreserveRatio(true);
+		this.imageView.setFitHeight(View.HEIGHT / 5f);
 		this.lblDescription = this.createLabel(DEFAULT_INFO);
 		this.lblDescription.setWrapText(true);
-		this.lblDescription.setMaxHeight(Double.MAX_VALUE);
 		this.lblDescription.setTextAlignment(TextAlignment.CENTER);
-		this.lblDescription.setBackground(View.BACKGROUND);
 		this.lblDescription.setPadding(new Insets(View.SPACING));
-		this.tfWidth = this.createTextField(WIDTH_INFO);
-		this.tfLength = this.createTextField(LENGTH_INFO);
-		this.tfSunlight = this.createTextField(SUNLIGHT_INFO);
-		this.tfRain = this.createTextField(RAIN_INFO);
-		this.tfSoilPH = this.createTextField(SOIL_INFO);
-		this.tfTemp = this.createTextField(TEMPERATURE_INFO);
+		this.tfWidth = this.createTextField(WIDTH_INFO, null);
+		this.tfLength = this.createTextField(LENGTH_INFO, null);
+		this.tfSunlight = this.createTextField(SUNLIGHT_INFO, SUN_IMAGE);
+		this.tfRain = this.createTextField(RAIN_INFO, RAIN_IMAGE);
+		this.tfSoilPH = this.createTextField(SOIL_INFO, SOIL_IMAGE);
+		this.tfTemp = this.createTextField(TEMPERATURE_INFO, TEMPERATURE_IMAGE);
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 
+		this.container.setTop(this.lblInputHeader);
+
 		VBox inputs = new VBox();
 		inputs.getChildren().addAll(this.lblWidth, this.tfWidth, this.lblLength, this.tfLength, this.lblSunlight, this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
 		inputs.setAlignment(Pos.CENTER);
 		inputs.setSpacing(View.SPACING);
-		inputs.setBackground(View.BACKGROUND);
 		inputs.setPadding(new Insets(View.SPACING));
-		VBox leftSide = new VBox(this.lblInputHeader, inputs, this.btnPrev);
-		leftSide.setMaxWidth(View.WIDTH / 2f);
-		VBox.setVgrow(inputs, Priority.ALWAYS);
 
-		VBox rightSide = new VBox(this.lblDescriptionHeader, this.lblDescription, this.btnNext);
+		VBox rightSide = new VBox(this.imageView, this.lblDescription);
+		rightSide.setAlignment(Pos.CENTER);
 		rightSide.setMaxWidth(View.WIDTH / 2f);
-		VBox.setVgrow(this.lblDescription, Priority.ALWAYS);
-		this.container.getChildren().addAll(leftSide, rightSide);
 
-		HBox.setHgrow(leftSide, Priority.ALWAYS);
+		HBox center = new HBox(inputs, rightSide);
+		center.setBackground(View.BACKGROUND);
+		HBox.setHgrow(inputs, Priority.ALWAYS);
 		HBox.setHgrow(rightSide, Priority.ALWAYS);
+		this.container.setCenter(center);
+
+		HBox bottom = new HBox(this.btnPrev, this.btnNext);
+		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
+		HBox.setHgrow(this.btnNext, Priority.ALWAYS);
+		this.container.setBottom(bottom);
 	}
 
 	private Label createHeader(String text) {
@@ -109,15 +119,17 @@ public class GardenInfoScene extends Scene {
 		return label;
 	}
 
-	private TextField createTextField(String description) {
+	private TextField createTextField(String description, Image image) {
 		TextField textField = new TextField();
 		textField.setStyle(View.TEXT_FIELD_STYLE);
 		textField.focusedProperty().addListener(((observable, oldValue, newValue) -> {
 			if (!newValue) {
 				lblDescription.setText(DEFAULT_INFO);
+				imageView.setImage(null);
 				return;
 			}
 			lblDescription.setText(description);
+			imageView.setImage(image);
 		}));
 		return textField;
 	}
