@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
 
-public class Anchor extends Circle {
+public class Anchor extends Circle implements Serializable {
 	
 	private final DoubleProperty x, y;
     ArrayList<Anchor> anchors = new ArrayList<>();
