@@ -60,13 +60,16 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<ImageView> importImages() {
 		ArrayList<ImageView> images = new ArrayList<>();
-		//File directory = new
-		File directory = new File("resources/plant-images");
+		//File directory = new File("resources/plant-images");
+		File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
+		
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
-				images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
+				//images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
+				images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
+
 			}
 		}
 		return images;
@@ -79,7 +82,8 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		//try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -289,7 +293,7 @@ public class Controller extends Application {
 
 	public void onDrawNext() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
-		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getCenter());
 	}
 
 	public void onDrawGrass() {
@@ -345,7 +349,7 @@ public class Controller extends Application {
 		Polygon polygon = woods.getShape().getPolygon();
 
 		polygon.setFill(new ImagePattern(img));
-		scene.getGardenPane().getChildren().add(polygon);
+		scene.getCenter().getChildren().add(polygon);
 		this.model.addGardenObject(woods);
 		givePolyDragBehavior(polygon);
 	}
@@ -372,7 +376,7 @@ public class Controller extends Application {
 	 */
 	public void onTimesPrev() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
-		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
+		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getCenter());
 	}
 
 	/**
