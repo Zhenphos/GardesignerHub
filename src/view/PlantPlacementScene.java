@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -23,6 +24,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,6 +34,7 @@ import javafx.scene.text.TextAlignment;
 import mvc.Controller;
 import mvc.View;
 import objects.Plant;
+import objects.Woods;
 
 /**
  * PlantPlacementScene class for Gardendesigner Hub
@@ -50,13 +55,15 @@ public class PlantPlacementScene extends Scene {
 	public ImageView imageview[] = new ImageView [10];
 	public ImageView plantClicked;
 	int indexOfPlant=0;
+	boolean doubleClick=false;
+
 	ArrayList <ImageView> plantImages = Controller.importImages();
 	ListView<Plant> plantListView = new ListView<Plant>();
 
 	//public TilePane center = new TilePane();
 
 	HBox imageBar = new HBox(10);
-	private Pane gardenPane = new Pane();
+	private Pane center = new Pane();
 
 	//HBox imageBar = new HBox(10);
 	//AnchorPane center = new AnchorPane();
@@ -68,8 +75,8 @@ public class PlantPlacementScene extends Scene {
 	public int numCopies = 0;
 	private Button btnPrev, btnNext;
 
-	public Pane getGardenPane() {
-		return this.gardenPane;
+	public Pane getCenter() {
+		return this.center;
 	}
 	
 	public PlantPlacementScene() {
@@ -78,6 +85,26 @@ public class PlantPlacementScene extends Scene {
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
+		
+		
+		//iv1 = new ImageView[10];
+		imageView01 = new ImageView();
+		//iv2 = new ImageView();
+		/*for(int i=0; i<10;i++) {
+			
+		}*/
+		
+		imc = new Controller(this);
+		placePlant();
+	}
+	public PlantPlacementScene(View view) {
+		super(root);
+		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
+		this.btnNext.setMaxWidth(Double.MAX_VALUE);
+		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
+		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		
 		
 		
 		//iv1 = new ImageView[10];
@@ -109,10 +136,10 @@ public class PlantPlacementScene extends Scene {
 		HBox leftVbox = new HBox(5);
 		VBox rightPane = new VBox(5);
 		
-		gardenPane.setPrefHeight(View.getCanvasHeight() * 3/5);
-		gardenPane.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
-		gardenPane.setStyle("-fx-border-color: black");
-		Pane.setMargin(gardenPane, new Insets(10,10,10,10));
+		center.setPrefHeight(View.getCanvasHeight() * 3/5);
+		center.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
+		center.setStyle("-fx-border-color: black");
+		Pane.setMargin(center, new Insets(10,10,10,10));
 		leftVbox.setMinSize(View.getCanvasWidth()-20, 150);
 		
 		root.getChildren().add(Pane);
@@ -122,7 +149,7 @@ public class PlantPlacementScene extends Scene {
 		
 		Pane.setTop(leftVbox);
 		Pane.setLeft(rightPane);
-		Pane.setCenter(gardenPane);
+		Pane.setCenter(center);
 		
 		GridPane grid = new GridPane();
 	    grid.setHgap(10);
@@ -154,37 +181,26 @@ public class PlantPlacementScene extends Scene {
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
 	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
-
 	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
 	    // counter for lambda iterations
 	    AtomicInteger runCount= new AtomicInteger(0);
+	   
 		plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
-
+			
 			@Override
-			public void updateItem(Plant plant, boolean empty) {
-				super.updateItem(plant, empty);
-				if (empty) {
-					setText("empty");
-					setGraphic(null);
-				} else {
-
-					if (runCount.get() >= plantImages.size()) {
-						runCount.set(0);
-					}
-
-					imageview.setImage(plantImages.get(runCount.get()).getImage());
-					// imageview.setImage(plantImages.get(allPlants.indexOf(param)).getImage());
+			public void updateIndex(int i) {
+				super.updateIndex(i);
+					imageview.setImage(plantImages.get(i+1).getImage());
 					imageview.maxWidth(70);
 					imageview.minWidth(70);
 					imageview.maxHeight(70);
 					imageview.minHeight(70);
-					setText(allPlants.get(runCount.get()).toString());
+					setText(allPlants.get(i+1).toString());
 					imageview.setFitHeight(100);
 					imageview.isPreserveRatio();
 					setGraphic(imageview);
 					runCount.getAndIncrement();
-				}
 			}
 
 		});
@@ -237,7 +253,6 @@ public class PlantPlacementScene extends Scene {
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
 
-        
 		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -247,13 +262,23 @@ public class PlantPlacementScene extends Scene {
 					// Text temp = null;
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
-					System.out.println(event.getTarget());
 					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText()))
 							.findAny();
 					error.setText(" ");
 					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
-					indexOfPlant = allPlants.indexOf(p);
+					if(event.getClickCount()==2) {
+						doubleClick=true;
+						indexOfPlant = allPlants.indexOf(p);
+						Woods woods = new Woods();
+						Polygon polygon = woods.getShape().getPolygon();
+
+						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant).getImage()));
+						center.getChildren().add(polygon);
+						//this.model.addGardenObject(new Woods());
+						Controller.dragPlant(polygon);
+
+					}
 					nameValue.setText(p.getPlantBotanicalName());
 					if (p.getHeightMaxInches() == -1)
 						heightValue.setText("No Data");
@@ -299,10 +324,8 @@ public class PlantPlacementScene extends Scene {
 	/*
 	private Button createTutorialButton() {
 		Button tutorialButton = new Button("Help");
-
 		tutorialButton.setTranslateX(View.getCanvasWidth() * 1 / 3);
 		tutorialButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
 		EventHandler<ActionEvent> tutorialButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				final Stage helpStage = new Stage();
@@ -311,23 +334,18 @@ public class PlantPlacementScene extends Scene {
 				helpStage.show();
 			}
 		};
-
 		tutorialButton.setOnAction(tutorialButtonAction);
 		return tutorialButton;
 	}
-
 	private Button createMainMenuButton() {
 		Button mainMenuButton = new Button("Main Menu");
-
 		mainMenuButton.setTranslateX(View.getCanvasWidth() * 2 / 3);
 		mainMenuButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
 		EventHandler<ActionEvent> mainMenuButtonAction = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				//View.getStage().setScene(View.getMainMenuScene());
 			}
 		};
-
 		mainMenuButton.setOnAction(mainMenuButtonAction);
 		return mainMenuButton;
 	}
@@ -342,6 +360,7 @@ public class PlantPlacementScene extends Scene {
 		Button nextButton = new Button("Next");
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
 		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
 		return nextButton;
 	}
 
@@ -352,8 +371,10 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
+
 		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
 		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
+
 		return prevButton;
 	}
 	
@@ -413,6 +434,15 @@ public class PlantPlacementScene extends Scene {
 	public ImageView getPlantClicked() {
 		return plantImages.get(indexOfPlant);
 		
+	}
+	
+	public boolean isDoubleClick() {
+		System.out.println("Double Clicked");
+		return doubleClick;
+	}
+	
+	public void setDoubleClick(boolean value) {
+		this.doubleClick=value;
 	}
 	
 	/**

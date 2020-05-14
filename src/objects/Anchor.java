@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
+import mvc.Controller;
 
 /**
  * Anchor class for Gardendesigner Hub
@@ -26,49 +27,32 @@ import javafx.scene.shape.StrokeType;
 public class Anchor extends Circle implements Serializable {
 
 	private final DoubleProperty x, y;
-	ArrayList<Anchor> anchors = new ArrayList<>();
+    ArrayList<Anchor> anchors = new ArrayList<>();
 
-	/**
-	 * 
-	 * 
-	 * @param anchors
-	 */
-	public void setCommon(ArrayList<Anchor> anchors) {
-		this.anchors = anchors;
-	}
+    public void setCommon(ArrayList<Anchor> anchors) {
+        this.anchors = anchors;
+    }
 
-	/**
-	 * 
-	 * 
-	 * @param anchor
-	 */
-	public void addAnchor(Anchor anchor) {
-		anchors.add(anchor);
-		enableDrag();
-	}
+    public void addAnchor(Anchor anchor) {
+        anchors.add(anchor);
+        Controller.anchorDragBehavior(this);
+    }
 
-	/**
-	 * 
-	 * 
-	 * @param color
-	 * @param x
-	 * @param y
-	 */
-	Anchor(Color color, DoubleProperty x, DoubleProperty y) {
-		super(x.get(), y.get(), 10);
-		setFill(color.deriveColor(1, 1, 1, 0.5));
-		setStroke(color);
-		setStrokeWidth(2);
-		setStrokeType(StrokeType.OUTSIDE);
+    Anchor(Color color, DoubleProperty x, DoubleProperty y) {
+        super(x.get(), y.get(), 10);
+        setFill(color.deriveColor(1, 1, 1, 0.5));
+        setStroke(color);
+        setStrokeWidth(2);
+        setStrokeType(StrokeType.OUTSIDE);
 
-		this.x = x;
-		this.y = y;
+        this.x = x;
+        this.y = y;
 
-		x.bind(centerXProperty());
-		y.bind(centerYProperty());
-		enableDrag();
-	}
-
+        x.bind(centerXProperty());
+        y.bind(centerYProperty());
+        Controller.anchorDragBehavior(this);
+    }
+    
 	/**
 	 * Adds anchors to a polygon
 	 * 
