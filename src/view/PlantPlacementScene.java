@@ -102,7 +102,6 @@ public class PlantPlacementScene extends Scene {
 		placePlant();
 	}
 
-
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
 	 * plants onto the garden space they drew previously.
@@ -166,7 +165,7 @@ public class PlantPlacementScene extends Scene {
 
 	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
 	    
-		plantListView.setCellFactory(param -> new ListCell<Plant>() {
+		/*plantListView.setCellFactory(param -> new ListCell<Plant>() {
 			private ImageView imageview = new ImageView();
 			
 			@Override
@@ -193,7 +192,7 @@ public class PlantPlacementScene extends Scene {
 					runCount.getAndIncrement();
 			}
 
-		});
+		}));*/
 	    TextField searchBox = new TextField();
 	    
 	  
@@ -251,7 +250,7 @@ public class PlantPlacementScene extends Scene {
 					Text plantlabel = (Text) (event.getTarget());
 					error.setText(" ");
 					System.out.println(event.getTarget());
-					Optional<Plant2> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
+					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
 					error.setText(" ");
 					Plant p = plant.get();
 					System.out.println(allPlants.indexOf(p));
@@ -262,7 +261,7 @@ public class PlantPlacementScene extends Scene {
 						Polygon polygon = woods.getShape().getPolygon();
 
 						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant).getImage()));
-						center.getChildren().add(polygon);
+						//center.getChildren().add(polygon);
 						//this.model.addGardenObject(new Woods());
 						Controller.dragPlant(polygon);
 
@@ -409,4 +408,6 @@ public class PlantPlacementScene extends Scene {
 	public ListView<Plant> getPlantListView() {
 		return this.plantListView;
 	}
+
+
 }
