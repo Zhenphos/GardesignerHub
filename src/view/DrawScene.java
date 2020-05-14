@@ -32,6 +32,7 @@ import objects.Stream;
 import objects.Woods;
 
 /**
+ * DrawScene class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -44,49 +45,97 @@ public class DrawScene extends Scene {
 	private Pane gardenPane;
 	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
+	/**
+	 * 
+	 */
 	public DrawScene() {
 		super(drawGardenGroup);
 		createDraw();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
 
+	/**
+	 * Gets the grass button
+	 * 
+	 * @return the grass button
+	 */
 	public Button getGrassButton() {
 		return this.grassButton;
 	}
 
+	/**
+	 * Gets the road button
+	 * 
+	 * @return the road button
+	 */
 	public Button getRoadbutton() {
 		return this.roadButton;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public Button getStreamButton() {
 		return this.streamButton;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public Button getWoodsButton() {
 		return this.woodsButton;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	public Button getShadeButton() {
 		return this.shadeButton;
 	}
 
+	/**
+	 * Gets the delete button
+	 * 
+	 * @return the delete button
+	 */
 	public Button getDeleteButton() {
 		return this.deleteButton;
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+     * Gets the next button
+     * 
+     * @return the next button
+     */
 	public Button getNextButton() {
 		return this.btnNext;
 	}
 
 	/**
-	 * Creates the draw scene which allows the user to draw their garden space.
+	 * Creates the draw scene which allows the user to draw their garden space
 	 */
 	public void createDraw() {
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
@@ -161,7 +210,7 @@ public class DrawScene extends Scene {
 		Image drawBackground;
 		drawBackground = View.createImage("resources/drawImage.png");
 		//drawGC.drawImage(drawBackground, 0, 0, View.getCanvasWidth(),
-		// View.getCanvasHeight());
+		//View.getCanvasHeight());
 
 		btnPrev = createPrevButton();
 
@@ -181,36 +230,31 @@ public class DrawScene extends Scene {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
 
 		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
 		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-
-		/*EventHandler<ActionEvent> nextButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				View.getStage().setScene(View.getPlantPlacementScene());
-			}
-		};*/
-
-		//nextButton.setOnAction(nextButtonAction);
+		
 		return nextButton;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
 
 		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
 		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 
-		EventHandler<ActionEvent> prevButtonAction = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				//View.getStage().setScene(View.getMainMenuScene());
-				//View.getStage().setScene(View.getMainMenuScene());
-			}
-		};
-
-		prevButton.setOnAction(prevButtonAction);
 		return prevButton;
 	}
 }
