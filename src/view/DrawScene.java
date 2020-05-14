@@ -1,35 +1,20 @@
 package view;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import mvc.Controller;
 import mvc.View;
-import objects.GardenObject;
-import objects.Grass;
-import objects.Road;
-import objects.Shade;
-import objects.Stream;
-import objects.Woods;
 
 /**
  * DrawScene class for Gardendesigner Hub
@@ -46,7 +31,7 @@ public class DrawScene extends Scene {
 	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
 	/**
-	 * 
+	 * Constructor for DrawScene
 	 */
 	public DrawScene() {
 		super(drawGardenGroup);
@@ -54,9 +39,9 @@ public class DrawScene extends Scene {
 	}
 
 	/**
+	 * Gets pane the garden is displayed in
 	 * 
-	 * 
-	 * @return
+	 * @return the pane the garden is displayed in
 	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
@@ -81,27 +66,27 @@ public class DrawScene extends Scene {
 	}
 
 	/**
+	 * Gets the stream button
 	 * 
-	 * 
-	 * @return
+	 * @return the stream button
 	 */
 	public Button getStreamButton() {
 		return this.streamButton;
 	}
 
 	/**
+	 * Gets the woods button
 	 * 
-	 * 
-	 * @return
+	 * @return the woods button
 	 */
 	public Button getWoodsButton() {
 		return this.woodsButton;
 	}
 
 	/**
+	 * Gets the shade button
 	 * 
-	 * 
-	 * @return
+	 * @return the shade button
 	 */
 	public Button getShadeButton() {
 		return this.shadeButton;
@@ -231,9 +216,9 @@ public class DrawScene extends Scene {
 	}
 
 	/**
+	 * Creates the next button
 	 * 
-	 * 
-	 * @return
+	 * @return the next button
 	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
@@ -245,9 +230,9 @@ public class DrawScene extends Scene {
 	}
 
 	/**
+	 * Creates the prev button
 	 * 
-	 * 
-	 * @return
+	 * @return the prev button
 	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");

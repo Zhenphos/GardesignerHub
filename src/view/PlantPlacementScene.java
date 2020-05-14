@@ -68,10 +68,18 @@ public class PlantPlacementScene extends Scene {
 	public int numCopies = 0;
 	private Button btnPrev, btnNext;
 
+	/**
+	 * Gets the pane the garden is displayed in
+	 * 
+	 * @return the pane the garden is displayed in
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
 	
+	/**
+	 * 
+	 */
 	public PlantPlacementScene() {
 		super(root);
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
@@ -287,7 +295,7 @@ public class PlantPlacementScene extends Scene {
 	/**
 	 * Creates a plant label
 	 * 
-	 * @param text - the label text
+	 * @param text the label text
 	 * @return the plant label
 	 */
 	private Label createLabel(String text) {
@@ -334,9 +342,9 @@ public class PlantPlacementScene extends Scene {
 	*/
 
 	/**
-	 * Creates the "next" button
+	 * Creates the next button
 	 * 
-	 * @return the "next" button
+	 * @return the next button
 	 */
 	private Button createNextButton() {
 		Button nextButton = new Button("Next");
@@ -346,9 +354,9 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * Creates the "previous" button
+	 * Creates the prev button
 	 * 
-	 * @return the "previous" button
+	 * @return the prev button
 	 */
 	private Button createPrevButton() {
 		Button prevButton = new Button("Prev");
@@ -360,7 +368,7 @@ public class PlantPlacementScene extends Scene {
 	/**
 	 * Updates the x-coordinate of the dragged ImageView
 	 * 
-	 * @param x - the x-value the mouse has dragged the image
+	 * @param x the x-value the mouse has dragged the image
 	 */
     public void setX(double x) {
     	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
@@ -369,7 +377,7 @@ public class PlantPlacementScene extends Scene {
     /**
 	 * Updates the y-coordinate of the dragged ImageView
 	 * 
-	 * @param y - the y-value the mouse has dragged the image
+	 * @param y the y-value the mouse has dragged the image
 	 */
     public void setY(double y) {
     	iv2.setTranslateY(imageView01.getLayoutY() + HEIGHT / 2 + y);
@@ -378,7 +386,7 @@ public class PlantPlacementScene extends Scene {
     /**
      * Creates a button
      * 
-     * @param text - the text displayed on the button
+     * @param text the text displayed on the button
      * @return the created button
      */
     private Button createButton(String text) {

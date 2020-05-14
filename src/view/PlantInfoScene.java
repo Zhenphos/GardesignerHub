@@ -22,7 +22,8 @@ import javafx.scene.text.TextAlignment;
 import mvc.View;
 
 /**
- * The scene that displays information about a selected plant.
+ * PlantInfoScene class for Gardendesigner Hub. Displays information about a
+ * selected plant.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -31,13 +32,16 @@ import mvc.View;
 public class PlantInfoScene extends Scene {
 	static Group plantInfoGroup = new Group();
 
+	/**
+	 * Constructor for PlantInfoScene.
+	 */
 	public PlantInfoScene() {
 		super(plantInfoGroup);
 		createPlantInfo();
 	}
 
 	/**
-	 * Creates the plant info scene
+	 * Creates the plant info scene and formats the panes in the scene
 	 */
 	public void createPlantInfo() {
 		Canvas plantInfoCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
@@ -99,6 +103,11 @@ public class PlantInfoScene extends Scene {
 
 	}
 	
+	/**
+	 * Creates the back button
+	 * 
+	 * @return the back button
+	 */
 	private Button createBackButton() {
 		Button backButton = new Button("Go Back");
 

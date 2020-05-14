@@ -72,8 +72,8 @@ public class Anchor extends Circle implements Serializable {
 	/**
 	 * Adds anchors to a polygon
 	 * 
-	 * @param polygon - the polygon which will have anchors added to it
-	 * @param points  - the points of the polygon
+	 * @param polygon the polygon which will have anchors added to it
+	 * @param points  the points of the polygon
 	 * @return an ObservableList with all the anchors stored inside of them
 	 */
 	public static ObservableList<Anchor> createAnchors(Polygon shape, final ObservableList<Double> points) {

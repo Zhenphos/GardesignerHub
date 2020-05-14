@@ -43,7 +43,7 @@ public class Controller extends Application {
 	/**
 	 * The main method for the program
 	 * 
-	 * @param args - an array of strings
+	 * @param args an array of strings
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
@@ -174,7 +174,7 @@ public class Controller extends Application {
 	/**
 	 * Controller constructor for plant placement scene
 	 * 
-	 * @param pps - a plant placement scene
+	 * @param pps a plant placement scene
 	 */
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
@@ -186,7 +186,7 @@ public class Controller extends Application {
 	/**
 	 * Starts the program and the stage
 	 * 
-	 * @param theStage - the stage that the garden is displayed on
+	 * @param theStage the stage that the garden is displayed on
 	 */
 	@Override
 	public void start(Stage theStage) throws Exception {
@@ -371,7 +371,7 @@ public class Controller extends Application {
 	/**
 	 * Creates a polygon for plants and adds it to the garden model
 	 * 
-	 * @param img - the image to fill the polygon with
+	 * @param img the image to fill the polygon with
 	 */
 	public void onDragPlant(Image img) {
 		System.out.println("In Drag plant");
@@ -426,7 +426,7 @@ public class Controller extends Application {
 	 * Event handler for when the user selects a season radio button on the
 	 * TimesScene
 	 * 
-	 * @param season - the new season the garden is in
+	 * @param season the new season the garden is in
 	 */
 	public void onTimesSetSeason(Season season) {
 		this.model.setSeason(season);
@@ -435,7 +435,7 @@ public class Controller extends Application {
 	/**
 	 * Event handler for when the user moves the age slider on the TimesScene
 	 * 
-	 * @param age - the age in years to set the garden to
+	 * @param age the age in years to set the garden to
 	 */
 	public void onTimesSetAge(double age) {
 		this.model.setAge(age);
@@ -512,7 +512,7 @@ public class Controller extends Application {
 	/**
 	 * Uses user mouse input to move plant image around on screen
 	 *
-	 * @param event - event triggered by mouse click
+	 * @param event event triggered by mouse click
 	 */
 	public void drag(MouseEvent event) {
 		Node n = (Node) event.getSource();
@@ -561,8 +561,8 @@ public class Controller extends Application {
 	/**
 	 * Gives a polygon the drag behavior in the given DrawScene
 	 * 
-	 * @param scene  - the scene which will contain the draggable polygon
-	 * @param object - the object which will be stored in the Collection of
+	 * @param scene  the scene which will contain the draggable polygon
+	 * @param object the object which will be stored in the Collection of
 	 *               GardenObjects in Model and will be placed in the universal
 	 *               scene
 	 */
@@ -601,7 +601,7 @@ public class Controller extends Application {
 	/**
 	 * Gives a polygon the drag behavior
 	 * 
-	 * @param object - the object which will be stored in the Collection of
+	 * @param object the object which will be stored in the Collection of
 	 *               GardenObjects in model and will be placed in the universal
 	 *               scene
 	 */

@@ -19,7 +19,7 @@ public class Shape implements Serializable {
 	/**
 	 * Constructor for shape which configures the default shape
 	 * 
-	 * @param c - the color of the shape
+	 * @param c the color of the shape
 	 */
 	public Shape(Color c) {
 		shape.setFill(c);

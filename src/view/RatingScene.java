@@ -1,26 +1,15 @@
 package view;
 
-import enums.Season;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import mvc.View;
 
 /**
+ * RatingScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -39,6 +28,9 @@ public class RatingScene extends Scene {
 	private FlowPane stars;
 	private Button btnPrev, btnSave;
 
+	/**
+	 * Constructor for RatingScene. Formats the panes in the scene.
+	 */
 	public RatingScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -87,6 +79,11 @@ public class RatingScene extends Scene {
 
 	}
 
+	/**
+	 * Sets the rating
+	 * 
+	 * @param rating the rating that is set
+	 */
 	public void setRating(int rating) {
 		this.stars.getChildren().clear();
 		for (int i=0; i<rating; i++) {
@@ -97,16 +94,30 @@ public class RatingScene extends Scene {
 		}
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+	 * Gets the save button
+	 * 
+	 * @return the save button
+	 */
 	public Button getSaveButton() {
 		return this.btnSave;
 	}
 	
+	/**
+	 * Gets pane the garden is displayed in
+	 * 
+	 * @return the pane the garden is displayed in
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
-
 }
