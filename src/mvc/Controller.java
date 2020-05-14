@@ -71,15 +71,7 @@ public class Controller extends Application {
 		}
 		return images;
 	}
-<<<<<<< HEAD
-	public static ArrayList<Plant> importPlants() {
-		ArrayList<Plant> plantList = new ArrayList<>();
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-||||||| merged common ancestors
-	public static ArrayList<Plant2> importPlants() {
-		ArrayList<Plant2> plantList = new ArrayList<>();
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-=======
+
 	
 	/**
 	 * 
@@ -87,7 +79,6 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
->>>>>>> master
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 
 			String line;
