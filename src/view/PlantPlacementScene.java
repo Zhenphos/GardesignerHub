@@ -173,7 +173,7 @@ public class PlantPlacementScene extends Scene {
 			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
 		}
 
-		PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
+		//PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
 		//plantListView.getItems().setAll(allPlants);
 		//plantListView((PlantWithImage p1, PlantWithImage p2) -> compare(p1.getImage(),p2.getImage()));
 		//Collections.sort(plantListView, new CustomComparator());

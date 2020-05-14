@@ -63,8 +63,7 @@ public class Controller extends Application {
 
 		File[] f = directory.listFiles();
 		for (File file : f) {
-			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
-
+			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
 				images.add(View.createImage("resources/plant-images/" + file.getName()));
 				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName()));
 
@@ -666,13 +665,7 @@ public class Controller extends Application {
 
 		String path = image.getUrl();
 		String [] s = path.split(".jp");
-		String [] s2 = s[0].split("THUM-");
-		if(s[1].contains(".")) {
-			int indOfDot = s[1].indexOf('.');
-			for(int i=indOfDot-1; i>=0;i--) {
-				indexString+=s[1].charAt(i);
-			}
-		}
+		String [] s2 = s[0].split("images/");
 
 		int index = Integer.parseInt(s2[1]);
 		return index;
