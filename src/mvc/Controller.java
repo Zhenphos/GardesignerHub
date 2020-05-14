@@ -32,6 +32,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -58,8 +59,8 @@ public class Controller extends Application {
 	 * 
 	 * @return
 	 */
-	public static ArrayList<ImageView> importImages() {
-		ArrayList<ImageView> images = new ArrayList<>();
+	public static ArrayList<Image> importImages() {
+		ArrayList<Image> images = new ArrayList<>();
 		File directory = new File("resources/plant-images");
 		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
@@ -68,8 +69,8 @@ public class Controller extends Application {
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
 
-				images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
-				//images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName())));
+				images.add(View.createImage("resources/plant-images/" + file.getName()));
+				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName()));
 
 			}
 		}
@@ -354,7 +355,7 @@ public class Controller extends Application {
 	}
 
 	public void onDrawDelete() {
-
+		
 	}
 
 	/**
