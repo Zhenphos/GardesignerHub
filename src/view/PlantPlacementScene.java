@@ -176,6 +176,7 @@ public class PlantPlacementScene extends Scene {
 		PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
 		//plantListView.getItems().setAll(allPlants);
 		//plantListView((PlantWithImage p1, PlantWithImage p2) -> compare(p1.getImage(),p2.getImage()));
+		//Collections.sort(plantListView, new CustomComparator());
 		
 		/**
 		 * Defines how each cell of plantlistview will be displayed
@@ -390,31 +391,6 @@ public class PlantPlacementScene extends Scene {
 		return this.center;
 	}
 
-	/**
-	 * method to extract the index of images from its name. To be used in sorting
-	 * @param image
-	 * @return the index of image, extracted from its file path.
-	 */
-	public static int getIndex(Image image) {
-		String indexString = null;
-
-		String path = image.getUrl();
-		String [] s = path.split(".jp");
-		String [] s2 = s[0].split("THUM-");
-		if(s[1].contains(".")) {
-			int indOfDot = s[1].indexOf('.');
-			for(int i=indOfDot-1; i>=0;i--) {
-				indexString+=s[1].charAt(i);
-			}
-		}
-
-		int index = Integer.parseInt(s2[1]);
-		return index;
-
-
-
-	}
-
 
 //	Collections.sort(plantImages, new Comparator<>() {
 //	    @Override
@@ -429,7 +405,7 @@ public class PlantPlacementScene extends Scene {
  * @author hamza
  *
  */
-	private static class PlantWithImage implements Comparator{
+	private static class PlantWithImage{
 		private final Plant plant ;
 		private final Image image ;
 		public PlantWithImage(Plant p, Image img) {
@@ -443,21 +419,10 @@ public class PlantPlacementScene extends Scene {
 		public Image getImage() {
 			return image;
 		}
-		public int compare(Object o1, Object o2) {
-			// TODO Auto-generated method stub
-			if(o1 instanceof Image && o1 instanceof Image) {
-				Image img = (Image) o1;
-				Image img2 = (Image)o2;
-				if(getIndex(img) > getIndex(img2)) {
-					return 1;
-				}else if(getIndex(img) < getIndex(img2)) {
-					return -1;
-				}else return 0;
-			}
-			return 0;
-		}
-
+		
 	}
+	
+	
 	
 	
 }

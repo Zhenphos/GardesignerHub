@@ -29,6 +29,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 
 /**
@@ -68,6 +69,10 @@ public class Controller extends Application {
 				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName()));
 
 			}
+		}
+		Collections.sort(images, new CustomComparator());
+		for(int i=0; i<images.size(); i++) {
+			System.out.print(getIndex(images.get(i))+ " ");
 		}
 		return images;
 	}
@@ -649,5 +654,44 @@ public class Controller extends Application {
 	 */
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
+	}
+
+	/**
+	 * method to extract the index of images from its name. To be used in sorting
+	 * @param image
+	 * @return the index of image, extracted from its file path.
+	 */
+	public static int getIndex(Image image) {
+		String indexString = null;
+
+		String path = image.getUrl();
+		String [] s = path.split(".jp");
+		String [] s2 = s[0].split("THUM-");
+		if(s[1].contains(".")) {
+			int indOfDot = s[1].indexOf('.');
+			for(int i=indOfDot-1; i>=0;i--) {
+				indexString+=s[1].charAt(i);
+			}
+		}
+
+		int index = Integer.parseInt(s2[1]);
+		return index;
+
+
+
+	}
+
+	
+	public static  class CustomComparator implements Comparator<Image> {
+
+		@Override
+		public int compare(Image img, Image img2) {
+		
+			if(getIndex(img) > getIndex(img2)) {
+				return 1;
+			}else if(getIndex(img) < getIndex(img2)) {
+				return -1;
+			}else return 0;
+		}
 	}
 }
