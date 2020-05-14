@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.beans.property.DoubleProperty;
@@ -18,10 +19,10 @@ import javafx.scene.shape.Polygon;
  *
  */
 
-public class Shape {
+public class Shape implements Serializable {
 	private static final double defaultSize = 100;
 
-	Polygon shape = new Polygon();
+	SerializablePolygon shape = new SerializablePolygon();
 	
 	/**
 	 * @param c the color of the shape

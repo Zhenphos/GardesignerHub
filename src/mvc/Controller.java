@@ -3,12 +3,12 @@ package mvc;
 import enums.Names;
 import enums.Season;
 import javafx.application.Application;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,7 +22,6 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import objects.*;
 import view.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,28 +55,30 @@ public class Controller extends Application {
 		launch(args);
 	}
 
-	public static ArrayList <ImageView> importImages(){
-		ArrayList <ImageView> images = new ArrayList<>();
-		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+	/**
+	 * 
+	 * @return
+	 */
+	public static ArrayList<ImageView> importImages() {
+		ArrayList<ImageView> images = new ArrayList<>();
+		//File directory = new
 		File directory = new File("resources/plant-images");
 
 		File[] f = directory.listFiles();
-        for (File file : f) {
-            if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
-        		//images.add(new ImageView(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/"+file.getName())));
-
-            	images.add(new ImageView(View.createImage("resources/plant-images/"+file.getName())));
-
-            }
-            
-        
-    }
+		for (File file : f) {
+			if (file != null && file.getName().toLowerCase().endsWith(".jpg") && file.getName().startsWith("TH")) {
+				images.add(new ImageView(View.createImage("resources/plant-images/" + file.getName())));
+			}
+		}
 		return images;
-		
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 
 			String line;
@@ -85,7 +86,6 @@ public class Controller extends Application {
 				String[] data = line.split(";");
 				String plantBotName = data[0];
 				String bloomColor = data[5];
-				
 				
 				int minHeight = 0;
 				int maxHeight = 0;
@@ -167,10 +167,17 @@ public class Controller extends Application {
 	private static final boolean DEBUG = true;
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
+	/**
+	 * 
+	 */
 	public Controller() {
 
 	}
 
+	/**
+	 * 
+	 * @param pps
+	 */
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
 		model = new Model();
@@ -583,5 +590,31 @@ public class Controller extends Application {
 	 */
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
+	}
+	
+	/**
+	 * 
+	 * @param anchor the anchor which will receive the drag behavior
+	 */
+	public static void anchorDragBehavior(Anchor anchor) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		anchor.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+		    }
+		});
+		anchor.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	            double changeX = event.getSceneX() - mousePosition.get().getX();
+	            double changeY = event.getSceneY() - mousePosition.get().getY();
+	            
+		        anchor.setCenterX(anchor.getCenterX() + changeX);
+		        anchor.setCenterY(anchor.getCenterY() + changeY);
+	            
+	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+	        }
+		});
 	}
 }

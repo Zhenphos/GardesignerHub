@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
+import mvc.Controller;
 
-public class Anchor extends Circle {
+public class Anchor extends Circle implements Serializable {
 	
 	private final DoubleProperty x, y;
     ArrayList<Anchor> anchors = new ArrayList<>();
@@ -28,7 +30,7 @@ public class Anchor extends Circle {
 
     public void addAnchor(Anchor anchor) {
         anchors.add(anchor);
-        enableDrag();
+        Controller.anchorDragBehavior(this);
     }
 
     Anchor(Color color, DoubleProperty x, DoubleProperty y) {
@@ -43,7 +45,7 @@ public class Anchor extends Circle {
 
         x.bind(centerXProperty());
         y.bind(centerYProperty());
-        enableDrag();
+        Controller.anchorDragBehavior(this);
     }
     
 	/**
@@ -76,74 +78,14 @@ public class Anchor extends Circle {
                 }
             });
             Anchor anchor = new Anchor(Color.GOLD, xProperty, yProperty);
-
-            anchor.layoutXProperty().bind(shape.layoutXProperty());
-            anchor.layoutYProperty().bind(shape.layoutYProperty());
-
+            
+            if (shape.layoutXProperty() != null && shape.layoutYProperty() != null) {
+	            anchor.layoutXProperty().bind(shape.layoutXProperty());
+	            anchor.layoutYProperty().bind(shape.layoutYProperty());
+            }
+            
             anchors.add(anchor);
         }
         return anchors;
-    }
-
-    private void enableDrag() {
-        final Delta dragDelta = new Delta();
-        setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                dragDelta.x = getCenterX() - mouseEvent.getX();
-                dragDelta.y = getCenterY() - mouseEvent.getY();
-                getScene().setCursor(Cursor.MOVE);
-            }
-        });
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                getScene().setCursor(Cursor.HAND);
-            }
-        });
-        setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                double newX = mouseEvent.getX() + dragDelta.x;
-                if (newX > 0 && newX < getScene().getWidth()) {
-                    setCenterX(newX);
-                    if (anchors != null) {
-                        for (Anchor anchor : anchors) {
-                            anchor.setCenterX(newX);
-                            System.out.println("CALLED");
-                        }
-                    }
-                }
-                double newY = mouseEvent.getY() + dragDelta.y;
-                if (newY > 0 && newY < getScene().getHeight()) {
-                    setCenterY(newY);
-                    if (anchors != null) {
-                        for (Anchor anchor : anchors) {
-                            anchor.setCenterY(newY);
-                        }
-                    }
-                }
-            }
-        });
-        setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    getScene().setCursor(Cursor.HAND);
-                }
-            }
-        });
-        setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    getScene().setCursor(Cursor.DEFAULT);
-                }
-            }
-        });
-    }
-
-    private class Delta {
-        double x, y;
     }
 }
