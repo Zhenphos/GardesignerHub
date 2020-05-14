@@ -98,7 +98,7 @@ public class DrawScene extends Scene {
 		border = new BorderPane();
 		FlowPane left = new FlowPane();
 		HBox top = new HBox();
-		gardenPane = new AnchorPane();
+		gardenPane = new Pane();
 		drawGardenGroup.getChildren().add(border);
 		border.setTop(top);
 		border.setLeft(left);
