@@ -191,10 +191,10 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-		//scene.getPlantClicked().setOnMouseDragged();
-		//scene.getPlantClicked().setOnMouseClicked();
+		if (scene.isDoubleClick()) {
 		scene.getPlantListView().setOnMouseClicked(event-> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
-		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
+		scene.setDoubleClick(false);
+		}
 	}
 
 	/**
@@ -311,6 +311,9 @@ public class View {
 		return HEIGHT;
 	}
 	
+	public Controller getController() {
+		return this.controller;
+	}
 	/**
 	 * Draws anything in the map that is not already there
 	 * 

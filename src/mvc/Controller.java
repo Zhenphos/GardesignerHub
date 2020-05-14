@@ -331,8 +331,7 @@ public class Controller extends Application {
 		giveDragBehavior(polygon);
 	}
 	public void onDragPlant(Image img) {
-		System.out.println("In Drag plant");
-		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
 
@@ -506,6 +505,36 @@ public class Controller extends Application {
 	 * @param object the object which will be stored in the Collection of GardenObjects in model, and will be placed in the universal scene
 	 */
 	public void giveDragBehavior(Polygon polygon) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+		    }
+		});
+		polygon.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	            double changeX = event.getSceneX() - mousePosition.get().getX();
+	            double changeY = event.getSceneY() - mousePosition.get().getY();
+	            
+	            if (polygon.getLayoutX() < 0) {
+	            	polygon.setLayoutX(0);
+	            } else { 
+		        	polygon.setLayoutX(polygon.getLayoutX() + changeX);
+	            }
+	            
+	            if (polygon.getLayoutY() < 0) {
+	            	polygon.setLayoutY(0);
+	            } else {
+		            polygon.setLayoutY(polygon.getLayoutY() + changeY);
+	            }
+	            mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+	        }
+		});
+	}
+	
+	public static void dragPlant(Polygon polygon) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
 		polygon.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
