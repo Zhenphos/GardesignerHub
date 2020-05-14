@@ -30,8 +30,8 @@ public class Model implements Serializable {
 	private final double BOTTOM = 200;
 
 	/**
-	 * Constructor for model. Sets the initial numerical attributes of
-	 * the garden to 0 and the season to spring.
+	 * Constructor for Model. Sets the initial numerical attributes of the garden to
+	 * 0 and the season to spring.
 	 */
 	public Model() {
 		this.width = 0;
@@ -84,7 +84,8 @@ public class Model implements Serializable {
 	/**
 	 * Sets the temperature in degrees Fahrenheit of the garden
 	 * 
-	 * @param temperature - the garden's average temperature in degrees Fahrenheit over the last week
+	 * @param temperature - the garden's average temperature in degrees Fahrenheit
+	 *                    over the last week
 	 */
 	public void setTemperature(double temperature) {
 		this.temperature = temperature;
