@@ -49,8 +49,20 @@ public class PlantTest {
 	}
 	
 	@Test
-	public void changePlantSizeText() {
+	public void setHardinessMinTest() {
+		Plant plant = new Plant();
+		plant.setHardinessMin(5);
+		assertEquals(plant.getHardinessMin(), 5);
+	}
+	
+	@Test
+	public void toStringTest() {
+		Plant emptyPlant = new Plant();
+		assertEquals(null, emptyPlant.toString());
 		
+		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
+				spacingMax, hardinessMin, hardinessMax, bloomColors);
+		assertEquals(plant.toString(), plantBotanicalName);
 	}
 	
 	@Test
