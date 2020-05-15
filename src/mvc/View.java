@@ -326,6 +326,20 @@ public class View {
 		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
 	}
+	/**
+	 * 
+	 * @param pathToFile
+	 * @param width
+	 * @param height
+	 * @param ratio
+	 * @param smooth
+	 * @return
+	 */
+	
+	public static Image createImage(String pathToFile, int width, int height, boolean ratio, boolean smooth) {
+		Image someImage = new Image(new File(pathToFile).toURI().toString(), width, height, ratio, smooth);
+		return someImage;
+	}
 
 	/**
 	 * Draws the map out for the user to see

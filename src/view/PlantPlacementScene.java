@@ -1,12 +1,7 @@
 package view;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -24,38 +19,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
-import objects.Woods;
 
 /**
  * PlantPlacementScene class for Gardendesigner Hub
@@ -124,10 +104,11 @@ public class PlantPlacementScene extends Scene {
 	private BorderPane container;
 
 	private GridPane grid;
-/**
- * constructor
- */
 
+	/**
+	 * Constructor for PlantPlacementScene. Formats the panes and buttons and
+	 * prepares the Controller to handle user mouse inputs.
+	 */
 	public PlantPlacementScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -401,7 +382,7 @@ public class PlantPlacementScene extends Scene {
 /**
  * static class to encapsulate both image and plant object in a single object
  * 
- * @author hamza
+ * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 	private static class PlantWithImage{

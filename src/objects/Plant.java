@@ -67,8 +67,13 @@ public class Plant extends GardenObject implements Serializable {
 	String bloomColors;
 
 	public void changePlantSize(double age) {
-		double growthRate = (spacingMax - spacingMin) * 1/4;
-		shape.getCircle().setRadius((spacingMin * 3) + (growthRate * age));
+		if (spreadMin != -1 && spreadMax != -1) {
+			double growthRate = (spreadMax - spreadMin) * 3/4;
+			shape.getCircle().setRadius((this.spreadMin * 3) + (growthRate * age));
+		} else {
+			double growthRate = defaultRadius/4;
+			shape.getCircle().setRadius(defaultRadius + growthRate * age);
+		}
 	}
 	
 	/**
