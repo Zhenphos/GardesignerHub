@@ -323,8 +323,6 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for grass and adds it to the garden model
-	 * 
-	 * @author Ntsee, Jason
 	 */
 	public void onDrawGrass() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -336,8 +334,6 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for a road and adds it to the garden model
-	 * 
-	 * @author Ntsee, Jason
 	 */
 	public void onDrawRoad() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -349,8 +345,6 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for a stream and adds it to the garden model
-	 * 
-	 * @author Ntsee, Jason
 	 */
 	public void onDrawStream() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -362,8 +356,6 @@ public class Controller extends Application {
 
 	/**
 	 * Creates a polygon for woods and adds it to the garden model
-	 * 
-	 * @author Ntsee, Jason
 	 */
 	public void onDrawWoods() {
 		System.out.println(this.view);
@@ -378,9 +370,7 @@ public class Controller extends Application {
 	 * Handles the click events, single click on plant name displays the information in right panel
 	 * double click puts the plant image on the garden
 	 * 
-	 * @param event The MouseEvent on the plant
-	 * 
-	 * @author Hamza, Jason
+	 * @param event the MouseEvent on the plant
 	 */
 	public void onDragPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
@@ -460,8 +450,6 @@ public class Controller extends Application {
 	 * 
 	 * @param i the index of the object that will be removed from the model
 	 * @return the boolean determining whether or not the last object that is not a plant has been removed
-	 * 
-	 * @author Jason
 	 */
 	public boolean removeLastObject(int i) {
 		if (i < 0) {
@@ -605,10 +593,9 @@ public class Controller extends Application {
 	/**
 	 * Gives a polygon the drag behavior in the given DrawScene
 	 * 
-	 * @param scene  	the scene which will contain the draggable polygon
-	 * @param polygon	the polygon will be created in a given DrawScene and become draggable
-	 * 
-	 * @author Jason
+	 * @param scene   the scene which will contain the draggable polygon
+	 * @param polygon the polygon that will be added to a given DrawScene and become
+	 *                draggable
 	 */
 	public void createDrawPolyDraggable(DrawScene scene, Polygon polygon) {
 		scene.getGardenPane().getChildren().add(polygon);
@@ -620,8 +607,6 @@ public class Controller extends Application {
 	 * Gives any shape a simple drag behavior
 	 * 
 	 * @param shape the shape which will become draggable
-	 * 
-	 * @author Jason
 	 */
 	public void giveShapeDragBehavior(Shape shape) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
@@ -657,8 +642,7 @@ public class Controller extends Application {
 	 * Gives an Anchor object drag behavior
 	 * 
 	 * @param anchor the anchor which will receive the drag behavior
-	 * 
-	 * @author Jason
+
 	 */
 	public static void anchorDragBehavior(Anchor anchor) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();

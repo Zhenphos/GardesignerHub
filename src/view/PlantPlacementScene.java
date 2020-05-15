@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javafx.geometry.*;
 import enums.Names;
 import javafx.beans.property.ObjectProperty;
@@ -59,6 +58,7 @@ import objects.Plant;
 import objects.Woods;
 
 /**
+ * PlantPlacementScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
