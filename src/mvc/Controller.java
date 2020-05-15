@@ -12,7 +12,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -430,7 +433,9 @@ public class Controller extends Application {
 	}
 
 
-
+	
+	
+	
 	/**
 	 * Creates a polygon for shade and adds it to the garden model
 	 */
@@ -442,6 +447,9 @@ public class Controller extends Application {
 		createDrawPolyDraggable(scene, polygon);
 	}
 
+	/**
+	 * handles undo button on DrawScene
+	 */
 	public void onDrawUndo() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
@@ -454,6 +462,10 @@ public class Controller extends Application {
 			}
 		}
 	}
+	
+	/**
+	 * handles undo button on plantplacement
+	 */
 
 	public void onPlantPlacementUndo() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
@@ -467,7 +479,8 @@ public class Controller extends Application {
 			}
 		}
 	}
-
+	
+	
 	/**
 	 * 
 	 * @param i the index of the object that will be removed from the model

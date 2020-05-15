@@ -1,12 +1,18 @@
 package view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Map;
-
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,14 +24,21 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
 import mvc.View;
+import objects.CustomPlant;
 import objects.Plant;
 
 /**
@@ -132,7 +145,11 @@ public class PlantPlacementScene extends Scene {
 		this.container.setBottom(buttons);
 	}
 
+	
+	
 
+	
+	
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
 	 * plants onto the garden space they drew previously.
@@ -221,21 +238,60 @@ public class PlantPlacementScene extends Scene {
 				}
 			}
 		});
+		
+		
+		
+		/**
+		 * Handles onDragOver event for the garden
+		 */
+		
 
-		plantListView.setOnDragDetected(new EventHandler<MouseEvent>(){
+		gardenPane.setOnDragOver(new EventHandler<DragEvent>(){
 
 			@Override
-			public void handle(MouseEvent event) {
-				// TODO Auto-generated method stub
-				System.out.println("Mouse Drag detected on "+ event.getTarget());
-				ListCell c = (ListCell) event.getTarget();
-				c.getGraphic();
-				ImageView imageview = new ImageView();
-				//imageview.setImage((Image)c.getGraphic());
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+		        
+		            event.acceptTransferModes(TransferMode.COPY);
+		        
+		        event.consume();	
 			}
-
 		});
+		
+		/**
+		 * Handles drag dropped event for garden
+		 * creates a copy of dropped images and adds it in the garden
+		 * 
+		 */
+		
+		gardenPane.setOnDragDropped(new EventHandler<DragEvent>() {
 
+			@Override
+			public void handle(DragEvent event) {
+				 try {
+				Dragboard db = event.getDragboard();
+		        boolean success = false;
+		        if (db.hasString()) {
+		            System.out.println("Dropped: " + db.getString());
+		            success = true;
+		        }
+		        File file = db.getFiles().get(0);
+				Image img = new Image(new FileInputStream(file),100,100,true,true);
+				CustomPlant customPlant = new CustomPlant();
+		        Circle circle = customPlant.getShape().getCircle();
+		        circle.setRadius(50);
+				circle.setFill(new ImagePattern(img));
+				gardenPane.getChildren().add(circle);
+				//model.addGardenObject(plant2);
+				giveShapeDragBehavior(circle);
+		        event.setDropCompleted(success);
+		        event.consume();
+		        } catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
 
 
 		// Display plant information in the right pane
@@ -448,7 +504,49 @@ public class PlantPlacementScene extends Scene {
 
 	}
 
+	public void handleDrag(DragEvent event) {
+		if (event.getDragboard().hasFiles()) {
+			event.acceptTransferModes(TransferMode.ANY);
+		}
+	}
+	
+	public Image handleDrop(DragEvent event) throws FileNotFoundException {
+		List<File> files = event.getDragboard().getFiles();
+		Image img = new Image(new FileInputStream(files.get(0)));
+		ImageView imageView = new ImageView();
+		imageView.setImage(img);
+		return img;
+	}
+	
+	public void giveShapeDragBehavior(Shape shape) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		shape.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			}
+		});
+		shape.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				double changeX = event.getSceneX() - mousePosition.get().getX();
+				double changeY = event.getSceneY() - mousePosition.get().getY();
 
+				if (shape.getLayoutX() < 0) {
+					shape.setLayoutX(0);
+				} else {
+					shape.setLayoutX(shape.getLayoutX() + changeX);
+				}
+
+				if (shape.getLayoutY() < 0) {
+					shape.setLayoutY(0);
+				} else {
+					shape.setLayoutY(shape.getLayoutY() + changeY);
+				}
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			}
+		});
+	}
 
 
 }
