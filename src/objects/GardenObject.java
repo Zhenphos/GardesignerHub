@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 public abstract class GardenObject implements Serializable {
-	Shape shape;
+	DrawShape shape;
 	double xLoc;
 	double yLoc;
 
@@ -26,7 +26,7 @@ public abstract class GardenObject implements Serializable {
 	 * 
 	 * @return the shape of the object
 	 */
-	public Shape getShape() {
+	public DrawShape getShape() {
 		return shape;
 	}
 	

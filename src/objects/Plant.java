@@ -39,13 +39,10 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMin = hardinessMin;
 		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
-	}
-
-	/**
-	 * Default constructor for Plant
-	 */
-	public Plant() {
-		// TODO Auto-generated constructor stub
+		
+		shape = new DrawShape(null, 20);
+		shape.getCircle().setCenterX(30);
+		shape.getCircle().setCenterY(30);
 	}
 
 	String plantBotanicalName;
@@ -166,6 +163,20 @@ public class Plant extends GardenObject implements Serializable {
 	 */
 	public String getBloomColors() {
 		return bloomColors;
+	}
+	
+	public Plant copyOfPlant() {
+		Plant plant = new Plant(this.plantBotanicalName,
+		this.heightMinInches,
+		this.heightMaxInches,
+		this.spreadMin,
+		this.spreadMax,
+		this.spacingMin,
+		this.spacingMax,
+		this.hardinessMin,
+		this.hardinessMax,
+		this.bloomColors);
+		return plant;
 	}
 
 }

@@ -7,11 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 import enums.Names;
 import enums.Season;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -209,7 +211,12 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-
+		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				controller.onDragPlant(event);
+			}
+		});
 	}
 
 	/**
@@ -378,6 +385,9 @@ public class View {
 		for (GardenObject go : this.controller.loadMapObjects()) {
 			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
 				pane.getChildren().add(go.getShape().getPolygon());
+			
+			if (!(pane.getChildren().contains(go.getShape().getCircle())))
+				pane.getChildren().add(go.getShape().getCircle());
 		}
 	}
 
@@ -388,7 +398,7 @@ public class View {
 	 */
 	public void drawEditMap(Pane pane) {
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
 				pane.getChildren().add(go.getShape().getPolygon());
 		}
 	}

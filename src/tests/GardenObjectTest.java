@@ -15,8 +15,8 @@ public class GardenObjectTest { // TODO update
 	@Test
 	public void testMakeShape() {
 		System.out.println("Testing makeShape()");
-		Plant testObj = new Plant();
-		testObj.makeShape();
+		//Plant testObj = new Plant();
+		//testObj.makeShape();
 		//assertEquals(); don't know how to test this right now
 	}
 
