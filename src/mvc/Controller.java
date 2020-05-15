@@ -701,16 +701,17 @@ public class Controller extends Application {
 	}
 
 	
-	public static  class CustomComparator implements Comparator<Image> {
+	public static class CustomComparator implements Comparator<Image> {
 
 		@Override
 		public int compare(Image img, Image img2) {
-		
-			if(getIndex(img) > getIndex(img2)) {
+
+			if (getIndex(img) > getIndex(img2)) {
 				return 1;
-			}else if(getIndex(img) < getIndex(img2)) {
+			} else if (getIndex(img) < getIndex(img2)) {
 				return -1;
-			}else return 0;
+			} else
+				return 0;
 		}
 	}
 }

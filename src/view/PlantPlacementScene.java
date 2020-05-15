@@ -210,7 +210,6 @@ public class PlantPlacementScene extends Scene {
 		/**
 		 * Defines how each cell of plantlistview will be displayed
 		 */
-
 		plantListView.setCellFactory(lv -> new ListCell<>() {
 
 			private final ImageView imageView = new ImageView();
@@ -401,8 +400,5 @@ public class PlantPlacementScene extends Scene {
 		}
 		
 	}
-	
-	
-	
 	
 }
