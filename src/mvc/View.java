@@ -219,7 +219,7 @@ public class View {
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
 		scene.getUndoButton().setOnAction(event -> this.controller.onPlantPlacementUndo());
-
+		//scene.getGardenPane().setOnDragDetected(controller.handleDragOver());
 		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
