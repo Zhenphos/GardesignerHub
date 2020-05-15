@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.paint.ImagePattern;
@@ -72,7 +73,7 @@ public class Controller extends Application {
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
 				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-		//		images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+			//	images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
@@ -424,6 +425,56 @@ public class Controller extends Application {
 		}
 	}
 
+	/**
+	 * handles the dragged over event on the garden in plantplacementscene
+	 */
+	
+	public void handleDrag() {
+		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+
+		scene.getGardenPane().setOnDragOver(new EventHandler<DragEvent>(){
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+		        
+		            event.acceptTransferModes(TransferMode.COPY);
+		        
+		        event.consume();	
+			}
+		});
+	}
+	
+	
+	/**
+	 * Handles drag dropped event for garden
+	 * creates a copy of dropped images and adds it in the garden
+	 * 
+	 */
+	public void handleDrop(DragEvent event) {
+	PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+			 try {
+			Dragboard db = event.getDragboard();
+	        boolean success = false;
+	        if (db.hasString()) {
+	            System.out.println("Dropped: " + db.getString());
+	            success = true;
+	        }
+	        File file = db.getFiles().get(0);
+			Image img = new Image(new FileInputStream(file),100,100,true,true);
+			Plant customPlant = new Plant();
+			
+	        Circle circle = customPlant.getShape().getCircle();
+			circle.setFill(new ImagePattern(img));
+			scene.getGardenPane().getChildren().add(circle);
+			model.addGardenObject(customPlant);
+			giveShapeDragBehavior(circle);
+	        event.setDropCompleted(success);
+	        event.consume();
+	        } catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+	}
 
 	
 	

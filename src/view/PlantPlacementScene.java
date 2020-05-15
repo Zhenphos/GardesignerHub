@@ -46,7 +46,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
 import mvc.View;
-import objects.CustomPlant;
 import objects.Plant;
 
 /**
@@ -246,60 +245,6 @@ public class PlantPlacementScene extends Scene {
 			}
 		});
 		
-		
-		
-		/**
-		 * Handles onDragOver event for the garden
-		 */
-		
-
-		gardenPane.setOnDragOver(new EventHandler<DragEvent>(){
-
-			@Override
-			public void handle(DragEvent event) {
-				Dragboard db = event.getDragboard();
-		        
-		            event.acceptTransferModes(TransferMode.COPY);
-		        
-		        event.consume();	
-			}
-		});
-		
-		/**
-		 * Handles drag dropped event for garden
-		 * creates a copy of dropped images and adds it in the garden
-		 * 
-		 */
-		
-		gardenPane.setOnDragDropped(new EventHandler<DragEvent>() {
-
-			@Override
-			public void handle(DragEvent event) {
-				 try {
-				Dragboard db = event.getDragboard();
-		        boolean success = false;
-		        if (db.hasString()) {
-		            System.out.println("Dropped: " + db.getString());
-		            success = true;
-		        }
-		        File file = db.getFiles().get(0);
-				Image img = new Image(new FileInputStream(file),100,100,true,true);
-				CustomPlant customPlant = new CustomPlant();
-		        Circle circle = customPlant.getShape().getCircle();
-		        circle.setRadius(50);
-				circle.setFill(new ImagePattern(img));
-				gardenPane.getChildren().add(circle);
-				//model.addGardenObject(plant2);
-				giveShapeDragBehavior(circle);
-		        event.setDropCompleted(success);
-		        event.consume();
-		        } catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-			
-		});
-
 
 		// Display plant information in the right pane
 
@@ -480,12 +425,6 @@ public class PlantPlacementScene extends Scene {
 		return plantImages;
 	}
 
-	//	Collections.sort(plantImages, new Comparator<>() {
-	//	    @Override
-	//	    public int compare(MyObject o1, MyObject o2) {
-	//	        return o1.getStartDate().compareTo(o2.getStartDate());
-	//	    }
-	//	});
 
 	/**
 	 * static class to encapsulate both image and plant object in a single object
@@ -505,50 +444,6 @@ public class PlantPlacementScene extends Scene {
 			return image;
 		}
 
-	}
-
-	public void handleDrag(DragEvent event) {
-		if (event.getDragboard().hasFiles()) {
-			event.acceptTransferModes(TransferMode.ANY);
-		}
-	}
-	
-	public Image handleDrop(DragEvent event) throws FileNotFoundException {
-		List<File> files = event.getDragboard().getFiles();
-		Image img = new Image(new FileInputStream(files.get(0)));
-		ImageView imageView = new ImageView();
-		imageView.setImage(img);
-		return img;
-	}
-	
-	public void giveShapeDragBehavior(Shape shape) {
-		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
-		shape.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-			}
-		});
-		shape.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				double changeX = event.getSceneX() - mousePosition.get().getX();
-				double changeY = event.getSceneY() - mousePosition.get().getY();
-
-				if (shape.getLayoutX() < 0) {
-					shape.setLayoutX(0);
-				} else {
-					shape.setLayoutX(shape.getLayoutX() + changeX);
-				}
-
-				if (shape.getLayoutY() < 0) {
-					shape.setLayoutY(0);
-				} else {
-					shape.setLayoutY(shape.getLayoutY() + changeY);
-				}
-				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
-			}
-		});
 	}
 
 }

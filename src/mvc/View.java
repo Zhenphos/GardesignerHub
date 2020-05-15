@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -52,7 +53,7 @@ public class View {
 
 	// GUI Styling Constants
 	public static final Background BACKGROUND = new Background(
-			new BackgroundFill(Paint.valueOf("#24b300"), CornerRadii.EMPTY, Insets.EMPTY));
+	new BackgroundFill(Paint.valueOf("#24b300"), CornerRadii.EMPTY, Insets.EMPTY));
 	public static final String TITLE_LABEL_STYLE = "-fx-font: 64 arial;";
 	public static final String HEADER_LABEL_STYLE = "-fx-font: 48 arial;";
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 20 arial;";
@@ -226,6 +227,19 @@ public class View {
 				controller.onDragPlant(event);
 			}
 		});
+		
+		scene.getGardenPane().setOnDragOver(event -> this.controller.handleDrag());
+//		scene.getGardenPane().setOnDragDropped(event -> this.controller.handleDrop());
+		scene.getGardenPane().addEventHandler(DragEvent.DRAG_DROPPED, new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				// TODO Auto-generated method stub
+				controller.handleDrop(event);
+			}
+			
+		});
+		//scene.getGardenPane()
 	}
 
 	/**

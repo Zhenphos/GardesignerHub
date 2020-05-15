@@ -57,6 +57,10 @@ public class Plant extends GardenObject implements Serializable {
 
 	public Plant() {
 		// TODO Auto-generated constructor stub
+		shape = new DrawShape(null, defaultRadius);
+		shape.getCircle().setCenterX(defaultRadius * 2);
+		shape.getCircle().setCenterY(defaultRadius * 2);
+		
 	}
 
 	String plantBotanicalName;
