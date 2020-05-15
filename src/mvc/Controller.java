@@ -69,7 +69,7 @@ public class Controller extends Application {
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
 				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+		//		images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
