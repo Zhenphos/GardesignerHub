@@ -1,7 +1,9 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import javafx.scene.paint.Color;
+import objects.Road;
 
 /**
  * RoadTest for Gardendesigner Hub. Tests Road class.
@@ -10,11 +12,12 @@ import org.junit.Test;
  *
  */
 
-public class RoadTest { // TODO update
+public class RoadTest {
 
 	@Test
 	public void testMakeShape() {
-		fail("Not yet implemented"); // TODO
+		Road road = new Road();
+		assertEquals(road.getShape().shape.getFill(), Color.LIGHTYELLOW);
 	}
 
 }
