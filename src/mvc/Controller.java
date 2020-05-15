@@ -12,7 +12,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -69,7 +72,7 @@ public class Controller extends Application {
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
 				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+		//		images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
@@ -80,7 +83,7 @@ public class Controller extends Application {
 		return images;
 	}
 
-	
+
 	/**
 	 * Imports plant data
 	 * 
@@ -399,12 +402,12 @@ public class Controller extends Application {
 				giveShapeDragBehavior(circle);
 			}
 			scene.getNameValue().setText(p.getPlantBotanicalName());
-			
+
 			if (p.getHeightMaxInches() == -1)
 				scene.getHeightValue().setText("No Data");
 			else
 				scene.getHeightValue().setText(Integer.toString(p.getHeightMaxInches()));
-	
+
 			if (p.getSpacingMax() == -1)
 				scene.getSpacingValue().setText("No Data");
 			else
@@ -418,13 +421,17 @@ public class Controller extends Application {
 			event.consume();
 		} catch (NullPointerException e) {
 			scene.getErrorLabel().setText("No Data found for this plant");
-	
+
 		} catch (ClassCastException e) {
 			scene.getErrorLabel().setText("Please click on plant's name instead of picture");
 			System.out.println(event.getTarget().toString());
 		}
 	}
 
+
+	
+	
+	
 	/**
 	 * Creates a polygon for shade and adds it to the garden model
 	 */
@@ -436,6 +443,9 @@ public class Controller extends Application {
 		createDrawPolyDraggable(scene, polygon);
 	}
 
+	/**
+	 * handles undo button on DrawScene
+	 */
 	public void onDrawUndo() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
@@ -448,6 +458,24 @@ public class Controller extends Application {
 			}
 		}
 	}
+	
+	/**
+	 * handles undo button on plantplacement
+	 */
+
+	public void onPlantPlacementUndo() {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		if (!(scene.getGardenPane().getChildren().isEmpty())) {
+
+			scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
+
+			int i = this.model.getGardenObjects().size() - 1;
+			while (removeLastObject(i)) {
+				i--;
+			}
+		}
+	}
+	
 	
 	/**
 	 * 
@@ -510,7 +538,7 @@ public class Controller extends Application {
 			plant.changePlantSize(age);
 		}
 	}
-	
+
 	/**
 	 * Event handler to change the appearance of the circles based on time and season
 	 */
@@ -682,7 +710,7 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
-	
+
 	/**
 	 * Loads the plant objects on the map
 	 * 
@@ -707,13 +735,11 @@ public class Controller extends Application {
 		int index = Integer.parseInt(s2[1]);
 		return index;
 	}
-
 	
 	public static class CustomComparator implements Comparator<Image> {
 
 		@Override
 		public int compare(Image img, Image img2) {
-
 			if (getIndex(img) > getIndex(img2)) {
 				return 1;
 			} else if (getIndex(img) < getIndex(img2)) {

@@ -67,7 +67,10 @@ public class View {
 	public static final String EDIT_BUTTON_TEXT = "Edit";
 
 	// Images
+	//public static final Image STAR_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/star.png");
+
 	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
+	//public static final Image LOGO_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/Logo.png");
 	public static final Image LOGO_IMAGE = View.createImage("resources/Logo.png");
 
 	// Dialog Text
@@ -215,6 +218,8 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
+		scene.getUndoButton().setOnAction(event -> this.controller.onPlantPlacementUndo());
+		//scene.getGardenPane().setOnDragDetected(controller.handleDragOver());
 		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

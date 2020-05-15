@@ -55,6 +55,10 @@ public class Plant extends GardenObject implements Serializable {
 		}
 	}
 
+	public Plant() {
+		// TODO Auto-generated constructor stub
+	}
+
 	String plantBotanicalName;
 	int heightMinInches;
 	int heightMaxInches;

@@ -1,7 +1,10 @@
 package view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -28,13 +32,21 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
 import mvc.View;
+import objects.CustomPlant;
 import objects.Plant;
 
 /**
@@ -45,65 +57,68 @@ import objects.Plant;
  */
 
 public class PlantPlacementScene extends Scene {
+	static Group root = new Group();
+	BorderPane Pane = new BorderPane();
+	HBox topPane = new HBox(5);
+	VBox leftPane = new VBox(5);
+	Pane gardenPane = new Pane();
+	private BorderPane container;
+	private GridPane grid = new GridPane();
+
+
 	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
+	public static final String UNDO_BUTTON_TEXT = "Undo";
+
 	public static final int TOP_MAX_HEIGHT = 150;
 	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
 	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
 	public static final Insets GRID_PADDING = new Insets(10, 0, 0, 10);
 	public static final int HGAP = 10;
 	public static final int VGAP = 10;
-
 	public static final String BORDER_STYLE = "-fx-border-color: black";
-	private Button btnPrev, btnNext;
+	private Button btnPrev, btnNext, btnUndo;
 
-	static Group root = new Group();
+
 	public Controller imc;
 	private int indexOfPlant=0;
 
 	private ArrayList<Plant> allPlants = Controller.importPlants();
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
-	private Map<Plant, ImageView> infoImageMap ;
 
-	private Pane gardenPane = new Pane();
-	
+
 	private Label error = createLabel("");
 	private Label nameValue = createLabel("");
 	private Label heightValue = createLabel("");
 	private Label spacingValue = createLabel("");
 	private Label hardinessValue = createLabel("");
 	private Label colorsValue = createLabel("");
-	
+
 	public Label getErrorLabel() {
 		return error;
 	}
-	
+
 	public Label getNameValue() {
 		return nameValue;
 	}
-	
+
 	public Label getHeightValue() {
 		return heightValue;
 	}
-	
+
 	public Label getSpacingValue() {
 		return spacingValue;
 	}
-	
+
 	public Label getHardinessValue() {
 		return hardinessValue;
 	}
-	
+
 	public Label getColorsValue() {
 		return colorsValue;
 	}
-
-
-	private BorderPane container;
-
-	private GridPane grid;
 
 	/**
 	 * Constructor for PlantPlacementScene. Formats the panes and buttons and
@@ -116,6 +131,9 @@ public class PlantPlacementScene extends Scene {
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
+		//this.btnUndo = this.createButton(leftPane, "Undo", UNDO_IMAGE);
+		this.btnUndo = new Button("undo");
+		grid.add(btnUndo, 0, 6);
 		imc = new Controller(this);
 		placePlant();
 
@@ -135,7 +153,11 @@ public class PlantPlacementScene extends Scene {
 		this.container.setBottom(buttons);
 	}
 
+	
+	
 
+	
+	
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
 	 * plants onto the garden space they drew previously.
@@ -147,9 +169,7 @@ public class PlantPlacementScene extends Scene {
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
 
-		BorderPane Pane = new BorderPane();
-		HBox topPane = new HBox(5);
-		VBox leftPane = new VBox(5);
+
 
 		gardenPane.setPrefHeight(CENTER_HEIGHT);
 		gardenPane.setPrefWidth(CENTER_WIDTH);
@@ -160,7 +180,6 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(Pane);
 
 		BorderPane.setMargin(topPane, new Insets(10, 10, 10, 10));
-		//borderPane.setMinHeight(500);
 
 		Pane.setTop(topPane);
 		Pane.setLeft(leftPane);
@@ -168,7 +187,7 @@ public class PlantPlacementScene extends Scene {
 		topPane.getChildren().add(plantListView);
 		plantListView.setMinWidth(TOP_MIN_WIDTH);
 		plantListView.setMaxHeight(TOP_MAX_HEIGHT);
-		grid = new GridPane();
+
 		grid.setHgap(HGAP);
 		grid.setVgap(VGAP);
 		grid.setPadding(GRID_PADDING);
@@ -187,13 +206,10 @@ public class PlantPlacementScene extends Scene {
 
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-		//ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
-		//FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
-		//plantListView.setItems(filteredList);
+
 		System.out.println(allPlants.size());
 		System.out.println(plantImages.size());
 
-		//plantImages.sort((ImageView i1, ImageView i2)-> getIndex(i1.getImage()).compareTo(getIndex(i2.getImage())));
 		for (int i = 0 ; i < allPlants.size(); i++)  {
 			Image image = null ;
 			if (i <plantImages.size()) {
@@ -202,15 +218,11 @@ public class PlantPlacementScene extends Scene {
 			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
 		}
 
-		//PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
-		//plantListView.getItems().setAll(allPlants);
-		//plantListView((PlantWithImage p1, PlantWithImage p2) -> compare(p1.getImage(),p2.getImage()));
-		//Collections.sort(plantListView, new CustomComparator());
-		
+
 		/**
 		 * Defines how each cell of plantlistview will be displayed
 		 */
-		plantListView.setCellFactory(lv -> new ListCell<>() {
+		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>() {
 
 			private final ImageView imageView = new ImageView();
 
@@ -229,8 +241,63 @@ public class PlantPlacementScene extends Scene {
 					setText(plantWithImage.getPlant().toString());
 					imageView.setImage(plantWithImage.getImage());
 					setGraphic(imageView);
+
 				}
 			}
+		});
+		
+		
+		
+		/**
+		 * Handles onDragOver event for the garden
+		 */
+		
+
+		gardenPane.setOnDragOver(new EventHandler<DragEvent>(){
+
+			@Override
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+		        
+		            event.acceptTransferModes(TransferMode.COPY);
+		        
+		        event.consume();	
+			}
+		});
+		
+		/**
+		 * Handles drag dropped event for garden
+		 * creates a copy of dropped images and adds it in the garden
+		 * 
+		 */
+		
+		gardenPane.setOnDragDropped(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				 try {
+				Dragboard db = event.getDragboard();
+		        boolean success = false;
+		        if (db.hasString()) {
+		            System.out.println("Dropped: " + db.getString());
+		            success = true;
+		        }
+		        File file = db.getFiles().get(0);
+				Image img = new Image(new FileInputStream(file),100,100,true,true);
+				CustomPlant customPlant = new CustomPlant();
+		        Circle circle = customPlant.getShape().getCircle();
+		        circle.setRadius(50);
+				circle.setFill(new ImagePattern(img));
+				gardenPane.getChildren().add(circle);
+				//model.addGardenObject(plant2);
+				giveShapeDragBehavior(circle);
+		        event.setDropCompleted(success);
+		        event.consume();
+		        } catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		});
 
 
@@ -318,6 +385,25 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
+	 * overloaded method of createButton, takes the container to put, name and image
+	 * @param pane
+	 * @param text
+	 * @param image
+	 * @return button
+	 */
+	private Button createButton(Pane pane, String text, Image image) {
+		Button button = new Button(text);
+		button.setMaxWidth(Double.MAX_VALUE);
+		ImageView view = new ImageView(image);
+		view.setPreserveRatio(true);
+		view.setFitHeight(View.HEIGHT / 10f);
+		VBox box = new VBox(button, view);
+		box.setAlignment(Pos.CENTER);
+		pane.getChildren().add(box);
+		return button;
+	}
+
+	/**
 	 * Gets the next button
 	 * 
 	 * @return the next button
@@ -335,6 +421,14 @@ public class PlantPlacementScene extends Scene {
 		return this.btnPrev;
 	}
 
+	/**
+	 * Gets the delete button
+	 * 
+	 * @return the delete button
+	 */
+	public Button getUndoButton() {
+		return this.btnUndo;
+	}
 
 	/**
 	 * Gets the plantListView
@@ -353,37 +447,49 @@ public class PlantPlacementScene extends Scene {
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
-	
+	/**
+	 * get the list of all plant objects
+	 * @return allPlants
+	 */
 	public ArrayList<Plant> getAllPlants() {
 		return allPlants;
 	}
-	
+
+	/**
+	 * get the index of plant clicked
+	 * @return indexOfPlant
+	 */
+
 	public int getIndexOfPlant() {
 		return indexOfPlant;
 	}
-	
+
+	/**
+	 * set the index of plant clicked
+	 * @param index
+	 */
 	public void setIndexOfPlant(int index) {
 		indexOfPlant = index;
 	}
-	
+
+	/**
+	 * get the list of all plant images
+	 * @return plantImages
+	 */
 	public ArrayList<Image> getPlantImages() {
 		return plantImages;
 	}
 
+	//	Collections.sort(plantImages, new Comparator<>() {
+	//	    @Override
+	//	    public int compare(MyObject o1, MyObject o2) {
+	//	        return o1.getStartDate().compareTo(o2.getStartDate());
+	//	    }
+	//	});
 
-//	Collections.sort(plantImages, new Comparator<>() {
-//	    @Override
-//	    public int compare(MyObject o1, MyObject o2) {
-//	        return o1.getStartDate().compareTo(o2.getStartDate());
-//	    }
-//	});
-	
-/**
- * static class to encapsulate both image and plant object in a single object
- * 
- * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
- *
- */
+	/**
+	 * static class to encapsulate both image and plant object in a single object
+	 */
 	private static class PlantWithImage{
 		private final Plant plant ;
 		private final Image image ;
@@ -398,7 +504,51 @@ public class PlantPlacementScene extends Scene {
 		public Image getImage() {
 			return image;
 		}
-		
+
+	}
+
+	public void handleDrag(DragEvent event) {
+		if (event.getDragboard().hasFiles()) {
+			event.acceptTransferModes(TransferMode.ANY);
+		}
 	}
 	
+	public Image handleDrop(DragEvent event) throws FileNotFoundException {
+		List<File> files = event.getDragboard().getFiles();
+		Image img = new Image(new FileInputStream(files.get(0)));
+		ImageView imageView = new ImageView();
+		imageView.setImage(img);
+		return img;
+	}
+	
+	public void giveShapeDragBehavior(Shape shape) {
+		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
+		shape.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			}
+		});
+		shape.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				double changeX = event.getSceneX() - mousePosition.get().getX();
+				double changeY = event.getSceneY() - mousePosition.get().getY();
+
+				if (shape.getLayoutX() < 0) {
+					shape.setLayoutX(0);
+				} else {
+					shape.setLayoutX(shape.getLayoutX() + changeX);
+				}
+
+				if (shape.getLayoutY() < 0) {
+					shape.setLayoutY(0);
+				} else {
+					shape.setLayoutY(shape.getLayoutY() + changeY);
+				}
+				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
+			}
+		});
+	}
+
 }

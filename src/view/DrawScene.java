@@ -32,6 +32,14 @@ public class DrawScene extends Scene {
 	private static final Image WOODS_IMAGE = View.createImage("resources/forest.png");
 	private static final Image SHADE_IMAGE = View.createImage("resources/shade.png");
 	private static final Image UNDO_IMAGE = View.createImage("resources/delete.png");
+	
+//	private static final Image GRASS_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/grass.png");
+//	private static final Image ROAD_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/road.png");
+//	private static final Image STREAM_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/stream.png");
+//	private static final Image WOODS_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/forest.png");
+//	private static final Image SHADE_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/shade.png");
+//	private static final Image UNDO_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/delete.png");
+	
 
 	private static final String GARDEN_PANE_STYLE = "-fx-border-color: black;";
 
