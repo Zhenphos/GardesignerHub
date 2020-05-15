@@ -70,6 +70,11 @@ public class Plant extends GardenObject implements Serializable {
 	int hardinessMax;
 	String bloomColors;
 
+	/**
+	 * Changes the plant's size based on how many years its aged
+	 * 
+	 * @param age the number of years the plant has aged
+	 */
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3/4;

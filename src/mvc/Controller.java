@@ -373,11 +373,7 @@ public class Controller extends Application {
 	 * Handles the click events, single click on plant name displays the information in right panel
 	 * double click puts the plant image on the garden
 	 * 
-<<<<<<< HEAD
 	 * @param event the MouseEvent on the plant
-=======
-	 * @param event The MouseEvent on the plant
->>>>>>> d596d461dd4b49eb6795df8417cad9a1f2789fd5
 	 */
 	public void onDragPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
