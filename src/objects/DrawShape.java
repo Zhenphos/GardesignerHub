@@ -15,7 +15,7 @@ import javafx.scene.shape.Polygon;
 public class DrawShape implements Serializable {
 	private static final double defaultSize = 100;
 
-	SerializablePolygon shape = new SerializablePolygon();
+	public SerializablePolygon shape = new SerializablePolygon();
 	Circle circle = new Circle();
 
 	/**

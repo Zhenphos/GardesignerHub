@@ -1,7 +1,9 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import javafx.scene.paint.Color;
+import objects.Shade;
 
 /**
  * ShadeTest for Gardendesigner Hub. Tests Shade class.
@@ -10,11 +12,12 @@ import org.junit.Test;
  *
  */
 
-public class ShadeTest { // TODO update
+public class ShadeTest {
 
 	@Test
 	public void testMakeShape() {
-		fail("Not yet implemented"); // TODO
+		Shade shade = new Shade();
+		assertEquals(shade.getShape().shape.getFill(), Color.GREY);
 	}
 
 }

@@ -1,7 +1,9 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import javafx.scene.paint.Color;
+import objects.Stream;
 
 /**
  * StreamTest for Gardendesigner Hub. Tests Stream class.
@@ -10,11 +12,12 @@ import org.junit.Test;
  *
  */
 
-public class StreamTest { // TODO update
+public class StreamTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented"); // TODO
+	public void testMakeShape() {
+		Stream stream = new Stream();
+		assertEquals(stream.getShape().shape.getFill(), Color.LIGHTBLUE);
 	}
 
 }
