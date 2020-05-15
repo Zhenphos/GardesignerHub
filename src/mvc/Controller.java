@@ -68,8 +68,8 @@ public class Controller extends Application {
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
-				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+				images.add(View.createImage("resources/plant-images/" + file.getName()));
+				//images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName()));
 
 			}
 		}
@@ -379,8 +379,6 @@ public class Controller extends Application {
 	 * double click puts the plant image on the garden
 	 * 
 	 * @param event The MouseEvent on the plant
-	 * 
-	 * @author Hamza, Jason
 	 */
 	public void onDragPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
@@ -442,7 +440,6 @@ public class Controller extends Application {
 		createDrawPolyDraggable(scene, polygon);
 	}
 
-	// TODO add delete functionality
 	public void onDrawUndo() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
@@ -500,6 +497,11 @@ public class Controller extends Application {
 	 */
 	public void onTimesSetSeason(Season season) {
 		this.model.setSeason(season);
+		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+		System.out.println(season.name());
+		for (Plant plant : model.getPlantObjects()) {
+			plant.getShape().getCircle().setFill(view.generateImage(scene.getPlantImages().get(scene.getIndexOfPlant()), season));
+		}
 	}
 
 	/**

@@ -18,6 +18,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
@@ -326,20 +328,6 @@ public class View {
 		Image someImage = new Image(new File(pathToFile).toURI().toString());
 		return someImage;
 	}
-	/**
-	 * 
-	 * @param pathToFile
-	 * @param width
-	 * @param height
-	 * @param ratio
-	 * @param smooth
-	 * @return
-	 */
-	
-	public static Image createImage(String pathToFile, int width, int height, boolean ratio, boolean smooth) {
-		Image someImage = new Image(new File(pathToFile).toURI().toString(), width, height, ratio, smooth);
-		return someImage;
-	}
 
 	/**
 	 * Draws the map out for the user to see
@@ -359,8 +347,26 @@ public class View {
 	 * @param season    the season in which the plant is shown
 	 * @return an ImageView of the plant
 	 */
-	public ImageView generateView(String plantName, int year, Season season) {
-		return null;
+	public Paint generateImage(Image image, Season season) {
+		Paint p;
+		switch (season) {
+		case SPRING: 
+			p = Color.YELLOW;
+			break;
+		case SUMMER:
+			p = new ImagePattern(image);
+			break;
+		case FALL:
+			p = Color.DARKORANGE;
+			break;
+		case WINTER:
+			p = Color.FLORALWHITE;
+			break;
+		default:
+			p = null;
+			break;
+		}
+		return p;
 	}
 
 	/**
