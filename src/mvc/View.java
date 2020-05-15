@@ -356,7 +356,7 @@ public class View {
 	 * @param height
 	 * @param ratio
 	 * @param smooth
-	 * @return
+	 * @return the created image
 	 */
 
 	public static Image createImage(String pathToFile, int width, int height, boolean ratio, boolean smooth) {
@@ -433,6 +433,7 @@ public class View {
 	public static int getCanvasHeight() {
 		return HEIGHT;
 	}
+	
 	/**
 	 * Draws anything in the map that is not already there
 	 * 
