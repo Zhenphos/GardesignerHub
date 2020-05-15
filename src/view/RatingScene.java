@@ -75,7 +75,7 @@ public class RatingScene extends Scene {
 		this.container.setTop(this.lblHeader);
 		this.container.setCenter(center);
 		this.container.setBottom(buttons);
-		this.setRating(5);
+		this.setRating(4);
 
 	}
 

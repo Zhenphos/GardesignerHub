@@ -509,6 +509,19 @@ public class Controller extends Application {
 	 */
 	public void onTimesSetAge(double age) {
 		this.model.setAge(age);
+		System.out.println(age);
+		for (Plant plant : model.getPlantObjects()) {
+			plant.changePlantSize(age);
+		}
+	}
+	
+	/**
+	 * Event handler to change the appearance of the circles based on time and season
+	 */
+	public void changePlantStatus(Plant plant) {
+		plant.changePlantSize(this.model.getAge());
+		//this.model.getSeason();
+
 	}
 
 	/**

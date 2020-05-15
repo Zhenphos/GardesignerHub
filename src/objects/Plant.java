@@ -2,6 +2,8 @@ package objects;
 
 import java.io.Serializable;
 
+import enums.Season;
+
 /**
  * Plant class for Gardendesigner Hub
  * 
@@ -10,6 +12,8 @@ import java.io.Serializable;
  */
 
 public class Plant extends GardenObject implements Serializable {
+	
+	public static final int defaultRadius = 20;
 
 	/**
 	 * Constructor for Plant. Creates a plant and sets its characteristics,
@@ -40,9 +44,15 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
 		
-		shape = new DrawShape(null, 20);
-		shape.getCircle().setCenterX(30);
-		shape.getCircle().setCenterY(30);
+		if (spreadMin != -1) {
+			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape.getCircle().setCenterX(this.spreadMin * 4);
+			shape.getCircle().setCenterY(this.spreadMin * 4);
+		} else {
+			shape = new DrawShape(null, defaultRadius);
+			shape.getCircle().setCenterX(defaultRadius * 2);
+			shape.getCircle().setCenterY(defaultRadius * 2);
+		}
 	}
 
 	String plantBotanicalName;
@@ -56,6 +66,11 @@ public class Plant extends GardenObject implements Serializable {
 	int hardinessMax;
 	String bloomColors;
 
+	public void changePlantSize(double age) {
+		double growthRate = (spacingMax - spacingMin) * 1/4;
+		shape.getCircle().setRadius((spacingMin * 3) + (growthRate * age));
+	}
+	
 	/**
 	 * Gets the minimum hardiness of the plant
 	 * 
