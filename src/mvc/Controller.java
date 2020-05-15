@@ -80,7 +80,7 @@ public class Controller extends Application {
 		return images;
 	}
 
-	
+
 	/**
 	 * Imports plant data
 	 * 
@@ -403,12 +403,12 @@ public class Controller extends Application {
 				giveShapeDragBehavior(circle);
 			}
 			scene.getNameValue().setText(p.getPlantBotanicalName());
-			
+
 			if (p.getHeightMaxInches() == -1)
 				scene.getHeightValue().setText("No Data");
 			else
 				scene.getHeightValue().setText(Integer.toString(p.getHeightMaxInches()));
-	
+
 			if (p.getSpacingMax() == -1)
 				scene.getSpacingValue().setText("No Data");
 			else
@@ -422,12 +422,14 @@ public class Controller extends Application {
 			event.consume();
 		} catch (NullPointerException e) {
 			scene.getErrorLabel().setText("No Data found for this plant");
-	
+
 		} catch (ClassCastException e) {
 			scene.getErrorLabel().setText("Please click on plant's name instead of picture");
 			System.out.println(event.getTarget().toString());
 		}
 	}
+
+
 
 	/**
 	 * Creates a polygon for shade and adds it to the garden model
@@ -452,7 +454,20 @@ public class Controller extends Application {
 			}
 		}
 	}
-	
+
+	public void onPlantPlacementUndo() {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		if (!(scene.getGardenPane().getChildren().isEmpty())) {
+
+			scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
+
+			int i = this.model.getGardenObjects().size() - 1;
+			while (removeLastObject(i)) {
+				i--;
+			}
+		}
+	}
+
 	/**
 	 * 
 	 * @param i the index of the object that will be removed from the model
@@ -516,7 +531,7 @@ public class Controller extends Application {
 			plant.changePlantSize(age);
 		}
 	}
-	
+
 	/**
 	 * Event handler to change the appearance of the circles based on time and season
 	 */
@@ -692,7 +707,7 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
-	
+
 	/**
 	 * Loads the plant objects on the map
 	 * 
@@ -718,12 +733,12 @@ public class Controller extends Application {
 		return index;
 	}
 
-	
+
 	public static  class CustomComparator implements Comparator<Image> {
 
 		@Override
 		public int compare(Image img, Image img2) {
-		
+
 			if(getIndex(img) > getIndex(img2)) {
 				return 1;
 			}else if(getIndex(img) < getIndex(img2)) {
