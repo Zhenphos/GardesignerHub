@@ -1,57 +1,31 @@
 package view;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import javafx.geometry.*;
-import enums.Names;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
+import java.util.Map;
+
+
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import mvc.View;
 import objects.Plant;
-
-import objects.Woods;
 
 /**
  * 
@@ -60,47 +34,95 @@ import objects.Woods;
  */
 
 public class PlantPlacementScene extends Scene {
-	private static final int VBOX_MIN_WIDTH = View.getCanvasWidth()-20;
+	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
+	public static final int TOP_MAX_HEIGHT = 150;
+	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
+	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
+	public static final Insets GRID_PADDING = new Insets(10, 0, 0, 10);
+	public static final int HGAP = 10;
+	public static final int VGAP = 10;
+
+	public static final String BORDER_STYLE = "-fx-border-color: black";
+	private Button btnPrev, btnNext;
 
 	static Group root = new Group();
 	public Controller imc;
-	public ImageView imageView01;
-	public ImageView iv2;
-	public ImageView imageview[] = new ImageView [10];
-	public ImageView plantClicked;
-	int indexOfPlant=0;
-	boolean doubleClick=false;
+	private int indexOfPlant=0;
 
-	ArrayList <ImageView> plantImages = Controller.importImages();
-	ListView<Plant> plantListView = new ListView<Plant>();
+	private ArrayList<Plant> allPlants = Controller.importPlants();
+	private ArrayList<Image> plantImages = Controller.importImages();
+	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
+	private Map<Plant, ImageView> infoImageMap ;
 
-
-	HBox imageBar = new HBox(10);
 	private Pane gardenPane = new Pane();
-
-	public Image images[] = new Image[10];
-	public final double WIDTH = 1000; //800;
-	public final double HEIGHT = 750; //600;
-	public int numCopies = 0;
-	private Button btnPrev, btnNext;
-
-	public Pane getGardenPane() {
-		return this.gardenPane;
+	
+	private Label error = createLabel("");
+	private Label nameValue = createLabel("");
+	private Label heightValue = createLabel("");
+	private Label spacingValue = createLabel("");
+	private Label hardinessValue = createLabel("");
+	private Label colorsValue = createLabel("");
+	
+	public Label getErrorLabel() {
+		return error;
 	}
 	
+	public Label getNameValue() {
+		return nameValue;
+	}
+	
+	public Label getHeightValue() {
+		return heightValue;
+	}
+	
+	public Label getSpacingValue() {
+		return spacingValue;
+	}
+	
+	public Label getHardinessValue() {
+		return hardinessValue;
+	}
+	
+	public Label getColorsValue() {
+		return colorsValue;
+	}
+
+
+	private BorderPane container;
+
+	private GridPane grid;
+/**
+ * constructor
+ */
+
 	public PlantPlacementScene() {
-		super(root);
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
-		
-	
 		imc = new Controller(this);
 		placePlant();
+
+		this.container.setMinSize(View.WIDTH, View.HEIGHT);
+		this.container.setTop(this.plantListView);
+
+
+		HBox center = new HBox(this.grid, this.gardenPane);
+		center.setBackground(View.BACKGROUND);
+		HBox.setHgrow(this.gardenPane, Priority.ALWAYS);
+		this.container.setCenter(center);
+
+
+		HBox buttons = new HBox(this.btnPrev, this.btnNext);
+		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
+		HBox.setHgrow(this.btnNext, Priority.ALWAYS);
+		this.container.setBottom(buttons);
 	}
+
 
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
@@ -112,101 +134,97 @@ public class PlantPlacementScene extends Scene {
 		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-				
-		imageView01.setPreserveRatio(true);
-		imageView01.setFitHeight(100);
 
 		BorderPane Pane = new BorderPane();
-		HBox leftVbox = new HBox(5);
-		VBox rightPane = new VBox(5);
-		
-		gardenPane.setPrefHeight(View.getCanvasHeight() * 3/5);
-		gardenPane.setPrefWidth(View.getCanvasWidth() * (3/4)-20);
-		gardenPane.setStyle("-fx-border-color: black");
+		HBox topPane = new HBox(5);
+		VBox leftPane = new VBox(5);
+
+		gardenPane.setPrefHeight(CENTER_HEIGHT);
+		gardenPane.setPrefWidth(CENTER_WIDTH);
+		gardenPane.setStyle(BORDER_STYLE);
 		Pane.setMargin(gardenPane, new Insets(10,10,10,10));
-		leftVbox.setMinSize(View.getCanvasWidth()-20, 150);
-		
+		topPane.setMinSize(View.getCanvasWidth()-20, 150);
+
 		root.getChildren().add(Pane);
-		
-		BorderPane.setMargin(leftVbox, new Insets(10, 10, 10, 10));
-		
-		Pane.setTop(leftVbox);
-		Pane.setLeft(rightPane);
+
+		BorderPane.setMargin(topPane, new Insets(10, 10, 10, 10));
+		//borderPane.setMinHeight(500);
+
+		Pane.setTop(topPane);
+		Pane.setLeft(leftPane);
 		Pane.setCenter(gardenPane);
-		
-		GridPane grid = new GridPane();
-	    grid.setHgap(10);
-	    grid.setVgap(10);
-	    grid.setPadding(new Insets(10, 0, 0, 10));
-	    rightPane.getChildren().add(grid);
-	    rightPane.setMaxWidth(250);
-	    rightPane.setMinWidth(250);
-	    rightPane.setStyle("-fx-border-color: black");
-	    VBox.setMargin(rightPane, new Insets(10,10,10,10));
-	    GridPane.setHgrow(grid, Priority.NEVER);		//border.setCenter(center);
+		topPane.getChildren().add(plantListView);
+		plantListView.setMinWidth(TOP_MIN_WIDTH);
+		plantListView.setMaxHeight(TOP_MAX_HEIGHT);
+		grid = new GridPane();
+		grid.setHgap(HGAP);
+		grid.setVgap(VGAP);
+		grid.setPadding(GRID_PADDING);
+		leftPane.getChildren().add(grid);
+		leftPane.setMaxWidth(250);
+		leftPane.setMinWidth(250);
+		leftPane.setStyle(BORDER_STYLE);
+		VBox.setMargin(leftPane, new Insets(10,10,10,10));
+		GridPane.setHgrow(grid, Priority.NEVER);
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
-		leftVbox.setAlignment(Pos.CENTER);
-		btnNext = createNextButton();
-		btnPrev = createPrevButton();
-		root.getChildren().addAll(btnPrev, btnNext);
-		
-		// testing plant import in here
-		ArrayList<Plant> allPlants = Controller.importPlants();
-		System.out.print(allPlants.size());
-	
-		plantListView.setMinWidth(View.getCanvasWidth()-20);
-		plantListView.setMaxHeight(150);
-		
+		topPane.setAlignment(Pos.CENTER);
+
+
+
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-	    ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
+		//ObservableList<Plant> rawData = FXCollections.observableArrayList(allPlants);
+		//FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
+		//plantListView.setItems(filteredList);
+		System.out.println(allPlants.size());
+		System.out.println(plantImages.size());
 
-	    FilteredList<Plant> filteredList= new FilteredList<>(rawData, data -> true);
-	    
-		/*plantListView.setCellFactory(param -> new ListCell<Plant>() {
-			private ImageView imageview = new ImageView();
-			
-			@Override
-			public void updateItem(Plant plant, boolean empty) {
-				super.updateItem(plant, empty);
-				if (empty) {
-					setText("empty");
-					setGraphic(null);
-				} else {
+		//plantImages.sort((ImageView i1, ImageView i2)-> getIndex(i1.getImage()).compareTo(getIndex(i2.getImage())));
+		for (int i = 0 ; i < allPlants.size(); i++)  {
+			Image image = null ;
+			if (i <plantImages.size()) {
+				image = plantImages.get(i);
+			}
+			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
+		}
 
-					if (runCount.get() >= plantImages.size()) {
-						runCount.set(0);
-					}
+		//PlantWithImage p= new PlantWithImage(allPlants.get(200), plantImages.get(200));
+		//plantListView.getItems().setAll(allPlants);
+		//plantListView((PlantWithImage p1, PlantWithImage p2) -> compare(p1.getImage(),p2.getImage()));
+		//Collections.sort(plantListView, new CustomComparator());
+		
+		/**
+		 * Defines how each cell of plantlistview will be displayed
+		 */
 
-					imageview.setImage(plantImages.get(runCount.get()).getImage());
-					imageview.maxWidth(70);
-					imageview.minWidth(70);
-					imageview.maxHeight(70);
-					imageview.minHeight(70);
-					setText(allPlants.get(i+1).toString());
-					imageview.setFitHeight(100);
-					imageview.isPreserveRatio();
-					setGraphic(imageview);
-					runCount.getAndIncrement();
+		plantListView.setCellFactory(lv -> new ListCell<>() {
+
+			private final ImageView imageView = new ImageView();
+
+			{
+				setPrefHeight(100);
 			}
 
-		}));*/
-	    TextField searchBox = new TextField();
-	    
-	  
-	    Label label = new Label();
-	    leftVbox.getChildren().addAll(plantListView, label);
-        plantListView.setItems(filteredList);
-    
-	    label.setLayoutX(10);
-        label.setLayoutY(115);
-	    //label.setLayoutY(300);
-        label.setFont(Font.font("Verdana", 20));
-       
-        // Display plant information in the right pane
-        
+
+			@Override
+			protected void updateItem(PlantWithImage plantWithImage, boolean empty) {
+				super.updateItem(plantWithImage, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					setText(plantWithImage.getPlant().toString());
+					imageView.setImage(plantWithImage.getImage());
+					setGraphic(imageView);
+				}
+			}
+		});
+
+
+		// Display plant information in the right pane
+
 		Label name = createLabel("Name: ");
 		grid.add(name, 0, 0);
 
@@ -222,16 +240,11 @@ public class PlantPlacementScene extends Scene {
 		Label colors = createLabel("Bloom Colors: ");
 		grid.add(colors, 0, 4);
 
-		Label error = createLabel("");
-		rightPane.getChildren().add(error);
+		// alert user when they click on image
+		leftPane.getChildren().add(error);
 		error.setMaxWidth(300);
 		error.setWrapText(true);
 
-		Label nameValue = createLabel("");
-		Label heightValue = createLabel("");
-		Label spacingValue = createLabel("");
-		Label hardinessValue = createLabel("");
-		Label colorsValue = createLabel("");
 		nameValue.setMaxWidth(100);
 		nameValue.setWrapText(true);
 		grid.add(nameValue, 1, 0);
@@ -239,63 +252,9 @@ public class PlantPlacementScene extends Scene {
 		grid.add(spacingValue, 1, 2);
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
-
-		plantListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				try {
-					error.setText(" ");
-					System.out.println("Mouse clicked");
-					// Text temp = null;
-					Text plantlabel = (Text) (event.getTarget());
-					error.setText(" ");
-					System.out.println(event.getTarget());
-					Optional<Plant> plant = allPlants.stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
-					error.setText(" ");
-					Plant p = plant.get();
-					System.out.println(allPlants.indexOf(p));
-					if(event.getClickCount()==2) {
-						doubleClick=true;
-						indexOfPlant = allPlants.indexOf(p);
-						Woods woods = new Woods();
-						Polygon polygon = woods.getShape().getPolygon();
-
-						polygon.setFill(new ImagePattern(plantImages.get(indexOfPlant).getImage()));
-						//center.getChildren().add(polygon);
-						//this.model.addGardenObject(new Woods());
-						Controller.dragPlant(polygon);
-
-					}
-					nameValue.setText(p.getPlantBotanicalName());
-					if (p.getHeightMaxInches() == -1)
-						heightValue.setText("No Data");
-					else
-						heightValue.setText(Integer.toString(p.getHeightMaxInches()));
-
-					if (p.getSpacingMax() == -1)
-						spacingValue.setText("No Data");
-					else
-						spacingValue.setText(Integer.toString(p.getSpacingMax()));
-
-					if (p.getHardinessMin() == -1)
-						hardinessValue.setText("No Data");
-					else
-						hardinessValue.setText(Integer.toString(p.getHardinessMin()));
-					;
-					colorsValue.setText(p.getBloomColors());
-					event.consume();
-				} catch (NullPointerException e) {
-					error.setText("No Data found for this plant");
-
-				} catch (ClassCastException e) {
-					error.setText("Please click on plant's name instead of picture");
-					System.out.println(event.getTarget().toString());
-
-				}
-			}
-		});
 	}
-	
+
+
 	/**
 	 * Creates a plant label
 	 * 
@@ -308,7 +267,8 @@ public class PlantPlacementScene extends Scene {
 		return label;
 	}
 
-	
+
+
 	/**
 	 * Creates the "next" button
 	 * 
@@ -332,82 +292,105 @@ public class PlantPlacementScene extends Scene {
 		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
 		return prevButton;
 	}
-	
+
+
 	/**
-	 * Updates the x-coordinate of the dragged ImageView
+	 * Creates a button
 	 * 
-	 * @param x - the x-value the mouse has dragged the image
+	 * @param text - the text displayed on the button
+	 * @return the created button
 	 */
-    public void setX(double x) {
-    	iv2.setTranslateX(imageView01.getLayoutX() + WIDTH / 2 + x);
-    }
-    
-    /**
-	 * Updates the y-coordinate of the dragged ImageView
-	 * 
-	 * @param y - the y-value the mouse has dragged the image
-	 */
-    public void setY(double y) {
-    	iv2.setTranslateY(imageView01.getLayoutY() + HEIGHT / 2 + y);
-    }
-    
-    /**
-     * Creates a button
-     * 
-     * @param text - the text displayed on the button
-     * @return the created button
-     */
-    private Button createButton(String text) {
+	private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
-    
-    /**
-     * Gets the next button
-     * 
-     * @return the next button
-     */
-    public Button getNextButton() {
+
+	/**
+	 * Gets the next button
+	 * 
+	 * @return the next button
+	 */
+	public Button getNextButton() {
 		return this.btnNext;
 	}
 
-    /**
-     * Gets the prev button
-     * 
-     * @return the prev button
-     */
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
-	
-	/**
-	 * Gets the plant that was clicked
-	 * 
-	 * @return the ImageView of the plant that was clicked
-	 */
-	public ImageView getPlantClicked() {
-		return plantImages.get(indexOfPlant);
-		
-	}
-	
-	public boolean isDoubleClick() {
-		System.out.println("Double Clicked");
-		return doubleClick;
-	}
-	
-	public void setDoubleClick(boolean value) {
-		this.doubleClick=value;
-	}
-	
+
+
 	/**
 	 * Gets the plantListView
 	 * 
 	 * @return the plantListView
 	 */
-	public ListView<Plant> getPlantListView() {
+	public ListView<PlantWithImage> getPlantListView() {
 		return this.plantListView;
 	}
 
+	/**
+	 * gets the center of scene, i.e garden container
+	 * @return the center
+	 */
 
+	public Pane getGardenPane() {
+		return this.gardenPane;
+	}
+	
+	public ArrayList<Plant> getAllPlants() {
+		return allPlants;
+	}
+	
+	public int getIndexOfPlant() {
+		return indexOfPlant;
+	}
+	
+	public void setIndexOfPlant(int index) {
+		indexOfPlant = index;
+	}
+	
+	public ArrayList<Image> getPlantImages() {
+		return plantImages;
+	}
+
+
+//	Collections.sort(plantImages, new Comparator<>() {
+//	    @Override
+//	    public int compare(MyObject o1, MyObject o2) {
+//	        return o1.getStartDate().compareTo(o2.getStartDate());
+//	    }
+//	});
+	
+/**
+ * static class to encapsulate both image and plant object in a single object
+ * 
+ * @author hamza
+ *
+ */
+	private static class PlantWithImage{
+		private final Plant plant ;
+		private final Image image ;
+		public PlantWithImage(Plant p, Image img) {
+			super();
+			this.plant = p;
+			this.image = img;
+		}
+		public Plant getPlant() {
+			return plant;
+		}
+		public Image getImage() {
+			return image;
+		}
+		
+	}
+	
+	
+	
+	
 }

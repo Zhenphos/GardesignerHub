@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import enums.Season;
 import objects.GardenObject;
+import objects.Plant;
 
 /**
- * Model class for Garden Planner
+ * Model class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -22,8 +23,8 @@ public class Model implements Serializable {
 	private double temperature;
 	private double soilPH;
 	private double age;
-	private Season season;
-	private Collection<GardenObject> myObjects;
+	private Season season = Season.SUMMER;
+	private ArrayList<GardenObject> myObjects;
 
 	private double x = 100;
 	private double y = 200;
@@ -48,7 +49,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the width of the garden
 	 * 
-	 * @param width - the width to set the garden to
+	 * @param width the width to set the garden to
 	 */
 	public void setWidth(int width) {
 		this.width = width;
@@ -57,7 +58,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the length of the garden
 	 * 
-	 * @param length - the length to set the garden to
+	 * @param length the length to set the garden to
 	 */
 	public void setLength(int length) {
 		this.length = length;
@@ -66,7 +67,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the average amount of time of sun exposure for the garden
 	 * 
-	 * @param light - the light value to set the garden to
+	 * @param light the light value to set the garden to
 	 */
 	public void setLight(int light) {
 		this.light = light;
@@ -75,7 +76,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the average amount of rain value for the garden in millimeters
 	 * 
-	 * @param rain - the rain value to set the garden to
+	 * @param rain the rain value to set the garden to
 	 */
 	public void setRain(int rain) {
 		this.rain = rain;
@@ -84,7 +85,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the temperature in degrees Fahrenheit of the garden
 	 * 
-	 * @param temperature - the garden's average temperature in degrees Fahrenheit
+	 * @param temperature the garden's average temperature in degrees Fahrenheit
 	 *                    over the last week
 	 */
 	public void setTemperature(double temperature) {
@@ -94,7 +95,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the soil pH value of the garden
 	 * 
-	 * @param soilPH - the garden soil's pH
+	 * @param soilPH the garden soil's pH
 	 */
 	public void setSoilPH(double soilPH) {
 		this.soilPH = soilPH;
@@ -103,7 +104,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the age of the selected plants in years
 	 * 
-	 * @param age - the age to set the plants to
+	 * @param age the age to set the plants to
 	 */
 	public void setAge(double age) {
 		this.age = age;
@@ -112,7 +113,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the season to display the plants in
 	 * 
-	 * @param season - the season to display the plants in
+	 * @param season the season to display the plants in
 	 */
 	public void setSeason(Season season) {
 		this.season = season;
@@ -195,8 +196,23 @@ public class Model implements Serializable {
 	 * 
 	 * @return all of the GardenObjects in the garden map
 	 */
-	public Collection<GardenObject> getGardenObjects() {
+	public ArrayList<GardenObject> getGardenObjects() {
 		return myObjects;
+	}
+	
+	/**
+	 * Gets all the plants in GardenObject
+	 * 
+	 * @return an ArrayList of Plants that are within GardenObjects
+	 */
+	public ArrayList<Plant> getPlantObjects() {
+		ArrayList<Plant> plants = new ArrayList<Plant>();
+		for (int i = 0; i < myObjects.size(); i++) {
+			if (myObjects.get(i) instanceof Plant) {
+				plants.add((Plant) myObjects.get(i));
+			}
+		}
+		return plants;
 	}
 
 	/**
@@ -211,19 +227,21 @@ public class Model implements Serializable {
 	/**
 	 * Adds a garden object to the map being created
 	 * 
-	 * @param someObject - the garden object to be added
+	 * @param someObject the garden object to be added
 	 */
 	public void addGardenObject(GardenObject someObject) {
 		myObjects.add(someObject);
+		System.out.println("Added object");
 	}
 
 	/**
 	 * Removes an object from the garden
 	 * 
-	 * @param someObject - the object to be removed
+	 * @param someObject the object to be removed
 	 */
 	public void removeGardenObject(GardenObject someObject) {
-
+		myObjects.remove(someObject);
+		System.out.println("Removed object");
 	}
 
 	/**
@@ -238,7 +256,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the x value
 	 * 
-	 * @param d - the x value to be set
+	 * @param d the x value to be set
 	 */
 	public void setX(double d) {
 		this.x = d;
@@ -256,7 +274,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets the y value
 	 * 
-	 * @param y - the y value to be set
+	 * @param y the y value to be set
 	 */
 	public void setY(double y) {
 		this.y = Math.min(y, BOTTOM);

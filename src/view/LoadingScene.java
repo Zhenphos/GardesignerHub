@@ -1,26 +1,21 @@
 package view;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import mvc.View;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 
 /**
+ * LoadingScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -37,6 +32,9 @@ public class LoadingScene extends Scene {
 	private Button btnBrowse;
 	private Button btnPrev, btnEdit;
 
+	/**
+	 * Constructor for LoadingScene. Formats the panes in the scene.
+	 */
 	public LoadingScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -81,26 +79,59 @@ public class LoadingScene extends Scene {
 		this.container.setBottom(buttons);
 	}
 
-	public Button getBrowseButton() { return this.btnBrowse; }
+	/**
+	 * Gets the browse button
+	 * 
+	 * @return the browse button
+	 */
+	public Button getBrowseButton() {
+		return this.btnBrowse;
+	}
 
+	/**
+	 * Gets the saves in table form
+	 * 
+	 * @return a table of the saves in TableView form
+	 */
 	public TableView<Save> getSaves() {
 		return this.saves;
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+	 * Gets the edit button
+	 * 
+	 * @return the edit button
+	 */
 	public Button getEditButton() {
 		return this.btnEdit;
 	}
 
+	/**
+	 * Adds a save file table entry into the save table
+	 * 
+	 * @param file the file that is being saved
+	 */
 	public void addTableEntry(File file) {
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		Save save = new Save(file.getName(), format.format(file.lastModified()));
 		this.saves.getItems().add(save);
 	}
 
+	/**
+	 * Save class for Gardendesigner Hub
+	 * 
+	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+	 *
+	 */
 	public static class Save {
 
 		private SimpleStringProperty name;

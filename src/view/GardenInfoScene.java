@@ -13,6 +13,7 @@ import javafx.scene.text.TextAlignment;
 import mvc.View;
 
 /**
+ * GardenInfoScene class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -52,6 +53,9 @@ public class GardenInfoScene extends Scene {
 	private TextField tfWidth, tfLength, tfSunlight, tfRain, tfSoilPH, tfTemp;
 	private Button btnNext, btnPrev;
 
+	/**
+	 * Constructor for GardenInfoScene. Formats the panes in the scene.
+	 */
 	public GardenInfoScene() {
 		super(new BorderPane());
 		this.container = (BorderPane) this.getRoot();
@@ -85,7 +89,8 @@ public class GardenInfoScene extends Scene {
 		this.container.setTop(this.lblInputHeader);
 
 		VBox inputs = new VBox();
-		inputs.getChildren().addAll(this.lblWidth, this.tfWidth, this.lblLength, this.tfLength, this.lblSunlight, this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
+		inputs.getChildren().addAll(this.lblWidth, this.tfWidth, this.lblLength, this.tfLength, this.lblSunlight,
+				this.tfSunlight, this.lblRain, this.tfRain, this.lblSoilPH, this.tfSoilPH, this.lblTemp, this.tfTemp);
 		inputs.setAlignment(Pos.CENTER);
 		inputs.setSpacing(View.SPACING);
 		inputs.setPadding(new Insets(View.SPACING));
@@ -106,6 +111,12 @@ public class GardenInfoScene extends Scene {
 		this.container.setBottom(bottom);
 	}
 
+	/**
+	 * Creates a text header
+	 * 
+	 * @param text the text to be displayed in the header
+	 * @return the header
+	 */
 	private Label createHeader(String text) {
 		Label label = new Label(text);
 		label.setStyle(View.HEADER_LABEL_STYLE);
@@ -113,12 +124,25 @@ public class GardenInfoScene extends Scene {
 		return label;
 	}
 
+	/**
+	 * Creates a label
+	 * 
+	 * @param text the text to be displayed in the label
+	 * @return the label
+	 */
 	private Label createLabel(String text) {
 		Label label = new Label(text);
 		label.setStyle(View.TEXT_LABEL_STYLE);
 		return label;
 	}
 
+	/**
+	 * Creates a text field
+	 * 
+	 * @param description the text description displayed in the text field
+	 * @param image       the image displayed in the text field
+	 * @return the text field
+	 */
 	private TextField createTextField(String description, Image image) {
 		TextField textField = new TextField();
 		textField.setStyle(View.TEXT_FIELD_STYLE);
@@ -134,48 +158,102 @@ public class GardenInfoScene extends Scene {
 		return textField;
 	}
 
+	/**
+	 * Creates a button
+	 * 
+	 * @param text the text displayed on the button
+	 * @return the button
+	 */
 	private Button createButton(String text) {
 		Button btn = new Button(text);
 		btn.setStyle(View.BUTTON_STYLE);
 		return btn;
 	}
 
+	/**
+	 * Gets a description label
+	 * 
+	 * @return a description label
+	 */
 	public Label getDescriptionLabel() {
 		return this.lblDescription;
 	}
 
+	/**
+	 * Gets the width in the text field
+	 * 
+	 * @return the text field with width information
+	 */
 	public TextField getWidthTextfield() {
 		return this.tfWidth;
 	}
 
+	/**
+	 * Gets the height in the text field
+	 * 
+	 * @return the text field with height information
+	 */
 	public TextField getHeightTextfield() {
 		return this.tfLength;
 	}
 
+	/**
+	 * Gets the sunlight portion in the text field
+	 * 
+	 * @return the text field with sunlight information
+	 */
 	public TextField getSunlightTextfield() {
 		return this.tfSunlight;
 	}
 
+	/**
+	 * Gets the rain portion of the text field
+	 * 
+	 * @return the text field with rain information
+	 */
 	public TextField getRainTextfield() {
 		return this.tfRain;
 	}
 
+	/**
+	 * Gets the soil pH portion of the text field
+	 * 
+	 * @return the text field with soil pH information
+	 */
 	public TextField getSoilPHTextfield() {
 		return this.tfSoilPH;
 	}
 
+	/**
+	 * Gets the temporary text field
+	 * 
+	 * @return the temporary text field
+	 */
 	public TextField getTempTextfield() {
 		return this.tfTemp;
 	}
 
+	/**
+	 * Gets the next button
+	 * 
+	 * @return the next button
+	 */
 	public Button getNextButton() {
 		return this.btnNext;
 	}
 
+	/**
+	 * Gets the prev button
+	 * 
+	 * @return the prev button
+	 */
 	public Button getPrevButton() {
 		return this.btnPrev;
 	}
 
+	/**
+	 * Clears the fields in the text field
+	 */
 	public void clearTextFields() {
 		this.tfWidth.clear();
 		this.tfLength.clear();

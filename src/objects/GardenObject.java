@@ -3,35 +3,47 @@ package objects;
 import java.io.Serializable;
 
 /**
+ * GardenObject class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
 public abstract class GardenObject implements Serializable {
-	Shape shape;
+	DrawShape shape;
 	double xLoc;
 	double yLoc;
 
 	/**
-	 * creates a GardenObject of a specific shape
+	 * Creates a GardenObject of a specific shape
 	 */
 	public void makeShape() {
 
 	}
 	
 	/**
+	 * Gets the shape of a garden object
 	 * 
 	 * @return the shape of the object
 	 */
-	public Shape getShape() {
+	public DrawShape getShape() {
 		return shape;
 	}
 	
+	/**
+	 * Gets the x-coordinate of the garden object
+	 * 
+	 * @return the x-coordinate of the garden object
+	 */
 	public double getX() {
 		return xLoc;
 	}
 	
+	/**
+	 * Gets the y-coordinate of the garden object
+	 * 
+	 * @return the y-coordinate of the garden object
+	 */
 	public double getY() {
 		return yLoc;
 	}

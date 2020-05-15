@@ -7,26 +7,32 @@ import java.util.Map;
 import java.util.Optional;
 import enums.Names;
 import enums.Season;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
 import view.*;
 
 /**
- * View class for Garden Designer
+ * View class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -68,6 +74,10 @@ public class View {
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
 	private static final String INVALID_INPUT_TEXT = "Please ensure you fill out the width and height of your desired garden. "
 			+ "A good starting value for both is 10.";
+	
+	private static final String INSTRUCTIONS_TITLE = "Instructions";
+	private static final String INSTRUCTIONS_TEXT = "Click on the plant name to show its information. Double click on the name of plant to put it in your garden.";
+
 
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
@@ -84,8 +94,8 @@ public class View {
 	 * Constructor for View. Initializes the stage and scenes and the controller to
 	 * detect input on the View.
 	 * 
-	 * @param stage      - the stage which the scenes are placed on
-	 * @param controller - the controller that takes user inputs and controls the
+	 * @param stage      the stage which the scenes are placed on
+	 * @param controller the controller that takes user inputs and controls the
 	 *                   View based on them
 	 */
 	public View(Stage stage, Controller controller) {
@@ -114,7 +124,7 @@ public class View {
 	/**
 	 * Sets the active scene to the associated screen
 	 * 
-	 * @param name - the key that gets the appropriate scene
+	 * @param name the key that gets the appropriate scene
 	 */
 	public void setScreen(Names name) {
 		System.out.println(name.toString());
@@ -124,7 +134,7 @@ public class View {
 	/**
 	 * Gets the scene that corresponds to a scene name
 	 * 
-	 * @param name - the name of a scene
+	 * @param name the name of a scene
 	 * @return the scene associated with the name passed in
 	 */
 	public Scene getScene(Names name) {
@@ -185,7 +195,7 @@ public class View {
 		scene.getStreamButton().setOnAction(event -> this.controller.onDrawStream());
 		scene.getWoodsButton().setOnAction(event -> this.controller.onDrawWoods());
 		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
-		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawDelete());
+		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawUndo());
 	}
 
 	/**
@@ -205,12 +215,12 @@ public class View {
 		PlantPlacementScene scene = (PlantPlacementScene) this.screens.get(Names.PLANT_PLACEMENT);
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
-		// scene.getPlantClicked().setOnMouseDragged();
-		// scene.getPlantClicked().setOnMouseClicked();
-		scene.getPlantListView()
-				.setOnMouseClicked(event -> this.controller.onDragPlant(scene.getPlantClicked().getImage()));
-		// scene.getNextButton().setOnAction(event -> this.controller.onLoadingEdit());
-
+		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				controller.onDragPlant(event);
+			}
+		});
 	}
 
 	/**
@@ -251,6 +261,17 @@ public class View {
 		alert.setContentText(INVALID_INPUT_TEXT);
 		alert.show();
 	}
+	
+	/**
+	 * Alerts the user with information about how to interact with PlantPlacementScene
+	 */
+	
+	public void showInformationAlert() {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle(INSTRUCTIONS_TITLE);
+		alert.setContentText(INSTRUCTIONS_TEXT);
+		alert.show();
+	}
 
 	/**
 	 * Opens a file chooser for the user to select a file to save to
@@ -286,9 +307,9 @@ public class View {
 	/**
 	 * Shows a pop-up alert
 	 * 
-	 * @param type  - the type of alert
-	 * @param title - title of the alert
-	 * @param text  - text displayed by alert
+	 * @param type  the type of alert
+	 * @param title title of the alert
+	 * @param text  text displayed by alert
 	 */
 	public void showDialog(Alert.AlertType type, String title, String text) {
 		Alert alert = new Alert(type);
@@ -300,7 +321,7 @@ public class View {
 	/**
 	 * Creates an image
 	 * 
-	 * @param pathToFile - the file path of the image
+	 * @param pathToFile the file path of the image
 	 * @return the created image
 	 */
 	public static Image createImage(String pathToFile) {
@@ -311,7 +332,7 @@ public class View {
 	/**
 	 * Draws the map out for the user to see
 	 *
-	 * @param someObjects - a collection of garden objects which make up the map
+	 * @param someObjects a collection of garden objects which make up the map
 	 * @return an ImageView of the map so the user can see the map
 	 */
 	public ImageView generateMap(Collection<GardenObject> someObjects) {
@@ -321,20 +342,38 @@ public class View {
 	/**
 	 * Finds the correct image for a plant
 	 *
-	 * @param plantName - the plant that will be shown in the image
-	 * @param year      - the amount of years after the plant has been planted
-	 * @param season    - the season in which the plant is shown
+	 * @param plantName the plant that will be shown in the image
+	 * @param year      the amount of years after the plant has been planted
+	 * @param season    the season in which the plant is shown
 	 * @return an ImageView of the plant
 	 */
-	public ImageView generateView(String plantName, int year, Season season) {
-		return null;
+	public Paint generateImage(Image image, Season season) {
+		Paint p;
+		switch (season) {
+		case SPRING: 
+			p = Color.YELLOW;
+			break;
+		case SUMMER:
+			p = new ImagePattern(image);
+			break;
+		case FALL:
+			p = Color.DARKORANGE;
+			break;
+		case WINTER:
+			p = Color.FLORALWHITE;
+			break;
+		default:
+			p = null;
+			break;
+		}
+		return p;
 	}
 
 	/**
 	 * Takes in the rating of a map and gives a message to tell the user how to
 	 * improve their map and their rating
 	 *
-	 * @param someRating - the rating of the map on a scale from 1 to 5
+	 * @param someRating the rating of the map on a scale from 1 to 5
 	 * @return text which will tell the user what they can do to improve based on
 	 *         the given rating
 	 */
@@ -359,28 +398,34 @@ public class View {
 	public static int getCanvasHeight() {
 		return HEIGHT;
 	}
-	
 	/**
 	 * Draws anything in the map that is not already there
 	 * 
-	 * @param pane - the pane which will contain the map
+	 * @param pane the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
+		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-				pane.getChildren().add(go.getShape().getPolygon());
+			pane.getChildren().add(go.getShape().getPolygon());
+		}
+		for (Plant p : this.controller.loadPlantObjects()) {
+			pane.getChildren().add(p.getShape().getCircle());
 		}
 	}
 
 	/**
 	 * Draws the edit map
 	 * 
-	 * @param pane - the pane that contains the map
+	 * @param pane the pane that contains the map
 	 */
 	public void drawEditMap(Pane pane) {
+		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())) && !(go instanceof Plant))
+			Polygon polygon = go.getShape().getPolygon();
+			if (!(go instanceof Plant)) {
 				pane.getChildren().add(go.getShape().getPolygon());
+			}
+			pane.getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		}
 	}
 }

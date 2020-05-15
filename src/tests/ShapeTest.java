@@ -1,18 +1,16 @@
 package tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import objects.Shape;
 
 /**
+ * ShapeTest for Gardendesigner Hub. Tests Shape class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 
-public class ShapeTest {
+public class ShapeTest { // TODO update
 
 	@Test
 	public void testMakeNewShape() {
