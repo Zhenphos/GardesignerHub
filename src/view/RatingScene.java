@@ -49,7 +49,7 @@ public class RatingScene extends Scene {
 		this.lblRecommendations.setStyle(View.TEXT_LABEL_STYLE);
 		this.lblRecommendations.setMaxWidth(Double.MAX_VALUE);
 		this.lblRecommendations.setAlignment(Pos.CENTER);
-		this.lblRecommendText = new Label();
+		this.lblRecommendText = new Label("Your Garden is not optimal, try plants that work better together!");
 		this.lblRecommendText.setStyle(View.TEXT_LABEL_STYLE);
 		this.lblRecommendText.setWrapText(true);
 		this.stars = new FlowPane();

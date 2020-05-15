@@ -23,7 +23,7 @@ public class Model implements Serializable {
 	private double temperature;
 	private double soilPH;
 	private double age;
-	private Season season;
+	private Season season = Season.SUMMER;
 	private ArrayList<GardenObject> myObjects;
 
 	private double x = 100;

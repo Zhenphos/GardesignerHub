@@ -56,7 +56,8 @@ public class TimesScene extends Scene {
 			RadioButton button = new RadioButton(season.name());
 			button.setToggleGroup(this.seasonGroup);
 			button.setUserData(season);
-			button.setSelected(true);
+			if (season.name() == "SUMMER")
+				button.setSelected(true);
 			radios.getChildren().add(button);
 		}
 
