@@ -24,14 +24,14 @@ public class DrawScene extends Scene {
 	private static final String STREAM_TEXT = "Stream";
 	private static final String WOODS_TEXT = "Woods";
 	private static final String SHADE_TEXT = "Shade";
-	private static final String DELETE_TEXT = "Delete";
+	private static final String UNDO_TEXT = "Undo";
 
 	private static final Image GRASS_IMAGE = View.createImage("resources/grass.png");
 	private static final Image ROAD_IMAGE = View.createImage("resources/road.png");
 	private static final Image STREAM_IMAGE = View.createImage("resources/stream.png");
 	private static final Image WOODS_IMAGE = View.createImage("resources/forest.png");
 	private static final Image SHADE_IMAGE = View.createImage("resources/shade.png");
-	private static final Image DELETE_IMAGE = View.createImage("resources/delete.png");
+	private static final Image UNDO_IMAGE = View.createImage("resources/delete.png");
 
 	private static final String GARDEN_PANE_STYLE = "-fx-border-color: black;";
 
@@ -64,7 +64,7 @@ public class DrawScene extends Scene {
 		this.streamButton = this.createButton(tools, STREAM_TEXT, STREAM_IMAGE);
 		this.woodsButton = this.createButton(tools, WOODS_TEXT, WOODS_IMAGE);
 		this.shadeButton = this.createButton(tools, SHADE_TEXT, SHADE_IMAGE);
-		this.deleteButton = this.createButton(tools, DELETE_TEXT, DELETE_IMAGE);
+		this.deleteButton = this.createButton(tools, UNDO_TEXT, UNDO_IMAGE);
 
 		HBox center = new HBox(tools, this.gardenPane);
 		center.setBackground(View.BACKGROUND);

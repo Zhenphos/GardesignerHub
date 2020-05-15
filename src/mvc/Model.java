@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import enums.Season;
 import objects.GardenObject;
+import objects.Plant;
 
 /**
  * Model class for Gardendesigner Hub
@@ -23,7 +24,7 @@ public class Model implements Serializable {
 	private double soilPH;
 	private double age;
 	private Season season;
-	private Collection<GardenObject> myObjects;
+	private ArrayList<GardenObject> myObjects;
 
 	private double x = 100;
 	private double y = 200;
@@ -195,8 +196,23 @@ public class Model implements Serializable {
 	 * 
 	 * @return all of the GardenObjects in the garden map
 	 */
-	public Collection<GardenObject> getGardenObjects() {
+	public ArrayList<GardenObject> getGardenObjects() {
 		return myObjects;
+	}
+	
+	/**
+	 * Gets all the plants in GardenObject
+	 * 
+	 * @return an ArrayList of Plants that are within GardenObjects
+	 */
+	public ArrayList<Plant> getPlantObjects() {
+		ArrayList<Plant> plants = new ArrayList<Plant>();
+		for (int i = 0; i < myObjects.size(); i++) {
+			if (myObjects.get(i) instanceof Plant) {
+				plants.add((Plant) myObjects.get(i));
+			}
+		}
+		return plants;
 	}
 
 	/**
@@ -215,6 +231,7 @@ public class Model implements Serializable {
 	 */
 	public void addGardenObject(GardenObject someObject) {
 		myObjects.add(someObject);
+		System.out.println("Added object");
 	}
 
 	/**
@@ -223,7 +240,8 @@ public class Model implements Serializable {
 	 * @param someObject the object to be removed
 	 */
 	public void removeGardenObject(GardenObject someObject) {
-
+		myObjects.remove(someObject);
+		System.out.println("Removed object");
 	}
 
 	/**

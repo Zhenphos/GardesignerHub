@@ -443,8 +443,37 @@ public class Controller extends Application {
 	}
 
 	// TODO add delete functionality
-	public void onDrawDelete() {
-		
+	public void onDrawUndo() {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		if (!(scene.getGardenPane().getChildren().isEmpty())) {
+			for (int i = 0; i < 9; i++) {
+				scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
+			}
+			int i = this.model.getGardenObjects().size() - 1;
+			while (removeLastObject(i)) {
+				i--;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param i the index of the object that will be removed from the model
+	 * @return the boolean determining whether or not the last object that is not a plant has been removed
+	 * 
+	 * @author Jason
+	 */
+	public boolean removeLastObject(int i) {
+		if (i < 0) {
+			return false;
+		}
+		GardenObject object = model.getGardenObjects().get(i);
+		if (!(object instanceof Plant)) {
+			model.removeGardenObject(object);
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -647,6 +676,15 @@ public class Controller extends Application {
 	 */
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
+	}
+	
+	/**
+	 * Loads the plant objects on the map
+	 * 
+	 * @return the Plants stored inside of model
+	 */
+	public ArrayList<Plant> loadPlantObjects() {
+		return model.getPlantObjects();
 	}
 
 	/**

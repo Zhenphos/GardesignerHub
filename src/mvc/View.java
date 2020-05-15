@@ -19,10 +19,12 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
 import view.*;
@@ -191,7 +193,7 @@ public class View {
 		scene.getStreamButton().setOnAction(event -> this.controller.onDrawStream());
 		scene.getWoodsButton().setOnAction(event -> this.controller.onDrawWoods());
 		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
-		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawDelete());
+		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawUndo());
 	}
 
 	/**
@@ -382,12 +384,12 @@ public class View {
 	 * @param pane the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
+		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-				pane.getChildren().add(go.getShape().getPolygon());
-			
-			if (!(pane.getChildren().contains(go.getShape().getCircle())))
-				pane.getChildren().add(go.getShape().getCircle());
+			pane.getChildren().add(go.getShape().getPolygon());
+		}
+		for (Plant p : this.controller.loadPlantObjects()) {
+			pane.getChildren().add(p.getShape().getCircle());
 		}
 	}
 
@@ -397,9 +399,13 @@ public class View {
 	 * @param pane the pane that contains the map
 	 */
 	public void drawEditMap(Pane pane) {
+		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+			Polygon polygon = go.getShape().getPolygon();
+			if (!(go instanceof Plant)) {
 				pane.getChildren().add(go.getShape().getPolygon());
+			}
+			pane.getChildren().addAll(Anchor.createAnchors(polygon, polygon.getPoints()));
 		}
 	}
 }
