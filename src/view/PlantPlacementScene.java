@@ -121,18 +121,37 @@ public class PlantPlacementScene extends Scene {
 	}
 
 
+	private BorderPane container;
+
+	private GridPane grid;
 /**
  * constructor
  */
 
 	public PlantPlacementScene() {
-		super(root);
+		super(new BorderPane());
+		this.container = (BorderPane) this.getRoot();
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 		imc = new Controller(this);
 		placePlant();
+
+		this.container.setMinSize(View.WIDTH, View.HEIGHT);
+		this.container.setTop(this.plantListView);
+
+
+		HBox center = new HBox(this.grid, this.gardenPane);
+		center.setBackground(View.BACKGROUND);
+		HBox.setHgrow(this.gardenPane, Priority.ALWAYS);
+		this.container.setCenter(center);
+
+
+		HBox buttons = new HBox(this.btnPrev, this.btnNext);
+		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
+		HBox.setHgrow(this.btnNext, Priority.ALWAYS);
+		this.container.setBottom(buttons);
 	}
 
 
@@ -168,7 +187,7 @@ public class PlantPlacementScene extends Scene {
 		topPane.getChildren().add(plantListView);
 		plantListView.setMinWidth(TOP_MIN_WIDTH);
 		plantListView.setMaxHeight(TOP_MAX_HEIGHT);
-		GridPane grid = new GridPane();
+		grid = new GridPane();
 		grid.setHgap(HGAP);
 		grid.setVgap(VGAP);
 		grid.setPadding(GRID_PADDING);
@@ -182,9 +201,6 @@ public class PlantPlacementScene extends Scene {
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		topPane.setAlignment(Pos.CENTER);
-		btnNext = createNextButton();
-		btnPrev = createPrevButton();
-		root.getChildren().addAll(btnPrev, btnNext);
 
 
 
@@ -213,6 +229,7 @@ public class PlantPlacementScene extends Scene {
 		/**
 		 * Defines how each cell of plantlistview will be displayed
 		 */
+
 		plantListView.setCellFactory(lv -> new ListCell<>() {
 
 			private final ImageView imageView = new ImageView();
@@ -220,6 +237,7 @@ public class PlantPlacementScene extends Scene {
 			{
 				setPrefHeight(100);
 			}
+
 
 			@Override
 			protected void updateItem(PlantWithImage plantWithImage, boolean empty) {
