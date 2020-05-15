@@ -462,13 +462,10 @@ public class Controller extends Application {
 	public void onPlantPlacementUndo() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
-
 			scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
-
 			int i = this.model.getGardenObjects().size() - 1;
-			while (removeLastObject(i)) {
-				i--;
-			}
+			removeLastPlant(i);
+
 		}
 	}
 	
@@ -488,6 +485,18 @@ public class Controller extends Application {
 			return false;
 		} else {
 			return true;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param i the index of object to be removed
+	 */
+	
+	public void removeLastPlant(int i) {
+		if (i >= 0) {
+		GardenObject object = model.getGardenObjects().get(i);
+		model.removeGardenObject(object);
 		}
 	}
 
