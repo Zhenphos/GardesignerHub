@@ -41,7 +41,7 @@ def log_error(e):
 
 
 csvFields = ['Botanical Name', 'Height',
-             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 'Soil Moisture Preference', 'Exposure']
+             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 'Soil Moisture Preference', 'Exposure', 'Flowering Months']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/results.csv'
 basicAttributeSoup = []
@@ -145,6 +145,11 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
+    result = [
+        iter for iter in extraAttributeCleanedList if "Flowering Month" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
+
     # print(extraAttributeCleanedList)
 
     # Clean up the string
@@ -162,6 +167,21 @@ for url in listOfPlantURLs:
 
     oneString = oneString.replace("Soil Moisture Preference", "")
     oneString = oneString.replace("Exposure", "")
+    oneString = oneString.replace("Flowering Months", "")
+
+    # put commas between months
+    oneString = oneString.replace("January", "January,")
+    oneString = oneString.replace("February", "February,")
+    oneString = oneString.replace("March", "March,")
+    oneString = oneString.replace("April", "April,")
+    oneString = oneString.replace("May", "May,")
+    oneString = oneString.replace("June", "June,")
+    oneString = oneString.replace("July", "July,")
+    oneString = oneString.replace("August", "August,")
+    oneString = oneString.replace("September", "September,")
+    oneString = oneString.replace("October", "October,")
+    oneString = oneString.replace("November", "November,")
+    oneString = oneString.replace("December", "December,")
 
     oneString = oneString.replace(":", "")
     oneString = oneString.replace(";;", "; ;")
