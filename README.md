@@ -3,7 +3,7 @@ Members: Hamza Mahmood, Jonathan Zhang, Haseeb Siddiqui, Ntsee Ndingwan, Jason H
 
 A program which allows the user to plan out a simple garden. 
 
-The data in NewMoonNurseryPlants.csv was scraped from http://www.newmoonnursery.com. The current fields are plant botanical name, height, spread, spacing, USDA hardiness zone, and bloom color (each separated by a semicolon).
+Our plant data was scraped from http://www.newmoonnursery.com.
 
 Current Violet UML:
 
