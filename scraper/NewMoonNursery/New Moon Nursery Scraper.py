@@ -44,15 +44,15 @@ def log_error(e):
 csvFields = ['Botanical Name', 'Height',
              'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 
              'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife',
-             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance', 'Season of Interest']
+             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
+             'Season of Interest', 'Phytoremediation']
 csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_18.csv'
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_10.csv'
 basicAttributeSoup = []
 oneString = ""
 
-# A list of plant URLs taken from the HTML at
-# http://www.newmoonnursery.com/index.cfm/fuseaction/plants.main/alphaKey/ALL/index.htm
-# each line in text file has something like: plant/Agastache-Blue-Fortune
+# A list of plant URLs taken from the HTML of each plant category at http://www.newmoonnursery.com/
+# each line in each text file has something like: plant/Agastache-Blue-Fortune
 PlantList_00 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/00_AllPlants.txt'
 PlantList_01 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/01_AlkalineSoilTolerantList.txt'
 PlantList_02 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/02_BirdButterflyBugGardensList.txt'
@@ -76,7 +76,7 @@ PlantList_19 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMo
 PlantList_20 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/20_WoodlandList.txt'
 
 # change this for whatever plant list you want to get data for
-pathToPlantList = PlantList_18
+pathToPlantList = PlantList_10
 
 urlBase = 'http://www.newmoonnursery.com/'
 
@@ -184,6 +184,10 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
+    result = [iter for iter in extraAttributeCleanedList if "remediation" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
+
     # clean up the string
     oneString = oneString.replace("Height: ", "")
     oneString = oneString.replace("Spacing: ", "")
@@ -209,6 +213,7 @@ for url in listOfPlantURLs:
     oneString = oneString.replace("Salt Tolerance", "")
     oneString = oneString.replace("Season of Interest (Foliage)", "")
     oneString = oneString.replace("Season of Interest", "")
+    oneString = oneString.replace("Phytoremediation", "")
 
     for x in range(50):
         oneString = oneString.replace(":", "")
