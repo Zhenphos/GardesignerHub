@@ -44,7 +44,7 @@ def log_error(e):
 csvFields = ['Botanical Name', 'Height',
              'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 
              'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife',
-              'Extra Attributes', 'Foliage Color', 'Growth Rate']
+             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance', 'Season of Interest']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_18.csv'
 basicAttributeSoup = []
@@ -176,7 +176,11 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    # Clean up the string
+    result = [iter for iter in extraAttributeCleanedList if "Salt Tolerance" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
+
+    # clean up the string
     oneString = oneString.replace("Height: ", "")
     oneString = oneString.replace("Spacing: ", "")
     oneString = oneString.replace("Spread: ", "")
@@ -198,9 +202,13 @@ for url in listOfPlantURLs:
     oneString = oneString.replace("Deer Resistant", "", 1)
     oneString = oneString.replace("Foliage Color", "")
     oneString = oneString.replace("Growth Rate", "")
+    oneString = oneString.replace("Salt Tolerance", "")
+    oneString = oneString.replace("Season of Interest (Foliage)", "")
+    oneString = oneString.replace("Season of Interest", "")
 
-    oneString = oneString.replace(":", "")
-    oneString = oneString.replace(";;", "; ;")
+    for x in range(50):
+        oneString = oneString.replace(":", "")
+        oneString = oneString.replace(";;", "; ;")
     # end string cleaning
 
     print("Cleaned results: " + oneString)
