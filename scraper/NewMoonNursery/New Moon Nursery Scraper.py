@@ -41,16 +41,6 @@ def log_error(e):
     print(e)
 
 
-csvFields = ['Botanical Name', 'Height',
-             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 
-             'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife',
-             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
-             'Season of Interest', 'Phytoremediation']
-csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_10.csv'
-basicAttributeSoup = []
-oneString = ""
-
 # A list of plant URLs taken from the HTML of each plant category at http://www.newmoonnursery.com/
 # each line in each text file has something like: plant/Agastache-Blue-Fortune
 PlantList_00 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/00_AllPlants.txt'
@@ -74,6 +64,16 @@ PlantList_17 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMo
 PlantList_18 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/18_VinesList.txt'
 PlantList_19 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/19_WetlandsList.txt'
 PlantList_20 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/20_WoodlandList.txt'
+
+csvFields = ['Botanical Name', 'Height',
+             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name',
+             'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife',
+             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
+             'Season of Interest', 'Phytoremediation']
+csvRows = []
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_10.csv'
+basicAttributeSoup = []
+oneString = ""
 
 # change this for whatever plant list you want to get data for
 pathToPlantList = PlantList_10
@@ -140,8 +140,6 @@ for url in listOfPlantURLs:
         extraAttributeCleanedList.append(
             element.text.strip().replace("\n\n", "", 10000).replace("\n", ",", 10000))
 
-    print(extraAttributeCleanedList)
-
     result = [iter for iter in extraAttributeCleanedList if "Soil Moisture" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
@@ -179,8 +177,9 @@ for url in listOfPlantURLs:
     result = [iter for iter in extraAttributeCleanedList if "Salt Tolerance" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
-    
-    result = [iter for iter in extraAttributeCleanedList if "Season of Interest" in iter]
+
+    result = [
+        iter for iter in extraAttributeCleanedList if "Season of Interest" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
