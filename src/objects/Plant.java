@@ -2,6 +2,7 @@ package objects;
 
 import java.io.Serializable;
 
+import enums.PlantType;
 import enums.Season;
 
 /**
@@ -29,7 +30,34 @@ public class Plant extends GardenObject implements Serializable {
 	 * @param hardinessMin       the plant's minimum hardiness
 	 * @param hardinessMax       the plant's maximum hardiness
 	 * @param bloomColors        the string of the plant's bloom colors
+	 * @param type	             the type of plant
 	 */
+	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
+			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors, PlantType type) {
+		super();
+		this.plantBotanicalName = plantBotanicalName;
+		this.heightMinInches = heightMinInches;
+		this.heightMaxInches = heightMaxInches;
+		this.spreadMin = spreadMin;
+		this.spreadMax = spreadMax;
+		this.spacingMin = spacingMin;
+		this.spacingMax = spacingMax;
+		this.hardinessMin = hardinessMin;
+		this.hardinessMax = hardinessMax;
+		this.bloomColors = bloomColors;
+		this.type = type;
+		
+		if (spreadMin != -1) {
+			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape.getCircle().setCenterX(this.spreadMin * 4);
+			shape.getCircle().setCenterY(this.spreadMin * 4);
+		} else {
+			shape = new DrawShape(null, defaultRadius);
+			shape.getCircle().setCenterX(defaultRadius * 2);
+			shape.getCircle().setCenterY(defaultRadius * 2);
+		}
+	}
+	
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {
 		super();
@@ -43,6 +71,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMin = hardinessMin;
 		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
+		this.type = type;
 		
 		if (spreadMin != -1) {
 			shape = new DrawShape(null, (this.spreadMin * 3));
@@ -73,7 +102,8 @@ public class Plant extends GardenObject implements Serializable {
 	int hardinessMin;
 	int hardinessMax;
 	String bloomColors;
-
+	//String type;
+	PlantType type;
 	/**
 	 * Changes the plant's size based on how many years its aged
 	 * 
@@ -88,6 +118,27 @@ public class Plant extends GardenObject implements Serializable {
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
 		}
 	}
+	
+	/**
+	 * Gets the type of plant
+	 * @return type
+	 */
+	
+
+	public PlantType getType() {
+		return type;
+	}
+	
+	/**
+	 * Sets the type of Plant
+	 * @param type
+	 */
+
+	public void setType(PlantType type) {
+		this.type = type;
+	}
+
+
 	
 	/**
 	 * Gets the minimum hardiness of the plant

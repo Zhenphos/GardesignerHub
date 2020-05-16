@@ -1,6 +1,7 @@
 package mvc;
 
 import enums.Names;
+import enums.PlantType;
 import enums.Season;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
@@ -10,6 +11,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -94,7 +97,8 @@ public class Controller extends Application {
 		ArrayList<Plant> plantList = new ArrayList<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-
+			int i=1;
+			PlantType t = PlantType.RAIN_GARDENS;
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
@@ -164,9 +168,16 @@ public class Controller extends Application {
 				} catch (Exception e) {
 					hardinessMax = -1;
 				}
-
+				if(i<=20) t = PlantType.ALKALINE_SOIL_TOLERANT;
+				if(i>=20 && i <=40)  t = PlantType.BIRD_BUTTERFLY_BUG_GARDENS;
+				if(i>=40 && i<=60)  t = PlantType.DROUGHT_TOLERANT;
+				if(i>=60 && i<=80) t = PlantType.GRASSES;
+				if(i>=80 && i <=100) t = PlantType.LANDSCAPE_ORNAMENTALS;
+				if(i>=120 && i <=140) t = PlantType.NO_ADVANCE_ORDER;
+				if(i<=120 && i>100) t = PlantType.PERENNIALS;
 				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
-						spacingMax, hardinessMin, hardinessMax, bloomColor));
+						spacingMax, hardinessMin, hardinessMax, bloomColor, t));
+				i++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // TODO add proper error handling
@@ -292,6 +303,15 @@ public class Controller extends Application {
 		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
 	}
 
+	
+	public static String[] replaceDash(String [] string) {
+		for (String str:string) {
+			str.replace('_', ' ');
+		}
+		return string;
+	}
+	
+	
 	/**
 	 * Event handler for when the user presses the next button on the
 	 * PlantPlacementScene
@@ -323,6 +343,7 @@ public class Controller extends Application {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
 		this.view.showInformationAlert();
 		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
+		
 	}
 
 	/**
@@ -379,13 +400,16 @@ public class Controller extends Application {
 	public void onDragPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
-			scene.getErrorLabel().setText(" ");
 			System.out.println("Mouse clicked");
 			// Text temp = null;
-			Text plantlabel = (Text) (event.getTarget());
-			scene.getErrorLabel().setText(" ");
-			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
-			scene.getErrorLabel().setText(" ");
+			ListCell cell = (ListCell) (event.getTarget());
+			//Text plantlabel = (Text) cell.getText();
+			
+			
+		
+			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText())).findAny();
+
+//			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
 			Plant p = plant.get();
 			System.out.println(scene.getAllPlants().indexOf(p));
 			if(event.getClickCount()==2) {
@@ -417,10 +441,8 @@ public class Controller extends Application {
 			scene.getColorsValue().setText(p.getBloomColors());
 			event.consume();
 		} catch (NullPointerException e) {
-			scene.getErrorLabel().setText("No Data found for this plant");
-
+			e.printStackTrace();
 		} catch (ClassCastException e) {
-			scene.getErrorLabel().setText("Please click on plant's name instead of picture");
 			System.out.println(event.getTarget().toString());
 		}
 	}
@@ -519,6 +541,10 @@ public class Controller extends Application {
 
 		}
 	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -757,6 +783,10 @@ public class Controller extends Application {
 			}
 		});
 	}
+	
+	
+	
+	
 
 	/**
 	 * Loads the objects on the map
@@ -766,6 +796,9 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
+	
+	
+
 
 	/**
 	 * Loads the plant objects on the map

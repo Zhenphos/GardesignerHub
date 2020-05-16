@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.geometry.*;
 import enums.Names;
+import enums.PlantType;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -45,6 +49,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvc.Controller;
+import mvc.Model;
 import mvc.View;
 import objects.Plant;
 
@@ -69,7 +74,7 @@ public class PlantPlacementScene extends Scene {
 	private static final int MIN_HEIGHT = 300;
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
 	public static final String UNDO_BUTTON_TEXT = "Undo";
-
+	public static final String SELECT_TYPE = "Select Plant Type";
 	public static final int TOP_MAX_HEIGHT = 150;
 	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
 	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
@@ -94,10 +99,10 @@ public class PlantPlacementScene extends Scene {
 	private Label spacingValue = createLabel("");
 	private Label hardinessValue = createLabel("");
 	private Label colorsValue = createLabel("");
+	private Label selectPlant = createLabel(SELECT_TYPE);
 
-	public Label getErrorLabel() {
-		return error;
-	}
+
+
 
 	public Label getNameValue() {
 		return nameValue;
@@ -133,6 +138,7 @@ public class PlantPlacementScene extends Scene {
 		//this.btnUndo = this.createButton(leftPane, "Undo", UNDO_IMAGE);
 		this.btnUndo = new Button("undo");
 		grid.add(btnUndo, 0, 6);
+		
 		imc = new Controller(this);
 		placePlant();
 
@@ -162,6 +168,8 @@ public class PlantPlacementScene extends Scene {
 	 * plants onto the garden space they drew previously.
 	 */
 	public void placePlant() {
+		System.out.print(allPlants.get(100).getType());
+
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
 		root.getChildren().add(drawCanvas);
@@ -205,45 +213,27 @@ public class PlantPlacementScene extends Scene {
 
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
-
-		System.out.println(allPlants.size());
-		System.out.println(plantImages.size());
-
-		for (int i = 0 ; i < allPlants.size(); i++)  {
-			Image image = null ;
-			if (i <plantImages.size()) {
-				image = plantImages.get(i);
-			}
-			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
-		}
-
-
-		/**
-		 * Defines how each cell of plantlistview will be displayed
-		 */
-		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>() {
-
-			private final ImageView imageView = new ImageView();
-
-			{
-				setPrefHeight(100);
-			}
-
-
-			@Override
-			protected void updateItem(PlantWithImage plantWithImage, boolean empty) {
-				super.updateItem(plantWithImage, empty);
-				if (empty) {
-					setText(null);
-					setGraphic(null);
-				} else {
-					setText(plantWithImage.getPlant().toString());
-					imageView.setImage(plantWithImage.getImage());
-					setGraphic(imageView);
-
-				}
-			}
-		});
+		reloadPlantList(PlantType.ALL);
+		
+		
+        // create a choiceBox 
+        ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr)); 
+        c.setMaxHeight(View.getCanvasHeight()*3/4);
+        c.setStyle(TEXT_LABEL_STYLE);
+        // add a listener 
+        c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
+        	
+            // if the item of the list is changed
+        	PlantType t= PlantType.ALL;
+            public void changed(ObservableValue ov, Number value, Number new_value){
+            	t=PlantType.get((int)new_value);
+            	reloadPlantList(t);
+            	
+ 
+            } 
+        }); 
+		
+        grid.add(c, 0, 8);
 		
 
 		// Display plant information in the right pane
@@ -263,10 +253,6 @@ public class PlantPlacementScene extends Scene {
 		Label colors = createLabel("Bloom Colors: ");
 		grid.add(colors, 0, 4);
 
-		// alert user when they click on image
-		leftPane.getChildren().add(error);
-		error.setMaxWidth(300);
-		error.setWrapText(true);
 
 		nameValue.setMaxWidth(100);
 		nameValue.setWrapText(true);
@@ -275,6 +261,7 @@ public class PlantPlacementScene extends Scene {
 		grid.add(spacingValue, 1, 2);
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
+		grid.add(selectPlant, 0, 7);
 	}
 
 
@@ -347,7 +334,58 @@ public class PlantPlacementScene extends Scene {
 		pane.getChildren().add(box);
 		return button;
 	}
+	
+	
+	/**
+	 * reloads the plantlisview according to given plant type
+	 * @param plant type
+	 */
+	
+	private void reloadPlantList(PlantType t) {
+		plantListView.getItems().clear();
+		Image image = null;
+		boolean isAll=false;
+		
+		for (int i = 0 ; i < allPlants.size(); i++)  {
+			if(allPlants.get(i).getType()==t) {
+			if (i <plantImages.size()) {
+				image = plantImages.get(i);
+			}
+			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
+			}else if(t==PlantType.ALL) {
+				if (i <plantImages.size()) {
+					image = plantImages.get(i);
+				}
+				plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
+				
+			}
+		}
+		
+		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>(){
+			private final ImageView imageView = new ImageView();
+			{
+				setPrefHeight(100);
+			}
+			@Override
+			protected void updateItem(PlantWithImage plantWithImage, boolean empty) {
+				lv.setStyle(TEXT_LABEL_STYLE);
+				super.updateItem(plantWithImage, empty);
+				if (empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					setText(plantWithImage.getPlant().toString());
+					imageView.setImage(plantWithImage.getImage());
+					setGraphic(imageView);
+					
+				}
+			}
+		});
+		
+	}
 
+	
+	
 	/**
 	 * Gets the next button
 	 * 
@@ -424,12 +462,12 @@ public class PlantPlacementScene extends Scene {
 	public ArrayList<Image> getPlantImages() {
 		return plantImages;
 	}
-
+	
 
 	/**
 	 * static class to encapsulate both image and plant object in a single object
 	 */
-	private static class PlantWithImage{
+	public static class PlantWithImage{
 		private final Plant plant ;
 		private final Image image ;
 		public PlantWithImage(Plant p, Image img) {
