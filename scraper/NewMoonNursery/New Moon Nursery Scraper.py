@@ -41,10 +41,10 @@ def log_error(e):
 
 
 csvFields = ['Botanical Name', 'Height',
-             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name']
+             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 'Soil Moisture Preference']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/results.csv'
-listOfPlantAttributes = []
+basicAttributeSoup = []
 oneString = ""
 
 # A list of plant URLs taken from the HTML at
@@ -94,32 +94,32 @@ for url in listOfPlantURLs:
     oneString += plantName + ";"
     # end get plant name
 
-    # put plant attributes into one list
-    listOfPlantAttributes = soup.find_all('div', attrs={'class': 'attribute'})
+    # get all basic plant attributes
+    basicAttributeSoup = soup.find_all('div', attrs={'class': 'attribute'})
+    basicAttributeCleanList = []
+    # add plant botanical name to list
+    basicAttributeCleanList.append(plantName)
 
-    cleanedArray = []
-    cleanedArray.append(plantName)
+    for element in basicAttributeSoup:
+        basicAttributeCleanList.append(element.text.strip())
 
-    for element in listOfPlantAttributes:
-        cleanedArray.append(element.text.strip())
-
-    result = [iter for iter in cleanedArray if "Height" in iter]
+    result = [iter for iter in basicAttributeCleanList if "Height" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    result = [iter for iter in cleanedArray if "Spread" in iter]
+    result = [iter for iter in basicAttributeCleanList if "Spread" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    result = [iter for iter in cleanedArray if "Spacing" in iter]
+    result = [iter for iter in basicAttributeCleanList if "Spacing" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    result = [iter for iter in cleanedArray if "USDA Hardiness" in iter]
+    result = [iter for iter in basicAttributeCleanList if "USDA Hardiness" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    result = [iter for iter in cleanedArray if "Bloom Color" in iter]
+    result = [iter for iter in basicAttributeCleanList if "Bloom Color" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
@@ -128,6 +128,19 @@ for url in listOfPlantURLs:
     commonName = commonNameSoup.text.strip()
     oneString += commonName + ";"
     # end get plant common name
+
+    # get more plant attributes
+    extraAttributeSoup = soup.find_all('div', attrs={'class': 'charBlock'})
+    extraAttributeCleanedList = []
+
+    for element in extraAttributeSoup:
+        extraAttributeCleanedList.append(element.text.strip().replace("\n", "", 100))
+
+    result = [iter for iter in extraAttributeCleanedList if "Soil Moisture" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
+
+    # print(extraAttributeCleanedList)
 
     # Clean up the string
     oneString = oneString.replace("Height: ", "")
@@ -142,9 +155,11 @@ for url in listOfPlantURLs:
     oneString = oneString.replace("USDA Hardiness Zone:", "")
     oneString = oneString.replace("Bloom Color:", "")
 
-    oneString = oneString.replace(":", "")
+    oneString = oneString.replace("Soil Moisture Preference", "")
 
+    oneString = oneString.replace(":", "")
     oneString = oneString.replace(";;", "; ;")
+    # end string cleaning
 
     print("Cleaned results: " + oneString)
 
