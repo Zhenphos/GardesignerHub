@@ -1,5 +1,5 @@
 import csv
-import re
+import fileinput
 from contextlib import closing
 from time import sleep
 
@@ -40,8 +40,8 @@ def log_error(e):
     print(e)
 
 
-csvFields = ['Plant Botanical Name', 'Height',
-             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color']
+csvFields = ['Botanical Name', 'Height',
+             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/results.csv'
 listOfPlantAttributes = []
@@ -72,7 +72,7 @@ PlantList_18 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMo
 PlantList_19 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/19_WetlandsList.txt'
 PlantList_20 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/20_WoodlandList.txt'
 
-pathToURLList = PlantList_15
+pathToURLList = PlantList_18
 
 urlBase = 'http://www.newmoonnursery.com/'
 
@@ -80,6 +80,7 @@ listOfPlantURLs = []
 
 with open(pathToURLList, newline="") as fp:
     for cnt, line in enumerate(fp):
+        print("Appended " + str(cnt) + " URL(s)")
         listOfPlantURLs.append(urlBase + line.strip())
 
 for url in listOfPlantURLs:
@@ -88,8 +89,8 @@ for url in listOfPlantURLs:
     soup = BeautifulSoup(raw_html, 'html.parser')
 
     # get plant name
-    name_box = soup.find('h2', attrs={'class': 'layoutA'})
-    plantName = name_box.text.strip()
+    plantNameSoup = soup.find('h2', attrs={'class': 'layoutA'})
+    plantName = plantNameSoup.text.strip()
     oneString += plantName + ";"
     # end get plant name
 
@@ -122,12 +123,27 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
+    # get plant common name
+    commonNameSoup = soup.find('h3', attrs={'class': 'layoutA'})
+    commonName = commonNameSoup.text.strip()
+    oneString += commonName + ";"
+    # end get plant common name
+
     # Clean up the string
     oneString = oneString.replace("Height: ", "")
     oneString = oneString.replace("Spacing: ", "")
     oneString = oneString.replace("Spread: ", "")
     oneString = oneString.replace("USDA Hardiness Zone: ", "")
     oneString = oneString.replace("Bloom Color: ", "")
+
+    oneString = oneString.replace("Height:", "")
+    oneString = oneString.replace("Spacing:", "")
+    oneString = oneString.replace("Spread:", "")
+    oneString = oneString.replace("USDA Hardiness Zone:", "")
+    oneString = oneString.replace("Bloom Color:", "")
+
+    oneString = oneString.replace(":", "")
+
     oneString = oneString.replace(";;", "; ;")
 
     print("Cleaned results: " + oneString)
@@ -136,8 +152,15 @@ for url in listOfPlantURLs:
     oneString = ""
     sleep(5)
 
+# Write the CSV
 with open(csvFileName, 'w', newline="") as csvfile:
     csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_NONE,
                            escapechar='\\', delimiter=";")
     csvwriter.writerow(csvFields)
     csvwriter.writerows(csvRows)
+
+# This replaces the "\" with ""
+fileToEdit = csvFileName
+with fileinput.FileInput(fileToEdit, inplace=True) as file:
+    for line in file:
+        print(line.replace("\\", ""), end='')
