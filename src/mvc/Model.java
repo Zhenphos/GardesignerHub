@@ -30,10 +30,11 @@ public class Model implements Serializable {
 	private double x = 100;
 	private double y = 200;
 	private final double BOTTOM = 200;
-	public static final String [] plantTypesStr = {"All", "Alkali Soil Tolerant", "Bird and Butterfly and Bug Gardens", "Drought Tolerant", "Grasses"
-			,"Groundhog Resistant", "Landscape Ornaments", "Meadow", "No Advance Order", "North American Native", "Perennials"
-			, "Phytoremediation", "Rabit Resistant", "Rain Gardens", "Restoration Conservation", "Rooftop Garden Plant"
-			, "Shrub", "Soil Stabilization", "Stormwater Management", "Vines", "Wetlands", "Woodlands"};
+	public static final String[] plantTypesStr = { "All", "Alkaline Soil Tolerant",
+			"Bird and Butterfly and Bug Gardens", "Drought Tolerant", "Grasses", "Groundhog Resistant",
+			"Landscape Ornaments", "Meadow", "North American Native", "Perennials", "Phytoremediation",
+			"Rabbit Resistant", "Rain Gardens", "Restoration Conservation", "Rooftop Garden Plant", "Shrub",
+			"Soil Stabilization", "Stormwater Management", "Vines", "Wetlands", "Woodlands" };
 
 	/**
 	 * Constructor for Model. Sets the initial numerical attributes of the garden to

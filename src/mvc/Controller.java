@@ -173,7 +173,7 @@ public class Controller extends Application {
 				if(i>=40 && i<=60)  t = PlantType.DROUGHT_TOLERANT;
 				if(i>=60 && i<=80) t = PlantType.GRASSES;
 				if(i>=80 && i <=100) t = PlantType.LANDSCAPE_ORNAMENTALS;
-				if(i>=120 && i <=140) t = PlantType.NO_ADVANCE_ORDER;
+				//if(i>=120 && i <=140) t = PlantType.NO_ADVANCE_ORDER;
 				if(i<=120 && i>100) t = PlantType.PERENNIALS;
 				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
 						spacingMax, hardinessMin, hardinessMax, bloomColor, t));
