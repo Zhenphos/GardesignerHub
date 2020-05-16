@@ -1,5 +1,6 @@
 import csv
 import fileinput
+import urllib.request as req
 from contextlib import closing
 from time import sleep
 
@@ -80,8 +81,7 @@ urlBase = 'http://www.newmoonnursery.com/'
 listOfPlantURLs = []
 
 with open(pathToPlantList, newline="") as fp:
-    for cnt, line in enumerate(fp):
-        print("Appended " + str(cnt) + " URL(s)")
+    for line in fp:
         listOfPlantURLs.append(urlBase + line.strip())
 
 for url in listOfPlantURLs:
@@ -90,16 +90,16 @@ for url in listOfPlantURLs:
     soup = BeautifulSoup(raw_html, 'html.parser')
 
     # get plant name
-    plantNameSoup = soup.find('h2', attrs={'class': 'layoutA'})
-    plantName = plantNameSoup.text.strip()
-    oneString += plantName + ";"
+    botanicalNameSoup = soup.find('h2', attrs={'class': 'layoutA'})
+    botanicalName = botanicalNameSoup.text.strip()
+    oneString += botanicalName + ";"
     # end get plant name
 
     # get all basic plant attributes
     basicAttributeSoup = soup.find_all('div', attrs={'class': 'attribute'})
     basicAttributeCleanList = []
     # add plant botanical name to list
-    basicAttributeCleanList.append(plantName)
+    basicAttributeCleanList.append(botanicalName)
 
     for element in basicAttributeSoup:
         basicAttributeCleanList.append(element.text.strip())
@@ -175,9 +175,21 @@ for url in listOfPlantURLs:
     # end string cleaning
 
     print("Cleaned results: " + oneString)
-
     csvRows.append([oneString])
     oneString = ""
+
+    # get images for each plant
+    imageSoup = soup.find('a', attrs={'class': 'thumbSwitch layoutF'})
+    test = imageSoup['href']
+
+    try:
+        req.urlretrieve(
+            urlBase + imageSoup['href'],  'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Images/' + botanicalName + '.jpg')
+        print("Image obtained for plant " + botanicalName)
+    except:
+        print("An error occurred while trying to retrieve image for plant " + botanicalName)
+    # end get plant images
+
     sleep(5)
 
 # Write the CSV
