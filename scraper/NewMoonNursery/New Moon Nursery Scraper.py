@@ -42,7 +42,8 @@ def log_error(e):
 
 
 csvFields = ['Botanical Name', 'Height',
-             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife']
+             'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 
+             'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife', 'Extra Attributes']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_18.csv'
 basicAttributeSoup = []
@@ -153,11 +154,14 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    result = [iter for iter in extraAttributeCleanedList if "Attracts Wildlife" in iter]
+    result = [
+        iter for iter in extraAttributeCleanedList if "Attracts Wildlife" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
-    # print(extraAttributeCleanedList)
+    result = [iter for iter in extraAttributeCleanedList if "Attributes" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
 
     # Clean up the string
     oneString = oneString.replace("Height: ", "")
@@ -177,6 +181,7 @@ for url in listOfPlantURLs:
     oneString = oneString.replace("Flowering Months", "")
 
     oneString = oneString.replace("Attracts Wildlife", "")
+    oneString = oneString.replace("Attributes", "")
 
     oneString = oneString.replace(":", "")
     oneString = oneString.replace(";;", "; ;")
