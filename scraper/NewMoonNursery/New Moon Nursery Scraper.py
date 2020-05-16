@@ -179,6 +179,10 @@ for url in listOfPlantURLs:
     result = [iter for iter in extraAttributeCleanedList if "Salt Tolerance" in iter]
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
+    
+    result = [iter for iter in extraAttributeCleanedList if "Season of Interest" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
 
     # clean up the string
     oneString = oneString.replace("Height: ", "")
