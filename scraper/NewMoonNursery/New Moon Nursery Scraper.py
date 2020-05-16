@@ -188,6 +188,8 @@ for url in listOfPlantURLs:
         ";" if result != [] else oneString.join(";")
 
     # clean up the string
+    oneString = oneString.replace(" (No Advance Orders)", "")
+
     oneString = oneString.replace("Height: ", "")
     oneString = oneString.replace("Spacing: ", "")
     oneString = oneString.replace("Spread: ", "")
