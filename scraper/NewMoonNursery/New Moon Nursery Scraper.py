@@ -43,7 +43,7 @@ def log_error(e):
 csvFields = ['Botanical Name', 'Height',
              'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name', 'Soil Moisture Preference', 'Exposure', 'Flowering Months']
 csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/results.csv'
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_18.csv'
 basicAttributeSoup = []
 oneString = ""
 
@@ -72,13 +72,14 @@ PlantList_18 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMo
 PlantList_19 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/19_WetlandsList.txt'
 PlantList_20 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/20_WoodlandList.txt'
 
-pathToURLList = PlantList_18
+# change this for whatever plant list you want to get data for
+pathToPlantList = PlantList_18
 
 urlBase = 'http://www.newmoonnursery.com/'
 
 listOfPlantURLs = []
 
-with open(pathToURLList, newline="") as fp:
+with open(pathToPlantList, newline="") as fp:
     for cnt, line in enumerate(fp):
         print("Appended " + str(cnt) + " URL(s)")
         listOfPlantURLs.append(urlBase + line.strip())
@@ -135,7 +136,7 @@ for url in listOfPlantURLs:
 
     for element in extraAttributeSoup:
         extraAttributeCleanedList.append(
-            element.text.strip().replace("\n", "", 10000))
+            element.text.strip().replace("\n\n", "", 10000).replace("\n", ",", 10000))
 
     result = [iter for iter in extraAttributeCleanedList if "Soil Moisture" in iter]
     oneString += oneString.join(result) + \
@@ -168,20 +169,6 @@ for url in listOfPlantURLs:
     oneString = oneString.replace("Soil Moisture Preference", "")
     oneString = oneString.replace("Exposure", "")
     oneString = oneString.replace("Flowering Months", "")
-
-    # put commas between months
-    oneString = oneString.replace("January", "January,")
-    oneString = oneString.replace("February", "February,")
-    oneString = oneString.replace("March", "March,")
-    oneString = oneString.replace("April", "April,")
-    oneString = oneString.replace("May", "May,")
-    oneString = oneString.replace("June", "June,")
-    oneString = oneString.replace("July", "July,")
-    oneString = oneString.replace("August", "August,")
-    oneString = oneString.replace("September", "September,")
-    oneString = oneString.replace("October", "October,")
-    oneString = oneString.replace("November", "November,")
-    oneString = oneString.replace("December", "December,")
 
     oneString = oneString.replace(":", "")
     oneString = oneString.replace(";;", "; ;")
