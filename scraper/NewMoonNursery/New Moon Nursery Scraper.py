@@ -163,6 +163,10 @@ for url in listOfPlantURLs:
     oneString += oneString.join(result) + \
         ";" if result != [] else oneString.join(";")
 
+    result = [iter for iter in extraAttributeCleanedList if "Deer Resistant" in iter]
+    oneString += oneString.join(result) + \
+        ";" if result != [] else oneString.join(";")
+
     # Clean up the string
     oneString = oneString.replace("Height: ", "")
     oneString = oneString.replace("Spacing: ", "")
@@ -182,6 +186,7 @@ for url in listOfPlantURLs:
 
     oneString = oneString.replace("Attracts Wildlife", "")
     oneString = oneString.replace("Attributes", "")
+    oneString = oneString.replace("Deer Resistant", "", 1)
 
     oneString = oneString.replace(":", "")
     oneString = oneString.replace(";;", "; ;")
