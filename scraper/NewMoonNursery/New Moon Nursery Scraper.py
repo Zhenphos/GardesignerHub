@@ -42,7 +42,7 @@ def log_error(e):
 
 
 # A list of plant URLs taken from the HTML of each plant category at http://www.newmoonnursery.com/
-# each line in each text file has something like: plant/Agastache-Blue-Fortune
+# Each line in each text file has something like: plant/Agastache-Blue-Fortune
 PlantList_00 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/00_AllPlants.txt'
 PlantList_01 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/01_AlkalineSoilTolerantList.txt'
 PlantList_02 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Lists/02_BirdButterflyBugGardensList.txt'
@@ -68,7 +68,7 @@ PlantList_20 = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMo
 csvFields = ['Botanical Name', 'Height',
              'Spread', 'Spacing', 'USDA Hardiness Zone', 'Bloom Color', 'Common Name',
              'Soil Moisture Preference', 'Exposure', 'Flowering Months', 'Attracts Wildlife',
-             'Extra Attributes', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
+             'Extra Attributes', 'Deer Resistant', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
              'Season of Interest', 'Phytoremediation']
 csvRows = []
 csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_20.csv'
