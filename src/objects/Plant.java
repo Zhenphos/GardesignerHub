@@ -184,7 +184,7 @@ public class Plant extends GardenObject implements Serializable {
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
 		}
 	}
-	
+
 	/**
 	 * Returns a copy of the Plant object
 	 * 
@@ -305,6 +305,90 @@ public class Plant extends GardenObject implements Serializable {
 	 */
 	public String toString() {
 		return plantBotanicalName;
+	}
+
+	/**
+	 * @return the commonName
+	 */
+	public String getCommonName() {
+		return commonName;
+	}
+
+	/**
+	 * @return the deerResistant
+	 */
+	public boolean isDeerResistant() {
+		return deerResistant;
+	}
+
+	/**
+	 * @return the floweringMonths
+	 */
+	public String[] getFloweringMonths() {
+		return floweringMonths;
+	}
+
+	/**
+	 * @return the foliageColor
+	 */
+	public String getFoliageColor() {
+		return foliageColor;
+	}
+
+	/**
+	 * @return the growthRate
+	 */
+	public String getGrowthRate() {
+		return growthRate;
+	}
+
+	/**
+	 * @return the otherAttributes
+	 */
+	public String[] getOtherAttributes() {
+		return otherAttributes;
+	}
+
+	/**
+	 * @return the phytoremediationElementsCleaned
+	 */
+	public String[] getPhytoremediationElementsCleaned() {
+		return phytoremediationElementsCleaned;
+	}
+
+	/**
+	 * @return the saltTolerance
+	 */
+	public String getSaltTolerance() {
+		return saltTolerance;
+	}
+
+	/**
+	 * @return the seasonsOfInterest
+	 */
+	public String[] getSeasonsOfInterest() {
+		return seasonsOfInterest;
+	}
+
+	/**
+	 * @return the soilMoisturePreference
+	 */
+	public String getSoilMoisturePreference() {
+		return soilMoisturePreference;
+	}
+
+	/**
+	 * @return the sunlightExposure
+	 */
+	public String getSunlightExposure() {
+		return sunlightExposure;
+	}
+
+	/**
+	 * @return the wildlifeAttracted
+	 */
+	public String[] getWildlifeAttracted() {
+		return wildlifeAttracted;
 	}
 
 }

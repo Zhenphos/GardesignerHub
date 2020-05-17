@@ -95,8 +95,9 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		
 		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 			int i=1;
 			PlantType t = PlantType.RAIN_GARDENS;
 			String line;
@@ -784,10 +785,6 @@ public class Controller extends Application {
 		});
 	}
 	
-	
-	
-	
-
 	/**
 	 * Loads the objects on the map
 	 * 
