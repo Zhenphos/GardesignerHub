@@ -15,7 +15,8 @@ import enums.Season;
 public class Plant extends GardenObject implements Serializable {
 
 	public static final int defaultRadius = 20;
-
+	
+	// original characteristics
 	String bloomColors;
 	int hardinessMax;
 	int hardinessMin;
@@ -26,7 +27,21 @@ public class Plant extends GardenObject implements Serializable {
 	int spacingMin;
 	int spreadMax;
 	int spreadMin;
-	// String type;
+	
+	// new characteristics
+	String commonName;
+	String soilMoisturePreference;
+	String sunlightExposure;
+	String[] floweringMonths;
+	String[] wildlifeAttracted;
+	String[] otherAttributes;
+	boolean deerResistant;
+	String foliageColor;
+	String growthRate;
+	String saltTolerance;
+	String[] seasonsOfInterest;
+	String[] phytoremediationElementsCleaned;
+	
 	PlantType type;
 
 	public Plant() {
@@ -34,7 +49,6 @@ public class Plant extends GardenObject implements Serializable {
 		shape = new DrawShape(null, defaultRadius);
 		shape.getCircle().setCenterX(defaultRadius * 2);
 		shape.getCircle().setCenterY(defaultRadius * 2);
-
 	}
 
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
