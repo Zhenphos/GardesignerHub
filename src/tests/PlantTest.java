@@ -49,13 +49,6 @@ public class PlantTest {
 	}
 	
 	@Test
-	public void setHardinessMinTest() {
-		Plant plant = new Plant();
-		plant.setHardinessMin(5);
-		assertEquals(plant.getHardinessMin(), 5);
-	}
-	
-	@Test
 	public void toStringTest() {
 		Plant emptyPlant = new Plant();
 		assertEquals(null, emptyPlant.toString());
