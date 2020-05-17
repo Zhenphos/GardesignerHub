@@ -35,7 +35,6 @@ import view.DrawScene;
 import view.GardenInfoScene;
 import view.LoadingScene;
 import view.MainMenuScene;
-import view.PlantInfoScene;
 import view.PlantPlacementScene;
 import view.RatingScene;
 import view.TimesScene;
@@ -125,7 +124,6 @@ public class View {
 		this.screens.put(Names.DRAW, new DrawScene());
 		this.screens.put(Names.LOADING, new LoadingScene());
 		this.screens.put(Names.PLANT_PLACEMENT, new PlantPlacementScene());
-		this.screens.put(Names.PLANT_INFO, new PlantInfoScene());
 		this.screens.put(Names.TIMES, new TimesScene());
 		this.screens.put(Names.RATING, new RatingScene());
 		this.initializeEvents();
@@ -164,7 +162,6 @@ public class View {
 		this.initializeDraw();
 		this.initializeLoadingScene();
 		this.initializePlantPlacement();
-		this.initializePlantInfo();
 		this.initializeTimes();
 		this.initializeRatings();
 	}
@@ -236,17 +233,6 @@ public class View {
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
 	}
-
-	/**
-	 * Initializes event handlers for PlantInfoScene
-	 */
-	private void initializePlantInfo() {
-		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Names.PLANT_INFO);
-	}
-
-	
-	
-	
 	
 	/**
 	 * Initializes event handlers for TimesScene
