@@ -387,58 +387,18 @@ public class PlantPlacementScene extends Scene {
 		Image errorImage = new Image(errorFile.toURI().toString());
 	    Image plantImage = errorImage;
 		
-		/*
-		for (int i = 0; i < masterList.size(); i++) {
-			if (masterList.get(i).getType() == t) {
-				if (i < plantImages.size()) {
-					plantImage = plantImages.get(i);
-				}
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-			} else if (t == PlantType.ALL) {
-				if (i < plantImages.size()) {
-					plantImage = plantImages.get(i);
-				}
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-
-			}
-		}*/
-		
 		for (Plant somePlant : masterList) {
 			try {
 				if (somePlant.getType() == plantType) {
-					System.out.println("triggered");
-					File imageFile = new File("file:resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
+					File imageFile = new File("resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
 					plantImage = new Image(imageFile.toURI().toString());
 					plantListView.getItems().add(new PlantWithImage(somePlant, plantImage));
 				}
-				//plantListView.getItems().clear();
-				//System.out.println("image location is " + imgLocation);
-				//File testfile = new File(imgLocation);
-				//System.out.println(testfile.exists());
-				// plantImage = errorImage;
 			} catch (Exception e) {
+				System.out.println("Error getting plant image for " + somePlant.toString());
 				plantListView.getItems().add(new PlantWithImage(somePlant, errorImage));
-				//e.printStackTrace();
 			}
 		}
-		
-		/*
-		for (int i = 0; i < masterList.size(); i++) {
-			if (masterList.get(i).getType() == plantType) {
-				if (i < plantImages.size()) {
-					//plantImage = plantImages.get(i);
-					plantImage = errorImage;
-				}
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-			} else if (plantType == PlantType.ALL) {
-				if (i < plantImages.size()) {
-					//plantImage = plantImages.get(i);
-					plantImage = errorImage;
-				}
-				//plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-			}
-		}*/
 
 		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>() {
 			private final ImageView imageView = new ImageView();
