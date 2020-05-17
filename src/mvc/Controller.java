@@ -28,10 +28,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -883,12 +880,64 @@ public class Controller extends Application {
 	public static int getIndex(Image image) {
 		String indexString = null;
 
-		String path = image.getUrl();
+		String path = image.impl_getUrl();
 		String [] s = path.split(".jp");
 		String [] s2 = s[0].split("images/");
 
 		int index = Integer.parseInt(s2[1]);
 		return index;
+	}
+
+	/**
+	 * Drag Event handler for when a plant is starting to be dragged from the list view in PlantPlacement scene
+	 * @param event
+	 */
+	public void onPlantDragDetected(MouseEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene.PlantWithImage pwi = scene.getPlantListView().getSelectionModel().getSelectedItem();
+		Dragboard db = scene.getPlantListView().startDragAndDrop(TransferMode.COPY);
+		ClipboardContent content = new ClipboardContent();
+		content.putImage(pwi.getImage());
+		db.setContent(content);
+		event.consume();
+	}
+
+	/**
+	 * Drag Event handler for when a plant is being dragged over the garden pane
+	 * @param event
+	 */
+	public void onPlantDragOver(DragEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		if (event.getGestureSource() != scene.getGardenPane() && event.getDragboard().hasImage()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
+
+	/**
+	 * Drag event handler for when a plant is dropped over the garden pane
+	 * @param event
+	 */
+	public void onPlantDragDropped(DragEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		Dragboard board = event.getDragboard();
+		boolean success = false;
+		if (board.hasImage()) {
+			success = true;
+			Plant plant = scene.getPlantListView().getSelectionModel().getSelectedItem().getPlant();
+			Plant plant2 = plant.copyOfPlant();
+			plant2.getShape().getPolygon().setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
+			plant2.getShape().getPolygon().setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
+			Circle circle = plant2.getShape().getCircle();
+			circle.setFill(new ImagePattern(board.getImage()));
+			scene.getGardenPane().getChildren().add(circle);
+			giveShapeDragBehavior(circle);
+			circle.setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
+			circle.setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
+			this.model.addGardenObject(plant2);
+		}
+		event.setDropCompleted(success);
+		event.consume();
 	}
 	
 	public static class CustomComparator implements Comparator<Image> {
