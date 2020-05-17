@@ -71,12 +71,12 @@ csvFields = ['Botanical Name', 'Height',
              'Extra Attributes', 'Deer Resistant', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
              'Season of Interest', 'Phytoremediation']
 csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_16.csv'
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_15.csv'
 basicAttributeSoup = []
 oneString = ""
 
 # change this for whatever plant list you want to get data for
-pathToPlantList = PlantList_16
+pathToPlantList = PlantList_15
 
 urlBase = 'http://www.newmoonnursery.com/'
 
