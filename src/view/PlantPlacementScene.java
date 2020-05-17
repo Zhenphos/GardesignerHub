@@ -89,7 +89,35 @@ public class PlantPlacementScene extends Scene {
 	private int indexOfPlant=0;
 
 	//private ArrayList<Plant> allPlants = Controller.importPlants(null, PlantType.ALL);
-	private ArrayList<Plant> allPlants = new ArrayList<>();
+	//private ArrayList<Plant> allPlants = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
+	
+	
+	private ArrayList<Plant> list00 = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
+	private ArrayList<Plant> list01 = Controller.importPlants("resources/PlantData/PlantList_01.csv", PlantType.ALKALINE_SOIL_TOLERANT);
+	private ArrayList<Plant> list02 = Controller.importPlants("resources/PlantData/PlantList_02.csv", PlantType.BIRD_BUTTERFLY_BUG_GARDENS);
+	private ArrayList<Plant> list03 = Controller.importPlants("resources/PlantData/PlantList_03.csv", PlantType.DROUGHT_TOLERANT);
+	private ArrayList<Plant> list04 = Controller.importPlants("resources/PlantData/PlantList_04.csv", PlantType.GRASSES);
+	private ArrayList<Plant> list05 = Controller.importPlants("resources/PlantData/PlantList_05.csv", PlantType.GROUNDHOG_RESISTANT);
+	private ArrayList<Plant> list06 = Controller.importPlants("resources/PlantData/PlantList_06.csv", PlantType.LANDSCAPE_ORNAMENTALS);
+	private ArrayList<Plant> list07 = Controller.importPlants("resources/PlantData/PlantList_07.csv", PlantType.MEADOW);
+	private ArrayList<Plant> list08 = Controller.importPlants("resources/PlantData/PlantList_08.csv", PlantType.NORTH_AMERICAN_NATIVE);
+	private ArrayList<Plant> list09 = Controller.importPlants("resources/PlantData/PlantList_09.csv", PlantType.PERENNIALS);
+	private ArrayList<Plant> list10 = Controller.importPlants("resources/PlantData/PlantList_10.csv", PlantType.PHYTOREMEDIATION);
+	private ArrayList<Plant> list11 = Controller.importPlants("resources/PlantData/PlantList_11.csv", PlantType.RABBIT_RESISTANT);
+	private ArrayList<Plant> list12 = Controller.importPlants("resources/PlantData/PlantList_12.csv", PlantType.RAIN_GARDENS);
+	private ArrayList<Plant> list13 = Controller.importPlants("resources/PlantData/PlantList_13.csv", PlantType.RESTORATION_CONSERVATION);
+	private ArrayList<Plant> list14 = Controller.importPlants("resources/PlantData/PlantList_14.csv", PlantType.ROOFTOP_GARDEN_PLANT);
+	private ArrayList<Plant> list15 = Controller.importPlants("resources/PlantData/PlantList_15.csv", PlantType.SHRUB);
+	private ArrayList<Plant> list16 = Controller.importPlants("resources/PlantData/PlantList_16.csv", PlantType.SOIL_STABILIZATION);
+	private ArrayList<Plant> list17 = Controller.importPlants("resources/PlantData/PlantList_17.csv", PlantType.STORMWATER_MANAGEMENT);
+	private ArrayList<Plant> list18 = Controller.importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
+	private ArrayList<Plant> list19 = Controller.importPlants("resources/PlantData/PlantList_19.csv", PlantType.WETLANDS);
+	private ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
+	
+	// needs to have other lists in it
+	private ArrayList<Plant> masterList = list00;
+
+	
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
@@ -101,9 +129,6 @@ public class PlantPlacementScene extends Scene {
 	private Label hardinessValue = createLabel("");
 	private Label colorsValue = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
-
-
-
 
 	public Label getNameValue() {
 		return nameValue;
@@ -159,11 +184,6 @@ public class PlantPlacementScene extends Scene {
 		this.container.setBottom(buttons);
 	}
 
-	
-	
-
-	
-	
 	/**
 	 * Creates the plant placement scene which allows the user to drag and drop
 	 * plants onto the garden space they drew previously.
@@ -336,32 +356,32 @@ public class PlantPlacementScene extends Scene {
 	 * reloads the plantlisview according to given plant type
 	 * @param plant type
 	 */
-	
 	private void reloadPlantList(PlantType t) {
 		plantListView.getItems().clear();
 		Image image = null;
-		boolean isAll=false;
-		
-		for (int i = 0 ; i < allPlants.size(); i++)  {
-			if(allPlants.get(i).getType()==t) {
-			if (i <plantImages.size()) {
-				image = plantImages.get(i);
-			}
-			plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
-			}else if(t==PlantType.ALL) {
-				if (i <plantImages.size()) {
+		boolean isAll = false;
+
+		for (int i = 0; i < masterList.size(); i++) {
+			if (masterList.get(i).getType() == t) {
+				if (i < plantImages.size()) {
 					image = plantImages.get(i);
 				}
-				plantListView.getItems().add(new PlantWithImage(allPlants.get(i), image));
-				
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), image));
+			} else if (t == PlantType.ALL) {
+				if (i < plantImages.size()) {
+					image = plantImages.get(i);
+				}
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), image));
+
 			}
 		}
-		
-		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>(){
+
+		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>() {
 			private final ImageView imageView = new ImageView();
 			{
 				setPrefHeight(100);
 			}
+
 			@Override
 			protected void updateItem(PlantWithImage plantWithImage, boolean empty) {
 				lv.setStyle(TEXT_LABEL_STYLE);
@@ -373,11 +393,10 @@ public class PlantPlacementScene extends Scene {
 					setText(plantWithImage.getPlant().toString());
 					imageView.setImage(plantWithImage.getImage());
 					setGraphic(imageView);
-					
+
 				}
 			}
 		});
-		
 	}
 
 	
@@ -431,7 +450,7 @@ public class PlantPlacementScene extends Scene {
 	 * @return allPlants
 	 */
 	public ArrayList<Plant> getAllPlants() {
-		return allPlants;
+		return masterList;
 	}
 
 	/**
