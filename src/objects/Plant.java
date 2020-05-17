@@ -13,39 +13,33 @@ import enums.Season;
  */
 
 public class Plant extends GardenObject implements Serializable {
-
 	public static final int defaultRadius = 20;
-	
-	// original characteristics
+
 	String bloomColors;
+	String commonName;
+	boolean deerResistant;
+	String[] floweringMonths;
+	String foliageColor;
+	String growthRate;
 	int hardinessMax;
 	int hardinessMin;
 	int heightMaxInches;
 	int heightMinInches;
+	String[] otherAttributes;
+	String[] phytoremediationElementsCleaned;
 	String plantBotanicalName;
+	String saltTolerance;
+	String[] seasonsOfInterest;
+	String soilMoisturePreference;
 	int spacingMax;
 	int spacingMin;
 	int spreadMax;
 	int spreadMin;
-	
-	// new characteristics
-	String commonName;
-	String soilMoisturePreference;
 	String sunlightExposure;
-	String[] floweringMonths;
-	String[] wildlifeAttracted;
-	String[] otherAttributes;
-	boolean deerResistant;
-	String foliageColor;
-	String growthRate;
-	String saltTolerance;
-	String[] seasonsOfInterest;
-	String[] phytoremediationElementsCleaned;
-	
 	PlantType type;
+	String[] wildlifeAttracted;
 
 	public Plant() {
-		// TODO Auto-generated constructor stub
 		shape = new DrawShape(null, defaultRadius);
 		shape.getCircle().setCenterX(defaultRadius * 2);
 		shape.getCircle().setCenterY(defaultRadius * 2);
@@ -120,6 +114,63 @@ public class Plant extends GardenObject implements Serializable {
 	}
 
 	/**
+	 * @param bloomColors
+	 * @param hardinessMax
+	 * @param hardinessMin
+	 * @param heightMaxInches
+	 * @param heightMinInches
+	 * @param plantBotanicalName
+	 * @param spacingMax
+	 * @param spacingMin
+	 * @param spreadMax
+	 * @param spreadMin
+	 * @param commonName
+	 * @param soilMoisturePreference
+	 * @param sunlightExposure
+	 * @param floweringMonths
+	 * @param wildlifeAttracted
+	 * @param otherAttributes
+	 * @param deerResistant
+	 * @param foliageColor
+	 * @param growthRate
+	 * @param saltTolerance
+	 * @param seasonsOfInterest
+	 * @param phytoremediationElementsCleaned
+	 * @param type
+	 */
+	public Plant(String bloomColors, int hardinessMax, int hardinessMin, int heightMaxInches, int heightMinInches,
+			String plantBotanicalName, int spacingMax, int spacingMin, int spreadMax, int spreadMin, String commonName,
+			String soilMoisturePreference, String sunlightExposure, String[] floweringMonths,
+			String[] wildlifeAttracted, String[] otherAttributes, boolean deerResistant, String foliageColor,
+			String growthRate, String saltTolerance, String[] seasonsOfInterest,
+			String[] phytoremediationElementsCleaned, PlantType type) {
+		super();
+		this.bloomColors = bloomColors;
+		this.hardinessMax = hardinessMax;
+		this.hardinessMin = hardinessMin;
+		this.heightMaxInches = heightMaxInches;
+		this.heightMinInches = heightMinInches;
+		this.plantBotanicalName = plantBotanicalName;
+		this.spacingMax = spacingMax;
+		this.spacingMin = spacingMin;
+		this.spreadMax = spreadMax;
+		this.spreadMin = spreadMin;
+		this.commonName = commonName;
+		this.soilMoisturePreference = soilMoisturePreference;
+		this.sunlightExposure = sunlightExposure;
+		this.floweringMonths = floweringMonths;
+		this.wildlifeAttracted = wildlifeAttracted;
+		this.otherAttributes = otherAttributes;
+		this.deerResistant = deerResistant;
+		this.foliageColor = foliageColor;
+		this.growthRate = growthRate;
+		this.saltTolerance = saltTolerance;
+		this.seasonsOfInterest = seasonsOfInterest;
+		this.phytoremediationElementsCleaned = phytoremediationElementsCleaned;
+		this.type = type;
+	}
+
+	/**
 	 * Changes the plant's size based on how many years its aged
 	 * 
 	 * @param age the number of years the plant has aged
@@ -133,7 +184,12 @@ public class Plant extends GardenObject implements Serializable {
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
 		}
 	}
-
+	
+	/**
+	 * Returns a copy of the Plant object
+	 * 
+	 * @return A copy of the Plant object
+	 */
 	public Plant copyOfPlant() {
 		Plant plant = new Plant(this.plantBotanicalName, this.heightMinInches, this.heightMaxInches, this.spreadMin,
 				this.spreadMax, this.spacingMin, this.spacingMax, this.hardinessMin, this.hardinessMax,
