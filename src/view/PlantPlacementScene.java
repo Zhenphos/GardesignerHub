@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.imageio.ImageIO;
+
 import javafx.geometry.*;
 import enums.Names;
 import enums.PlantType;
@@ -115,8 +118,7 @@ public class PlantPlacementScene extends Scene {
 	private ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
 	
 	// needs to have other lists in it
-	private ArrayList<Plant> masterList = list00;
-
+	private ArrayList<Plant> masterList = new ArrayList<>();
 	
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
@@ -358,21 +360,71 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private void reloadPlantList(PlantType t) {
 		plantListView.getItems().clear();
-		Image image = null;
-		boolean isAll = false;
-
+		
+		File errorFile = new File("resources/NO_IMAGE_AVAILABLE.png");
+		Image errorImage = new Image(errorFile.toURI().toString());
+	    Image plantImage = null;
+	    		
+		masterList.addAll(list00);
+		masterList.addAll(list01);
+		masterList.addAll(list02);
+		masterList.addAll(list03);
+		masterList.addAll(list04);
+		masterList.addAll(list05);
+		masterList.addAll(list06);
+		masterList.addAll(list07);
+		masterList.addAll(list08);
+		masterList.addAll(list09);
+		masterList.addAll(list10);
+		masterList.addAll(list11);
+		masterList.addAll(list12);
+		masterList.addAll(list13);
+		masterList.addAll(list14);
+		masterList.addAll(list15);
+		masterList.addAll(list16);
+		masterList.addAll(list17);
+		masterList.addAll(list18);
+		masterList.addAll(list19);
+		masterList.addAll(list20);
+		
+		try {
+			//plantImage = ImageIO.read(new File("resources/PlantImages/" + ".jpg"));
+			plantImage = errorImage;
+		} catch (Exception e) {
+			plantImage = errorImage;
+		}
+		
+		/*
 		for (int i = 0; i < masterList.size(); i++) {
 			if (masterList.get(i).getType() == t) {
 				if (i < plantImages.size()) {
-					image = plantImages.get(i);
+					plantImage = plantImages.get(i);
 				}
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), image));
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
 			} else if (t == PlantType.ALL) {
 				if (i < plantImages.size()) {
-					image = plantImages.get(i);
+					plantImage = plantImages.get(i);
 				}
-				plantListView.getItems().add(new PlantWithImage(masterList.get(i), image));
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
 
+			}
+		}*/
+		
+		
+		for (int i = 0; i < masterList.size(); i++) {
+			if (masterList.get(i).getType() == t) {
+				if (i < plantImages.size()) {
+					//plantImage = plantImages.get(i);
+					plantImage = errorImage;
+				}
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
+			} else if (t == PlantType.ALL) {
+				if (i < plantImages.size()) {
+					//plantImage = plantImages.get(i);
+					plantImage = errorImage;
+				}
+				//plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
+				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
 			}
 		}
 
@@ -398,7 +450,6 @@ public class PlantPlacementScene extends Scene {
 			}
 		});
 	}
-
 	
 	
 	/**
@@ -485,10 +536,10 @@ public class PlantPlacementScene extends Scene {
 	public static class PlantWithImage{
 		private final Plant plant ;
 		private final Image image ;
-		public PlantWithImage(Plant p, Image img) {
+		public PlantWithImage(Plant p, Image plantImage) {
 			super();
 			this.plant = p;
-			this.image = img;
+			this.image = plantImage;
 		}
 		public Plant getPlant() {
 			return plant;
@@ -496,7 +547,6 @@ public class PlantPlacementScene extends Scene {
 		public Image getImage() {
 			return image;
 		}
-
 	}
 
 }
