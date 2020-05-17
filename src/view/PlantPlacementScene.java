@@ -88,7 +88,8 @@ public class PlantPlacementScene extends Scene {
 	public Controller imc;
 	private int indexOfPlant=0;
 
-	private ArrayList<Plant> allPlants = Controller.importPlants();
+	//private ArrayList<Plant> allPlants = Controller.importPlants(null, PlantType.ALL);
+	private ArrayList<Plant> allPlants = new ArrayList<>();
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
@@ -168,15 +169,13 @@ public class PlantPlacementScene extends Scene {
 	 * plants onto the garden space they drew previously.
 	 */
 	public void placePlant() {
-		System.out.print(allPlants.get(100).getType());
+		//System.out.print(allPlants.get(100).getType());
 
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
 		root.getChildren().add(drawCanvas);
 		drawGC = drawCanvas.getGraphicsContext2D();
 		drawGC.clearRect(0, 0, View.getCanvasWidth(), View.getCanvasHeight());
-
-
 
 		gardenPane.setPrefHeight(CENTER_HEIGHT);
 		gardenPane.setPrefWidth(CENTER_WIDTH);
@@ -209,12 +208,9 @@ public class PlantPlacementScene extends Scene {
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
 		topPane.setAlignment(Pos.CENTER);
 
-
-
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
 		reloadPlantList(PlantType.ALL);
-		
 		
         // create a choiceBox 
         ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr)); 

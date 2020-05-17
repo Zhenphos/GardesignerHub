@@ -51,7 +51,6 @@ import java.util.Optional;
  */
 
 public class Controller extends Application {
-
 	/**
 	 * the main method for the program
 	 * 
@@ -59,6 +58,11 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
+		ArrayList<Plant> testingList = new ArrayList<>();
+		testingList = importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
+		for (Plant x : testingList) {
+			System.out.println(x.returnDetailedInfo());
+		}
 		launch(args);
 	}
 
@@ -93,18 +97,18 @@ public class Controller extends Application {
 	 * 
 	 * @return an ArrayList of plants
 	 */
-	public static ArrayList<Plant> importPlants() {
+	public static ArrayList<Plant> importPlants(String path, PlantType plantType) {
 		ArrayList<Plant> plantList = new ArrayList<>();
 		
 		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
-			int i=1;
-			PlantType t = PlantType.RAIN_GARDENS;
-			String line;
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+			String line = " ";
+			reader.readLine();
+			
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
-				String plantBotName = data[0];
-				String bloomColor = data[5];
+				String botanicalName = data[0];
 
 				int minHeight = 0;
 				int maxHeight = 0;
@@ -169,16 +173,30 @@ public class Controller extends Application {
 				} catch (Exception e) {
 					hardinessMax = -1;
 				}
-				if(i<=20) t = PlantType.ALKALINE_SOIL_TOLERANT;
-				if(i>=20 && i <=40)  t = PlantType.BIRD_BUTTERFLY_BUG_GARDENS;
-				if(i>=40 && i<=60)  t = PlantType.DROUGHT_TOLERANT;
-				if(i>=60 && i<=80) t = PlantType.GRASSES;
-				if(i>=80 && i <=100) t = PlantType.LANDSCAPE_ORNAMENTALS;
-				//if(i>=120 && i <=140) t = PlantType.NO_ADVANCE_ORDER;
-				if(i<=120 && i>100) t = PlantType.PERENNIALS;
-				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
-						spacingMax, hardinessMin, hardinessMax, bloomColor, t));
-				i++;
+				
+				String bloomColor = data[5];
+				String commonName = data[6];
+				String soilMoisturePref = data[7];
+				String exposure = data[8];
+				String[] floweringMonths = data[9].split(",", 12);
+				String[] wildlifeAttracted = data[10].split(",", 20);
+				String[] extraAttributes = data[11].split(",", 25);
+				boolean deerResistant = false;
+				
+				if (data[12].equals("Deer Resistant")) {
+					deerResistant = true;
+				}
+				
+				String foliageColor = data[13];
+				String growthRate = data[14];
+				String saltTolerance = data[15];
+				String[] seasonsOfInterest = data[16].split(",", 25);
+				String[] phytoremediations = data[17].split(",", 25);
+				
+				plantList.add(new Plant(bloomColor, hardinessMax, hardinessMin, maxHeight, minHeight, botanicalName,
+						spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePref, exposure,
+						floweringMonths, wildlifeAttracted, extraAttributes, deerResistant, foliageColor, growthRate,
+						saltTolerance, seasonsOfInterest, phytoremediations, plantType));
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // TODO add proper error handling

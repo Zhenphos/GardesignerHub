@@ -1,6 +1,7 @@
 package objects;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import enums.PlantType;
 import enums.Season;
@@ -389,6 +390,20 @@ public class Plant extends GardenObject implements Serializable {
 	 */
 	public String[] getWildlifeAttracted() {
 		return wildlifeAttracted;
+	}
+
+	public String returnDetailedInfo() {
+		return "Plant [bloomColors=" + bloomColors + ", commonName=" + commonName + ", deerResistant=" + deerResistant
+				+ ", floweringMonths=" + Arrays.toString(floweringMonths) + ", foliageColor=" + foliageColor
+				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
+				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
+				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
+				+ Arrays.toString(phytoremediationElementsCleaned) + ", plantBotanicalName=" + plantBotanicalName
+				+ ", saltTolerance=" + saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
+				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
+				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="
+				+ sunlightExposure + ", type=" + type + ", wildlifeAttracted=" + Arrays.toString(wildlifeAttracted)
+				+ "]";
 	}
 
 }
