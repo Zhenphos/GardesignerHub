@@ -71,12 +71,12 @@ csvFields = ['Botanical Name', 'Height',
              'Extra Attributes', 'Deer Resistant', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
              'Season of Interest', 'Phytoremediation']
 csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_14.csv'
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_13.csv'
 basicAttributeSoup = []
 oneString = ""
 
 # change this for whatever plant list you want to get data for
-pathToPlantList = PlantList_14
+pathToPlantList = PlantList_13
 
 urlBase = 'http://www.newmoonnursery.com/'
 
@@ -246,7 +246,7 @@ with open(csvFileName, 'w', newline="") as csvfile:
     csvwriter.writerow(csvFields)
     csvwriter.writerows(csvRows)
 
-# This replaces the "\" with ""
+# This replaces all instances of "\" with "" in the given file
 fileToEdit = csvFileName
 with fileinput.FileInput(fileToEdit, inplace=True) as file:
     for line in file:
