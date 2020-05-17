@@ -59,11 +59,13 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
+		/*
 		ArrayList<Plant> testingList = new ArrayList<>();
-		testingList = importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
+		testingList = importPlants("resources/PlantData/PlantList_15.csv", PlantType.VINES);
 		for (Plant x : testingList) {
 			System.out.println(x.returnDetailedInfo());
 		}
+		*/
 		launch(args);
 	}
 
@@ -105,24 +107,44 @@ public class Controller extends Application {
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 			String line = " ";
+			// this is to skip the first line of the CSV
+			// which has the categories
 			reader.readLine();
 			
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
 				String botanicalName = data[0];
+				String[] splittingArray = null;
 
 				int minHeight = 0;
 				int maxHeight = 0;
-				String[] splittingArray = data[1].split("-", 2);
+				
+				splittingArray = data[1].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
 
 				try {
 					minHeight = Integer.parseInt(splittingArray[0]);
+					if (data[1].contains("ft") || data[1].contains("feet")) {
+						minHeight *= 12;
+					}
 				} catch (Exception e) {
 					minHeight = -1;
 				}
 
 				try {
 					maxHeight = Integer.parseInt(splittingArray[1]);
+					if (data[1].contains("ft") || data[1].contains("feet")) {
+						maxHeight *= 12;
+					}
 				} catch (Exception e) {
 					maxHeight = -1;
 				}
@@ -130,15 +152,31 @@ public class Controller extends Application {
 				int spreadMin = 0;
 				int spreadMax = 0;
 				splittingArray = data[2].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
 
 				try {
 					spreadMin = Integer.parseInt(splittingArray[0]);
+					if (data[2].contains("ft") || data[2].contains("feet")) {
+						spreadMin *= 12;
+					}
 				} catch (Exception e) {
 					spreadMin = -1;
 				}
 
 				try {
 					spreadMax = Integer.parseInt(splittingArray[1]);
+					if (data[2].contains("ft") || data[2].contains("feet")) {
+						spreadMax *= 12;
+					}
 				} catch (Exception e) {
 					spreadMax = -1;
 				}
@@ -146,15 +184,31 @@ public class Controller extends Application {
 				int spacingMin = 0;
 				int spacingMax = 0;
 				splittingArray = data[3].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) {
+					System.out.println("Error");
+				}
 
 				try {
 					spacingMin = Integer.parseInt(splittingArray[0]);
+					if (data[3].contains("ft") || data[3].contains("feet")) {
+						spacingMin *= 12;
+					}
 				} catch (Exception e) {
 					spacingMin = -1;
 				}
 
 				try {
 					spacingMax = Integer.parseInt(splittingArray[1]);
+					if (data[3].contains("ft") || data[3].contains("feet")) {
+						spacingMax *= 12;
+					}
 				} catch (Exception e) {
 					spacingMax = -1;
 				}
