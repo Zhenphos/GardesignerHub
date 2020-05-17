@@ -213,8 +213,6 @@ public class PlantPlacementScene extends Scene {
 		masterList.addAll(list19);
 		masterList.addAll(list20);
 		
-		//System.out.print(allPlants.get(100).getType());
-
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
 		root.getChildren().add(drawCanvas);
@@ -255,7 +253,8 @@ public class PlantPlacementScene extends Scene {
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
 		
-		reloadPlantList(PlantType.ALL);
+		//reloadPlantList(PlantType.ALL);
+		//reloadPlantList(PlantType.VINES);
 		
 		// create a choiceBox
 		ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr));
@@ -270,13 +269,14 @@ public class PlantPlacementScene extends Scene {
 			public void changed(ObservableValue ov, Number value, Number new_value) {
 				plantType = PlantType.get((int) new_value);
 				reloadPlantList(plantType);
+				//reloadPlantList(PlantType.VINES);
 			}
 		});
 		
         grid.add(c, 0, 8);
 		
 
-		// Display plant information in the right pane
+		// Display plant information in the left pane
 
 		Label name = createLabel("Name: ");
 		grid.add(name, 0, 0);
@@ -377,7 +377,7 @@ public class PlantPlacementScene extends Scene {
 	
 	
 	/**
-	 * reloads the plantlisview according to given plant type
+	 * reloads the plantListView according to given plant type
 	 * @param plant type
 	 */
 	private void reloadPlantList(PlantType plantType) {
@@ -385,14 +385,7 @@ public class PlantPlacementScene extends Scene {
 		
 		File errorFile = new File("resources/NO_IMAGE_AVAILABLE.png");
 		Image errorImage = new Image(errorFile.toURI().toString());
-	    Image plantImage = null;
-		
-		try {
-			//plantImage = ImageIO.read(new File("resources/PlantImages/" + ".jpg"));
-			plantImage = errorImage;
-		} catch (Exception e) {
-			plantImage = errorImage;
-		}
+	    Image plantImage = errorImage;
 		
 		/*
 		for (int i = 0; i < masterList.size(); i++) {
@@ -410,7 +403,26 @@ public class PlantPlacementScene extends Scene {
 			}
 		}*/
 		
+		for (Plant somePlant : masterList) {
+			try {
+				if (somePlant.getType() == plantType) {
+					System.out.println("triggered");
+					File imageFile = new File("file:resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
+					plantImage = new Image(imageFile.toURI().toString());
+					plantListView.getItems().add(new PlantWithImage(somePlant, plantImage));
+				}
+				//plantListView.getItems().clear();
+				//System.out.println("image location is " + imgLocation);
+				//File testfile = new File(imgLocation);
+				//System.out.println(testfile.exists());
+				// plantImage = errorImage;
+			} catch (Exception e) {
+				plantListView.getItems().add(new PlantWithImage(somePlant, errorImage));
+				//e.printStackTrace();
+			}
+		}
 		
+		/*
 		for (int i = 0; i < masterList.size(); i++) {
 			if (masterList.get(i).getType() == plantType) {
 				if (i < plantImages.size()) {
@@ -426,7 +438,7 @@ public class PlantPlacementScene extends Scene {
 				//plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
 				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
 			}
-		}
+		}*/
 
 		plantListView.setCellFactory(lv -> new ListCell<PlantPlacementScene.PlantWithImage>() {
 			private final ImageView imageView = new ImageView();
@@ -448,6 +460,28 @@ public class PlantPlacementScene extends Scene {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * static class to encapsulate both image and plant object in a single object
+	 */
+	public static class PlantWithImage {
+		private final Plant plant;
+		private final Image image;
+
+		public PlantWithImage(Plant p, Image plantImage) {
+			super();
+			this.plant = p;
+			this.image = plantImage;
+		}
+
+		public Plant getPlant() {
+			return plant;
+		}
+
+		public Image getImage() {
+			return image;
+		}
 	}
 	
 	
@@ -527,25 +561,4 @@ public class PlantPlacementScene extends Scene {
 	public ArrayList<Image> getPlantImages() {
 		return plantImages;
 	}
-	
-
-	/**
-	 * static class to encapsulate both image and plant object in a single object
-	 */
-	public static class PlantWithImage{
-		private final Plant plant ;
-		private final Image image ;
-		public PlantWithImage(Plant p, Image plantImage) {
-			super();
-			this.plant = p;
-			this.image = plantImage;
-		}
-		public Plant getPlant() {
-			return plant;
-		}
-		public Image getImage() {
-			return image;
-		}
-	}
-
 }
