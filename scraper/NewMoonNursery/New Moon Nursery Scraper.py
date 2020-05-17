@@ -71,12 +71,12 @@ csvFields = ['Botanical Name', 'Height',
              'Extra Attributes', 'Deer Resistant', 'Foliage Color', 'Growth Rate', 'Salt Tolerance',
              'Season of Interest', 'Phytoremediation']
 csvRows = []
-csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_01.csv'
+csvFileName = 'C:/Users/ts140/eclipse-workspace-java-hp/team-11-2/scraper/NewMoonNursery/Results/PlantList_00.csv'
 basicAttributeSoup = []
 oneString = ""
 
 # change this for whatever plant list you want to get data for
-pathToPlantList = PlantList_01
+pathToPlantList = PlantList_00
 
 urlBase = 'http://www.newmoonnursery.com/'
 
@@ -240,7 +240,7 @@ for url in listOfPlantURLs:
         print("An error occurred while trying to retrieve image for plant " + botanicalName)
     # end get plant images
 
-    sleep(3)
+    sleep(1)
 
 # Write the CSV
 with open(csvFileName, 'w', newline="") as csvfile:
