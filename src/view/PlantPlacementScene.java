@@ -87,13 +87,8 @@ public class PlantPlacementScene extends Scene {
 	public static final String BORDER_STYLE = "-fx-border-color: black";
 	private Button btnPrev, btnNext, btnUndo;
 
-
 	public Controller imc;
 	private int indexOfPlant=0;
-
-	//private ArrayList<Plant> allPlants = Controller.importPlants(null, PlantType.ALL);
-	//private ArrayList<Plant> allPlants = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
-	
 	
 	private ArrayList<Plant> list00 = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
 	private ArrayList<Plant> list01 = Controller.importPlants("resources/PlantData/PlantList_01.csv", PlantType.ALKALINE_SOIL_TOLERANT);
@@ -117,7 +112,6 @@ public class PlantPlacementScene extends Scene {
 	private ArrayList<Plant> list19 = Controller.importPlants("resources/PlantData/PlantList_19.csv", PlantType.WETLANDS);
 	private ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
 	
-	// needs to have other lists in it
 	private ArrayList<Plant> masterList = new ArrayList<>();
 	
 	private ArrayList<Image> plantImages = Controller.importImages();
@@ -173,12 +167,10 @@ public class PlantPlacementScene extends Scene {
 		this.container.setMinSize(View.WIDTH, View.HEIGHT);
 		this.container.setTop(this.plantListView);
 
-
 		HBox center = new HBox(this.grid, this.gardenPane);
 		center.setBackground(View.BACKGROUND);
 		HBox.setHgrow(this.gardenPane, Priority.ALWAYS);
 		this.container.setCenter(center);
-
 
 		HBox buttons = new HBox(this.btnPrev, this.btnNext);
 		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
@@ -253,8 +245,7 @@ public class PlantPlacementScene extends Scene {
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
 		
-		//reloadPlantList(PlantType.ALL);
-		//reloadPlantList(PlantType.VINES);
+		reloadPlantList(PlantType.ALL);
 		
 		// create a choiceBox
 		ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr));
@@ -269,7 +260,6 @@ public class PlantPlacementScene extends Scene {
 			public void changed(ObservableValue ov, Number value, Number new_value) {
 				plantType = PlantType.get((int) new_value);
 				reloadPlantList(plantType);
-				//reloadPlantList(PlantType.VINES);
 			}
 		});
 		
@@ -293,7 +283,6 @@ public class PlantPlacementScene extends Scene {
 		Label colors = createLabel("Bloom Colors: ");
 		grid.add(colors, 0, 4);
 
-
 		nameValue.setMaxWidth(100);
 		nameValue.setWrapText(true);
 		grid.add(nameValue, 1, 0);
@@ -316,8 +305,6 @@ public class PlantPlacementScene extends Scene {
 		label.setStyle(this.TEXT_LABEL_STYLE);
 		return label;
 	}
-
-
 
 	/**
 	 * Creates the "next" button
