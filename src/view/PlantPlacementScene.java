@@ -158,7 +158,7 @@ public class PlantPlacementScene extends Scene {
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 		//this.btnUndo = this.createButton(leftPane, "Undo", UNDO_IMAGE);
-		this.btnUndo = new Button("undo");
+		this.btnUndo = new Button("Undo");
 		grid.add(btnUndo, 0, 6);
 		
 		imc = new Controller(this);
@@ -380,7 +380,7 @@ public class PlantPlacementScene extends Scene {
 					File imageFile = new File("resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
 					plantImage = new Image(imageFile.toURI().toString());
 					plantListView.getItems().add(new PlantWithImage(somePlant, plantImage));
-				}
+				} 
 			} catch (Exception e) {
 				System.out.println("Error getting plant image for " + somePlant.toString());
 				plantListView.getItems().add(new PlantWithImage(somePlant, errorImage));
