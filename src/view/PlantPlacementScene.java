@@ -191,6 +191,28 @@ public class PlantPlacementScene extends Scene {
 	 * plants onto the garden space they drew previously.
 	 */
 	public void placePlant() {
+		masterList.addAll(list00);
+		masterList.addAll(list01);
+		masterList.addAll(list02);
+		masterList.addAll(list03);
+		masterList.addAll(list04);
+		masterList.addAll(list05);
+		masterList.addAll(list06);
+		masterList.addAll(list07);
+		masterList.addAll(list08);
+		masterList.addAll(list09);
+		masterList.addAll(list10);
+		masterList.addAll(list11);
+		masterList.addAll(list12);
+		masterList.addAll(list13);
+		masterList.addAll(list14);
+		masterList.addAll(list15);
+		masterList.addAll(list16);
+		masterList.addAll(list17);
+		masterList.addAll(list18);
+		masterList.addAll(list19);
+		masterList.addAll(list20);
+		
 		//System.out.print(allPlants.get(100).getType());
 
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
@@ -232,24 +254,24 @@ public class PlantPlacementScene extends Scene {
 
 		HBox.setHgrow(plantListView, Priority.NEVER);
 		plantListView.setOrientation(Orientation.HORIZONTAL);
+		
 		reloadPlantList(PlantType.ALL);
 		
-        // create a choiceBox 
-        ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr)); 
-        c.setMaxHeight(View.getCanvasHeight()*3/4);
-        c.setStyle(TEXT_LABEL_STYLE);
-        // add a listener 
-        c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() { 
-        	
-            // if the item of the list is changed
-        	PlantType t= PlantType.ALL;
-            public void changed(ObservableValue ov, Number value, Number new_value){
-            	t=PlantType.get((int)new_value);
-            	reloadPlantList(t);
-            	
- 
-            } 
-        }); 
+		// create a choiceBox
+		ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr));
+		c.setMaxHeight(View.getCanvasHeight() * 3 / 4);
+		c.setStyle(TEXT_LABEL_STYLE);
+		// add a listener
+		c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+
+			// if the item of the list is changed
+			PlantType plantType = PlantType.ALL;
+
+			public void changed(ObservableValue ov, Number value, Number new_value) {
+				plantType = PlantType.get((int) new_value);
+				reloadPlantList(plantType);
+			}
+		});
 		
         grid.add(c, 0, 8);
 		
@@ -358,34 +380,12 @@ public class PlantPlacementScene extends Scene {
 	 * reloads the plantlisview according to given plant type
 	 * @param plant type
 	 */
-	private void reloadPlantList(PlantType t) {
+	private void reloadPlantList(PlantType plantType) {
 		plantListView.getItems().clear();
 		
 		File errorFile = new File("resources/NO_IMAGE_AVAILABLE.png");
 		Image errorImage = new Image(errorFile.toURI().toString());
 	    Image plantImage = null;
-	    		
-		masterList.addAll(list00);
-		masterList.addAll(list01);
-		masterList.addAll(list02);
-		masterList.addAll(list03);
-		masterList.addAll(list04);
-		masterList.addAll(list05);
-		masterList.addAll(list06);
-		masterList.addAll(list07);
-		masterList.addAll(list08);
-		masterList.addAll(list09);
-		masterList.addAll(list10);
-		masterList.addAll(list11);
-		masterList.addAll(list12);
-		masterList.addAll(list13);
-		masterList.addAll(list14);
-		masterList.addAll(list15);
-		masterList.addAll(list16);
-		masterList.addAll(list17);
-		masterList.addAll(list18);
-		masterList.addAll(list19);
-		masterList.addAll(list20);
 		
 		try {
 			//plantImage = ImageIO.read(new File("resources/PlantImages/" + ".jpg"));
@@ -412,13 +412,13 @@ public class PlantPlacementScene extends Scene {
 		
 		
 		for (int i = 0; i < masterList.size(); i++) {
-			if (masterList.get(i).getType() == t) {
+			if (masterList.get(i).getType() == plantType) {
 				if (i < plantImages.size()) {
 					//plantImage = plantImages.get(i);
 					plantImage = errorImage;
 				}
 				plantListView.getItems().add(new PlantWithImage(masterList.get(i), plantImage));
-			} else if (t == PlantType.ALL) {
+			} else if (plantType == PlantType.ALL) {
 				if (i < plantImages.size()) {
 					//plantImage = plantImages.get(i);
 					plantImage = errorImage;
@@ -445,7 +445,6 @@ public class PlantPlacementScene extends Scene {
 					setText(plantWithImage.getPlant().toString());
 					imageView.setImage(plantWithImage.getImage());
 					setGraphic(imageView);
-
 				}
 			}
 		});
