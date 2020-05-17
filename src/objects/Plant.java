@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import enums.PlantType;
-import enums.Season;
 
 /**
  * Plant class for Gardendesigner Hub
@@ -169,6 +168,16 @@ public class Plant extends GardenObject implements Serializable {
 		this.seasonsOfInterest = seasonsOfInterest;
 		this.phytoremediationElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
+		
+		if (spreadMin != -1) {
+			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape.getCircle().setCenterX(this.spreadMin * 4);
+			shape.getCircle().setCenterY(this.spreadMin * 4);
+		} else {
+			shape = new DrawShape(null, defaultRadius);
+			shape.getCircle().setCenterX(defaultRadius * 2);
+			shape.getCircle().setCenterY(defaultRadius * 2);
+		}
 	}
 
 	/**

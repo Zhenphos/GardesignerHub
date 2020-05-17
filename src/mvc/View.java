@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
 import enums.Names;
 import enums.Season;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -26,11 +28,18 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
-import view.*;
+import view.DrawScene;
+import view.GardenInfoScene;
+import view.LoadingScene;
+import view.MainMenuScene;
+import view.PlantInfoScene;
+import view.PlantPlacementScene;
+import view.RatingScene;
+import view.TimesScene;
+import view.TutorialScene;
 
 /**
  * View class for Gardendesigner Hub

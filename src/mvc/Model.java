@@ -2,9 +2,7 @@ package mvc;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 
-import enums.PlantType;
 import enums.Season;
 import objects.GardenObject;
 import objects.Plant;
