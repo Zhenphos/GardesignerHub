@@ -22,13 +22,13 @@ import mvc.View;
 
 public class DrawScene extends Scene {
 
-	private static final String HEADER_TEXT = "Draw Garden";
-	private static final String GRASS_TEXT = "Grass";
-	private static final String ROAD_TEXT = "Road";
-	private static final String STREAM_TEXT = "Stream";
-	private static final String WOODS_TEXT = "Woods";
-	private static final String SHADE_TEXT = "Shade";
-	private static final String UNDO_TEXT = "Undo";
+	public static final String HEADER_TEXT = "Draw Garden";
+	public static final String GRASS_TEXT = "Grass";
+	public static final String ROAD_TEXT = "Road";
+	public static final String STREAM_TEXT = "Stream";
+	public static final String WOODS_TEXT = "Woods";
+	public static final String SHADE_TEXT = "Shade";
+	public static final String UNDO_TEXT = "Undo";
 
 	private static final Image GRASS_IMAGE = View.createImage("resources/grass.png");
 	private static final Image ROAD_IMAGE = View.createImage("resources/road.png");
@@ -50,6 +50,7 @@ public class DrawScene extends Scene {
 	private BorderPane container;
 	private Label lblHeader;
 	private Pane gardenPane;
+	private ImageView grassView, roadView, streamView, woodsView, shadeView;
 	private Button grassButton, roadButton, streamButton, woodsButton, shadeButton, deleteButton, btnPrev, btnNext;
 
 	/**
@@ -71,12 +72,17 @@ public class DrawScene extends Scene {
 
 		VBox tools = new VBox();
 		tools.setAlignment(Pos.CENTER);
-		this.grassButton = this.createButton(tools, GRASS_TEXT, GRASS_IMAGE);
-		this.roadButton = this.createButton(tools, ROAD_TEXT, ROAD_IMAGE);
-		this.streamButton = this.createButton(tools, STREAM_TEXT, STREAM_IMAGE);
-		this.woodsButton = this.createButton(tools, WOODS_TEXT, WOODS_IMAGE);
-		this.shadeButton = this.createButton(tools, SHADE_TEXT, SHADE_IMAGE);
-		this.deleteButton = this.createButton(tools, UNDO_TEXT, UNDO_IMAGE);
+		this.grassView = new ImageView(GRASS_IMAGE);
+		this.grassButton = this.createButton(tools, GRASS_TEXT, this.grassView);
+		this.roadView = new ImageView(ROAD_IMAGE);
+		this.roadButton = this.createButton(tools, ROAD_TEXT, this.roadView);
+		this.streamView = new ImageView(STREAM_IMAGE);
+		this.streamButton = this.createButton(tools, STREAM_TEXT, this.streamView);
+		this.woodsView = new ImageView(WOODS_IMAGE);
+		this.woodsButton = this.createButton(tools, WOODS_TEXT, this.woodsView);
+		this.shadeView = new ImageView(SHADE_IMAGE);
+		this.shadeButton = this.createButton(tools, SHADE_TEXT, this.shadeView);
+		this.deleteButton = this.createButton(tools, UNDO_TEXT, new ImageView(UNDO_IMAGE));
 
 		HBox center = new HBox(tools, this.gardenPane);
 		center.setBackground(View.BACKGROUND);
@@ -103,13 +109,12 @@ public class DrawScene extends Scene {
 	 * @param image the image displayed under the button
 	 * @return the created button
 	 */
-	private Button createButton(Pane pane, String text, Image image) {
+	private Button createButton(Pane pane, String text, ImageView image) {
 		Button button = new Button(text);
 		button.setMaxWidth(Double.MAX_VALUE);
-		ImageView view = new ImageView(image);
-		view.setPreserveRatio(true);
-		view.setFitHeight(View.HEIGHT / 10f);
-		VBox box = new VBox(button, view);
+		image.setPreserveRatio(true);
+		image.setFitHeight(View.HEIGHT / 10f);
+		VBox box = new VBox(button, image);
 		box.setAlignment(Pos.CENTER);
 		pane.getChildren().add(box);
 		return button;
@@ -122,6 +127,46 @@ public class DrawScene extends Scene {
 	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
+	}
+
+	/**
+	 * Gets ImageView for grass button
+	 * @return the imageview for the grass button
+	 */
+	public ImageView getGrassView() {
+		return grassView;
+	}
+
+	/**
+	 * Gets ImageView for road button
+	 * @return the imageview for the road button
+	 */
+	public ImageView getRoadView() {
+		return roadView;
+	}
+
+	/**
+	 * Gets ImageView for stream button
+	 * @return the imageview for the stream button
+	 */
+	public ImageView getStreamView() {
+		return streamView;
+	}
+
+	/**
+	 * Gets ImageView for woods button
+	 * @return the imageview for the woods button
+	 */
+	public ImageView getWoodsView() {
+		return woodsView;
+	}
+
+	/**
+	 * Gets ImageView for shade button
+	 * @return the imageview for the shade button
+	 */
+	public ImageView getShadeView() {
+		return shadeView;
 	}
 
 	/**

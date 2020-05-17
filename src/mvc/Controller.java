@@ -880,12 +880,82 @@ public class Controller extends Application {
 	public static int getIndex(Image image) {
 		String indexString = null;
 
-		String path = image.impl_getUrl();
+		String path = image.getUrl();
 		String [] s = path.split(".jp");
 		String [] s2 = s[0].split("images/");
 
 		int index = Integer.parseInt(s2[1]);
 		return index;
+	}
+
+	/**
+	 * Drag event when a you start dragging something
+	 * @param event
+	 */
+	public void onDrawDragDetected(String name, ImageView view, MouseEvent event) {
+		Dragboard db = view.startDragAndDrop(TransferMode.COPY);
+		ClipboardContent content = new ClipboardContent();
+		content.putImage(view.getImage());
+		content.putString(name);
+		db.setContent(content);
+		event.consume();
+	}
+
+	/**
+	 * Drag event when something is being dragged over the GardenPane in DrawScene
+	 * @param event
+	 */
+	public void onDrawDragOver(DragEvent event) {
+		if (event.getGestureSource() != event.getTarget() && event.getDragboard().hasImage()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
+
+	/**
+	 * Drag event when something is dropped over over the GardenPane in DrawScene
+	 * @param event
+	 */
+	public void onDrawDragDropped(DragEvent event) {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Dragboard board = event.getDragboard();
+		boolean success = false;
+		if (board.hasString()) {
+			success = true;
+			GardenObject object = null;
+			switch (board.getString()) {
+				case DrawScene.GRASS_TEXT:
+					object = new Grass();
+					break;
+
+				case DrawScene.ROAD_TEXT:
+					object = new Road();
+					break;
+
+				case DrawScene.STREAM_TEXT:
+					object = new Stream();
+					break;
+
+				case DrawScene.WOODS_TEXT:
+					object = new Woods();
+					break;
+
+				case DrawScene.SHADE_TEXT:
+					object = new Shade();
+					break;
+			}
+
+			if (object != null) {
+				Polygon polygon = object.getShape().getPolygon();
+				createDrawPolyDraggable(scene, polygon);
+				polygon.setLayoutX(event.getX() - scene.getGardenPane().getLayoutX());
+				polygon.setLayoutY(event.getY() - scene.getGardenPane().getLayoutY());
+				this.model.addGardenObject(object);
+			}
+
+		}
+		event.setDropCompleted(success);
+		event.consume();
 	}
 
 	/**

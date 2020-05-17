@@ -209,6 +209,14 @@ public class View {
 		scene.getWoodsButton().setOnAction(event -> this.controller.onDrawWoods());
 		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
 		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawUndo());
+
+		scene.getGrassView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.GRASS_TEXT, scene.getGrassView(), event));
+		scene.getRoadView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.ROAD_TEXT, scene.getRoadView(), event));
+		scene.getStreamView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.STREAM_TEXT, scene.getStreamView(), event));
+		scene.getWoodsView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.WOODS_TEXT, scene.getWoodsView(), event));
+		scene.getShadeView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.SHADE_TEXT, scene.getShadeView(), event));
+		scene.getGardenPane().setOnDragOver(event -> this.controller.onDrawDragOver(event));
+		scene.getGardenPane().setOnDragDropped(event -> this.controller.onDrawDragDropped(event));
 	}
 
 	/**
