@@ -305,12 +305,7 @@ public class Controller extends Application {
 	}
 
 	
-	public static String[] replaceDash(String [] string) {
-		for (String str:string) {
-			str.replace('_', ' ');
-		}
-		return string;
-	}
+
 	
 	
 	/**
@@ -320,6 +315,7 @@ public class Controller extends Application {
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
 		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+		System.out.print(calculateRating());
 	}
 
 	/**
@@ -592,6 +588,9 @@ public class Controller extends Application {
 	public void onTimesNext() {
 		this.view.setScreen(Names.RATING);
 		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
+		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
+		sc.setRating(calculateRating());
+		
 	}
 
 	/**
@@ -785,6 +784,31 @@ public class Controller extends Application {
 		});
 	}
 	
+	
+	
+	
+	public int calculateRating() {
+		String rec = "";
+		boolean PhMatch = true;
+		int rating=0;
+		Double ph = model.getSoilPH();
+		for (int i=0; i<model.getPlantObjects().size(); i++) {
+				if(model.getPlantObjects().get(i).getType() != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) PhMatch = false;
+			
+		}
+		if (PhMatch) rating++;
+		else {
+			rating--;
+			rec+="Ph mismatch,";
+		}
+		return rating;
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Loads the objects on the map
 	 * 
@@ -793,6 +817,12 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
+	
+	/**
+	 * returns the model
+	 * @return model
+	 */
+	
 	
 	
 

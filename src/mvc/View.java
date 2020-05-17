@@ -264,6 +264,7 @@ public class View {
 				.addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
 		scene.getSeasonGroup().selectedToggleProperty().addListener(((observable, oldValue, newValue) -> this.controller
 				.onTimesSetSeason((Season) newValue.getUserData())));
+	
 	}
 
 	/**
