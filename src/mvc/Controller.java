@@ -122,14 +122,10 @@ public class Controller extends Application {
 				splittingArray = data[1].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 
 				try {
 					minHeight = Integer.parseInt(splittingArray[0]);
@@ -154,14 +150,10 @@ public class Controller extends Application {
 				splittingArray = data[2].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 
 				try {
 					spreadMin = Integer.parseInt(splittingArray[0]);
@@ -186,14 +178,10 @@ public class Controller extends Application {
 				splittingArray = data[3].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) {
-					System.out.println("Error");
-				}
+				} catch (Exception e) { }
 
 				try {
 					spacingMin = Integer.parseInt(splittingArray[0]);
