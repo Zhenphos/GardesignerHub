@@ -51,8 +51,6 @@ public class PlantPlacementScene extends Scene {
 	Pane gardenPane = new Pane();
 	private BorderPane container;
 	private GridPane grid = new GridPane();
-	
-
 
 	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
@@ -99,38 +97,39 @@ public class PlantPlacementScene extends Scene {
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
-
 	private Label error = createLabel("");
-	private Label nameValue = createLabel("");
-	private Label heightValue = createLabel("");
-	private Label spacingValue = createLabel("");
-	private Label hardinessValue = createLabel("");
-	private Label colorsValue = createLabel("");
-	private Label attributeValue  = createLabel("");
+	private Label botNameLabel = createLabel("");
+	private Label minHeightLabel = createLabel("");
+	private Label maxHeightLabel = createLabel("");
+	private Label minSpaceLabel = createLabel("");
+	private Label maxSpaceLabel = createLabel("");
+	private Label minHardiLabel = createLabel("");
+	private Label bColorsLabel = createLabel("");
+	private Label extraAttributesLabel  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
 
-	public Label getNameValue() {
-		return nameValue;
+	public Label getBotNameLabel() {
+		return botNameLabel;
 	}
 
-	public Label getHeightValue() {
-		return heightValue;
+	public Label getMaxHeightLabel() {
+		return maxHeightLabel;
 	}
 
-	public Label getSpacingValue() {
-		return spacingValue;
+	public Label getMaxSpaceLabel() {
+		return maxSpaceLabel;
 	}
 
-	public Label getHardinessValue() {
-		return hardinessValue;
+	public Label getMinHardiLabel() {
+		return minHardiLabel;
 	}
 
-	public Label getColorsValue() {
-		return colorsValue;
+	public Label getBColorsLabel() {
+		return bColorsLabel;
 	}
 	
-	public Label getAttributesValue() {
-		return attributeValue;
+	public Label getAttribLabel() {
+		return extraAttributesLabel;
 	}
 
 	/**
@@ -146,7 +145,8 @@ public class PlantPlacementScene extends Scene {
 		this.btnPrev.setMaxWidth(Double.MAX_VALUE);
 		//this.btnUndo = this.createButton(leftPane, "Undo", UNDO_IMAGE);
 		this.btnUndo = new Button("Undo");
-		grid.add(btnUndo, 0, 6);
+		// need to watch this button's location when adding things
+		grid.add(btnUndo, 0, 10);
 		
 		imc = new Controller(this);
 		placePlant();
@@ -249,41 +249,50 @@ public class PlantPlacementScene extends Scene {
 				reloadPlantList(plantType);
 			}
 		});
+		
 		choiceBox.setMaxWidth(CHOICEBOX_WIDTH);
 		choiceBox.setStyle(TEXT_LABEL_STYLE);
 
-		
-
 		// Display plant information in the left pane
 
-		Label name = createLabel("Name: ");
+		Label name = createLabel("Common Name: ");
 		grid.add(name, 0, 0);
+		
+		Label minHeight = createLabel("Min Height (in): ");
+		grid.add(minHeight, 0, 1);
 
-		Label maxHeight = createLabel("Maximum Height: ");
-		grid.add(maxHeight, 0, 1);
+		Label maxHeight = createLabel("Max Height (in): ");
+		grid.add(maxHeight, 0, 2);
+		
+		Label minSpacing = createLabel("Min Spacing (in): ");
+		grid.add(minSpacing, 0, 3);
 
-		Label maxSpacing = createLabel("Maximum Spacing: ");
-		grid.add(maxSpacing, 0, 2);
+		Label maxSpacing = createLabel("Max Spacing (in): ");
+		grid.add(maxSpacing, 0, 4);
 
-		Label hardiness = createLabel("Hardiness Required: ");
-		grid.add(hardiness, 0, 3);
+		Label minHardi = createLabel("Min Hardiness: ");
+		grid.add(minHardi, 0, 5);
 
 		Label colors = createLabel("Bloom Colors: ");
-		grid.add(colors, 0, 4);
+		grid.add(colors, 0, 6);
 		
 		Label attributes = createLabel("Attributes: ");
-		grid.add(attributes, 0, 5);
+		grid.add(attributes, 0, 7);
 
-		nameValue.setMaxWidth(100);
-		nameValue.setWrapText(true);
-		grid.add(nameValue, 1, 0);
-		grid.add(heightValue, 1, 1);
-		grid.add(spacingValue, 1, 2);
-		grid.add(hardinessValue, 1, 3);
-		grid.add(colorsValue, 1, 4);
-		grid.add(attributeValue, 1, 5);
-		grid.add(selectPlant, 0, 7);
-		grid.add(choiceBox, 0, 8);
+		botNameLabel.setMaxWidth(100);
+		botNameLabel.setWrapText(true);
+		
+		grid.add(botNameLabel, 1, 0);
+		grid.add(minHeightLabel, 1, 1);
+		grid.add(maxHeightLabel, 1, 2);
+		grid.add(minSpaceLabel, 1, 3);
+		grid.add(maxSpaceLabel, 1, 4);
+		grid.add(minHardiLabel, 1, 5);
+		grid.add(bColorsLabel, 1, 6);
+		grid.add(extraAttributesLabel, 1, 7);
+		
+		grid.add(selectPlant, 0, 8);
+		grid.add(choiceBox, 0, 9);
 	}
 
 
@@ -501,5 +510,19 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public ArrayList<Image> getPlantImages() {
 		return plantImages;
+	}
+
+	/**
+	 * @return the minHeightLabel
+	 */
+	public Label getMinHeightLabel() {
+		return minHeightLabel;
+	}
+
+	/**
+	 * @return the minSpaceLabel
+	 */
+	public Label getMinSpaceLabel() {
+		return minSpaceLabel;
 	}
 }

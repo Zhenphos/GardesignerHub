@@ -462,13 +462,15 @@ public class Controller extends Application {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
 			System.out.println("Mouse clicked");
-			ListCell cell = (ListCell) (event.getTarget());		
-			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText())).findAny();
-			Plant p = plant.get();
-			System.out.println(scene.getAllPlants().indexOf(p));
-			if(event.getClickCount()==2) {
-				scene.setIndexOfPlant(scene.getAllPlants().indexOf(p));
-				Plant plant2 = p.copyOfPlant();
+			ListCell cell = (ListCell) (event.getTarget());
+			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText()))
+					.findAny();
+			Plant selectedPlant = plant.get();
+			System.out.println(scene.getAllPlants().indexOf(selectedPlant));
+			
+			if (event.getClickCount() == 2) {
+				scene.setIndexOfPlant(scene.getAllPlants().indexOf(selectedPlant));
+				Plant plant2 = selectedPlant.copyOfPlant();
 				Circle circle = plant2.getShape().getCircle();
 				circle.setFill(new ImagePattern(scene.getPlantImages().get(scene.getIndexOfPlant())));
 				scene.getGardenPane().getChildren().add(circle);
@@ -476,24 +478,41 @@ public class Controller extends Application {
 				System.out.println(model.getGardenObjects());
 				giveShapeDragBehavior(circle);
 			}
-			scene.getNameValue().setText(p.getCommonName());
+			
+			scene.getBotNameLabel().setText(selectedPlant.getCommonName());
+			
+			if (selectedPlant.getHeightMinInches() == -1) {
+				scene.getMinHeightLabel().setText("No Data");
+			} else {
+				scene.getMinHeightLabel().setText(Integer.toString(selectedPlant.getHeightMinInches()));
+			}
 
-			if (p.getHeightMaxInches() == -1)
-				scene.getHeightValue().setText("No Data");
-			else
-				scene.getHeightValue().setText(Integer.toString(p.getHeightMaxInches()));
+			if (selectedPlant.getHeightMaxInches() == -1) {
+				scene.getMaxHeightLabel().setText("No Data");
+			} else {
+				scene.getMaxHeightLabel().setText(Integer.toString(selectedPlant.getHeightMaxInches()));
+			}
+			
+			if (selectedPlant.getSpacingMin() == -1) {
+				scene.getMinSpaceLabel().setText("No Data");
+			} else {
+				scene.getMinSpaceLabel().setText(Integer.toString(selectedPlant.getSpacingMin()));
+			}
 
-			if (p.getSpacingMax() == -1)
-				scene.getSpacingValue().setText("No Data");
-			else
-				scene.getSpacingValue().setText(Integer.toString(p.getSpacingMax()));
+			if (selectedPlant.getSpacingMax() == -1) {
+				scene.getMaxSpaceLabel().setText("No Data");
+			} else {
+				scene.getMaxSpaceLabel().setText(Integer.toString(selectedPlant.getSpacingMax()));
+			}
 
-			if (p.getHardinessMin() == -1)
-				scene.getHardinessValue().setText("No Data");
-			else
-				scene.getHardinessValue().setText(Integer.toString(p.getHardinessMin()));
-			scene.getColorsValue().setText(p.getBloomColors());
-			scene.getAttributesValue().setText(p.getOtherAttributes().toString());
+			if (selectedPlant.getHardinessMin() == -1) {
+				scene.getMinHardiLabel().setText("No Data");
+			} else {
+				scene.getMinHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMin()));
+			}
+			
+			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
+			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
 			event.consume();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
