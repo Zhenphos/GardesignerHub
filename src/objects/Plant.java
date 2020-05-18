@@ -189,7 +189,7 @@ public class Plant extends GardenObject implements Serializable {
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3 / 4;
-			shape.getCircle().setRadius((this.spreadMin * 3) + (growthRate * age));
+			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age));
 		} else {
 			double growthRate = defaultRadius / 4;
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);

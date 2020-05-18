@@ -677,11 +677,6 @@ public class Controller extends Application {
 		}
 	}
 	
-	
-	
-	
-	
-	
 	/**
 	 * 
 	 * @param i the index of the object that will be removed from the model
@@ -732,16 +727,15 @@ public class Controller extends Application {
 	}
 	
 	public static String ArrayOfStrings(String[] arr) {
-		      StringBuffer sb = new StringBuffer();
-		      for(int i = 0; i < arr.length; i++) {
-		         sb.append(arr[i]);
-		         sb.append('\n');
-		      }
-		      String str = sb.toString();
-		     
-			return str;
-		   
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < arr.length; i++) {
+			sb.append(arr[i]);
+			sb.append('\n');
 		}
+		String str = sb.toString();
+
+		return str;
+	}
 
 	/**
 	 * Event handler for when the user selects a season radio button on the
@@ -812,7 +806,7 @@ public class Controller extends Application {
 		for (Plant plant : plantList) {
 			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
-			sb.append("\t");
+			sb.append("   |   ");
 			sb.append(plant.getCommonName());
 			sb.append("\n");
 		}
