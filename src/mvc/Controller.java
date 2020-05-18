@@ -1345,8 +1345,6 @@ public class Controller extends Application {
 			success = true;
 			Plant plant = scene.getPlantListView().getSelectionModel().getSelectedItem().getPlant();
 			Plant plant2 = plant.copyOfPlant();
-			plant2.getShape().getPolygon().setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
-			plant2.getShape().getPolygon().setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
 			Circle circle = plant2.getShape().getCircle();
 			circle.setFill(new ImagePattern(board.getImage()));
 			scene.getGardenPane().getChildren().add(circle);
