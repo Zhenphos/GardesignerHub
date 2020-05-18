@@ -56,7 +56,6 @@ import view.LoadingScene;
 import view.PlantPlacementScene;
 import view.RatingScene;
 import view.TimesScene;
-import view.PlantPlacementScene.PlantWithImage;
 
 /**
  * Controller class for Gardendesigner Hub
@@ -65,8 +64,9 @@ import view.PlantPlacementScene.PlantWithImage;
  *
  */
 public class Controller extends Application {
+	
 	/**
-	 * the main method for the program
+	 * The main method for the program
 	 * 
 	 * @param args an array of strings
 	 * @throws FileNotFoundException if an image file or csv file is not found
@@ -151,10 +151,12 @@ public class Controller extends Application {
 				splittingArray = data[2].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) { }
+				} catch (Exception e) {
+				}
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) { }
+				} catch (Exception e) {
+				}
 
 				try {
 					spreadMin = Integer.parseInt(splittingArray[0]);
@@ -179,10 +181,12 @@ public class Controller extends Application {
 				splittingArray = data[3].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) { }
+				} catch (Exception e) {
+				}
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) { }
+				} catch (Exception e) {
+				}
 
 				try {
 					spacingMin = Integer.parseInt(splittingArray[0]);
@@ -217,7 +221,7 @@ public class Controller extends Application {
 				} catch (Exception e) {
 					hardinessMax = -1;
 				}
-				
+
 				String bloomColor = data[5];
 				String commonName = data[6];
 				String soilMoisturePref = data[7];
@@ -226,11 +230,11 @@ public class Controller extends Application {
 				String[] wildlifeAttracted = data[10].split(",", 20);
 				String[] extraAttributes = data[11].split(",", 25);
 				boolean deerResistant = false;
-				
+
 				if (data[12].equals("Deer Resistant")) {
 					deerResistant = true;
 				}
-				
+
 				String foliageColor = data[13];
 				String growthRate = data[14];
 				String saltTolerance = data[15];
@@ -447,8 +451,9 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Handles the click events, single click on plant name displays the information
-	 * in right panel double click puts the plant image on the garden
+	 * Handles the click events. A single click on a plant name displays the
+	 * information in right panel and a double click puts the plant image in the
+	 * garden
 	 * 
 	 * @param event the MouseEvent on the plant
 	 */
