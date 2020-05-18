@@ -12,7 +12,6 @@ import mvc.Controller;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Plant extends GardenObject implements Serializable {
 	public static final int defaultRadius = 20;
 
@@ -40,12 +39,31 @@ public class Plant extends GardenObject implements Serializable {
 	PlantType type;
 	String[] wildlifeAttracted;
 
+	/**
+	 * Default constructor for Plant that configures a plant as a circle and sets
+	 * its size
+	 */
 	public Plant() {
 		shape = new DrawShape(null, defaultRadius);
 		shape.getCircle().setCenterX(defaultRadius * 2);
 		shape.getCircle().setCenterY(defaultRadius * 2);
 	}
 
+	/**
+	 * Constructor for Plant. Creates a plant and sets its characteristics,
+	 * attributes, and requirements.
+	 * 
+	 * @param plantBotanicalName the String of the plant's botanical name
+	 * @param heightMinInches    the plant's minimum height in inches
+	 * @param heightMaxInches    the plant's maximum height in inches
+	 * @param spreadMin          the plant's minimum spread in inches
+	 * @param spreadMax          the plant's maximum spread in inches
+	 * @param spacingMin         the plant's minimum spacing in inches
+	 * @param spacingMax         the plant's maximum spacing in inches
+	 * @param hardinessMin       the plant's minimum hardiness
+	 * @param hardinessMax       the plant's maximum hardiness
+	 * @param bloomColors        the String of the plant's bloom colors
+	 */
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {
 		super();
@@ -73,9 +91,9 @@ public class Plant extends GardenObject implements Serializable {
 
 	/**
 	 * Constructor for Plant. Creates a plant and sets its characteristics,
-	 * attributes, and requirements.
+	 * attributes, requirements, and the group of plants it belongs to.
 	 * 
-	 * @param plantBotanicalName the string of the plant's botanical name
+	 * @param plantBotanicalName the String of the plant's botanical name
 	 * @param heightMinInches    the plant's minimum height in inches
 	 * @param heightMaxInches    the plant's maximum height in inches
 	 * @param spreadMin          the plant's minimum spread in inches
@@ -84,8 +102,8 @@ public class Plant extends GardenObject implements Serializable {
 	 * @param spacingMax         the plant's maximum spacing in inches
 	 * @param hardinessMin       the plant's minimum hardiness
 	 * @param hardinessMax       the plant's maximum hardiness
-	 * @param bloomColors        the string of the plant's bloom colors
-	 * @param type               the type of plant
+	 * @param bloomColors        the String of the plant's bloom colors
+	 * @param type               the PlantType of the plant
 	 */
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors, PlantType type) {
@@ -112,31 +130,49 @@ public class Plant extends GardenObject implements Serializable {
 			shape.getCircle().setCenterY(defaultRadius * 2);
 		}
 	}
-
+	
 	/**
-	 * @param bloomColors
-	 * @param hardinessMax
-	 * @param hardinessMin
-	 * @param heightMaxInches
-	 * @param heightMinInches
-	 * @param plantBotanicalName
-	 * @param spacingMax
-	 * @param spacingMin
-	 * @param spreadMax
-	 * @param spreadMin
-	 * @param commonName
-	 * @param soilMoisturePreference
-	 * @param sunlightExposure
-	 * @param floweringMonths
-	 * @param wildlifeAttracted
-	 * @param otherAttributes
-	 * @param deerResistant
-	 * @param foliageColor
-	 * @param growthRate
-	 * @param saltTolerance
-	 * @param seasonsOfInterest
-	 * @param phytoremediationElementsCleaned
-	 * @param type
+	 * Constructor for Plant. Creates a plant and sets its characteristics,
+	 * attributes, requirements, and the group of plants it belongs to in addition
+	 * to additional info such as salt tolerance of the plant and the types of
+	 * wildlife attracted by the plant.
+	 * 
+	 * @param bloomColors                     the String of the plant's bloom colors
+	 * @param hardinessMax                    the plant's maximum hardiness
+	 * @param hardinessMin                    the plant's minimum hardiness
+	 * @param heightMaxInches                 the plant's maximum height in inches
+	 * @param heightMinInches                 the plant's minimum height in inches
+	 * @param plantBotanicalName              the String of the plant's botanical
+	 *                                        name
+	 * @param spacingMax                      the plant's maximum spacing in inches
+	 * @param spacingMin                      the plant's minimum spacing in inches
+	 * @param spreadMax                       the plant's maximum spread in inches
+	 * @param spreadMin                       the plant's minimum spread in inches
+	 * @param commonName                      the String of the plant's common name
+	 * @param soilMoisturePreference          the String containing the soil
+	 *                                        moisture preference of the plant
+	 * @param sunlightExposure                the String containing the plant's
+	 *                                        recommended level of sunlight exposure
+	 * @param floweringMonths                 the array of Strings containing the
+	 *                                        plant's flowering months
+	 * @param wildlifeAttracted               the array of Strings containing the
+	 *                                        types of wildlife attracted by the
+	 *                                        plant
+	 * @param otherAttributes                 the array of Strings containing extra
+	 *                                        attributes of the plant
+	 * @param deerResistant                   the boolean indicating whether or not
+	 *                                        the plant is deer resistant
+	 * @param foliageColor                    the String containing the plant's
+	 *                                        foliage color
+	 * @param growthRate                      the String containing the plant's
+	 *                                        growth rate
+	 * @param saltTolerance                   the String containing the plant's salt
+	 *                                        tolerance level
+	 * @param seasonsOfInterest               the array of Strings containing the
+	 *                                        plant's seasons of interest
+	 * @param phytoremediationElementsCleaned the array of Strings containing the
+	 *                                        plant's elements cleaned
+	 * @param type                            the PlantType of the plant
 	 */
 	public Plant(String bloomColors, int hardinessMax, int hardinessMin, int heightMaxInches, int heightMinInches,
 			String plantBotanicalName, int spacingMax, int spacingMin, int spreadMax, int spreadMin, String commonName,
@@ -168,7 +204,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.seasonsOfInterest = seasonsOfInterest;
 		this.phytoElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
-		
+
 		if (spreadMin != -1) {
 			shape = new DrawShape(null, (this.spreadMin * 2));
 			shape.getCircle().setCenterX(this.spreadMin * 4);
@@ -198,7 +234,7 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * Returns a copy of the Plant object
 	 * 
-	 * @return A copy of the Plant object
+	 * @return a Plant which is a copy of the original Plant
 	 */
 	public Plant copyOfPlant() {
 		Plant copiedPlant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
@@ -212,7 +248,7 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * Gets the bloom colors of the plant
 	 * 
-	 * @return the bloom colors of the plant
+	 * @return the String containing the bloom colors of the plant
 	 */
 	public String getBloomColors() {
 		return bloomColors;
@@ -257,7 +293,7 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * Gets the botanical name of the plant
 	 * 
-	 * @return the botanical name of the plant
+	 * @return the String containing the botanical name of the plant
 	 */
 	public String getBotanicalName() {
 		return botanicalName;
@@ -302,7 +338,7 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * Gets the type of plant
 	 * 
-	 * @return type
+	 * @return the PlantType of the plant
 	 */
 
 	public PlantType getType() {
@@ -313,104 +349,134 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * Converts a plant to its botanical name
 	 * 
-	 * @return the plant's botanical name
+	 * @return the String containing the plant's botanical name
 	 */
 	public String toString() {
 		return botanicalName;
 	}
 
 	/**
-	 * @return the commonName
+	 * Gets the common name of the plant
+	 * 
+	 * @return the String containing the common name of the plant
 	 */
 	public String getCommonName() {
 		return commonName;
 	}
 
 	/**
-	 * @return the deerResistant
+	 * Gets whether or not the plant is deer resistant
+	 * 
+	 * @return the boolean indicating whether or not the plant is deer resistant
 	 */
 	public boolean isDeerResistant() {
 		return deerResistant;
 	}
 
 	/**
-	 * @return the floweringMonths
+	 * Gets the flowering months of the plant
+	 * 
+	 * @return the String containing the flowering months of the plant
 	 */
 	public String getFloweringMonths() {
 		return Controller.ArrayOfStrings(floweringMonths);
 	}
 
 	/**
-	 * @return the foliageColor
+	 * Gets the foliage color of the plant
+	 * 
+	 * @return the String containing the foliage color of the plant
 	 */
 	public String getFoliageColor() {
 		return foliageColor;
 	}
 
 	/**
-	 * @return the growthRate
+	 * Gets the growth rate of the plant
+	 * 
+	 * @return the String containing the growth rate of the plant
 	 */
 	public String getGrowthRate() {
 		return growthRate;
 	}
 
 	/**
-	 * @return the otherAttributes
+	 * Gets the extra attributes of the plant
+	 * 
+	 * @return the String containing the extra attributes of the plant
 	 */
 	public String getOtherAttributes() {
 		return Controller.ArrayOfStrings(otherAttributes);
 	}
 
 	/**
-	 * @return the phytoremediationElementsCleaned
+	 * Gets the phytoremediation elements cleaned of the plant
+	 * 
+	 * @return the String containing the phytoremediation elements cleaned of the
+	 *         plant
 	 */
 	public String getPhytoremediationElementsCleaned() {
 		return Controller.ArrayOfStrings(phytoElementsCleaned);
 	}
 
 	/**
-	 * @return the saltTolerance
+	 * Gets the salt tolerance of the plant
+	 * 
+	 * @return the String containing the salt tolerance of the plant
 	 */
 	public String getSaltTolerance() {
 		return saltTolerance;
 	}
 
 	/**
-	 * @return the seasonsOfInterest
+	 * Gets the seasons of interest of the plant (seasons to grow)
+	 * 
+	 * @return the String containing the seasons of interest of the plant
 	 */
 	public String getSeasonsOfInterest() {
 		return Controller.ArrayOfStrings(seasonsOfInterest);
 	}
 
 	/**
-	 * @return the soilMoisturePreference
+	 * Gets the soil moisture preference of the plant
+	 * 
+	 * @return the String containing the soil moisture preference of the plant
 	 */
 	public String getSoilMoisturePreference() {
 		return soilMoisturePreference;
 	}
 
 	/**
-	 * @return the sunlightExposure
+	 * Gets the recommended sunlight exposure of the plant
+	 * 
+	 * @return the String containing the recommended sunlight exposure of the plant
 	 */
 	public String getSunlightExposure() {
 		return sunlightExposure;
 	}
 
 	/**
-	 * @return the wildlifeAttracted
+	 * Gets the types of wildlife attracted by the plant
+	 * 
+	 * @return the String containing the types of wildlife attracted by the plant
 	 */
 	public String getWildlifeAttracted() {
 		return Controller.ArrayOfStrings(wildlifeAttracted);
 	}
 
+	/**
+	 * Gets the comprehensive info of the plant
+	 * 
+	 * @return a String containing the comprehensive info of the plant
+	 */
 	public String returnDetailedInfo() {
 		return "Plant [bloomColors=" + bloomColors + ", commonName=" + commonName + ", deerResistant=" + deerResistant
 				+ ", floweringMonths=" + Arrays.toString(floweringMonths) + ", foliageColor=" + foliageColor
 				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
 				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
 				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
-				+ Arrays.toString(phytoElementsCleaned) + ", plantBotanicalName=" + botanicalName
-				+ ", saltTolerance=" + saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
+				+ Arrays.toString(phytoElementsCleaned) + ", plantBotanicalName=" + botanicalName + ", saltTolerance="
+				+ saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
 				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
 				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="
 				+ sunlightExposure + ", type=" + type + ", wildlifeAttracted=" + Arrays.toString(wildlifeAttracted)

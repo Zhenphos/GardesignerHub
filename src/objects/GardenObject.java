@@ -8,7 +8,6 @@ import java.io.Serializable;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public abstract class GardenObject implements Serializable {
 	DrawShape shape;
 	double xLoc;
