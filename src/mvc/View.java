@@ -45,7 +45,6 @@ import view.TutorialScene;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class View {
 
 	public final static int sGap = 5;

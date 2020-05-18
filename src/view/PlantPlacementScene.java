@@ -1,4 +1,5 @@
 package view;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -42,7 +43,6 @@ import objects.Plant;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class PlantPlacementScene extends Scene {
 	static Group root = new Group();
 	BorderPane Pane = new BorderPane();

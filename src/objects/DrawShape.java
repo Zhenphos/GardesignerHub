@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
@@ -15,7 +14,6 @@ import javafx.scene.shape.Polygon;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class DrawShape implements Serializable {
 	private static final double defaultSize = 100;
 
@@ -47,6 +45,13 @@ public class DrawShape implements Serializable {
 			});
 	}
 	
+	/**
+	 * Constructor for shape which configures the shape as a circle, configures its
+	 * color, and configures its radius
+	 * 
+	 * @param c the color of the circle
+	 * @param radi the radius of the circle
+	 */
 	public DrawShape(Color c, double radi) {
 		this.circle = new SerializableCircle();
 		this.circle.setFill(c);
@@ -71,6 +76,9 @@ public class DrawShape implements Serializable {
 		return circle;
 	}
 
+	/**
+	 * Saves the drawn shapes
+	 */
 	public void save() {
 		this.points = new ArrayList<>();
 		if (this.shape != null) {
@@ -83,6 +91,9 @@ public class DrawShape implements Serializable {
 			this.radius = this.circle.getRadius();
 	}
 
+	/**
+	 * Loads saved shapes
+	 */
 	public void load() {
 		this.shape = new SerializablePolygon();
 		if (this.color != null) this.shape.setFill(Color.valueOf(this.color));

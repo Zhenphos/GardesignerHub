@@ -13,7 +13,6 @@ import objects.Plant;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Model implements Serializable {
 
 	private int width;

@@ -24,7 +24,6 @@ import mvc.Controller;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Anchor extends Circle implements Serializable {
 
 	private final DoubleProperty x, y;
@@ -172,6 +171,13 @@ public class Anchor extends Circle implements Serializable {
 		});
 	}
 
+	/**
+	 * Delta class that keeps track of movement of anchors in terms of x and y
+	 * coordinate deltas
+	 * 
+	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
+	 *
+	 */
 	private class Delta {
 		double x, y;
 	}

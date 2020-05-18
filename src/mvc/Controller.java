@@ -63,7 +63,6 @@ import view.TimesScene;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Controller extends Application {
 	/**
 	 * the main method for the program
