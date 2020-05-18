@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import enums.PlantType;
+import mvc.Controller;
 
 /**
  * Plant class for Gardendesigner Hub
@@ -355,8 +356,8 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * @return the otherAttributes
 	 */
-	public String[] getOtherAttributes() {
-		return otherAttributes;
+	public String getOtherAttributes() {
+		return Controller.ArrayOfStrings(otherAttributes);
 	}
 
 	/**

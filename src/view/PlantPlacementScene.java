@@ -64,6 +64,7 @@ public class PlantPlacementScene extends Scene {
 	public static final int HGAP = 10;
 	public static final int VGAP = 10;
 	public static final String BORDER_STYLE = "-fx-border-color: black";
+	public static final int CHOICEBOX_WIDTH = 175;
 	private Button btnPrev, btnNext, btnUndo;
 
 	public Controller imc;
@@ -103,6 +104,7 @@ public class PlantPlacementScene extends Scene {
 	private Label spacingValue = createLabel("");
 	private Label hardinessValue = createLabel("");
 	private Label colorsValue = createLabel("");
+	private Label attributeValue  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
 
 	public Label getNameValue() {
@@ -123,6 +125,10 @@ public class PlantPlacementScene extends Scene {
 
 	public Label getColorsValue() {
 		return colorsValue;
+	}
+	
+	public Label getAttributesValue() {
+		return attributeValue;
 	}
 
 	/**
@@ -227,11 +233,9 @@ public class PlantPlacementScene extends Scene {
 		reloadPlantList(PlantType.ALL);
 		
 		// create a choiceBox
-		ChoiceBox c = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr));
-		c.setMaxHeight(View.getCanvasHeight() * 3 / 4);
-		c.setStyle(TEXT_LABEL_STYLE);
+		ChoiceBox choiceBox = new ChoiceBox(FXCollections.observableArrayList(Model.plantTypesStr));
 		// add a listener
-		c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 
 			// if the item of the list is changed
 			PlantType plantType = PlantType.ALL;
@@ -241,8 +245,9 @@ public class PlantPlacementScene extends Scene {
 				reloadPlantList(plantType);
 			}
 		});
-		
-        grid.add(c, 0, 8);
+		choiceBox.setMaxWidth(CHOICEBOX_WIDTH);
+		choiceBox.setStyle(TEXT_LABEL_STYLE);
+
 		
 
 		// Display plant information in the left pane
@@ -261,6 +266,9 @@ public class PlantPlacementScene extends Scene {
 
 		Label colors = createLabel("Bloom Colors: ");
 		grid.add(colors, 0, 4);
+		
+		Label attributes = createLabel("Attributes: ");
+		grid.add(attributes, 0, 5);
 
 		nameValue.setMaxWidth(100);
 		nameValue.setWrapText(true);
@@ -269,7 +277,9 @@ public class PlantPlacementScene extends Scene {
 		grid.add(spacingValue, 1, 2);
 		grid.add(hardinessValue, 1, 3);
 		grid.add(colorsValue, 1, 4);
+		grid.add(attributeValue, 1, 5);
 		grid.add(selectPlant, 0, 7);
+		grid.add(choiceBox, 0, 8);
 	}
 
 

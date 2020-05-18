@@ -462,15 +462,8 @@ public class Controller extends Application {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
 			System.out.println("Mouse clicked");
-			// Text temp = null;
-			ListCell cell = (ListCell) (event.getTarget());
-			//Text plantlabel = (Text) cell.getText();
-			
-			
-		
+			ListCell cell = (ListCell) (event.getTarget());		
 			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText())).findAny();
-
-//			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantlabel.getText())).findAny();
 			Plant p = plant.get();
 			System.out.println(scene.getAllPlants().indexOf(p));
 			if(event.getClickCount()==2) {
@@ -483,7 +476,7 @@ public class Controller extends Application {
 				System.out.println(model.getGardenObjects());
 				giveShapeDragBehavior(circle);
 			}
-			scene.getNameValue().setText(p.getPlantBotanicalName());
+			scene.getNameValue().setText(p.getCommonName());
 
 			if (p.getHeightMaxInches() == -1)
 				scene.getHeightValue().setText("No Data");
@@ -500,6 +493,7 @@ public class Controller extends Application {
 			else
 				scene.getHardinessValue().setText(Integer.toString(p.getHardinessMin()));
 			scene.getColorsValue().setText(p.getBloomColors());
+			scene.getAttributesValue().setText(p.getOtherAttributes().toString());
 			event.consume();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -656,6 +650,18 @@ public class Controller extends Application {
 		sc.setRating(calculateRating());
 		
 	}
+	
+	public static String ArrayOfStrings(String[] arr) {
+		      StringBuffer sb = new StringBuffer();
+		      for(int i = 0; i < arr.length; i++) {
+		         sb.append(arr[i]);
+		         sb.append('\n');
+		      }
+		      String str = sb.toString();
+		     
+			return str;
+		   
+		}
 
 	/**
 	 * Event handler for when the user selects a season radio button on the
@@ -889,23 +895,17 @@ public class Controller extends Application {
 		for (int i=0; i<model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
 				if(t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) PhMatch = false;
+				if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS)
+					bugFriendly=true;
 
 			
 		}
-		for (int i=0; i<model.getPlantObjects().size(); i++) {
-			t = model.getPlantObjects().get(i).getType();
-			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
-			
-		}
+		
 		
 		if (model.getPlantObjects().size()==0 || model.getPlantObjects().size() - model.getGardenObjects().size() == model.getPlantObjects().size()*-1) return 0; // 0 rating for no plants
 		else rating+=2;
 	
-		for (int i=0; i<model.getPlantObjects().size(); i++) {
-			t = model.getPlantObjects().get(i).getType();
-			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
-			
-		}
+		
 		
 		if (PhMatch) rating++;
 		else {
