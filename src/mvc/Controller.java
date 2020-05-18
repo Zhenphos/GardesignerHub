@@ -56,6 +56,7 @@ import view.LoadingScene;
 import view.PlantPlacementScene;
 import view.RatingScene;
 import view.TimesScene;
+import view.PlantPlacementScene.PlantWithImage;
 
 /**
  * Controller class for Gardendesigner Hub
@@ -742,10 +743,11 @@ public class Controller extends Application {
 	 */
 	public void onTimesSetSeason(Season season) {
 		this.model.setSeason(season);
-		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		System.out.println(season.name());
 		for (Plant plant : model.getPlantObjects()) {
-			plant.getShape().getCircle().setFill(view.generateImage(scene.getPlantImages().get(scene.getIndexOfPlant()), season));
+			File imageFile = new File("resources/PlantImages/" + plant.getBotanicalName() + ".jpg");
+			Image plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
+			plant.getShape().getCircle().setFill(view.generateImage(plantImage, season));
 		}
 	}
 
@@ -909,7 +911,7 @@ public class Controller extends Application {
 		}
 
 		if (plantObjects.size() == 0
-				|| plantObjects.size() - model.getGardenObjects().size() == plantObjects.size() * -1) {
+				|| model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
 		} // 0 rating for no plants}
 		else {
