@@ -1,8 +1,8 @@
 package objects;
 
-import javafx.scene.shape.Circle;
-
 import java.io.Serializable;
+
+import javafx.scene.shape.Circle;
 
 public class SerializableCircle extends Circle implements Serializable {
 }

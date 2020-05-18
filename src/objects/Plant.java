@@ -59,7 +59,6 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMin = hardinessMin;
 		this.hardinessMax = hardinessMax;
 		this.bloomColors = bloomColors;
-		this.type = type;
 
 		if (spreadMin != -1) {
 			shape = new DrawShape(null, (this.spreadMin * 2));
