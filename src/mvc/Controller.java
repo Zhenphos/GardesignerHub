@@ -1036,17 +1036,17 @@ public class Controller extends Application {
 		PlantType t;
 		Plant p;
 		Double ph = model.getSoilPH();
+		
 		for (int i = 0; i < model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
 			p = model.getPlantObjects().get(i);
 			if (t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) {
 				PhMatch = false;
-				rec+="The ph requirement of "+p.getCommonName()+" doesn't match you garden's ph.\n";
+				rec += "The pH requirement of " + p.getCommonName() + " doesn't match you garden's pH.\n";
 			}
 			if (t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
 				bugFriendly = true;
 			}
-
 		}
 
 		if (model.getPlantObjects().size() == 0 || model.getPlantObjects().size()
@@ -1055,24 +1055,22 @@ public class Controller extends Application {
 		else
 			rating += 2;
 
-		if (PhMatch)
+		if (PhMatch) {
 			rating++;
-		else {
+		} else {
 			rating--;
 		}
-		if (bugFriendly)
+		
+		if (bugFriendly) {
+			rec += "Your garden attract bugs/butterflies. +1\n";
 			rating++;
-		else {
+		} else {
 			rating--;
 			rec += "Your garden doesn't attract bugs or butterflies.\n";
 		}
+		
 		return rec;
 	}
-	
-	
-	
-	
-	
 	
 	/**
 	 * Loads the objects on the map
