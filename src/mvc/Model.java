@@ -19,7 +19,7 @@ public class Model implements Serializable {
 	private int width;
 	private int length;
 	private int light;
-	private int rain;
+	private double rain;
 	private String deer;
 	private double soilPH;
 	private double age;
@@ -154,7 +154,7 @@ public class Model implements Serializable {
 	 * 
 	 * @return the amount of rain in millimeters
 	 */
-	public int getRain() {
+	public double getRain() {
 		return this.rain;
 	}
 

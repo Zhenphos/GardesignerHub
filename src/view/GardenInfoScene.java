@@ -42,8 +42,11 @@ public class GardenInfoScene extends Scene {
 	private static final String LENGTH_INFO = "The \"Length\" is the total length of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
 	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day."
 			+ "\nLeave this blank if you do not know the value.";
-	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in an average week in millimeters."
-			+ "\nLeave this blank if you do not know the value.";
+	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in a typical hour when it rains (millimeters)."
+			+ "\nLeave this blank if you do not know the value."
+			+ "\n0 to 0.5 mm per hour is slight rain."
+			+ "\n0.5 to 4.0 mm per hour is moderate rain."
+			+ "\n4.0 or more mm per hour is heavy rain.";
 	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. "
 			+ "The ideal pH of your soil is 6.5." + "\nLeave this blank if you do not know the value.";
 	//private static final String DEER_INFO = "The \"Temperature\" is the average temperature the land the garden will be on has experienced in the past week, in Fahrenheit." + "\nLeave this blank if you do not know the value.";

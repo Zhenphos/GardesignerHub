@@ -1050,6 +1050,11 @@ public class Controller extends Application {
 					recommendations += "Warning: A plant isn't deer resistant - " + somePlant.getBotanicalName() + " | " + somePlant.getCommonName() + "\n";
 				}
 			}
+			if (model.getRain() > 0.5 && (!somePlant.getSoilMoisturePreference().contains("Moist")
+					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
+				recommendations += "Warning: A plant may receive too much moisture - " + somePlant.getBotanicalName()
+						+ " | " + somePlant.getCommonName() + "\n";
+			}
 		}
 
 		if (plantObjects.size() == 0
