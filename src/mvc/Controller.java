@@ -580,9 +580,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * handles the dragged over event on the garden in plantplacementscene
+	 * Handles the dragged over event on the garden in PlantPlacementScene
 	 */
-	
 	public void handleDrag() {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 
@@ -598,11 +597,11 @@ public class Controller extends Application {
 		});
 	}
 	
-	
 	/**
-	 * Handles drag dropped event for garden
-	 * creates a copy of dropped images and adds it in the garden
+	 * Handles drag dropped event for garden by creating a copy of dropped images
+	 * and adding it in the garden
 	 * 
+	 * @param event the DragEvent on a plant
 	 */
 	public void handleDrop(DragEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
@@ -626,11 +625,7 @@ public class Controller extends Application {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
-
-	
-	
 	
 	/**
 	 * Creates a polygon for shade and adds it to the garden model
@@ -644,7 +639,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * handles undo button on DrawScene
+	 * Handles when the user presses the undo button in DrawScene
 	 */
 	public void onDrawUndo() {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -660,9 +655,8 @@ public class Controller extends Application {
 	}
 	
 	/**
-	 * handles undo button on plantplacement
+	 * Handles when the user presses the undo button in PlantPlacementScene
 	 */
-
 	public void onPlantPlacementUndo() {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
@@ -674,9 +668,11 @@ public class Controller extends Application {
 	}
 	
 	/**
+	 * Removes the last added non-plant object from the model
 	 * 
 	 * @param i the index of the object that will be removed from the model
-	 * @return the boolean determining whether or not the last object that is not a plant has been removed
+	 * @return the boolean determining whether or not the last non-plant object has
+	 *         been removed
 	 */
 	public boolean removeLastObject(int i) {
 		if (i < 0) {
@@ -692,8 +688,9 @@ public class Controller extends Application {
 	}
 	
 	/**
+	 * Removes the last added plant object from the model
 	 * 
-	 * @param i the index of object to be removed
+	 * @param i the index of plant object to be removed
 	 */
 	
 	public void removeLastPlant(int i) {
@@ -704,7 +701,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user presses the previous button on the TimesScene
+	 * Handles when the user presses the previous button on the TimesScene
 	 */
 	public void onTimesPrev() {
 		this.view.setScreen(Names.PLANT_PLACEMENT);
@@ -712,7 +709,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event Handler for when the user presses the next button on the TimesScene
+	 * Handles when the user presses the next button on the TimesScene
 	 */
 	public void onTimesNext() {
 		this.view.setScreen(Names.RATING);
@@ -722,6 +719,12 @@ public class Controller extends Application {
 		
 	}
 	
+	/**
+	 * Creates a String buffer from an array of Strings
+	 * 
+	 * @param arr the array of strings
+	 * @return the created String buffer
+	 */
 	public static String ArrayOfStrings(String[] arr) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < arr.length; i++) {
@@ -734,8 +737,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user selects a season radio button on the
-	 * TimesScene
+	 * Handles when the user selects a season radio button in the TimesScene
 	 * 
 	 * @param season the new season the garden is in
 	 */
@@ -749,7 +751,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user moves the age slider on the TimesScene
+	 * Handles when the user moves the age slider in the TimesScene
 	 * 
 	 * @param age the age in years to set the garden to
 	 */
@@ -762,7 +764,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler to change the appearance of the circles based on time and season
+	 * Handles when the user changes the appearance of the circles based on time and
+	 * season
 	 */
 	public void changePlantStatus(Plant plant) {
 		plant.changePlantSize(this.model.getAge());
@@ -771,8 +774,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event Handler for when the user presses the previous button on the
-	 * RatingScene
+	 * Handles when the user presses the previous button in the RatingScene
 	 */
 	public void onRatingPrev() {
 		this.view.setScreen(Names.TIMES);
@@ -780,25 +782,24 @@ public class Controller extends Application {
 	}
 	
 	/**
-	 * Event Handler for when the user presses the stats button on the
-	 * RatingScene
+	 * Handles when the user presses the stats button in the RatingScene
 	 */
-	public void onRatingStats() {		
+	public void onRatingStats() {
 		Stage statStage = new Stage();
 		statStage.setTitle("Plant Statistics");
 		statStage.setResizable(true);
-		
-		final Popup statsPopup = new Popup();
-        statsPopup.setX(300);
-        statsPopup.setY(200);
-        statsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 
-        HBox statsLayout = new HBox(10);
-        statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
-        
+		final Popup statsPopup = new Popup();
+		statsPopup.setX(300);
+		statsPopup.setY(200);
+		statsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
+
+		HBox statsLayout = new HBox(10);
+		statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
+
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
-		
+
 		for (Plant plant : plantList) {
 			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
@@ -806,7 +807,6 @@ public class Controller extends Application {
 			sb.append(plant.getCommonName());
 			sb.append("\n");
 		}
-		
         
         Text statsText = new Text(10, 50, "You have " + plantList.size() 
         								   + " plants in your garden.\n\n" 
@@ -820,8 +820,7 @@ public class Controller extends Application {
 	}
 	
 	/**
-	 * Event Handler for when the user presses the recommendations button on the
-	 * RatingScene
+	 * Handles when the user presses the recommendations button in the RatingScene
 	 */
 	public void onRatingRecs() {
 		Stage recsStage = new Stage();
@@ -836,7 +835,6 @@ public class Controller extends Application {
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
 		// statsLayout.getChildren().addAll(show, hide);
-		
 
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
 										  + generateRecommendation());
@@ -848,7 +846,7 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user presses the save button on the RatingScene
+	 * Handles when the user presses the save button in the RatingScene
 	 */
 	public void onRatingSave() {
 		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
@@ -869,13 +867,13 @@ public class Controller extends Application {
 
 		} catch (IOException ex) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
-			if (DEBUG) ex.printStackTrace();
+			if (DEBUG)
+				ex.printStackTrace();
 		}
 	}
 
 	/**
-	 * Event handler for when the user wants to select a garden to load while on the
-	 * LoadingScene
+	 * Handles when the user attempts to select a garden to load while on the LoadingScene
 	 */
 	public void onLoadingBrowse() {
 		File file = this.view.showOpenDialog();
@@ -889,13 +887,14 @@ public class Controller extends Application {
 
 	/**
 	 * Updates and loads in the garden model and view from the garden file
-	 * @param file
+	 * 
+	 * @param file the file that is loaded
 	 */
 	public void loadGarden(File file) {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
 			this.model = (Model) in.readObject();
 			for (GardenObject object : this.model.getGardenObjects())
-				object.getShape().load();;
+				object.getShape().load();
 
 			this.view.reload(this.model);
 			if (DEBUG) {
@@ -904,12 +903,13 @@ public class Controller extends Application {
 			}
 		} catch (IOException | ClassNotFoundException e) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
-			if (DEBUG) e.printStackTrace();
+			if (DEBUG)
+				e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Event handler for when the user selects a different save preview on the loading screen
+	 * Handles when the user selects a different save preview on the loading screen
 	 */
 	public void onLoadingSelect() {
 		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
@@ -921,15 +921,14 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Event handler for when the user presses the previous button on the
-	 * LoadingScene
+	 * Handles when the user presses the previous button in the LoadingScene
 	 */
 	public void onLoadingPrev() {
 		this.view.setScreen(Names.MAIN_MENU);
 	}
 
 	/**
-	 * Event handler for when the user presses the edit button on the LoadingScene
+	 * Handles when the user presses the edit button in the LoadingScene
 	 */
 	public void onLoadingEdit() {
 		this.view.setScreen(Names.GARDEN_INFO);
@@ -997,7 +996,6 @@ public class Controller extends Application {
 	 * Gives an Anchor object drag behavior
 	 * 
 	 * @param anchor the anchor which will receive the drag behavior
-
 	 */
 	public static void anchorDragBehavior(Anchor anchor) {
 		final ObjectProperty<Point2D> mousePosition = new SimpleObjectProperty<>();
@@ -1021,6 +1019,11 @@ public class Controller extends Application {
 		});
 	}
 	
+	/**
+	 * Generates recommendations for the garden based on garden attributes and plants
+	 * 
+	 * @return the String holding the recommendation for the garden
+	 */
 	public String generateRecommendation() {
 		String recommendations = "";
 		boolean phMatch = true, bugFriendly = false;
@@ -1101,8 +1104,9 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * method to extract the index of images from its name. To be used in sorting
-	 * @param image
+	 * Extracts the index of an image based on the image name. Used in sorting.
+	 * 
+	 * @param image the Image that will have its index returned
 	 * @return the index of image, extracted from its file path.
 	 */
 	public static int getIndex(Image image) {
@@ -1115,8 +1119,10 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag event when a you start dragging something
-	 * @param event
+	 * Handles when the user drags a plant from the plant selection section in
+	 * PlantPlacementScene
+	 * 
+	 * @param event the MouseEvent on a plant image
 	 */
 	public void onDrawDragDetected(String name, ImageView view, MouseEvent event) {
 		Dragboard db = view.startDragAndDrop(TransferMode.COPY);
@@ -1128,8 +1134,10 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag event when something is being dragged over the GardenPane in DrawScene
-	 * @param event
+	 * Handles the drag event when something is being dragged over the GardenPane in
+	 * DrawScene
+	 * 
+	 * @param event the DragEvent on the dragged object
 	 */
 	public void onDrawDragOver(DragEvent event) {
 		if (event.getGestureSource() != event.getTarget() && event.getDragboard().hasImage()) {
@@ -1139,8 +1147,10 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag event when something is dropped over over the GardenPane in DrawScene
-	 * @param event
+	 * Handles the drag event when something is dropped over the GardenPane in
+	 * DrawScene
+	 * 
+	 * @param event the DragEvent on the dragged object
 	 */
 	public void onDrawDragDropped(DragEvent event) {
 		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
@@ -1185,8 +1195,10 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag Event handler for when a plant is starting to be dragged from the list view in PlantPlacement scene
-	 * @param event
+	 * Handles the drag event for when a plant is starting to be dragged from the
+	 * list view in PlantPlacementScene
+	 * 
+	 * @param event the MouseEvent on the plant
 	 */
 	public void onPlantDragDetected(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
@@ -1201,8 +1213,9 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag Event handler for when a plant is being dragged over the garden pane
-	 * @param event
+	 * Handles the drag event for when a plant is being dragged over the garden pane
+	 * 
+	 * @param event the DragEvent on the plant
 	 */
 	public void onPlantDragOver(DragEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
@@ -1213,8 +1226,9 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Drag event handler for when a plant is dropped over the garden pane
-	 * @param event
+	 * Handles the drag event for when a plant is dropped over the garden pane
+	 * 
+	 * @param event the DragEvent on the plant
 	 */
 	public void onPlantDragDropped(DragEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);

@@ -381,8 +381,8 @@ public class View {
 	 * @param pathToFile the String containing the file path to the image
 	 * @param width      the width of the image
 	 * @param height     the height of the image
-	 * @param ratio      the Boolean indicating whether to preserve the image ratio
-	 * @param smooth     the Boolean indicating whether to use a better quality
+	 * @param ratio      the boolean indicating whether to preserve the image ratio
+	 * @param smooth     the boolean indicating whether to use a better quality
 	 *                   filtering algorithm or a faster one when scaling the image
 	 * @return the created image
 	 */
