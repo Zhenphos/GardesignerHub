@@ -8,12 +8,14 @@ import java.util.Optional;
 
 import enums.Names;
 import enums.Season;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -263,6 +265,8 @@ public class View {
 		scene.getPlantListView().setOnDragDetected(event -> this.controller.onPlantDragDetected(event));
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
+		//scene.getGardenPane().setOnDragOver(event -> this.controller.handleDrag());
+
 	}	
 	
 	/**

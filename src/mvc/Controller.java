@@ -95,13 +95,7 @@ public class Controller extends Application {
 
 			}
 		}
-		
-		Collections.sort(images, new CustomComparator());
-		
-		for (int i = 0; i < images.size(); i++) {
-			// System.out.print(getIndex(images.get(i))+ " ");
-		}
-		
+				
 		return images;
 	}
 
@@ -473,17 +467,15 @@ public class Controller extends Application {
 				Text plantText = (Text)event.getTarget();
 				plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantText.getText()))
 						.findAny();
-
 			}
 			
 			Plant selectedPlant = plant.get();
-			System.out.println(scene.getAllPlants().indexOf(selectedPlant));
-
 			if (event.getClickCount() == 2) {
-				scene.setIndexOfPlant(scene.getAllPlants().indexOf(selectedPlant));
 				Plant plantCopy = selectedPlant.copyOfPlant();
+				File imageFile = new File("resources/PlantImages/" + selectedPlant.getBotanicalName() + ".jpg");
+				Image plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
 				Circle circle = plantCopy.getShape().getCircle();
-				circle.setFill(new ImagePattern(scene.getPlantImages().get(scene.getIndexOfPlant())));
+				circle.setFill(new ImagePattern(plantImage));
 				scene.getGardenPane().getChildren().add(circle);
 				model.addGardenObject(plantCopy);
 				System.out.println(model.getGardenObjects());
@@ -622,20 +614,19 @@ public class Controller extends Application {
 		try {
 			Dragboard db = event.getDragboard();
 			boolean success = false;
-			if (db.hasString()) {
-				System.out.println("Dropped: " + db.getString());
+			if (db.hasImage()) {
+				File file = db.getFiles().get(0);
+				Image img = new Image(new FileInputStream(file), 100, 100, true, true);
+				Plant customPlant = new Plant();
+				Circle circle = customPlant.getShape().getCircle();
+				circle.setFill(new ImagePattern(img));
+				scene.getGardenPane().getChildren().add(circle);
+				model.addGardenObject(customPlant);
+				giveShapeDragBehavior(circle);
 				success = true;
 			}
-			File file = db.getFiles().get(0);
-			Image img = new Image(new FileInputStream(file), 100, 100, true, true);
-			Plant customPlant = new Plant();
-
-			Circle circle = customPlant.getShape().getCircle();
-			circle.setFill(new ImagePattern(img));
-			scene.getGardenPane().getChildren().add(circle);
-			model.addGardenObject(customPlant);
-			giveShapeDragBehavior(circle);
 			event.setDropCompleted(success);
+			
 			event.consume();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -1114,9 +1105,6 @@ public class Controller extends Application {
 	 * @return the index of image, extracted from its file path.
 	 */
 	public static int getIndex(Image image) {
-		String indexString = null;
-
-		// path = image.impl_getUrl();
 		String path = image.getUrl();
 		String [] s = path.split(".jp");
 		String [] s2 = s[0].split("images/");
@@ -1246,17 +1234,5 @@ public class Controller extends Application {
 		event.setDropCompleted(success);
 		event.consume();
 	}
-	
-	public static class CustomComparator implements Comparator<Image> {
 
-		@Override
-		public int compare(Image img, Image img2) {
-			if (getIndex(img) > getIndex(img2)) {
-				return 1;
-			} else if (getIndex(img) < getIndex(img2)) {
-				return -1;
-			} else
-				return 0;
-		}
-	}
 }
