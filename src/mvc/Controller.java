@@ -743,7 +743,6 @@ public class Controller extends Application {
 	 */
 	public void onTimesSetSeason(Season season) {
 		this.model.setSeason(season);
-		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		System.out.println(season.name());
 		for (Plant plant : model.getPlantObjects()) {
 			File imageFile = new File("resources/PlantImages/" + plant.getBotanicalName() + ".jpg");
@@ -912,7 +911,7 @@ public class Controller extends Application {
 		}
 
 		if (plantObjects.size() == 0
-				|| plantObjects.size() - model.getGardenObjects().size() == plantObjects.size() * -1) {
+				|| model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
 		} // 0 rating for no plants}
 		else {
