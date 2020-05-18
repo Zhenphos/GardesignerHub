@@ -22,18 +22,24 @@ import enums.Season;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import objects.Anchor;
 import objects.GardenObject;
@@ -785,10 +791,39 @@ public class Controller extends Application {
 	 * RatingScene
 	 */
 	public void onRatingStats() {
-		System.out.println("Current plants");
-		System.out.println(model.getPlantObjects());
-		//this.view.setScreen(Names.TIMES);
-		//this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+		// System.out.println(model.getPlantObjects());
+		
+		Stage statStage = new Stage();
+		statStage.setTitle("Plant Statistics");
+		
+		final Popup statsPopup = new Popup();
+        statsPopup.setX(300);
+        statsPopup.setY(200);
+        statsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
+        
+        /*
+        Button show = new Button("Show");
+        show.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.show(statStage);
+            }
+        });
+
+        Button hide = new Button("Hide");
+        hide.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.hide();
+            }
+        });*/
+
+        HBox statsLayout = new HBox(10);
+        statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
+        //statsLayout.getChildren().addAll(show, hide);
+		
+        statStage.setScene(new Scene(statsLayout));
+        statStage.show();
 	}
 	
 	/**
@@ -796,8 +831,38 @@ public class Controller extends Application {
 	 * RatingScene
 	 */
 	public void onRatingRecs() {
-		//this.view.setScreen(Names.TIMES);
-		//this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+		// System.out.println(model.getPlantObjects());
+		Stage recsStage = new Stage();
+		recsStage.setTitle("Recommendations");
+		
+		final Popup recsPopup = new Popup();
+        recsPopup.setX(300);
+        recsPopup.setY(200);
+        recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
+        
+        /*
+        Button show = new Button("Show");
+        show.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.show(statStage);
+            }
+        });
+
+        Button hide = new Button("Hide");
+        hide.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.hide();
+            }
+        });*/
+
+        HBox recsLayout = new HBox(10);
+        recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
+        //statsLayout.getChildren().addAll(show, hide);
+		
+        recsStage.setScene(new Scene(recsLayout));
+        recsStage.show();
 	}
 
 	/**
