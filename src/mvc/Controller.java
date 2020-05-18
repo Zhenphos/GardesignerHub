@@ -1055,6 +1055,11 @@ public class Controller extends Application {
 				recommendations += "Warning: A plant may receive too much moisture - " + somePlant.getBotanicalName()
 						+ " | " + somePlant.getCommonName() + "\n";
 			}
+			if (model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
+					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
+				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
+						+ " | " + somePlant.getCommonName() + "\n";
+			}
 		}
 
 		if (plantObjects.size() == 0
