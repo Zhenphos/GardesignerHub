@@ -119,26 +119,56 @@ public class PlantPlacementScene extends Scene {
 	private Label seasonLabel  = createLabel("");
 	private Label wildlifeLabel  = createLabel("");
 
+	/**
+	 * Gets the common name label
+	 * 
+	 * @return the common name label
+	 */
 	public Label getCommonNameLabel() {
 		return commonNameLabel;
 	}
 
+	/**
+	 * Gets the maximum height label
+	 * 
+	 * @return the maximum height label
+	 */
 	public Label getMaxHeightLabel() {
 		return maxHeightLabel;
 	}
 
+	/**
+	 * Gets the maximum space label
+	 * 
+	 * @return the maximum space label
+	 */
 	public Label getMaxSpaceLabel() {
 		return maxSpaceLabel;
 	}
 
+	/**
+	 * Gets the minimum hardiness label
+	 * 
+	 * @return the minimum hardiness label
+	 */
 	public Label getMinHardiLabel() {
 		return minHardiLabel;
 	}
 
+	/**
+	 * Gets the bloom colors label
+	 * 
+	 * @return the bloom colors label
+	 */
 	public Label getBColorsLabel() {
 		return bColorsLabel;
 	}
 	
+	/**
+	 * Gets the extra attributes label
+	 * 
+	 * @return the extra attributes label
+	 */
 	public Label getAttribLabel() {
 		return extraAttributesLabel;
 	}
@@ -349,11 +379,10 @@ public class PlantPlacementScene extends Scene {
 		grid.add(choiceBox, 0, 19);
 	}
 
-
 	/**
-	 * Creates a plant label
+	 * Creates a label
 	 * 
-	 * @param text - the label text
+	 * @param text the String containing the label text
 	 * @return the plant label
 	 */
 	private Label createLabel(String text) {
@@ -366,7 +395,7 @@ public class PlantPlacementScene extends Scene {
 	/**
 	 * Creates a button
 	 * 
-	 * @param text - the text displayed on the button
+	 * @param text the String containing the text displayed on the button
 	 * @return the created button
 	 */
 	private Button createButton(String text) {
@@ -376,11 +405,13 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * overloaded method of createButton, takes the container to put, name and image
-	 * @param pane
-	 * @param text
-	 * @param image
-	 * @return button
+	 * Overloaded method of createButton that takes the container to place the
+	 * button in, the button name, and the image to place in the button
+	 * 
+	 * @param pane  the Pane to place the button in
+	 * @param text  the String containing the button name
+	 * @param image the Image that is placed in the button
+	 * @return button the created button
 	 */
 	private Button createButton(Pane pane, String text, Image image) {
 		Button button = new Button(text);
@@ -396,8 +427,9 @@ public class PlantPlacementScene extends Scene {
 	
 	
 	/**
-	 * reloads the plantListView according to given plant type
-	 * @param plant type
+	 * Reloads the plantListView according to a given plant type
+	 * 
+	 * @param plantType the PlantType that determines the list of plants to display
 	 */
 	private void reloadPlantList(PlantType plantType) {
 		plantListView.getItems().clear();
@@ -442,7 +474,9 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	/**
-	 * static class to encapsulate both image and plant object in a single object
+	 * Static class to encapsulate both Image and Plant objects in a single object
+	 * 
+	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
 	 */
 	public static class PlantWithImage {
 		private final Plant plant;
@@ -462,7 +496,6 @@ public class PlantPlacementScene extends Scene {
 			return image;
 		}
 	}
-	
 	
 	/**
 	 * Gets the next button
@@ -501,139 +534,171 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * gets the center of scene, i.e garden container
-	 * @return the center
+	 * Gets the pane in the center of the scene, i.e garden container
+	 * 
+	 * @return the garden pane
 	 */
-
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}
+	
 	/**
-	 * get the list of all plant objects
-	 * @return allPlants
+	 * Gets the list of all plant objects
+	 * 
+	 * @return an ArrayList of all the plant objects
 	 */
 	public ArrayList<Plant> getAllPlants() {
 		return masterList;
 	}
 
 	/**
-	 * get the index of plant clicked
-	 * @return indexOfPlant
+	 * Gets the index of the clicked plant
+	 * 
+	 * @return the index of the plant
 	 */
-
 	public int getIndexOfPlant() {
 		return indexOfPlant;
 	}
 
 	/**
-	 * set the index of plant clicked
-	 * @param index
+	 * Sets the index of the clicked plant
+	 * 
+	 * @param index the index of the clicked plant to be set
 	 */
 	public void setIndexOfPlant(int index) {
 		indexOfPlant = index;
 	}
 
 	/**
-	 * get the list of all plant images
-	 * @return plantImages
+	 * Gets a list of all plant images
+	 * 
+	 * @return an ArrayList of all the plant images
 	 */
 	public ArrayList<Image> getPlantImages() {
 		return plantImages;
 	}
 
 	/**
-	 * @return the minHeightLabel
+	 * Gets the minimum height label
+	 * 
+	 * @return the minimum height label
 	 */
 	public Label getMinHeightLabel() {
 		return minHeightLabel;
 	}
 
 	/**
-	 * @return the minSpaceLabel
+	 * Gets the minimum space label
+	 * 
+	 * @return the minimum space label
 	 */
 	public Label getMinSpaceLabel() {
 		return minSpaceLabel;
 	}
 
 	/**
-	 * @return the maxHardiLabel
+	 * Gets the maximum hardiness label
+	 * 
+	 * @return the maximum hardiness label
 	 */
 	public Label getMaxHardiLabel() {
 		return maxHardiLabel;
 	}
 
 	/**
-	 * @return the deerResistLabel
+	 * Gets the deer resistance label
+	 * 
+	 * @return the deer resistance label
 	 */
 	public Label getDeerResistLabel() {
 		return deerResistLabel;
 	}
 
 	/**
-	 * @return the flowerMonthLabel
+	 * Gets the flowering months label
+	 * 
+	 * @return the flowering months label
 	 */
 	public Label getFlowerMonthLabel() {
 		return flowerMonthLabel;
 	}
 
 	/**
-	 * @return the foliageColorLabel
+	 * Gets the foliage color label
+	 * 
+	 * @return the foliage color label
 	 */
 	public Label getFoliageColorLabel() {
 		return foliageColorLabel;
 	}
 
 	/**
-	 * @return the growthRateLabel
+	 * Gets the growth rate label
+	 * 
+	 * @return the growth rate label
 	 */
 	public Label getGrowthRateLabel() {
 		return growthRateLabel;
 	}
 
 	/**
-	 * @return the saltTolLabel
+	 * Gets the salt tolerance label
+	 * 
+	 * @return the salt tolerance label
 	 */
 	public Label getSaltTolLabel() {
 		return saltTolLabel;
 	}
 
 	/**
-	 * @return the soilMoiLabel
+	 * Gets the soil moisture label
+	 * 
+	 * @return the soil moisture label
 	 */
 	public Label getSoilMoiLabel() {
 		return soilMoiLabel;
 	}
 
 	/**
-	 * @return the sunlightExpLabel
+	 * Gets the sunlight exposure label
+	 * 
+	 * @return the sunlight exposure label
 	 */
 	public Label getSunlightExpLabel() {
 		return sunlightExpLabel;
 	}
 
 	/**
-	 * @return the phytoLabel
+	 * Gets the elements cleaned label
+	 * 
+	 * @return the elements cleaned label
 	 */
 	public Label getPhytoLabel() {
 		return phytoLabel;
 	}
 
 	/**
-	 * @return the seasonLabel
+	 * Gets the seasons to grow label
+	 * 
+	 * @return the seasons to grow label
 	 */
 	public Label getSeasonLabel() {
 		return seasonLabel;
 	}
 
 	/**
-	 * @return the wildlifeLabel
+	 * Gets the wildlife attracted label
+	 * 
+	 * @return the wildlife attracted label
 	 */
 	public Label getWildlifeLabel() {
 		return wildlifeLabel;
 	}
 
 	/**
-	 * @return the masterList
+	 * Gets the full list of plants
+	 * 
+	 * @return the ArrayList containing all plants
 	 */
 	public ArrayList<Plant> getMasterList() {
 		return masterList;
