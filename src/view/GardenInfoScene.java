@@ -41,6 +41,9 @@ public class GardenInfoScene extends Scene {
 	private static final String WIDTH_INFO = "The \"Width\" is the total width of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
 	private static final String LENGTH_INFO = "The \"Length\" is the total length of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
 	private static final String SUNLIGHT_INFO = "The \"Hours of Sunlight\" is the hours of light your garden experiences on an average day."
+			+ "\nFull sun is 6 or more hours."
+			+ "\nPartial sun is 3 to 6 hours."
+			+ "\nLow sun is less than 3 hours."
 			+ "\nLeave this blank if you do not know the value.";
 	private static final String RAIN_INFO = "The \"Amount of Rain\" is how much rain your garden experiences in a typical hour when it rains (millimeters)."
 			+ "\nLeave this blank if you do not know the value."
