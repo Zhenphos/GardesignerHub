@@ -358,7 +358,7 @@ public class PlantPlacementScene extends Scene {
 			try {
 				if (somePlant.getType() == plantType) {
 					File imageFile = new File("resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
-					plantImage = new Image(imageFile.toURI().toString());
+					plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
 					plantListView.getItems().add(new PlantWithImage(somePlant, plantImage));
 				} 
 			} catch (Exception e) {

@@ -82,13 +82,11 @@ public class Controller extends Application {
 	public static ArrayList<Image> importImages() {
 		ArrayList<Image> images = new ArrayList<>();
 		File directory = new File("resources/plant-images");
-		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
 				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-			//	images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
@@ -107,9 +105,7 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Plant> importPlants(String path, PlantType plantType) {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-		
+				
 		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 			String line = " ";
 			// this is to skip the first line of the CSV
