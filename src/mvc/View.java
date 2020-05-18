@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
+import objects.Shade;
 import view.DrawScene;
 import view.GardenInfoScene;
 import view.LoadingScene;
@@ -449,11 +450,15 @@ public class View {
 	 * @param pane the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
-		
 		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
-			pane.getChildren().add(go.getShape().getPolygon());
+			if (!(go instanceof Plant)) {
+				pane.getChildren().add(go.getShape().getPolygon());
+			}
+			//pane.getChildren().add(go.getShape().getPolygon());
+			//pane.getChildren().add(go.getShape().getCircle());
 		}
+		
 		for (Plant p : this.controller.loadPlantObjects()) {
 			pane.getChildren().add(p.getShape().getCircle());
 		}
