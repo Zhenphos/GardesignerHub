@@ -589,14 +589,14 @@ public class Controller extends Application {
 	public void handleDrag() {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 
-		scene.getGardenPane().setOnDragOver(new EventHandler<DragEvent>(){
+		scene.getGardenPane().setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
 			public void handle(DragEvent event) {
 				Dragboard db = event.getDragboard();
-		        
-		            event.acceptTransferModes(TransferMode.COPY);
-		        
-		        event.consume();	
+
+				event.acceptTransferModes(TransferMode.COPY);
+
+				event.consume();
 			}
 		});
 	}
@@ -608,28 +608,28 @@ public class Controller extends Application {
 	 * 
 	 */
 	public void handleDrop(DragEvent event) {
-	PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
-			 try {
+		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+		try {
 			Dragboard db = event.getDragboard();
-	        boolean success = false;
-	        if (db.hasString()) {
-	            System.out.println("Dropped: " + db.getString());
-	            success = true;
-	        }
-	        File file = db.getFiles().get(0);
-			Image img = new Image(new FileInputStream(file),100,100,true,true);
+			boolean success = false;
+			if (db.hasString()) {
+				System.out.println("Dropped: " + db.getString());
+				success = true;
+			}
+			File file = db.getFiles().get(0);
+			Image img = new Image(new FileInputStream(file), 100, 100, true, true);
 			Plant customPlant = new Plant();
-			
-	        Circle circle = customPlant.getShape().getCircle();
+
+			Circle circle = customPlant.getShape().getCircle();
 			circle.setFill(new ImagePattern(img));
 			scene.getGardenPane().getChildren().add(circle);
 			model.addGardenObject(customPlant);
 			giveShapeDragBehavior(circle);
-	        event.setDropCompleted(success);
-	        event.consume();
-	        } catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			event.setDropCompleted(success);
+			event.consume();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 	}
 
