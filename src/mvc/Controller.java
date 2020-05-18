@@ -473,11 +473,11 @@ public class Controller extends Application {
 			
 			if (event.getClickCount() == 2) {
 				scene.setIndexOfPlant(scene.getAllPlants().indexOf(selectedPlant));
-				Plant plant2 = selectedPlant.copyOfPlant();
-				Circle circle = plant2.getShape().getCircle();
+				Plant plantCopy = selectedPlant.copyOfPlant();
+				Circle circle = plantCopy.getShape().getCircle();
 				circle.setFill(new ImagePattern(scene.getPlantImages().get(scene.getIndexOfPlant())));
 				scene.getGardenPane().getChildren().add(circle);
-				model.addGardenObject(plant2);
+				model.addGardenObject(plantCopy);
 				System.out.println(model.getGardenObjects());
 				giveShapeDragBehavior(circle);
 			}
@@ -793,9 +793,7 @@ public class Controller extends Application {
 	 * Event Handler for when the user presses the stats button on the
 	 * RatingScene
 	 */
-	public void onRatingStats() {
-		// System.out.println(model.getPlantObjects());
-		
+	public void onRatingStats() {		
 		Stage statStage = new Stage();
 		statStage.setTitle("Plant Statistics");
 		statStage.setResizable(true);
@@ -804,52 +802,21 @@ public class Controller extends Application {
         statsPopup.setX(300);
         statsPopup.setY(200);
         statsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-        
-        /*
-        Button show = new Button("Show");
-        show.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popup.show(statStage);
-            }
-        });
-
-        Button hide = new Button("Hide");
-        hide.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popup.hide();
-            }
-        });*/
 
         HBox statsLayout = new HBox(10);
         statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
-        //statsLayout.getChildren().addAll(show, hide);
         
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
 		
 		for (Plant plant : plantList) {
-			/*
-			Class test = plant.getClass();
-			for (java.lang.reflect.Field f : test.getDeclaredFields()) {
-				f.setAccessible(true);
-				try {
-	                System.out.println(f.getName() + " = " + f.get(test));
-	                //System.out.println(f.);
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-			}
-			*/
 			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
+			sb.append("\t");
+			sb.append(plant.getCommonName());
 			sb.append("\n");
 		}
 		
-		// need to come up with workaround for null strings
-		// PlantPlacementScene.placePlant();
-		// plantList = PlantPlacementScene.getMasterList();
         
         Text statsText = new Text(10, 50, "You have " + plantList.size() 
         								   + " plants in your garden.\n\n" 
@@ -877,68 +844,9 @@ public class Controller extends Application {
 		recsPopup.setX(300);
 		recsPopup.setY(200);
 		recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-
-		ArrayList<Plant> list00 = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
-		ArrayList<Plant> list01 = Controller.importPlants("resources/PlantData/PlantList_01.csv", PlantType.ALKALINE_SOIL_TOLERANT);
-		ArrayList<Plant> list02 = Controller.importPlants("resources/PlantData/PlantList_02.csv", PlantType.BIRD_BUTTERFLY_BUG_GARDENS);
-		ArrayList<Plant> list03 = Controller.importPlants("resources/PlantData/PlantList_03.csv", PlantType.DROUGHT_TOLERANT);
-		ArrayList<Plant> list04 = Controller.importPlants("resources/PlantData/PlantList_04.csv", PlantType.GRASSES);
-		ArrayList<Plant> list05 = Controller.importPlants("resources/PlantData/PlantList_05.csv", PlantType.GROUNDHOG_RESISTANT);
-		ArrayList<Plant> list06 = Controller.importPlants("resources/PlantData/PlantList_06.csv", PlantType.LANDSCAPE_ORNAMENTALS);
-		ArrayList<Plant> list07 = Controller.importPlants("resources/PlantData/PlantList_07.csv", PlantType.MEADOW);
-		ArrayList<Plant> list08 = Controller.importPlants("resources/PlantData/PlantList_08.csv", PlantType.NORTH_AMERICAN_NATIVE);
-		ArrayList<Plant> list09 = Controller.importPlants("resources/PlantData/PlantList_09.csv", PlantType.PERENNIALS);
-		ArrayList<Plant> list10 = Controller.importPlants("resources/PlantData/PlantList_10.csv", PlantType.PHYTOREMEDIATION);
-		ArrayList<Plant> list11 = Controller.importPlants("resources/PlantData/PlantList_11.csv", PlantType.RABBIT_RESISTANT);
-		ArrayList<Plant> list12 = Controller.importPlants("resources/PlantData/PlantList_12.csv", PlantType.RAIN_GARDENS);
-		ArrayList<Plant> list13 = Controller.importPlants("resources/PlantData/PlantList_13.csv", PlantType.RESTORATION_CONSERVATION);
-		ArrayList<Plant> list14 = Controller.importPlants("resources/PlantData/PlantList_14.csv", PlantType.ROOFTOP_GARDEN_PLANT);
-		ArrayList<Plant> list15 = Controller.importPlants("resources/PlantData/PlantList_15.csv", PlantType.SHRUB);
-		ArrayList<Plant> list16 = Controller.importPlants("resources/PlantData/PlantList_16.csv", PlantType.SOIL_STABILIZATION);
-		ArrayList<Plant> list17 = Controller.importPlants("resources/PlantData/PlantList_17.csv", PlantType.STORMWATER_MANAGEMENT);
-		ArrayList<Plant> list18 = Controller.importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
-		ArrayList<Plant> list19 = Controller.importPlants("resources/PlantData/PlantList_19.csv", PlantType.WETLANDS);
-		ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
-
-		ArrayList<Plant> masterList = new ArrayList<>();
-		
-		masterList.addAll(list00);
-		masterList.addAll(list01);
-		masterList.addAll(list02);
-		masterList.addAll(list03);
-		masterList.addAll(list04);
-		masterList.addAll(list05);
-		masterList.addAll(list06);
-		masterList.addAll(list07);
-		masterList.addAll(list08);
-		masterList.addAll(list09);
-		masterList.addAll(list10);
-		masterList.addAll(list11);
-		masterList.addAll(list12);
-		masterList.addAll(list13);
-		masterList.addAll(list14);
-		masterList.addAll(list15);
-		masterList.addAll(list16);
-		masterList.addAll(list17);
-		masterList.addAll(list18);
-		masterList.addAll(list19);
-		masterList.addAll(list20);
 		
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
-		
-		for (Plant plant : plantList) {
-			Plant fixed = new Plant();
-			for (Plant masterPlant : masterList) {
-					if (masterPlant.getBotanicalName().equals(plant.getBotanicalName())) {
-					fixed = masterPlant;
-				}
-			}
-			// System.out.println("1 " + plant.returnDetailedInfo());
-			// System.out.println("2 " + fixed.returnDetailedInfo());
-			sb.append(plant.getBotanicalName());
-			sb.append("\n");
-		}
 		
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
@@ -948,16 +856,9 @@ public class Controller extends Application {
 		if (model.getSoilPH() != -1 && model.getSoilPH() > 7) {
 			phSB.append("your soil pH of " + model.getSoilPH() + " is alkaline.");
 			for (Plant plant : plantList) {
-				Plant fixed = new Plant();
-				for (Plant masterPlant : masterList) {
-						if (masterPlant.getBotanicalName().equals(plant.getBotanicalName())) {
-							if (masterPlant.getType() == PlantType.ALKALINE_SOIL_TOLERANT) {
-								String plantName = masterPlant.getBotanicalName();
-								System.out.println("this should be alkaline soil tolerant: " + plantName);
-								phSB.append("\nA.T. plant found in garden: " + plantName);
-							}
-						//fixed = masterPlant;
-					}
+				System.out.println(plant.returnDetailedInfo());
+				if (plant.getType() == PlantType.ALKALINE_SOIL_TOLERANT) {
+					sb.append("A.T. plant found: " + plant.getBotanicalName());
 				}
 			}
 		} else {
@@ -1344,16 +1245,16 @@ public class Controller extends Application {
 		if (board.hasImage()) {
 			success = true;
 			Plant plant = scene.getPlantListView().getSelectionModel().getSelectedItem().getPlant();
-			Plant plant2 = plant.copyOfPlant();
-			plant2.getShape().getPolygon().setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
-			plant2.getShape().getPolygon().setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
-			Circle circle = plant2.getShape().getCircle();
+			Plant plantCopy = plant.copyOfPlant();
+			plantCopy.getShape().getPolygon().setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
+			plantCopy.getShape().getPolygon().setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
+			Circle circle = plantCopy.getShape().getCircle();
 			circle.setFill(new ImagePattern(board.getImage()));
 			scene.getGardenPane().getChildren().add(circle);
 			giveShapeDragBehavior(circle);
 			circle.setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
 			circle.setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
-			this.model.addGardenObject(plant2);
+			this.model.addGardenObject(plantCopy);
 		}
 		event.setDropCompleted(success);
 		event.consume();
