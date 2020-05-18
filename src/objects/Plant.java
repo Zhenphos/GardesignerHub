@@ -335,8 +335,8 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * @return the floweringMonths
 	 */
-	public String[] getFloweringMonths() {
-		return floweringMonths;
+	public String getFloweringMonths() {
+		return Controller.ArrayOfStrings(floweringMonths);
 	}
 
 	/**

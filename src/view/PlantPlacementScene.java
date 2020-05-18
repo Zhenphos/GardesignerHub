@@ -98,7 +98,7 @@ public class PlantPlacementScene extends Scene {
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
 	private Label error = createLabel("");
-	private Label botNameLabel = createLabel("");
+	private Label commonNameLabel = createLabel("");
 	private Label minHeightLabel = createLabel("");
 	private Label maxHeightLabel = createLabel("");
 	private Label minSpaceLabel = createLabel("");
@@ -107,11 +107,12 @@ public class PlantPlacementScene extends Scene {
 	private Label maxHardiLabel = createLabel("");
 	private Label bColorsLabel = createLabel("");
 	private Label deerResistLabel = createLabel("");
+	private Label flowerMonthLabel = createLabel("");
 	private Label extraAttributesLabel  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
 
-	public Label getBotNameLabel() {
-		return botNameLabel;
+	public Label getCommonNameLabel() {
+		return commonNameLabel;
 	}
 
 	public Label getMaxHeightLabel() {
@@ -257,52 +258,55 @@ public class PlantPlacementScene extends Scene {
 
 		// Display plant information in the left pane
 
-		Label name = createLabel("Common Name: ");
-		grid.add(name, 0, 0);
+		Label commonName = createLabel("Common Name: ");
+		grid.add(commonName, 0, 0);
+		grid.add(commonNameLabel, 1, 0);
 		
 		Label minHeight = createLabel("Min Height (in): ");
 		grid.add(minHeight, 0, 1);
+		grid.add(minHeightLabel, 1, 1);
 
 		Label maxHeight = createLabel("Max Height (in): ");
 		grid.add(maxHeight, 0, 2);
+		grid.add(maxHeightLabel, 1, 2);
 		
 		Label minSpacing = createLabel("Min Spacing (in): ");
 		grid.add(minSpacing, 0, 3);
+		grid.add(minSpaceLabel, 1, 3);
 
 		Label maxSpacing = createLabel("Max Spacing (in): ");
 		grid.add(maxSpacing, 0, 4);
+		grid.add(maxSpaceLabel, 1, 4);
 
 		Label minHardi = createLabel("Min Hardiness: ");
 		grid.add(minHardi, 0, 5);
+		grid.add(minHardiLabel, 1, 5);
 		
 		Label maxHardi = createLabel("Min Hardiness: ");
 		grid.add(maxHardi, 0, 6);
+		grid.add(maxHardiLabel, 1, 6);
 
-		Label colors = createLabel("Bloom Colors: ");
-		grid.add(colors, 0, 7);
+		Label bColors = createLabel("Bloom Colors: ");
+		grid.add(bColors, 0, 7);
+		grid.add(bColorsLabel, 1, 7);
 		
 		Label deerResist = createLabel("Deer Resistant? ");
 		grid.add(deerResist, 0, 8);
+		grid.add(deerResistLabel, 1, 8);
+		
+		Label flowerMonths = createLabel("Flowering Months: ");
+		grid.add(flowerMonths, 0, 9);
+		grid.add(flowerMonthLabel, 1, 9);
 		
 		Label attributes = createLabel("Extra Info: ");
-		grid.add(attributes, 0, 9);
+		grid.add(attributes, 0, 10);
+		grid.add(extraAttributesLabel, 1, 10);
 
-		botNameLabel.setMaxWidth(100);
-		botNameLabel.setWrapText(true);
+		commonNameLabel.setMaxWidth(100);
+		commonNameLabel.setWrapText(true);
 		
-		grid.add(botNameLabel, 1, 0);
-		grid.add(minHeightLabel, 1, 1);
-		grid.add(maxHeightLabel, 1, 2);
-		grid.add(minSpaceLabel, 1, 3);
-		grid.add(maxSpaceLabel, 1, 4);
-		grid.add(minHardiLabel, 1, 5);
-		grid.add(maxHardiLabel, 1, 6);
-		grid.add(bColorsLabel, 1, 7);
-		grid.add(deerResistLabel, 1, 8);
-		grid.add(extraAttributesLabel, 1, 9);
-		
-		grid.add(selectPlant, 0, 10);
-		grid.add(choiceBox, 0, 11);
+		grid.add(selectPlant, 0, 11);
+		grid.add(choiceBox, 0, 12);
 	}
 
 
@@ -548,5 +552,12 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public Label getDeerResistLabel() {
 		return deerResistLabel;
+	}
+
+	/**
+	 * @return the flowerMonthLabel
+	 */
+	public Label getFlowerMonthLabel() {
+		return flowerMonthLabel;
 	}
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -479,7 +480,7 @@ public class Controller extends Application {
 				giveShapeDragBehavior(circle);
 			}
 			
-			scene.getBotNameLabel().setText(selectedPlant.getCommonName());
+			scene.getCommonNameLabel().setText(selectedPlant.getCommonName());
 			
 			if (selectedPlant.getHeightMinInches() == -1) {
 				scene.getMinHeightLabel().setText("No Data");
@@ -517,6 +518,8 @@ public class Controller extends Application {
 				scene.getMaxHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMax()));
 			}
 			
+			//scene.getFlowerMonthLabel().setText(selectedPlant.getFloweringMonths().toString());
+			scene.getFlowerMonthLabel().setText((selectedPlant.getFloweringMonths().toString()));
 			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
 			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
