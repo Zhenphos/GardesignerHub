@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import enums.PlantType;
 import mvc.Controller;
+import mvc.Model;
 
 /**
  * Plant class for Gardesigner Hub
@@ -14,7 +15,7 @@ import mvc.Controller;
  */
 public class Plant extends GardenObject implements Serializable {
 	public static final int defaultRadius = 20;
-
+	
 	String bloomColors;
 	String commonName;
 	boolean deerResistant;
@@ -47,88 +48,6 @@ public class Plant extends GardenObject implements Serializable {
 		shape = new DrawShape(null, defaultRadius);
 		shape.getCircle().setCenterX(defaultRadius * 2);
 		shape.getCircle().setCenterY(defaultRadius * 2);
-	}
-
-	/**
-	 * Constructor for Plant. Creates a plant and sets its characteristics,
-	 * attributes, and requirements.
-	 * 
-	 * @param plantBotanicalName the String of the plant's botanical name
-	 * @param heightMinInches    the plant's minimum height in inches
-	 * @param heightMaxInches    the plant's maximum height in inches
-	 * @param spreadMin          the plant's minimum spread in inches
-	 * @param spreadMax          the plant's maximum spread in inches
-	 * @param spacingMin         the plant's minimum spacing in inches
-	 * @param spacingMax         the plant's maximum spacing in inches
-	 * @param hardinessMin       the plant's minimum hardiness
-	 * @param hardinessMax       the plant's maximum hardiness
-	 * @param bloomColors        the String of the plant's bloom colors
-	 */
-	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
-			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {
-		super();
-		this.botanicalName = plantBotanicalName;
-		this.heightMinInches = heightMinInches;
-		this.heightMaxInches = heightMaxInches;
-		this.spreadMin = spreadMin;
-		this.spreadMax = spreadMax;
-		this.spacingMin = spacingMin;
-		this.spacingMax = spacingMax;
-		this.hardinessMin = hardinessMin;
-		this.hardinessMax = hardinessMax;
-		this.bloomColors = bloomColors;
-
-		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 2));
-			shape.getCircle().setCenterX(this.spreadMin * 4);
-			shape.getCircle().setCenterY(this.spreadMin * 4);
-		} else {
-			shape = new DrawShape(null, defaultRadius);
-			shape.getCircle().setCenterX(defaultRadius * 2);
-			shape.getCircle().setCenterY(defaultRadius * 2);
-		}
-	}
-
-	/**
-	 * Constructor for Plant. Creates a plant and sets its characteristics,
-	 * attributes, requirements, and the group of plants it belongs to.
-	 * 
-	 * @param plantBotanicalName the String of the plant's botanical name
-	 * @param heightMinInches    the plant's minimum height in inches
-	 * @param heightMaxInches    the plant's maximum height in inches
-	 * @param spreadMin          the plant's minimum spread in inches
-	 * @param spreadMax          the plant's maximum spread in inches
-	 * @param spacingMin         the plant's minimum spacing in inches
-	 * @param spacingMax         the plant's maximum spacing in inches
-	 * @param hardinessMin       the plant's minimum hardiness
-	 * @param hardinessMax       the plant's maximum hardiness
-	 * @param bloomColors        the String of the plant's bloom colors
-	 * @param type               the PlantType of the plant
-	 */
-	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
-			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors, PlantType type) {
-		super();
-		this.botanicalName = plantBotanicalName;
-		this.heightMinInches = heightMinInches;
-		this.heightMaxInches = heightMaxInches;
-		this.spreadMin = spreadMin;
-		this.spreadMax = spreadMax;
-		this.spacingMin = spacingMin;
-		this.spacingMax = spacingMax;
-		this.hardinessMin = hardinessMin;
-		this.hardinessMax = hardinessMax;
-		this.bloomColors = bloomColors;
-		this.type = type;
-
-		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 2));
-			shape.getCircle().setCenterX(this.spreadMin * 4);
-			shape.getCircle().setCenterY(this.spreadMin * 4);
-		} else {
-			shape = new DrawShape(null, defaultRadius);
-			shape.getCircle().setCenterX(defaultRadius * 2);
-			shape.getCircle().setCenterY(defaultRadius * 2);
-		}
 	}
 	
 	/**
@@ -204,7 +123,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.seasonsOfInterest = seasonsOfInterest;
 		this.phytoElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
-
+		
 		if (spreadMin != -1) {
 			shape = new DrawShape(null, (this.spreadMin * 2));
 			shape.getCircle().setCenterX(this.spreadMin * 4);

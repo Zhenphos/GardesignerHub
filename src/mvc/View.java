@@ -411,7 +411,7 @@ public class View {
 	public Paint generateImage(Image image, Season season) {
 		Paint p;
 		switch (season) {
-		case SPRING: 
+		case SPRING:
 			p = Color.YELLOW;
 			break;
 		case SUMMER:

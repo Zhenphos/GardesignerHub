@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import enums.PlantType;
 import objects.Plant;
 
 /**
@@ -23,14 +24,29 @@ public class PlantTest {
 	int hardinessMin = 0;
 	int hardinessMax = 0;
 	String bloomColors = "red";
+	String commonName = "name";
+	String soilMoisturePreference = "";
+	String sunlightExposure = "";
+	String[] floweringMonths = { "July" };
+	String[] wildlifeAttracted = { "Bees" };
+	String[] otherAttributes = { "Other" };
+	boolean deerResistant = true;
+	String foliageColor = "green";
+	String growthRate = "1";
+	String saltTolerance = "1";
+	String[] seasonsOfInterest = { "July" };
+	String[] phytoremediationElementsCleaned = { "element" };
+	PlantType type = PlantType.ALL;
 	
 	/**
 	 * Tests the plant constructor and, by extension, the getters
 	 */
 	@Test
 	public void constructorTest() {	
-		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
-				spacingMax, hardinessMin, hardinessMax, bloomColors);
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
 		
 		assertEquals(plant.getBotanicalName(), plantBotanicalName);
 		assertEquals(plant.getHeightMinInches(), heightMinInches);
@@ -43,8 +59,10 @@ public class PlantTest {
 		assertEquals(plant.getHardinessMax(), hardinessMax);
 		assertEquals(plant.getBloomColors(), bloomColors);
 		
-		Plant plant2 = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, -1, spreadMax, spacingMin,
-				spacingMax, hardinessMin, hardinessMax, bloomColors);
+		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				plantBotanicalName, spacingMax, spacingMin, spreadMax, -1, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
 		
 		assertEquals(plant2.getSpacingMin(), spacingMin);
 	}
@@ -54,15 +72,19 @@ public class PlantTest {
 		Plant emptyPlant = new Plant();
 		assertEquals(null, emptyPlant.toString());
 		
-		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
-				spacingMax, hardinessMin, hardinessMax, bloomColors);
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
 		assertEquals(plant.toString(), plantBotanicalName);
 	}
 	
 	@Test
 	public void copyOfPlantTest() {
-		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
-				spacingMax, hardinessMin, hardinessMax, bloomColors);
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
 		
 		assertEquals(plant.getBotanicalName(), plant.copyOfPlant().getBotanicalName());
 		assertEquals(plant.getHeightMinInches(), plant.copyOfPlant().getHeightMinInches());
