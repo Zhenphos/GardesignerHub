@@ -524,11 +524,36 @@ public class Controller extends Application {
 				scene.getGrowthRateLabel().setText(selectedPlant.getGrowthRate());
 			}
 			
+			if (selectedPlant.getGrowthRate().isBlank()) {
+				scene.getFoliageColorLabel().setText("No Data");
+			} else {
+				scene.getFoliageColorLabel().setText(selectedPlant.getFoliageColor());
+			}
+			
+			if (selectedPlant.getSaltTolerance().isBlank()) {
+				scene.getSaltTolLabel().setText("No Data");
+			} else {
+				scene.getSaltTolLabel().setText(selectedPlant.getSaltTolerance());
+			}
+			
+			if (selectedPlant.getSoilMoisturePreference().isBlank()) {
+				scene.getSoilMoiLabel().setText("No Data");
+			} else {
+				scene.getSoilMoiLabel().setText(selectedPlant.getSoilMoisturePreference());
+			}
+			
+			if (selectedPlant.getSunlightExposure().isBlank()) {
+				scene.getSunlightExpLabel().setText("No Data");
+			} else {
+				scene.getSunlightExpLabel().setText(selectedPlant.getSunlightExposure());
+			}
+			
 			scene.getFlowerMonthLabel().setText((selectedPlant.getFloweringMonths().toString()));
 			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
-			scene.getFoliageColorLabel().setText(selectedPlant.getFoliageColor());
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
 			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
+			
+			
 			event.consume();
 		} catch (NullPointerException e) {
 			e.printStackTrace();

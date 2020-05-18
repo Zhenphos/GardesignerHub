@@ -109,6 +109,9 @@ public class PlantPlacementScene extends Scene {
 	private Label deerResistLabel = createLabel("");
 	private Label foliageColorLabel = createLabel("");
 	private Label growthRateLabel = createLabel("");
+	private Label saltTolLabel = createLabel("");
+	private Label soilMoiLabel = createLabel("");
+	private Label sunlightExpLabel = createLabel("");
 	private Label flowerMonthLabel = createLabel("");
 	private Label extraAttributesLabel  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
@@ -304,19 +307,31 @@ public class PlantPlacementScene extends Scene {
 		grid.add(growthRate, 0, 10);
 		grid.add(growthRateLabel, 1, 10);
 		
+		Label saltTol = createLabel("Salt Tolerance: ");
+		grid.add(saltTol, 0, 11);
+		grid.add(saltTolLabel, 1, 11);
+		
+		Label soilMoi = createLabel("Soil Moisture: ");
+		grid.add(soilMoi, 0, 12);
+		grid.add(soilMoiLabel, 1, 12);
+		
+		Label sunlightExp = createLabel("Sunlight Exposure: ");
+		grid.add(sunlightExp, 0, 13);
+		grid.add(sunlightExpLabel, 1, 13);
+		
 		Label flowerMonths = createLabel("Flowering Months: ");
-		grid.add(flowerMonths, 0, 11);
-		grid.add(flowerMonthLabel, 1, 11);
+		grid.add(flowerMonths, 0, 14);
+		grid.add(flowerMonthLabel, 1, 14);
 		
 		Label attributes = createLabel("Extra Info: ");
-		grid.add(attributes, 0, 12);
-		grid.add(extraAttributesLabel, 1, 12);
+		grid.add(attributes, 0, 15);
+		grid.add(extraAttributesLabel, 1, 15);
 
 		commonNameLabel.setMaxWidth(100);
 		commonNameLabel.setWrapText(true);
 		
-		grid.add(selectPlant, 0, 13);
-		grid.add(choiceBox, 0, 14);
+		grid.add(selectPlant, 0, 16);
+		grid.add(choiceBox, 0, 17);
 	}
 
 
@@ -583,5 +598,26 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public Label getGrowthRateLabel() {
 		return growthRateLabel;
+	}
+
+	/**
+	 * @return the saltTolLabel
+	 */
+	public Label getSaltTolLabel() {
+		return saltTolLabel;
+	}
+
+	/**
+	 * @return the soilMoiLabel
+	 */
+	public Label getSoilMoiLabel() {
+		return soilMoiLabel;
+	}
+
+	/**
+	 * @return the sunlightExpLabel
+	 */
+	public Label getSunlightExpLabel() {
+		return sunlightExpLabel;
 	}
 }
