@@ -797,6 +797,7 @@ public class Controller extends Application {
 		
 		Stage statStage = new Stage();
 		statStage.setTitle("Plant Statistics");
+		statStage.setResizable(true);
 		
 		final Popup statsPopup = new Popup();
         statsPopup.setX(300);
@@ -831,10 +832,12 @@ public class Controller extends Application {
 			sb.append("\n");
 		}
         
-        Text statsText = new Text(10, 50, "Here are some statistics:\n" 
-        								   + "Current plants:\n" + sb.toString());
+        Text statsText = new Text(10, 50, "You have " + plantList.size() 
+        								   + " plants in your garden.\n" 
+        								   + "The currents plants are:\n" 
+        								   + sb.toString());
         //Text statsText02 = new Text(10, 50, "Current plants:\n" + model.getPlantObjects());
-        statsText.setFont(new Font(25));
+        statsText.setFont(new Font(20));
         //statsText02.setFont(new Font(25));
         statsLayout.getChildren().addAll(statsText);
 		
@@ -850,6 +853,7 @@ public class Controller extends Application {
 		// System.out.println(model.getPlantObjects());
 		Stage recsStage = new Stage();
 		recsStage.setTitle("Recommendations");
+		recsStage.setResizable(true);
 		
 		final Popup recsPopup = new Popup();
         recsPopup.setX(300);
@@ -878,7 +882,7 @@ public class Controller extends Application {
         //statsLayout.getChildren().addAll(show, hide);
         
         Text recsText = new Text(10, 50, "Here are some recommendations:");
-        recsText.setFont(new Font(25));
+        recsText.setFont(new Font(20));
         recsLayout.getChildren().addAll(recsText);
 		
         recsStage.setScene(new Scene(recsLayout));
