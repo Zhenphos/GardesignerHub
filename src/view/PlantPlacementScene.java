@@ -107,6 +107,8 @@ public class PlantPlacementScene extends Scene {
 	private Label maxHardiLabel = createLabel("");
 	private Label bColorsLabel = createLabel("");
 	private Label deerResistLabel = createLabel("");
+	private Label foliageColorLabel = createLabel("");
+	private Label growthRateLabel = createLabel("");
 	private Label flowerMonthLabel = createLabel("");
 	private Label extraAttributesLabel  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
@@ -294,19 +296,27 @@ public class PlantPlacementScene extends Scene {
 		grid.add(deerResist, 0, 8);
 		grid.add(deerResistLabel, 1, 8);
 		
+		Label foliageColor = createLabel("Foliage Colors: ");
+		grid.add(foliageColor, 0, 9);
+		grid.add(foliageColorLabel, 1, 9);
+		
+		Label growthRate = createLabel("Growth Rate: ");
+		grid.add(growthRate, 0, 10);
+		grid.add(growthRateLabel, 1, 10);
+		
 		Label flowerMonths = createLabel("Flowering Months: ");
-		grid.add(flowerMonths, 0, 9);
-		grid.add(flowerMonthLabel, 1, 9);
+		grid.add(flowerMonths, 0, 11);
+		grid.add(flowerMonthLabel, 1, 11);
 		
 		Label attributes = createLabel("Extra Info: ");
-		grid.add(attributes, 0, 10);
-		grid.add(extraAttributesLabel, 1, 10);
+		grid.add(attributes, 0, 12);
+		grid.add(extraAttributesLabel, 1, 12);
 
 		commonNameLabel.setMaxWidth(100);
 		commonNameLabel.setWrapText(true);
 		
-		grid.add(selectPlant, 0, 11);
-		grid.add(choiceBox, 0, 12);
+		grid.add(selectPlant, 0, 13);
+		grid.add(choiceBox, 0, 14);
 	}
 
 
@@ -559,5 +569,19 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public Label getFlowerMonthLabel() {
 		return flowerMonthLabel;
+	}
+
+	/**
+	 * @return the foliageColorLabel
+	 */
+	public Label getFoliageColorLabel() {
+		return foliageColorLabel;
+	}
+
+	/**
+	 * @return the growthRateLabel
+	 */
+	public Label getGrowthRateLabel() {
+		return growthRateLabel;
 	}
 }

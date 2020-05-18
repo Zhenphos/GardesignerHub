@@ -518,9 +518,15 @@ public class Controller extends Application {
 				scene.getMaxHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMax()));
 			}
 			
-			//scene.getFlowerMonthLabel().setText(selectedPlant.getFloweringMonths().toString());
+			if (selectedPlant.getGrowthRate().isBlank()) {
+				scene.getGrowthRateLabel().setText("No Data");
+			} else {
+				scene.getGrowthRateLabel().setText(selectedPlant.getGrowthRate());
+			}
+			
 			scene.getFlowerMonthLabel().setText((selectedPlant.getFloweringMonths().toString()));
 			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
+			scene.getFoliageColorLabel().setText(selectedPlant.getFoliageColor());
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
 			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
 			event.consume();
