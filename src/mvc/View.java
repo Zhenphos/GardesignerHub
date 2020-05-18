@@ -73,7 +73,7 @@ public class View {
 	public static final String PREV_BUTTON_TEXT = "Previous";
 	public static final String NEXT_BUTTON_TEXT = "Next";
 	public static final String SAVE_BUTTON_TEXT = "Save";
-	public static final String STAT_BUTTON_TEXT = "Stats";
+	public static final String STAT_BUTTON_TEXT = "Statistics";
 	public static final String REC_BUTTON_TEXT = "Recommendations";
 	public static final String BROWSE_BUTTON_TEXT = "Browse";
 	public static final String EDIT_BUTTON_TEXT = "Edit";

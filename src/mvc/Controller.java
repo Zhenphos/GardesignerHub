@@ -794,18 +794,18 @@ public class Controller extends Application {
 		statsPopup.setY(200);
 		statsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 
-		HBox statsLayout = new HBox(10);
-		statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
-
+        HBox statsLayout = new HBox(10);
+        statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
+        
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
 
 		for (Plant plant : plantList) {
 			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
-			sb.append("   |   ");
+			sb.append(" (");
 			sb.append(plant.getCommonName());
-			sb.append("\n");
+			sb.append(")\n");
 		}
         
         Text statsText = new Text(10, 50, "You have " + plantList.size() 
@@ -833,7 +833,7 @@ public class Controller extends Application {
 		recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 				
 		HBox recsLayout = new HBox(10);
-		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
+		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
 		// statsLayout.getChildren().addAll(show, hide);
 
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
@@ -843,6 +843,96 @@ public class Controller extends Application {
 
 		recsStage.setScene(new Scene(recsLayout));
 		recsStage.show();
+	}
+	
+	/**
+	 * Generates recommendations for the garden based on garden attributes and plants
+	 * 
+	 * @return the String holding the recommendation for the garden
+	 */
+	public String generateRecommendation() {
+		String recommendations = "";
+		boolean phMatch = true, bugFriendly = false;
+		int rating = 0;
+		PlantType plantType;
+		Double userPH = model.getSoilPH();
+
+		ArrayList<Plant> plantObjects = model.getPlantObjects();
+		System.out.println(plantObjects);
+
+		if (userPH > 7) {
+			recommendations += "Note: You have an alkaline garden pH. ";
+			recommendations += "It is recommended to choose alkaline tolerant plants.\n";
+		} else if (userPH < 4 && !(userPH < 0)) {
+			recommendations += "Warning: Your garden's pH is dangerously low. ";
+			recommendations += "This may cause severe harm to your plants.\n";
+		}
+
+		for (Plant somePlant : plantObjects) {
+			plantType = somePlant.getType();
+			// this doesn't work properly, triggers for all plants not in ALKALINE_SOIL_TOLERANT
+			/*
+			if (plantType != PlantType.ALKALINE_SOIL_TOLERANT && userPH > 7) {
+				phMatch = false;
+				recommendations += "Warning: The pH requirement of " + somePlant.getCommonName() + " doesn't match your garden's pH.\n";
+			}*/
+			
+			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
+				bugFriendly = true;
+			}
+			if (model.getDeer().equalsIgnoreCase("yes")) {
+				if (somePlant.isDeerResistant() == false) {
+					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
+							+ " (" + somePlant.getCommonName() + ")\n";
+				}
+			}
+			if (model.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
+					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
+				recommendations += "Warning: A plant may receive too much rain - " + somePlant.getBotanicalName() + " ("
+						+ somePlant.getCommonName() + ")\n";
+			}
+			if (!(model.getRain() < 0) && model.getRain() < 2.0
+					&& somePlant.getSoilMoisturePreference().contains("Moist")
+					&& !somePlant.getSoilMoisturePreference().contains("Dry")) {
+				recommendations += "Warning: A plant may not receive enough rain - " + somePlant.getBotanicalName()
+						+ " (" + somePlant.getCommonName() + ")\n";
+			}
+			if (!(model.getLight() < 0) && model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
+					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
+				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
+						+ " (" + somePlant.getCommonName() + ")\n";
+			}
+			if (!(model.getLight() < 0) && model.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
+					&& somePlant.getSunlightExposure().contains("Shade")) {
+				recommendations += "Warning: A plant may get too much sunlight - " + somePlant.getBotanicalName() + " ("
+						+ somePlant.getCommonName() + ")\n";
+			}
+		}
+
+		if (plantObjects.size() == 0
+				|| plantObjects.size() - model.getGardenObjects().size() == plantObjects.size() * -1) {
+			recommendations += "Use a combination of both plants and other objects.\n";
+		} // 0 rating for no plants}
+		else {
+			rating += 2;
+		}
+
+		if (phMatch) {
+			rating++;
+		} else {
+			rating--;
+		}
+		
+		/*
+		if (bugFriendly) {
+			recommendations += "Your garden attract bugs/butterflies. +1\n";
+			rating++;
+		} else {
+			rating--;
+			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
+		}*/
+
+		return recommendations;
 	}
 
 	/**
@@ -1017,72 +1107,6 @@ public class Controller extends Application {
 				mousePosition.set(new Point2D(event.getSceneX(), event.getSceneY()));
 			}
 		});
-	}
-	
-	/**
-	 * Generates recommendations for the garden based on garden attributes and plants
-	 * 
-	 * @return the String holding the recommendation for the garden
-	 */
-	public String generateRecommendation() {
-		String recommendations = "";
-		boolean phMatch = true, bugFriendly = false;
-		int rating = 0;
-		PlantType plantType;
-		Double userPH = model.getSoilPH();
-
-		ArrayList<Plant> plantObjects = model.getPlantObjects();
-		System.out.println(plantObjects);
-
-		for (Plant somePlant : plantObjects) {
-			plantType = somePlant.getType();
-			if (plantType != PlantType.ALKALINE_SOIL_TOLERANT && userPH > 7) {
-				phMatch = false;
-				recommendations += "Warning: The pH requirement of " + somePlant.getCommonName() + " doesn't match your garden's pH.\n";
-			}
-			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
-				bugFriendly = true;
-			}
-			if (model.getDeer().equalsIgnoreCase("yes")) {
-				if (somePlant.isDeerResistant() == false) {
-					recommendations += "Warning: A plant isn't deer resistant - " + somePlant.getBotanicalName() + " | " + somePlant.getCommonName() + "\n";
-				}
-			}
-			if (model.getRain() > 0.5 && (!somePlant.getSoilMoisturePreference().contains("Moist")
-					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
-				recommendations += "Warning: A plant may receive too much moisture - " + somePlant.getBotanicalName()
-						+ " | " + somePlant.getCommonName() + "\n";
-			}
-			if (model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
-					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
-				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
-						+ " | " + somePlant.getCommonName() + "\n";
-			}
-		}
-
-		if (plantObjects.size() == 0
-				|| plantObjects.size() - model.getGardenObjects().size() == plantObjects.size() * -1) {
-			recommendations += "Use a combination of both plants and other objects.\n";
-		} // 0 rating for no plants}
-		else {
-			rating += 2;
-		}
-
-		if (phMatch) {
-			rating++;
-		} else {
-			rating--;
-		}
-
-		if (bugFriendly) {
-			recommendations += "Your garden attract bugs/butterflies. +1\n";
-			rating++;
-		} else {
-			rating--;
-			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
-		}
-
-		return recommendations;
 	}
 	
 	/**

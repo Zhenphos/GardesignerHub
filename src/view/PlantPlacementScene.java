@@ -631,4 +631,11 @@ public class PlantPlacementScene extends Scene {
 	public Label getWildlifeLabel() {
 		return wildlifeLabel;
 	}
+
+	/**
+	 * @return the masterList
+	 */
+	public ArrayList<Plant> getMasterList() {
+		return masterList;
+	}
 }
