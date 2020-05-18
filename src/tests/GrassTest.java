@@ -19,7 +19,7 @@ public class GrassTest {
 	@Test
 	public void testMakeShape() {
 		Grass grass = new Grass();
-		assertEquals(grass.getShape().shape.getFill(), Color.LAWNGREEN);
+		assertEquals(grass.getShape().getPolygon().getFill(), Color.LAWNGREEN);
 	}
 	
 }

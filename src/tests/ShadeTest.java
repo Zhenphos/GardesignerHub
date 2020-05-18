@@ -19,7 +19,7 @@ public class ShadeTest {
 	@Test
 	public void testMakeShape() {
 		Shade shade = new Shade();
-		assertEquals(shade.getShape().shape.getFill(), Color.GREY);
+		assertEquals(shade.getShape().getPolygon().getFill(), Color.GREY);
 	}
 
 }

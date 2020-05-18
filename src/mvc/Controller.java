@@ -711,6 +711,9 @@ public class Controller extends Application {
 		if (file == null)
 			return;
 
+		for (GardenObject object : this.model.getGardenObjects())
+			object.getShape().save();
+
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
 			out.writeObject(this.model);
 			if (DEBUG)
@@ -721,6 +724,7 @@ public class Controller extends Application {
 
 		} catch (IOException ex) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
+			if (DEBUG) ex.printStackTrace();
 		}
 	}
 
@@ -733,16 +737,41 @@ public class Controller extends Application {
 		if (file == null)
 			return;
 
+		this.loadGarden(file);
 		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
+		scene.addTableEntry(file);
+	}
+
+	/**
+	 * Updates and loads in the garden model and view from the garden file
+	 * @param file
+	 */
+	public void loadGarden(File file) {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
 			this.model = (Model) in.readObject();
+			for (GardenObject object : this.model.getGardenObjects())
+				object.getShape().load();;
+
+			this.view.reload(this.model);
 			if (DEBUG) {
 				System.out.println("Object has been deserialized ");
 				System.out.println("amount of light = " + model.getLight());
 			}
-			scene.addTableEntry(file);
 		} catch (IOException | ClassNotFoundException e) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
+			if (DEBUG) e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Event handler for when the user selects a different save preview on the loading screen
+	 */
+	public void onLoadingSelect() {
+		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
+		LoadingScene.Save save = scene.getSaves().getSelectionModel().getSelectedItem();
+		if (save != null) {
+			this.loadGarden(new File(save.getName()));
+			this.view.drawMap(scene.getGardenPane());
 		}
 	}
 
@@ -962,11 +991,13 @@ public class Controller extends Application {
 	public void onPlantDragDetected(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
 		PlantPlacementScene.PlantWithImage pwi = scene.getPlantListView().getSelectionModel().getSelectedItem();
-		Dragboard db = scene.getPlantListView().startDragAndDrop(TransferMode.COPY);
-		ClipboardContent content = new ClipboardContent();
-		content.putImage(pwi.getImage());
-		db.setContent(content);
-		event.consume();
+		if (pwi != null) {
+			Dragboard db = scene.getPlantListView().startDragAndDrop(TransferMode.COPY);
+			ClipboardContent content = new ClipboardContent();
+			content.putImage(pwi.getImage());
+			db.setContent(content);
+			event.consume();
+		}
 	}
 
 	/**

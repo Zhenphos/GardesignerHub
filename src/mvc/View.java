@@ -132,6 +132,16 @@ public class View {
 		this.stage.setScene(this.screens.get(Names.MAIN_MENU));
 	}
 
+	public void reload(Model model) {
+		GardenInfoScene scene = (GardenInfoScene) this.getScene(Names.GARDEN_INFO);
+		scene.getWidthTextfield().setText(String.valueOf(model.getWidth()));
+		scene.getHeightTextfield().setText(String.valueOf(model.getHeight()));
+		scene.getSunlightTextfield().setText(String.valueOf(model.getLight()));
+		scene.getRainTextfield().setText(String.valueOf(model.getRain()));
+		scene.getSoilPHTextfield().setText(String.valueOf(model.getSoilPH()));
+		scene.getTempTextfield().setText(String.valueOf(model.getTemperature()));
+	}
+
 	/**
 	 * Sets the active scene to the associated screen
 	 * 
@@ -224,6 +234,7 @@ public class View {
 		scene.getBrowseButton().setOnAction(event -> this.controller.onLoadingBrowse());
 		scene.getPrevButton().setOnAction(event -> this.controller.onLoadingPrev());
 		scene.getEditButton().setOnAction(event -> this.controller.onLoadingEdit());
+		scene.getSaves().getSelectionModel().selectedItemProperty().addListener(event -> this.controller.onLoadingSelect());
 	}
 
 	/**
@@ -240,7 +251,7 @@ public class View {
 		scene.getPlantListView().setOnDragDetected(event -> this.controller.onPlantDragDetected(event));
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
-	}
+	}	
 	
 	/**
 	 * Initializes event handlers for TimesScene
