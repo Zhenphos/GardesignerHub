@@ -65,13 +65,6 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		/*
-		ArrayList<Plant> testingList = new ArrayList<>();
-		testingList = importPlants("resources/PlantData/PlantList_15.csv", PlantType.VINES);
-		for (Plant x : testingList) {
-			System.out.println(x.returnDetailedInfo());
-		}
-		*/
 		launch(args);
 	}
 
@@ -785,6 +778,26 @@ public class Controller extends Application {
 	public void onRatingPrev() {
 		this.view.setScreen(Names.TIMES);
 		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+	}
+	
+	/**
+	 * Event Handler for when the user presses the stats button on the
+	 * RatingScene
+	 */
+	public void onRatingStats() {
+		System.out.println("Current plants");
+		System.out.println(model.getPlantObjects());
+		//this.view.setScreen(Names.TIMES);
+		//this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+	}
+	
+	/**
+	 * Event Handler for when the user presses the recommendations button on the
+	 * RatingScene
+	 */
+	public void onRatingRecs() {
+		//this.view.setScreen(Names.TIMES);
+		//this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
 	}
 
 	/**

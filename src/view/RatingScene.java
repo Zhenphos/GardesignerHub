@@ -28,7 +28,8 @@ public class RatingScene extends Scene {
 	
 	private static final String HEADER_TEXT = "Evaluation";
 	private static final String RATING_TEXT = "Rating";
-	private static final String RECOMMENDATIONS_TEXT = "Recommendations";
+	//private static final String RECOMMENDATIONS_TEXT = "Recommendations";
+	private static final String RECOMMENDATIONS_TEXT = "";
 
 	private BorderPane container;
 	private Label lblHeader;
@@ -36,6 +37,7 @@ public class RatingScene extends Scene {
 	private Label lblRating, lblRecommendations, lblRecommendText;
 	private FlowPane stars;
 	private Button btnPrev, btnSave;
+	private Button btnStats, btnRecommendations;
 
 	/**
 	 * Constructor for RatingScene. Formats the panes in the scene.
@@ -58,7 +60,8 @@ public class RatingScene extends Scene {
 		this.lblRecommendations.setStyle(View.TEXT_LABEL_STYLE);
 		this.lblRecommendations.setMaxWidth(Double.MAX_VALUE);
 		this.lblRecommendations.setAlignment(Pos.CENTER);
-		this.lblRecommendText = new Label("Your Garden is not optimal, try plants that work better together!");
+		//this.lblRecommendText = new Label("Your Garden is not optimal, try plants that work better together!");
+		this.lblRecommendText = new Label("");
 		this.lblRecommendText.setStyle(View.TEXT_LABEL_STYLE);
 		this.lblRecommendText.setWrapText(true);
 		this.stars = new FlowPane();
@@ -69,15 +72,29 @@ public class RatingScene extends Scene {
 		this.btnSave = new Button(View.SAVE_BUTTON_TEXT);
 		this.btnSave.setStyle(View.BUTTON_STYLE);
 		this.btnSave.setMaxWidth(Double.MAX_VALUE);
+		
+		this.btnStats = new Button(View.STAT_BUTTON_TEXT);
+		this.btnStats.setStyle(View.BUTTON_STYLE);
+		this.btnStats.setMaxWidth(Double.MAX_VALUE);
+		
+		this.btnRecommendations = new Button(View.REC_BUTTON_TEXT);
+		this.btnRecommendations.setStyle(View.BUTTON_STYLE);
+		this.btnRecommendations.setMaxWidth(Double.MAX_VALUE);
 
 		VBox ratings = new VBox(this.lblRating, this.stars);
 		VBox recommends = new VBox(this.lblRecommendations, this.lblRecommendText);
 		HBox options = new HBox(ratings, recommends);
 		HBox.setHgrow(ratings, Priority.ALWAYS);
 		HBox.setHgrow(recommends, Priority.ALWAYS);
-		HBox buttons = new HBox(this.btnPrev, this.btnSave);
+		
+		HBox buttons = new HBox(this.btnPrev, this.btnSave, this.btnStats, this.btnRecommendations);
+		
 		HBox.setHgrow(this.btnPrev, Priority.ALWAYS);
 		HBox.setHgrow(this.btnSave, Priority.ALWAYS);
+		
+		HBox.setHgrow(this.btnStats, Priority.ALWAYS);
+		HBox.setHgrow(this.btnRecommendations, Priority.ALWAYS);
+		
 		VBox center = new VBox(this.gardenPane, options);
 		VBox.setVgrow(this.gardenPane, Priority.ALWAYS);
 
@@ -85,7 +102,6 @@ public class RatingScene extends Scene {
 		this.container.setCenter(center);
 		this.container.setBottom(buttons);
 		this.setRating(4);
-
 	}
 
 	/**
@@ -122,8 +138,6 @@ public class RatingScene extends Scene {
 	public Button getSaveButton() {
 		return this.btnSave;
 	}
-	
-	
 
 	
 	/**
@@ -133,5 +147,19 @@ public class RatingScene extends Scene {
 	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
+	}
+
+	/**
+	 * @return the btnStats
+	 */
+	public Button getBtnStats() {
+		return this.btnStats;
+	}
+
+	/**
+	 * @return the btnRecommendations
+	 */
+	public Button getBtnRecommendations() {
+		return this.btnRecommendations;
 	}
 }
