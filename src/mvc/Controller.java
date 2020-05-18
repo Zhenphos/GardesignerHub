@@ -449,8 +449,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Handles the click events, single click on plant name displays the information in right panel
-	 * double click puts the plant image on the garden
+	 * Handles the click events, single click on plant name displays the information
+	 * in right panel double click puts the plant image on the garden
 	 * 
 	 * @param event the MouseEvent on the plant
 	 */
@@ -458,22 +458,20 @@ public class Controller extends Application {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
 			Optional<Plant> plant = null;
-			if(event.getTarget() instanceof ListCell) {
+			if (event.getTarget() instanceof ListCell) {
 				ListCell<MouseEvent> listCell = (ListCell<MouseEvent>) (event.getTarget());
 				ListCell<MouseEvent> cell = listCell;
-				 plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText()))
-						.findAny();
-			}else {
-				Text plantText = (Text)event.getTarget();
-				plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantText.getText()))
-						.findAny();
+				plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText())).findAny();
+			} else {
+				Text plantText = (Text) event.getTarget();
+				plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantText.getText())).findAny();
 			}
-			
+
 			Plant selectedPlant = plant.get();
 			if (event.getClickCount() == 2) {
 				Plant plantCopy = selectedPlant.copyOfPlant();
 				File imageFile = new File("resources/PlantImages/" + selectedPlant.getBotanicalName() + ".jpg");
-				Image plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
+				Image plantImage = new Image(imageFile.toURI().toString(), 100, 100, true, true);
 				Circle circle = plantCopy.getShape().getCircle();
 				circle.setFill(new ImagePattern(plantImage));
 				scene.getGardenPane().getChildren().add(circle);
@@ -481,9 +479,9 @@ public class Controller extends Application {
 				System.out.println(model.getGardenObjects());
 				giveShapeDragBehavior(circle);
 			}
-			
+
 			scene.getCommonNameLabel().setText(selectedPlant.getCommonName());
-			
+
 			if (selectedPlant.getHeightMinInches() == -1) {
 				scene.getMinHeightLabel().setText("No Data");
 			} else {
@@ -495,7 +493,7 @@ public class Controller extends Application {
 			} else {
 				scene.getMaxHeightLabel().setText(Integer.toString(selectedPlant.getHeightMaxInches()));
 			}
-			
+
 			if (selectedPlant.getSpacingMin() == -1) {
 				scene.getMinSpaceLabel().setText("No Data");
 			} else {
@@ -513,67 +511,66 @@ public class Controller extends Application {
 			} else {
 				scene.getMinHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMin()));
 			}
-			
+
 			if (selectedPlant.getHardinessMax() == -1) {
 				scene.getMaxHardiLabel().setText("No Data");
 			} else {
 				scene.getMaxHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMax()));
 			}
-			
+
 			if (selectedPlant.getGrowthRate().isBlank()) {
 				scene.getGrowthRateLabel().setText("No Data");
 			} else {
 				scene.getGrowthRateLabel().setText(selectedPlant.getGrowthRate());
 			}
-			
+
 			if (selectedPlant.getGrowthRate().isBlank()) {
 				scene.getFoliageColorLabel().setText("No Data");
 			} else {
 				scene.getFoliageColorLabel().setText(selectedPlant.getFoliageColor());
 			}
-			
+
 			if (selectedPlant.getSaltTolerance().isBlank()) {
 				scene.getSaltTolLabel().setText("No Data");
 			} else {
 				scene.getSaltTolLabel().setText(selectedPlant.getSaltTolerance());
 			}
-			
+
 			if (selectedPlant.getSoilMoisturePreference().isBlank()) {
 				scene.getSoilMoiLabel().setText("No Data");
 			} else {
 				scene.getSoilMoiLabel().setText(selectedPlant.getSoilMoisturePreference());
 			}
-			
+
 			if (selectedPlant.getSunlightExposure().isBlank()) {
 				scene.getSunlightExpLabel().setText("No Data");
 			} else {
 				scene.getSunlightExpLabel().setText(selectedPlant.getSunlightExposure());
 			}
-			
+
 			if (selectedPlant.getPhytoremediationElementsCleaned().isBlank()) {
 				scene.getPhytoLabel().setText("No Data");
 			} else {
 				scene.getPhytoLabel().setText(selectedPlant.getPhytoremediationElementsCleaned().toString());
 			}
-			
+
 			if (selectedPlant.getSeasonsOfInterest().isBlank()) {
 				scene.getSeasonLabel().setText("No Data");
 			} else {
 				scene.getSeasonLabel().setText(selectedPlant.getSeasonsOfInterest().toString());
 			}
-			
+
 			if (selectedPlant.getWildlifeAttracted().isBlank()) {
 				scene.getWildlifeLabel().setText("No Data");
 			} else {
 				scene.getWildlifeLabel().setText(selectedPlant.getWildlifeAttracted().toString());
 			}
-			
+
 			scene.getFlowerMonthLabel().setText((selectedPlant.getFloweringMonths().toString()));
 			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
 			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
-			
-			
+
 			event.consume();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -1085,15 +1082,6 @@ public class Controller extends Application {
 	public Collection<GardenObject> loadMapObjects() {
 		return model.getGardenObjects();
 	}
-	
-	/**
-	 * returns the model
-	 * @return model
-	 */
-	
-	
-	
-
 
 	/**
 	 * Loads the plant objects on the map
