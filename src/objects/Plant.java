@@ -27,7 +27,7 @@ public class Plant extends GardenObject implements Serializable {
 	int heightMaxInches;
 	int heightMinInches;
 	String[] otherAttributes;
-	String[] phytoremediationElementsCleaned;
+	String[] phytoElementsCleaned;
 	String plantBotanicalName;
 	String saltTolerance;
 	String[] seasonsOfInterest;
@@ -167,7 +167,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.growthRate = growthRate;
 		this.saltTolerance = saltTolerance;
 		this.seasonsOfInterest = seasonsOfInterest;
-		this.phytoremediationElementsCleaned = phytoremediationElementsCleaned;
+		this.phytoElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
 		
 		if (spreadMin != -1) {
@@ -364,7 +364,7 @@ public class Plant extends GardenObject implements Serializable {
 	 * @return the phytoremediationElementsCleaned
 	 */
 	public String[] getPhytoremediationElementsCleaned() {
-		return phytoremediationElementsCleaned;
+		return phytoElementsCleaned;
 	}
 
 	/**
@@ -408,7 +408,7 @@ public class Plant extends GardenObject implements Serializable {
 				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
 				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
 				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
-				+ Arrays.toString(phytoremediationElementsCleaned) + ", plantBotanicalName=" + plantBotanicalName
+				+ Arrays.toString(phytoElementsCleaned) + ", plantBotanicalName=" + plantBotanicalName
 				+ ", saltTolerance=" + saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
 				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
 				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="

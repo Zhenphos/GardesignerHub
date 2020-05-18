@@ -104,7 +104,9 @@ public class PlantPlacementScene extends Scene {
 	private Label minSpaceLabel = createLabel("");
 	private Label maxSpaceLabel = createLabel("");
 	private Label minHardiLabel = createLabel("");
+	private Label maxHardiLabel = createLabel("");
 	private Label bColorsLabel = createLabel("");
+	private Label deerResistLabel = createLabel("");
 	private Label extraAttributesLabel  = createLabel("");
 	private Label selectPlant = createLabel(SELECT_TYPE);
 
@@ -146,7 +148,7 @@ public class PlantPlacementScene extends Scene {
 		//this.btnUndo = this.createButton(leftPane, "Undo", UNDO_IMAGE);
 		this.btnUndo = new Button("Undo");
 		// need to watch this button's location when adding things
-		grid.add(btnUndo, 0, 10);
+		grid.add(btnUndo, 0, 20);
 		
 		imc = new Controller(this);
 		placePlant();
@@ -272,12 +274,18 @@ public class PlantPlacementScene extends Scene {
 
 		Label minHardi = createLabel("Min Hardiness: ");
 		grid.add(minHardi, 0, 5);
+		
+		Label maxHardi = createLabel("Min Hardiness: ");
+		grid.add(maxHardi, 0, 6);
 
 		Label colors = createLabel("Bloom Colors: ");
-		grid.add(colors, 0, 6);
+		grid.add(colors, 0, 7);
 		
-		Label attributes = createLabel("Attributes: ");
-		grid.add(attributes, 0, 7);
+		Label deerResist = createLabel("Deer Resistant? ");
+		grid.add(deerResist, 0, 8);
+		
+		Label attributes = createLabel("Extra Info: ");
+		grid.add(attributes, 0, 9);
 
 		botNameLabel.setMaxWidth(100);
 		botNameLabel.setWrapText(true);
@@ -288,11 +296,13 @@ public class PlantPlacementScene extends Scene {
 		grid.add(minSpaceLabel, 1, 3);
 		grid.add(maxSpaceLabel, 1, 4);
 		grid.add(minHardiLabel, 1, 5);
-		grid.add(bColorsLabel, 1, 6);
-		grid.add(extraAttributesLabel, 1, 7);
+		grid.add(maxHardiLabel, 1, 6);
+		grid.add(bColorsLabel, 1, 7);
+		grid.add(deerResistLabel, 1, 8);
+		grid.add(extraAttributesLabel, 1, 9);
 		
-		grid.add(selectPlant, 0, 8);
-		grid.add(choiceBox, 0, 9);
+		grid.add(selectPlant, 0, 10);
+		grid.add(choiceBox, 0, 11);
 	}
 
 
@@ -524,5 +534,19 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public Label getMinSpaceLabel() {
 		return minSpaceLabel;
+	}
+
+	/**
+	 * @return the maxHardiLabel
+	 */
+	public Label getMaxHardiLabel() {
+		return maxHardiLabel;
+	}
+
+	/**
+	 * @return the deerResistLabel
+	 */
+	public Label getDeerResistLabel() {
+		return deerResistLabel;
 	}
 }

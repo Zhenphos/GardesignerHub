@@ -511,6 +511,13 @@ public class Controller extends Application {
 				scene.getMinHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMin()));
 			}
 			
+			if (selectedPlant.getHardinessMax() == -1) {
+				scene.getMaxHardiLabel().setText("No Data");
+			} else {
+				scene.getMaxHardiLabel().setText(Integer.toString(selectedPlant.getHardinessMax()));
+			}
+			
+			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());
 			scene.getAttribLabel().setText(selectedPlant.getOtherAttributes().toString());
 			event.consume();
