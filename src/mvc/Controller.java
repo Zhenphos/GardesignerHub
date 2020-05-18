@@ -463,13 +463,22 @@ public class Controller extends Application {
 	public void onClickPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
-			System.out.println("Mouse clicked");
-			ListCell<MouseEvent> cell = (ListCell<MouseEvent>) (event.getTarget());
-			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText()))
-					.findAny();
+			Optional<Plant> plant = null;
+			if(event.getTarget() instanceof ListCell) {
+				ListCell<MouseEvent> listCell = (ListCell<MouseEvent>) (event.getTarget());
+				ListCell<MouseEvent> cell = listCell;
+				 plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText()))
+						.findAny();
+			}else {
+				Text plantText = (Text)event.getTarget();
+				plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(plantText.getText()))
+						.findAny();
+
+			}
+			
 			Plant selectedPlant = plant.get();
 			System.out.println(scene.getAllPlants().indexOf(selectedPlant));
-			
+
 			if (event.getClickCount() == 2) {
 				scene.setIndexOfPlant(scene.getAllPlants().indexOf(selectedPlant));
 				Plant plantCopy = selectedPlant.copyOfPlant();
