@@ -449,6 +449,7 @@ public class View {
 	 * @param pane the pane which will contain the map
 	 */
 	public void drawMap(Pane pane) {
+		
 		pane.getChildren().clear();
 		for (GardenObject go : this.controller.loadMapObjects()) {
 			pane.getChildren().add(go.getShape().getPolygon());
@@ -456,6 +457,16 @@ public class View {
 		for (Plant p : this.controller.loadPlantObjects()) {
 			pane.getChildren().add(p.getShape().getCircle());
 		}
+		
+		/*
+		for (GardenObject go : this.controller.loadMapObjects()) {
+			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
+				pane.getChildren().add(go.getShape().getPolygon());
+			
+			if (!(pane.getChildren().contains(go.getShape().getCircle())))
+				pane.getChildren().add(go.getShape().getCircle());
+		}
+		*/
 	}
 
 	/**

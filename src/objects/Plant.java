@@ -413,7 +413,7 @@ public class Plant extends GardenObject implements Serializable {
 				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
 				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="
 				+ sunlightExposure + ", type=" + type + ", wildlifeAttracted=" + Arrays.toString(wildlifeAttracted)
-				+ "]";
+				+ ", type=" + type + "]";
 	}
 
 }

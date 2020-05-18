@@ -87,17 +87,20 @@ public class Controller extends Application {
 		File directory = new File("resources/plant-images");
 
 		File[] f = directory.listFiles();
+		
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
-
 				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
+		
 		Collections.sort(images, new CustomComparator());
-		for(int i=0; i<images.size(); i++) {
-			System.out.print(getIndex(images.get(i))+ " ");
+		
+		for (int i = 0; i < images.size(); i++) {
+			// System.out.print(getIndex(images.get(i))+ " ");
 		}
+		
 		return images;
 	}
 
@@ -369,10 +372,6 @@ public class Controller extends Application {
 		this.view.setScreen(Names.DRAW);
 		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
 	}
-
-	
-
-	
 	
 	/**
 	 * Event handler for when the user presses the next button on the
@@ -381,7 +380,7 @@ public class Controller extends Application {
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
 		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
-		System.out.print(calculateRating());
+		// System.out.print(calculateRating());
 	}
 
 	/**
@@ -828,10 +827,14 @@ public class Controller extends Application {
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
 		for (Plant plant : plantList) {
-			// System.out.println(plant.returnDetailedInfo());
+			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
 			sb.append("\n");
 		}
+		
+		// need to come up with workaround for null strings
+		// PlantPlacementScene.placePlant();
+		// plantList = PlantPlacementScene.getMasterList();
         
         Text statsText = new Text(10, 50, "You have " + plantList.size() 
         								   + " plants in your garden.\n\n" 
