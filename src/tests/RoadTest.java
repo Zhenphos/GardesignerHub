@@ -19,7 +19,7 @@ public class RoadTest {
 	@Test
 	public void testMakeShape() {
 		Road road = new Road();
-		assertEquals(road.getShape().shape.getFill(), Color.LIGHTYELLOW);
+		assertEquals(road.getShape().getPolygon().getFill(), Color.LIGHTYELLOW);
 	}
 
 }

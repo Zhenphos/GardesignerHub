@@ -64,6 +64,7 @@ public class Anchor extends Circle implements Serializable {
         setStrokeType(StrokeType.OUTSIDE);
 
         this.x = x;
+
         this.y = y;
 
         x.bind(centerXProperty());

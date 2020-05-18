@@ -47,4 +47,8 @@ public abstract class GardenObject implements Serializable {
 	public double getY() {
 		return yLoc;
 	}
+
+
+
+
 }

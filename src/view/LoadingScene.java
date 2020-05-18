@@ -126,8 +126,12 @@ public class LoadingScene extends Scene {
 	 */
 	public void addTableEntry(File file) {
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Save save = new Save(file.getName(), format.format(file.lastModified()));
+		Save save = new Save(file.getPath(), format.format(file.lastModified()));
 		this.saves.getItems().add(save);
+	}
+
+	public Pane getGardenPane() {
+		return this.gardenPane;
 	}
 
 	/**
