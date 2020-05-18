@@ -2,14 +2,12 @@ package tests;
 
 import org.junit.Test;
 
-
 /**
- * ShapeTest for Gardendesigner Hub. Tests Shape class.
+ * ShapeTest for Gardesigner Hub. Tests Shape class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class ShapeTest { // TODO update
 
 	@Test

@@ -58,7 +58,7 @@ import view.RatingScene;
 import view.TimesScene;
 
 /**
- * Controller class for Gardendesigner Hub
+ * Controller class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

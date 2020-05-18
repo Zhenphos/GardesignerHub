@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 import objects.Woods;
 
 /**
- * WoodsTest for Gardendesigner Hub. Tests Woods class.
+ * WoodsTest for Gardesigner Hub. Tests Woods class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class WoodsTest {
 
 	@Test

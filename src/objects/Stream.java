@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Stream class for Gardendesigner Hub
+ * Stream class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

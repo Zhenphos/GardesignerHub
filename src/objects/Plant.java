@@ -7,7 +7,7 @@ import enums.PlantType;
 import mvc.Controller;
 
 /**
- * Plant class for Gardendesigner Hub
+ * Plant class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

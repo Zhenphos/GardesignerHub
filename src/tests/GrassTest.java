@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 import objects.Grass;
 
 /**
- * GrassTest for Gardendesigner Hub. Tests Grass class.
+ * GrassTest for Gardesigner Hub. Tests Grass class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class GrassTest {
 	
 	@Test

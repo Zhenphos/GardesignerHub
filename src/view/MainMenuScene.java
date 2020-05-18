@@ -10,12 +10,11 @@ import javafx.scene.layout.HBox;
 import mvc.View;
 
 /**
- * MainMenuScene class for Gardendesigner Hub
+ * MainMenuScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class MainMenuScene extends Scene {
 
 	private static final String NEW_BUTTON_TEXT = "New";

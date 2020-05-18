@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Woods class for Gardendesigner Hub
+ * Woods class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

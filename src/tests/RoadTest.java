@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 import objects.Road;
 
 /**
- * RoadTest for Gardendesigner Hub. Tests Road class.
+ * RoadTest for Gardesigner Hub. Tests Road class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class RoadTest {
 
 	@Test

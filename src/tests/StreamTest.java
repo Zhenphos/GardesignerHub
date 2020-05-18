@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 import objects.Stream;
 
 /**
- * StreamTest for Gardendesigner Hub. Tests Stream class.
+ * StreamTest for Gardesigner Hub. Tests Stream class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class StreamTest {
 
 	@Test

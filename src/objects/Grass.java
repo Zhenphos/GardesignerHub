@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Grass class for Gardendesigner Hub
+ * Grass class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

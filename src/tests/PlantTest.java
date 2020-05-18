@@ -7,12 +7,11 @@ import org.junit.Test;
 import objects.Plant;
 
 /**
- * PlantTest for Gardendesigner Hub. Tests Plant class.
+ * PlantTest for Gardesigner Hub. Tests Plant class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class PlantTest {
 	String plantBotanicalName = "name";
 	int heightMinInches = 0;

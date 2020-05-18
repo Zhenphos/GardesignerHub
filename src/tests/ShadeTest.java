@@ -8,12 +8,11 @@ import javafx.scene.paint.Color;
 import objects.Shade;
 
 /**
- * ShadeTest for Gardendesigner Hub. Tests Shade class.
+ * ShadeTest for Gardesigner Hub. Tests Shade class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class ShadeTest {
 
 	@Test

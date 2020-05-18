@@ -5,12 +5,11 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
- * ViewTest for Gardendesigner Hub. Tests View class.
+ * ViewTest for Gardesigner Hub. Tests View class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class ViewTest { // TODO update
 
 	@Test

@@ -8,7 +8,7 @@ import objects.GardenObject;
 import objects.Plant;
 
 /**
- * Model class for Gardendesigner Hub
+ * Model class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

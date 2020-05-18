@@ -40,7 +40,7 @@ import view.TimesScene;
 import view.TutorialScene;
 
 /**
- * View class for Gardendesigner Hub
+ * View class for Gardesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *

@@ -16,12 +16,11 @@ import javafx.scene.text.TextAlignment;
 import mvc.View;
 
 /**
- * GardenInfoScene class for Gardendesigner Hub
+ * GardenInfoScene class for Gardesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class GardenInfoScene extends Scene {
 
 	private static final String INPUT_HEADER_TEXT = "Information Input";

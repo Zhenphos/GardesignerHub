@@ -38,7 +38,7 @@ import mvc.View;
 import objects.Plant;
 
 /**
- * PlantPlacementScene class for Gardendesigner Hub
+ * PlantPlacementScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -405,7 +405,7 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * Overloaded method of createButton that takes the container to place the
+	 * Overloaded version of createButton that takes the container to place the
 	 * button in, the button name, and the image to place in the button
 	 * 
 	 * @param pane  the Pane to place the button in
@@ -424,7 +424,6 @@ public class PlantPlacementScene extends Scene {
 		pane.getChildren().add(box);
 		return button;
 	}
-	
 	
 	/**
 	 * Reloads the plantListView according to a given plant type
@@ -474,7 +473,8 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	/**
-	 * Static class to encapsulate both Image and Plant objects in a single object
+	 * PlantWithImage class for Gardesigner Hub. Static class to encapsulate both
+	 * Image and Plant objects in a single object.
 	 * 
 	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
 	 */

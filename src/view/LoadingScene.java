@@ -19,12 +19,11 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * LoadingScene class for Gardendesigner Hub
+ * LoadingScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class LoadingScene extends Scene {
 
 	private static final String HEADER_TEXT = "Load a Garden";
@@ -130,6 +129,11 @@ public class LoadingScene extends Scene {
 		this.saves.getItems().add(save);
 	}
 
+	/**
+	 * Gets the garden pane
+	 * 
+	 * @return the Pane that the garden is displayed in
+	 */
 	public Pane getGardenPane() {
 		return this.gardenPane;
 	}

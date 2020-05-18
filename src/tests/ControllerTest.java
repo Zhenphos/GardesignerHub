@@ -7,12 +7,11 @@ import org.junit.Test;
 import javafx.scene.input.MouseEvent;
 
 /**
- * ControllerTest for Gardendesigner Hub. Tests Controller class.
+ * ControllerTest for Gardesigner Hub. Tests Controller class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class ControllerTest { // TODO update
 
 	@Test

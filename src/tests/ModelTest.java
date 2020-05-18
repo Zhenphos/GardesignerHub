@@ -12,12 +12,11 @@ import mvc.Model;
 import objects.GardenObject;
 
 /**
- * ModelTest for Gardendesigner Hub. Tests Model class.
+ * ModelTest for Gardesigner Hub. Tests Model class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class ModelTest { // TODO update
 
 	@Test

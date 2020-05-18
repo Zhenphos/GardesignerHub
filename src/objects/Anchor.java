@@ -19,7 +19,7 @@ import javafx.scene.shape.StrokeType;
 import mvc.Controller;
 
 /**
- * Anchor class for Gardendesigner Hub
+ * Anchor class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
