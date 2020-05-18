@@ -39,6 +39,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import objects.Anchor;
@@ -821,6 +823,20 @@ public class Controller extends Application {
         HBox statsLayout = new HBox(10);
         statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
         //statsLayout.getChildren().addAll(show, hide);
+        
+		ArrayList<Plant> plantList = model.getPlantObjects();
+		StringBuilder sb = new StringBuilder();
+		for (Plant plant : plantList) {
+			sb.append(plant.toString());
+			sb.append("\n");
+		}
+        
+        Text statsText = new Text(10, 50, "Here are some statistics:\n" 
+        								   + "Current plants:\n" + sb.toString());
+        //Text statsText02 = new Text(10, 50, "Current plants:\n" + model.getPlantObjects());
+        statsText.setFont(new Font(25));
+        //statsText02.setFont(new Font(25));
+        statsLayout.getChildren().addAll(statsText);
 		
         statStage.setScene(new Scene(statsLayout));
         statStage.show();
@@ -860,6 +876,10 @@ public class Controller extends Application {
         HBox recsLayout = new HBox(10);
         recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
         //statsLayout.getChildren().addAll(show, hide);
+        
+        Text recsText = new Text(10, 50, "Here are some recommendations:");
+        recsText.setFont(new Font(25));
+        recsLayout.getChildren().addAll(recsText);
 		
         recsStage.setScene(new Scene(recsLayout));
         recsStage.show();
