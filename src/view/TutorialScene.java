@@ -27,6 +27,7 @@ public class TutorialScene extends Scene {
 			+ "\n\nYou will begin by filling out some information about the garden you want to make, such as its width, length, hours of sunlight, and other things. "
 			+ "\n\nThen, you will choose the things surrounding your garden such as trees, rocks, and roads. "
 			+ "\n\nFrom there you will drag and drop plants that you want in your garden. "
+			+ "You will be able to see detailed information about each plant, such as how big they will grow, bloom colors, foliage colors, and other things."
 			+ "\n\nA timelapse visualization will be available after this to see what happens to your plants as time passes. "
 			+ "\n\nYou will then be able to see recommended improvements and save the garden to a file.";
 

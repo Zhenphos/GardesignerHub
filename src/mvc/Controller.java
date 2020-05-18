@@ -548,6 +548,24 @@ public class Controller extends Application {
 				scene.getSunlightExpLabel().setText(selectedPlant.getSunlightExposure());
 			}
 			
+			if (selectedPlant.getPhytoremediationElementsCleaned().isBlank()) {
+				scene.getPhytoLabel().setText("No Data");
+			} else {
+				scene.getPhytoLabel().setText(selectedPlant.getPhytoremediationElementsCleaned().toString());
+			}
+			
+			if (selectedPlant.getSeasonsOfInterest().isBlank()) {
+				scene.getSeasonLabel().setText("No Data");
+			} else {
+				scene.getSeasonLabel().setText(selectedPlant.getSeasonsOfInterest().toString());
+			}
+			
+			if (selectedPlant.getWildlifeAttracted().isBlank()) {
+				scene.getWildlifeLabel().setText("No Data");
+			} else {
+				scene.getWildlifeLabel().setText(selectedPlant.getWildlifeAttracted().toString());
+			}
+			
 			scene.getFlowerMonthLabel().setText((selectedPlant.getFloweringMonths().toString()));
 			scene.getDeerResistLabel().setText(Boolean.toString(selectedPlant.isDeerResistant()));
 			scene.getBColorsLabel().setText(selectedPlant.getBloomColors());

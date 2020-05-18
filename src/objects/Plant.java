@@ -363,8 +363,8 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * @return the phytoremediationElementsCleaned
 	 */
-	public String[] getPhytoremediationElementsCleaned() {
-		return phytoElementsCleaned;
+	public String getPhytoremediationElementsCleaned() {
+		return Controller.ArrayOfStrings(phytoElementsCleaned);
 	}
 
 	/**
@@ -377,8 +377,8 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * @return the seasonsOfInterest
 	 */
-	public String[] getSeasonsOfInterest() {
-		return seasonsOfInterest;
+	public String getSeasonsOfInterest() {
+		return Controller.ArrayOfStrings(seasonsOfInterest);
 	}
 
 	/**
@@ -398,8 +398,8 @@ public class Plant extends GardenObject implements Serializable {
 	/**
 	 * @return the wildlifeAttracted
 	 */
-	public String[] getWildlifeAttracted() {
-		return wildlifeAttracted;
+	public String getWildlifeAttracted() {
+		return Controller.ArrayOfStrings(wildlifeAttracted);
 	}
 
 	public String returnDetailedInfo() {

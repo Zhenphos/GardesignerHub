@@ -98,6 +98,7 @@ public class PlantPlacementScene extends Scene {
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
 	private Label error = createLabel("");
+	private Label selectPlant = createLabel(SELECT_TYPE);
 	private Label commonNameLabel = createLabel("");
 	private Label minHeightLabel = createLabel("");
 	private Label maxHeightLabel = createLabel("");
@@ -114,7 +115,9 @@ public class PlantPlacementScene extends Scene {
 	private Label sunlightExpLabel = createLabel("");
 	private Label flowerMonthLabel = createLabel("");
 	private Label extraAttributesLabel  = createLabel("");
-	private Label selectPlant = createLabel(SELECT_TYPE);
+	private Label phytoLabel  = createLabel("");
+	private Label seasonLabel  = createLabel("");
+	private Label wildlifeLabel  = createLabel("");
 
 	public Label getCommonNameLabel() {
 		return commonNameLabel;
@@ -323,15 +326,27 @@ public class PlantPlacementScene extends Scene {
 		grid.add(flowerMonths, 0, 14);
 		grid.add(flowerMonthLabel, 1, 14);
 		
+		Label seasons = createLabel("Seasons to Grow: ");
+		grid.add(seasons, 0, 15);
+		grid.add(seasonLabel, 1, 15);
+		
+		Label wildlife = createLabel("Wildlife Attracted: ");
+		grid.add(wildlife, 0, 16);
+		grid.add(wildlifeLabel, 1, 16);
+		
+		Label phytoElements = createLabel("Elements Cleaned: ");
+		grid.add(phytoElements, 0, 17);
+		grid.add(phytoLabel, 1, 17);
+		
 		Label attributes = createLabel("Extra Info: ");
-		grid.add(attributes, 0, 15);
-		grid.add(extraAttributesLabel, 1, 15);
+		grid.add(attributes, 0, 18);
+		grid.add(extraAttributesLabel, 1, 18);
 
 		commonNameLabel.setMaxWidth(100);
 		commonNameLabel.setWrapText(true);
 		
-		grid.add(selectPlant, 0, 16);
-		grid.add(choiceBox, 0, 17);
+		grid.add(selectPlant, 0, 19);
+		grid.add(choiceBox, 0, 19);
 	}
 
 
@@ -619,5 +634,26 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public Label getSunlightExpLabel() {
 		return sunlightExpLabel;
+	}
+
+	/**
+	 * @return the phytoLabel
+	 */
+	public Label getPhytoLabel() {
+		return phytoLabel;
+	}
+
+	/**
+	 * @return the seasonLabel
+	 */
+	public Label getSeasonLabel() {
+		return seasonLabel;
+	}
+
+	/**
+	 * @return the wildlifeLabel
+	 */
+	public Label getWildlifeLabel() {
+		return wildlifeLabel;
 	}
 }
