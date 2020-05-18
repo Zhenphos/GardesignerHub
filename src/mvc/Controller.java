@@ -723,7 +723,7 @@ public class Controller extends Application {
 		this.view.setScreen(Names.RATING);
 		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
 		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
-		sc.setRating(calculateRating());
+		//Controller.sc.setRating(calculateRating());
 		
 	}
 	
@@ -1046,24 +1046,29 @@ public class Controller extends Application {
 	
 	
 	
-	public int calculateRating() {
+	public String generateRecommendation() {
 		String rec = "";
 		boolean PhMatch = true, bugFriendly = false;
 		int rating = 0;
 		PlantType t;
+		Plant p;
 		Double ph = model.getSoilPH();
 		for (int i = 0; i < model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
-			if (t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7)
+			p = model.getPlantObjects().get(i);
+			if (t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) {
 				PhMatch = false;
-			if (t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS)
+				rec+="The ph requirement of "+p.getCommonName()+" doesn't match you garden's ph.\n";
+			}
+			if (t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
 				bugFriendly = true;
+			}
 
 		}
 
 		if (model.getPlantObjects().size() == 0 || model.getPlantObjects().size()
 				- model.getGardenObjects().size() == model.getPlantObjects().size() * -1)
-			return 0; // 0 rating for no plants
+			rec += "Use a combination of both plants and other objects.\n"; // 0 rating for no plants
 		else
 			rating += 2;
 
@@ -1071,15 +1076,14 @@ public class Controller extends Application {
 			rating++;
 		else {
 			rating--;
-			rec += "Ph mismatch,";
 		}
 		if (bugFriendly)
 			rating++;
 		else {
 			rating--;
-			rec += " not bug friendly,";
+			rec += "Your garden doesn't attract bugs or butterflies.\n";
 		}
-		return rating;
+		return rec;
 	}
 	
 	
