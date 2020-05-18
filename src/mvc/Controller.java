@@ -461,7 +461,7 @@ public class Controller extends Application {
 	 * 
 	 * @param event the MouseEvent on the plant
 	 */
-	public void onDragPlant(MouseEvent event) {
+	public void onClickPlant(MouseEvent event) {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
 			System.out.println("Mouse clicked");
@@ -818,9 +818,7 @@ public class Controller extends Application {
         								   + " plants in your garden.\n\n" 
         								   + "The currents plants are:\n" 
         								   + sb.toString());
-        //Text statsText02 = new Text(10, 50, "Current plants:\n" + model.getPlantObjects());
         statsText.setFont(new Font(20));
-        //statsText02.setFont(new Font(25));
         statsLayout.getChildren().addAll(statsText);
 		
         statStage.setScene(new Scene(statsLayout));
@@ -840,29 +838,14 @@ public class Controller extends Application {
 		recsPopup.setX(300);
 		recsPopup.setY(200);
 		recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-		
-		ArrayList<Plant> plantList = model.getPlantObjects();
-		StringBuilder sb = new StringBuilder();
-		
+				
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
 		// statsLayout.getChildren().addAll(show, hide);
 		
-		StringBuilder phSB = new StringBuilder("For soil pH, ");
-		if (model.getSoilPH() != -1 && model.getSoilPH() > 7) {
-			phSB.append("your soil pH of " + model.getSoilPH() + " is alkaline.");
-			for (Plant plant : plantList) {
-				System.out.println(plant.returnDetailedInfo());
-				if (plant.getType() == PlantType.ALKALINE_SOIL_TOLERANT) {
-					sb.append("A.T. plant found: " + plant.getBotanicalName());
-				}
-			}
-		} else {
-			phSB.append("we have no recommendations.");
-		}
 
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
-										  + phSB.toString());
+										  + generateRecommendation());
 		recsText.setFont(new Font(20));
 		recsLayout.getChildren().addAll(recsText);
 

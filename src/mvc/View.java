@@ -251,9 +251,7 @@ public class View {
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
 		scene.getUndoButton().setOnAction(event -> this.controller.onPlantPlacementUndo());
-
-		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.onDragPlant(event));
-
+		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.onClickPlant(event));
 		scene.getPlantListView().setOnDragDetected(event -> this.controller.onPlantDragDetected(event));
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
