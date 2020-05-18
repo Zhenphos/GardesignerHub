@@ -866,10 +866,17 @@ public class Controller extends Application {
 		for (int i=0; i<model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
 			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
-			if(t==PlantType.DROUGHT_TOLERANT)System.out.println("type detected");
 			
 		}
 		
+		if (model.getPlantObjects().size()==0 || model.getPlantObjects().size() - model.getGardenObjects().size() == model.getPlantObjects().size()*-1) return 0; // 0 rating for no plants
+		else rating+=2;
+	
+		for (int i=0; i<model.getPlantObjects().size(); i++) {
+			t = model.getPlantObjects().get(i).getType();
+			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
+			
+		}
 		
 		if (PhMatch) rating++;
 		else {
