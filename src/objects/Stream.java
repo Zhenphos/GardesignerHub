@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Stream extends GardenObject implements Serializable {
 
 	/**

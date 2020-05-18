@@ -10,7 +10,6 @@ import javafx.scene.shape.Polygon;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class SerializablePolygon extends Polygon implements Serializable {
 
 }
