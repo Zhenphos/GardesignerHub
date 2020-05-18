@@ -434,7 +434,7 @@ public class PlantPlacementScene extends Scene {
 		for (Plant somePlant : masterList) {
 			try {
 				if (somePlant.getType() == plantType) {
-					File imageFile = new File("resources/PlantImages/" + somePlant.getPlantBotanicalName() + ".jpg");
+					File imageFile = new File("resources/PlantImages/" + somePlant.getBotanicalName() + ".jpg");
 					plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
 					plantListView.getItems().add(new PlantWithImage(somePlant, plantImage));
 				} 

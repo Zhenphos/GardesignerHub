@@ -828,12 +828,13 @@ public class Controller extends Application {
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
 		for (Plant plant : plantList) {
-			sb.append(plant.toString());
+			// System.out.println(plant.returnDetailedInfo());
+			sb.append(plant.getBotanicalName());
 			sb.append("\n");
 		}
         
         Text statsText = new Text(10, 50, "You have " + plantList.size() 
-        								   + " plants in your garden.\n" 
+        								   + " plants in your garden.\n\n" 
         								   + "The currents plants are:\n" 
         								   + sb.toString());
         //Text statsText02 = new Text(10, 50, "Current plants:\n" + model.getPlantObjects());

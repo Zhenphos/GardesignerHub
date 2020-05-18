@@ -211,11 +211,23 @@ public class Model implements Serializable {
 	 */
 	public ArrayList<Plant> getPlantObjects() {
 		ArrayList<Plant> plants = new ArrayList<Plant>();
+		
+		// both versions below mess up the 
+		// string values of the Plant (to null)
+		// but not the ints
+		for (GardenObject obj : myObjects) {
+			if (obj instanceof Plant) {
+				plants.add((Plant) obj);
+			}
+		}
+		
+		/*
 		for (int i = 0; i < myObjects.size(); i++) {
 			if (myObjects.get(i) instanceof Plant) {
 				plants.add((Plant) myObjects.get(i));
 			}
 		}
+		*/
 		return plants;
 	}
 

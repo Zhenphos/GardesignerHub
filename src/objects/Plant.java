@@ -28,7 +28,7 @@ public class Plant extends GardenObject implements Serializable {
 	int heightMinInches;
 	String[] otherAttributes;
 	String[] phytoElementsCleaned;
-	String plantBotanicalName;
+	String botanicalName;
 	String saltTolerance;
 	String[] seasonsOfInterest;
 	String soilMoisturePreference;
@@ -49,7 +49,7 @@ public class Plant extends GardenObject implements Serializable {
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors) {
 		super();
-		this.plantBotanicalName = plantBotanicalName;
+		this.botanicalName = plantBotanicalName;
 		this.heightMinInches = heightMinInches;
 		this.heightMaxInches = heightMaxInches;
 		this.spreadMin = spreadMin;
@@ -91,7 +91,7 @@ public class Plant extends GardenObject implements Serializable {
 	public Plant(String plantBotanicalName, int heightMinInches, int heightMaxInches, int spreadMin, int spreadMax,
 			int spacingMin, int spacingMax, int hardinessMin, int hardinessMax, String bloomColors, PlantType type) {
 		super();
-		this.plantBotanicalName = plantBotanicalName;
+		this.botanicalName = plantBotanicalName;
 		this.heightMinInches = heightMinInches;
 		this.heightMaxInches = heightMaxInches;
 		this.spreadMin = spreadMin;
@@ -151,7 +151,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.hardinessMin = hardinessMin;
 		this.heightMaxInches = heightMaxInches;
 		this.heightMinInches = heightMinInches;
-		this.plantBotanicalName = plantBotanicalName;
+		this.botanicalName = plantBotanicalName;
 		this.spacingMax = spacingMax;
 		this.spacingMin = spacingMin;
 		this.spreadMax = spreadMax;
@@ -202,7 +202,7 @@ public class Plant extends GardenObject implements Serializable {
 	 * @return A copy of the Plant object
 	 */
 	public Plant copyOfPlant() {
-		Plant plant = new Plant(this.plantBotanicalName, this.heightMinInches, this.heightMaxInches, this.spreadMin,
+		Plant plant = new Plant(this.botanicalName, this.heightMinInches, this.heightMaxInches, this.spreadMin,
 				this.spreadMax, this.spacingMin, this.spacingMax, this.hardinessMin, this.hardinessMax,
 				this.bloomColors);
 		return plant;
@@ -258,8 +258,8 @@ public class Plant extends GardenObject implements Serializable {
 	 * 
 	 * @return the botanical name of the plant
 	 */
-	public String getPlantBotanicalName() {
-		return plantBotanicalName;
+	public String getBotanicalName() {
+		return botanicalName;
 	}
 
 	/**
@@ -315,7 +315,7 @@ public class Plant extends GardenObject implements Serializable {
 	 * @return the plant's botanical name
 	 */
 	public String toString() {
-		return plantBotanicalName;
+		return botanicalName;
 	}
 
 	/**
@@ -408,7 +408,7 @@ public class Plant extends GardenObject implements Serializable {
 				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
 				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
 				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
-				+ Arrays.toString(phytoElementsCleaned) + ", plantBotanicalName=" + plantBotanicalName
+				+ Arrays.toString(phytoElementsCleaned) + ", plantBotanicalName=" + botanicalName
 				+ ", saltTolerance=" + saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
 				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
 				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="

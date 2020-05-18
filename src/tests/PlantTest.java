@@ -33,7 +33,7 @@ public class PlantTest {
 		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
 				spacingMax, hardinessMin, hardinessMax, bloomColors);
 		
-		assertEquals(plant.getPlantBotanicalName(), plantBotanicalName);
+		assertEquals(plant.getBotanicalName(), plantBotanicalName);
 		assertEquals(plant.getHeightMinInches(), heightMinInches);
 		assertEquals(plant.getHeightMaxInches(), heightMaxInches);
 		assertEquals(plant.getSpreadMin(), spreadMin);
@@ -65,7 +65,7 @@ public class PlantTest {
 		Plant plant = new Plant(plantBotanicalName, heightMinInches, heightMaxInches, spreadMin, spreadMax, spacingMin,
 				spacingMax, hardinessMin, hardinessMax, bloomColors);
 		
-		assertEquals(plant.getPlantBotanicalName(), plant.copyOfPlant().getPlantBotanicalName());
+		assertEquals(plant.getBotanicalName(), plant.copyOfPlant().getBotanicalName());
 		assertEquals(plant.getHeightMinInches(), plant.copyOfPlant().getHeightMinInches());
 		assertEquals(plant.getHeightMaxInches(), plant.copyOfPlant().getHeightMaxInches());
 		assertEquals(plant.getSpreadMin(), plant.copyOfPlant().getSpreadMin());
