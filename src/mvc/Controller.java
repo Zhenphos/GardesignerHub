@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
 
+import com.sun.jdi.Field;
+
 import enums.Names;
 import enums.PlantType;
 import enums.Season;
@@ -826,7 +828,20 @@ public class Controller extends Application {
         
 		ArrayList<Plant> plantList = model.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
+		
 		for (Plant plant : plantList) {
+			/*
+			Class test = plant.getClass();
+			for (java.lang.reflect.Field f : test.getDeclaredFields()) {
+				f.setAccessible(true);
+				try {
+	                System.out.println(f.getName() + " = " + f.get(test));
+	                //System.out.println(f.);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+			}
+			*/
 			System.out.println(plant.returnDetailedInfo());
 			sb.append(plant.getBotanicalName());
 			sb.append("\n");
@@ -854,43 +869,87 @@ public class Controller extends Application {
 	 * RatingScene
 	 */
 	public void onRatingRecs() {
-		// System.out.println(model.getPlantObjects());
 		Stage recsStage = new Stage();
 		recsStage.setTitle("Recommendations");
 		recsStage.setResizable(true);
-		
+
 		final Popup recsPopup = new Popup();
-        recsPopup.setX(300);
-        recsPopup.setY(200);
-        recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-        
-        /*
-        Button show = new Button("Show");
-        show.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popup.show(statStage);
-            }
-        });
+		recsPopup.setX(300);
+		recsPopup.setY(200);
+		recsPopup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 
-        Button hide = new Button("Hide");
-        hide.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popup.hide();
-            }
-        });*/
+		ArrayList<Plant> list00 = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
+		ArrayList<Plant> list01 = Controller.importPlants("resources/PlantData/PlantList_01.csv", PlantType.ALKALINE_SOIL_TOLERANT);
+		ArrayList<Plant> list02 = Controller.importPlants("resources/PlantData/PlantList_02.csv", PlantType.BIRD_BUTTERFLY_BUG_GARDENS);
+		ArrayList<Plant> list03 = Controller.importPlants("resources/PlantData/PlantList_03.csv", PlantType.DROUGHT_TOLERANT);
+		ArrayList<Plant> list04 = Controller.importPlants("resources/PlantData/PlantList_04.csv", PlantType.GRASSES);
+		ArrayList<Plant> list05 = Controller.importPlants("resources/PlantData/PlantList_05.csv", PlantType.GROUNDHOG_RESISTANT);
+		ArrayList<Plant> list06 = Controller.importPlants("resources/PlantData/PlantList_06.csv", PlantType.LANDSCAPE_ORNAMENTALS);
+		ArrayList<Plant> list07 = Controller.importPlants("resources/PlantData/PlantList_07.csv", PlantType.MEADOW);
+		ArrayList<Plant> list08 = Controller.importPlants("resources/PlantData/PlantList_08.csv", PlantType.NORTH_AMERICAN_NATIVE);
+		ArrayList<Plant> list09 = Controller.importPlants("resources/PlantData/PlantList_09.csv", PlantType.PERENNIALS);
+		ArrayList<Plant> list10 = Controller.importPlants("resources/PlantData/PlantList_10.csv", PlantType.PHYTOREMEDIATION);
+		ArrayList<Plant> list11 = Controller.importPlants("resources/PlantData/PlantList_11.csv", PlantType.RABBIT_RESISTANT);
+		ArrayList<Plant> list12 = Controller.importPlants("resources/PlantData/PlantList_12.csv", PlantType.RAIN_GARDENS);
+		ArrayList<Plant> list13 = Controller.importPlants("resources/PlantData/PlantList_13.csv", PlantType.RESTORATION_CONSERVATION);
+		ArrayList<Plant> list14 = Controller.importPlants("resources/PlantData/PlantList_14.csv", PlantType.ROOFTOP_GARDEN_PLANT);
+		ArrayList<Plant> list15 = Controller.importPlants("resources/PlantData/PlantList_15.csv", PlantType.SHRUB);
+		ArrayList<Plant> list16 = Controller.importPlants("resources/PlantData/PlantList_16.csv", PlantType.SOIL_STABILIZATION);
+		ArrayList<Plant> list17 = Controller.importPlants("resources/PlantData/PlantList_17.csv", PlantType.STORMWATER_MANAGEMENT);
+		ArrayList<Plant> list18 = Controller.importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
+		ArrayList<Plant> list19 = Controller.importPlants("resources/PlantData/PlantList_19.csv", PlantType.WETLANDS);
+		ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
 
-        HBox recsLayout = new HBox(10);
-        recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
-        //statsLayout.getChildren().addAll(show, hide);
-        
-        Text recsText = new Text(10, 50, "Here are some recommendations:");
-        recsText.setFont(new Font(20));
-        recsLayout.getChildren().addAll(recsText);
+		ArrayList<Plant> masterList = new ArrayList<>();
 		
-        recsStage.setScene(new Scene(recsLayout));
-        recsStage.show();
+		masterList.addAll(list00);
+		masterList.addAll(list01);
+		masterList.addAll(list02);
+		masterList.addAll(list03);
+		masterList.addAll(list04);
+		masterList.addAll(list05);
+		masterList.addAll(list06);
+		masterList.addAll(list07);
+		masterList.addAll(list08);
+		masterList.addAll(list09);
+		masterList.addAll(list10);
+		masterList.addAll(list11);
+		masterList.addAll(list12);
+		masterList.addAll(list13);
+		masterList.addAll(list14);
+		masterList.addAll(list15);
+		masterList.addAll(list16);
+		masterList.addAll(list17);
+		masterList.addAll(list18);
+		masterList.addAll(list19);
+		masterList.addAll(list20);
+		
+		ArrayList<Plant> plantList = model.getPlantObjects();
+		StringBuilder sb = new StringBuilder();
+		
+		for (Plant plant : plantList) {
+			Plant fixed = new Plant();
+			for (Plant masterPlant : masterList) {
+					if (masterPlant.getBotanicalName().equals(plant.getBotanicalName())) {
+					fixed = masterPlant;
+				}
+			}
+			// System.out.println("1 " + plant.returnDetailedInfo());
+			// System.out.println("2 " + fixed.returnDetailedInfo());
+			sb.append(plant.getBotanicalName());
+			sb.append("\n");
+		}
+		
+		HBox recsLayout = new HBox(10);
+		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
+		// statsLayout.getChildren().addAll(show, hide);
+
+		Text recsText = new Text(10, 50, "Here are some recommendations:");
+		recsText.setFont(new Font(20));
+		recsLayout.getChildren().addAll(recsText);
+
+		recsStage.setScene(new Scene(recsLayout));
+		recsStage.show();
 	}
 
 	/**

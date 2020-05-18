@@ -416,4 +416,29 @@ public class Plant extends GardenObject implements Serializable {
 				+ ", type=" + type + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((botanicalName == null) ? 0 : botanicalName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Plant other = (Plant) obj;
+		if (botanicalName == null) {
+			if (other.botanicalName != null)
+				return false;
+		} else if (!botanicalName.equals(other.botanicalName))
+			return false;
+		return true;
+	}
+
 }
