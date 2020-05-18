@@ -68,9 +68,9 @@ public class View {
 	public static final String EDIT_BUTTON_TEXT = "Edit";
 
 	// Images
-	//public static final Image STAR_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/star.png");
+	public static final Image STAR_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/star.png");
 
-	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
+//	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
 	//public static final Image LOGO_IMAGE = View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/Logo.png");
 	public static final Image LOGO_IMAGE = View.createImage("resources/Logo.png");
 

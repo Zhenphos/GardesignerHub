@@ -69,14 +69,14 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Image> importImages() {
 		ArrayList<Image> images = new ArrayList<>();
-		File directory = new File("resources/plant-images");
-		//File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+		//File directory = new File("resources/plant-images");
+		File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
 
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
-				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-			//	images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+			//	images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
+				images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
@@ -96,8 +96,8 @@ public class Controller extends Application {
 	public static ArrayList<Plant> importPlants() {
 		ArrayList<Plant> plantList = new ArrayList<>();
 		
-		//try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-		try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
+		//try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
 			int i=1;
 			PlantType t = PlantType.RAIN_GARDENS;
 			String line;
@@ -789,17 +789,30 @@ public class Controller extends Application {
 	
 	public int calculateRating() {
 		String rec = "";
-		boolean PhMatch = true;
+		boolean PhMatch = true, bugFriendly=false;
 		int rating=0;
+		PlantType t;
 		Double ph = model.getSoilPH();
 		for (int i=0; i<model.getPlantObjects().size(); i++) {
-				if(model.getPlantObjects().get(i).getType() != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) PhMatch = false;
+			t = model.getPlantObjects().get(i).getType();
+				if(t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) PhMatch = false;
+
+			
+		}
+		for (int i=0; i<model.getPlantObjects().size(); i++) {
+			t = model.getPlantObjects().get(i).getType();
+			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
 			
 		}
 		if (PhMatch) rating++;
 		else {
 			rating--;
 			rec+="Ph mismatch,";
+		}
+		if(bugFriendly) rating++;
+		else {
+			rating --;
+			rec+=" not bug friendly,";
 		}
 		return rating;
 	}
