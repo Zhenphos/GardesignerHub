@@ -51,6 +51,7 @@ public class PlantPlacementScene extends Scene {
 	Pane gardenPane = new Pane();
 	private BorderPane container;
 	private GridPane grid = new GridPane();
+	
 
 
 	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
@@ -217,12 +218,14 @@ public class PlantPlacementScene extends Scene {
 		grid.setHgap(HGAP);
 		grid.setVgap(VGAP);
 		grid.setPadding(GRID_PADDING);
+		grid.setMaxWidth(300);
+		grid.setMinWidth(300);
 		leftPane.getChildren().add(grid);
 		leftPane.setMaxWidth(250);
 		leftPane.setMinWidth(250);
 		leftPane.setStyle(BORDER_STYLE);
 		VBox.setMargin(leftPane, new Insets(10,10,10,10));
-		GridPane.setHgrow(grid, Priority.NEVER);
+	
 		Text scenetitle = new Text("Please Choose Some Plants");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		scenetitle.setTextAlignment(TextAlignment.CENTER);
