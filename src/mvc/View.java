@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
 import enums.Names;
 import enums.Season;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -26,11 +28,17 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
-import view.*;
+import view.DrawScene;
+import view.GardenInfoScene;
+import view.LoadingScene;
+import view.MainMenuScene;
+import view.PlantPlacementScene;
+import view.RatingScene;
+import view.TimesScene;
+import view.TutorialScene;
 
 /**
  * View class for Gardendesigner Hub
@@ -80,7 +88,7 @@ public class View {
 			+ "A good starting value for both is 10.";
 	
 	private static final String INSTRUCTIONS_TITLE = "Instructions";
-	private static final String INSTRUCTIONS_TEXT = "Click on the plant name to show its information. Double click on the name of plant to put it in your garden.";
+	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\nYou can drag and drop images of your choice from outside the garden.";
 
 
 	private static final String DISCARD_TITLE = "Discard Changes";
@@ -116,7 +124,6 @@ public class View {
 		this.screens.put(Names.DRAW, new DrawScene());
 		this.screens.put(Names.LOADING, new LoadingScene());
 		this.screens.put(Names.PLANT_PLACEMENT, new PlantPlacementScene());
-		this.screens.put(Names.PLANT_INFO, new PlantInfoScene());
 		this.screens.put(Names.TIMES, new TimesScene());
 		this.screens.put(Names.RATING, new RatingScene());
 		this.initializeEvents();
@@ -155,7 +162,6 @@ public class View {
 		this.initializeDraw();
 		this.initializeLoadingScene();
 		this.initializePlantPlacement();
-		this.initializePlantInfo();
 		this.initializeTimes();
 		this.initializeRatings();
 	}
@@ -200,6 +206,14 @@ public class View {
 		scene.getWoodsButton().setOnAction(event -> this.controller.onDrawWoods());
 		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
 		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawUndo());
+
+		scene.getGrassView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.GRASS_TEXT, scene.getGrassView(), event));
+		scene.getRoadView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.ROAD_TEXT, scene.getRoadView(), event));
+		scene.getStreamView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.STREAM_TEXT, scene.getStreamView(), event));
+		scene.getWoodsView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.WOODS_TEXT, scene.getWoodsView(), event));
+		scene.getShadeView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.SHADE_TEXT, scene.getShadeView(), event));
+		scene.getGardenPane().setOnDragOver(event -> this.controller.onDrawDragOver(event));
+		scene.getGardenPane().setOnDragDropped(event -> this.controller.onDrawDragDropped(event));
 	}
 
 	/**
@@ -220,38 +234,13 @@ public class View {
 		scene.getPrevButton().setOnAction(event -> this.controller.onPlantPlacementPrev());
 		scene.getNextButton().setOnAction(event -> this.controller.onPlantPlacementNext());
 		scene.getUndoButton().setOnAction(event -> this.controller.onPlantPlacementUndo());
-		//scene.getGardenPane().setOnDragDetected(controller.handleDragOver());
-		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				controller.onDragPlant(event);
-			}
-		});
-		
-		scene.getGardenPane().setOnDragOver(event -> this.controller.handleDrag());
-//		scene.getGardenPane().setOnDragDropped(event -> this.controller.handleDrop());
-		scene.getGardenPane().addEventHandler(DragEvent.DRAG_DROPPED, new EventHandler<DragEvent>() {
 
-			@Override
-			public void handle(DragEvent event) {
-				// TODO Auto-generated method stub
-				controller.handleDrop(event);
-			}
-			
-		});
-		//scene.getGardenPane()
+		scene.getPlantListView().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.onDragPlant(event));
+
+		scene.getPlantListView().setOnDragDetected(event -> this.controller.onPlantDragDetected(event));
+		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
+		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
 	}
-
-	/**
-	 * Initializes event handlers for PlantInfoScene
-	 */
-	private void initializePlantInfo() {
-		PlantInfoScene scene = (PlantInfoScene) this.screens.get(Names.PLANT_INFO);
-	}
-
-	
-	
-	
 	
 	/**
 	 * Initializes event handlers for TimesScene

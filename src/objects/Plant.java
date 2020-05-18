@@ -1,9 +1,9 @@
 package objects;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import enums.PlantType;
-import enums.Season;
 
 /**
  * Plant class for Gardendesigner Hub
@@ -168,6 +168,16 @@ public class Plant extends GardenObject implements Serializable {
 		this.seasonsOfInterest = seasonsOfInterest;
 		this.phytoremediationElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
+		
+		if (spreadMin != -1) {
+			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape.getCircle().setCenterX(this.spreadMin * 4);
+			shape.getCircle().setCenterY(this.spreadMin * 4);
+		} else {
+			shape = new DrawShape(null, defaultRadius);
+			shape.getCircle().setCenterX(defaultRadius * 2);
+			shape.getCircle().setCenterY(defaultRadius * 2);
+		}
 	}
 
 	/**
@@ -389,6 +399,20 @@ public class Plant extends GardenObject implements Serializable {
 	 */
 	public String[] getWildlifeAttracted() {
 		return wildlifeAttracted;
+	}
+
+	public String returnDetailedInfo() {
+		return "Plant [bloomColors=" + bloomColors + ", commonName=" + commonName + ", deerResistant=" + deerResistant
+				+ ", floweringMonths=" + Arrays.toString(floweringMonths) + ", foliageColor=" + foliageColor
+				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
+				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
+				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
+				+ Arrays.toString(phytoremediationElementsCleaned) + ", plantBotanicalName=" + plantBotanicalName
+				+ ", saltTolerance=" + saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
+				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
+				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="
+				+ sunlightExposure + ", type=" + type + ", wildlifeAttracted=" + Arrays.toString(wildlifeAttracted)
+				+ "]";
 	}
 
 }

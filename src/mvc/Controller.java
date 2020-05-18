@@ -1,31 +1,5 @@
 package mvc;
 
-import enums.Names;
-import enums.PlantType;
-import enums.Season;
-import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import objects.*;
-import view.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,12 +10,44 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
+
+import enums.Names;
+import enums.PlantType;
+import enums.Season;
+import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
+import objects.Anchor;
+import objects.GardenObject;
+import objects.Grass;
+import objects.Plant;
+import objects.Road;
+import objects.Shade;
+import objects.Stream;
+import objects.Woods;
+import view.DrawScene;
+import view.GardenInfoScene;
+import view.LoadingScene;
+import view.PlantPlacementScene;
+import view.RatingScene;
+import view.TimesScene;
 
 /**
  * Controller class for Gardendesigner Hub
@@ -51,7 +57,6 @@ import java.util.Optional;
  */
 
 public class Controller extends Application {
-
 	/**
 	 * the main method for the program
 	 * 
@@ -59,6 +64,13 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
+		/*
+		ArrayList<Plant> testingList = new ArrayList<>();
+		testingList = importPlants("resources/PlantData/PlantList_15.csv", PlantType.VINES);
+		for (Plant x : testingList) {
+			System.out.println(x.returnDetailedInfo());
+		}
+		*/
 		launch(args);
 	}
 
@@ -69,14 +81,14 @@ public class Controller extends Application {
 	 */
 	public static ArrayList<Image> importImages() {
 		ArrayList<Image> images = new ArrayList<>();
-		//File directory = new File("resources/plant-images");
-		File directory = new File("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images");
+
+		File directory = new File("resources/plant-images");
 
 		File[] f = directory.listFiles();
 		for (File file : f) {
 			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
-			//	images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-				images.add(View.createImage("/Users/hamza/Developer/CSC275/team-11-2/resources/plant-images/" + file.getName(), 100, 100, true, true));
+
+				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
 
 			}
 		}
@@ -93,31 +105,45 @@ public class Controller extends Application {
 	 * 
 	 * @return an ArrayList of plants
 	 */
-	public static ArrayList<Plant> importPlants() {
+	public static ArrayList<Plant> importPlants(String path, PlantType plantType) {
 		ArrayList<Plant> plantList = new ArrayList<>();
-		
-		try (BufferedReader reader = new BufferedReader(new FileReader("/Users/hamza/Developer/CSC275/team-11-2/resources/NewMoonNurseryPlants.csv"))) {
-		//try (BufferedReader reader = new BufferedReader(new FileReader("resources/NewMoonNurseryPlants.csv"))) {
-			int i=1;
-			PlantType t = PlantType.RAIN_GARDENS;
-			String line;
+			
+		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+			String line = " ";
+			// this is to skip the first line of the CSV
+			// which has the categories
+			reader.readLine();
+			
 			while ((line = reader.readLine()) != null) {
 				String[] data = line.split(";");
-				String plantBotName = data[0];
-				String bloomColor = data[5];
+				String botanicalName = data[0];
+				String[] splittingArray = null;
 
 				int minHeight = 0;
 				int maxHeight = 0;
-				String[] splittingArray = data[1].split("-", 2);
+				
+				splittingArray = data[1].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) { }
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) { }
 
 				try {
 					minHeight = Integer.parseInt(splittingArray[0]);
+					if (data[1].contains("ft") || data[1].contains("feet")) {
+						minHeight *= 12;
+					}
 				} catch (Exception e) {
 					minHeight = -1;
 				}
 
 				try {
 					maxHeight = Integer.parseInt(splittingArray[1]);
+					if (data[1].contains("ft") || data[1].contains("feet")) {
+						maxHeight *= 12;
+					}
 				} catch (Exception e) {
 					maxHeight = -1;
 				}
@@ -125,15 +151,27 @@ public class Controller extends Application {
 				int spreadMin = 0;
 				int spreadMax = 0;
 				splittingArray = data[2].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) { }
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) { }
 
 				try {
 					spreadMin = Integer.parseInt(splittingArray[0]);
+					if (data[2].contains("ft") || data[2].contains("feet")) {
+						spreadMin *= 12;
+					}
 				} catch (Exception e) {
 					spreadMin = -1;
 				}
 
 				try {
 					spreadMax = Integer.parseInt(splittingArray[1]);
+					if (data[2].contains("ft") || data[2].contains("feet")) {
+						spreadMax *= 12;
+					}
 				} catch (Exception e) {
 					spreadMax = -1;
 				}
@@ -141,15 +179,27 @@ public class Controller extends Application {
 				int spacingMin = 0;
 				int spacingMax = 0;
 				splittingArray = data[3].split("-", 2);
+				try {
+					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
+				} catch (Exception e) { }
+				try {
+					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
+				} catch (Exception e) { }
 
 				try {
 					spacingMin = Integer.parseInt(splittingArray[0]);
+					if (data[3].contains("ft") || data[3].contains("feet")) {
+						spacingMin *= 12;
+					}
 				} catch (Exception e) {
 					spacingMin = -1;
 				}
 
 				try {
 					spacingMax = Integer.parseInt(splittingArray[1]);
+					if (data[3].contains("ft") || data[3].contains("feet")) {
+						spacingMax *= 12;
+					}
 				} catch (Exception e) {
 					spacingMax = -1;
 				}
@@ -169,16 +219,30 @@ public class Controller extends Application {
 				} catch (Exception e) {
 					hardinessMax = -1;
 				}
-				if(i<=20) t = PlantType.ALKALINE_SOIL_TOLERANT;
-				if(i>=20 && i <=40)  t = PlantType.BIRD_BUTTERFLY_BUG_GARDENS;
-				if(i>=40 && i<=60)  t = PlantType.DROUGHT_TOLERANT;
-				if(i>=60 && i<=80) t = PlantType.GRASSES;
-				if(i>=80 && i <=100) t = PlantType.LANDSCAPE_ORNAMENTALS;
-				//if(i>=120 && i <=140) t = PlantType.NO_ADVANCE_ORDER;
-				if(i<=120 && i>100) t = PlantType.PERENNIALS;
-				plantList.add(new Plant(plantBotName, minHeight, maxHeight, spreadMin, spreadMax, spacingMin,
-						spacingMax, hardinessMin, hardinessMax, bloomColor, t));
-				i++;
+				
+				String bloomColor = data[5];
+				String commonName = data[6];
+				String soilMoisturePref = data[7];
+				String exposure = data[8];
+				String[] floweringMonths = data[9].split(",", 12);
+				String[] wildlifeAttracted = data[10].split(",", 20);
+				String[] extraAttributes = data[11].split(",", 25);
+				boolean deerResistant = false;
+				
+				if (data[12].equals("Deer Resistant")) {
+					deerResistant = true;
+				}
+				
+				String foliageColor = data[13];
+				String growthRate = data[14];
+				String saltTolerance = data[15];
+				String[] seasonsOfInterest = data[16].split(",", 25);
+				String[] phytoremediations = data[17].split(",", 25);
+				
+				plantList.add(new Plant(bloomColor, hardinessMax, hardinessMin, maxHeight, minHeight, botanicalName,
+						spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePref, exposure,
+						floweringMonths, wildlifeAttracted, extraAttributes, deerResistant, foliageColor, growthRate,
+						saltTolerance, seasonsOfInterest, phytoremediations, plantType));
 			}
 		} catch (IOException e) {
 			e.printStackTrace(); // TODO add proper error handling
@@ -802,8 +866,11 @@ public class Controller extends Application {
 		for (int i=0; i<model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
 			if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) bugFriendly=true;
+			if(t==PlantType.DROUGHT_TOLERANT)System.out.println("type detected");
 			
 		}
+		
+		
 		if (PhMatch) rating++;
 		else {
 			rating--;
@@ -857,12 +924,135 @@ public class Controller extends Application {
 	public static int getIndex(Image image) {
 		String indexString = null;
 
+		//String path = image.impl_getUrl();
 		String path = image.getUrl();
 		String [] s = path.split(".jp");
 		String [] s2 = s[0].split("images/");
 
 		int index = Integer.parseInt(s2[1]);
 		return index;
+	}
+
+	/**
+	 * Drag event when a you start dragging something
+	 * @param event
+	 */
+	public void onDrawDragDetected(String name, ImageView view, MouseEvent event) {
+		Dragboard db = view.startDragAndDrop(TransferMode.COPY);
+		ClipboardContent content = new ClipboardContent();
+		content.putImage(view.getImage());
+		content.putString(name);
+		db.setContent(content);
+		event.consume();
+	}
+
+	/**
+	 * Drag event when something is being dragged over the GardenPane in DrawScene
+	 * @param event
+	 */
+	public void onDrawDragOver(DragEvent event) {
+		if (event.getGestureSource() != event.getTarget() && event.getDragboard().hasImage()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
+
+	/**
+	 * Drag event when something is dropped over over the GardenPane in DrawScene
+	 * @param event
+	 */
+	public void onDrawDragDropped(DragEvent event) {
+		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		Dragboard board = event.getDragboard();
+		boolean success = false;
+		if (board.hasString()) {
+			success = true;
+			GardenObject object = null;
+			switch (board.getString()) {
+				case DrawScene.GRASS_TEXT:
+					object = new Grass();
+					break;
+
+				case DrawScene.ROAD_TEXT:
+					object = new Road();
+					break;
+
+				case DrawScene.STREAM_TEXT:
+					object = new Stream();
+					break;
+
+				case DrawScene.WOODS_TEXT:
+					object = new Woods();
+					break;
+
+				case DrawScene.SHADE_TEXT:
+					object = new Shade();
+					break;
+			}
+
+			if (object != null) {
+				Polygon polygon = object.getShape().getPolygon();
+				createDrawPolyDraggable(scene, polygon);
+				polygon.setLayoutX(event.getX() - scene.getGardenPane().getLayoutX());
+				polygon.setLayoutY(event.getY() - scene.getGardenPane().getLayoutY());
+				this.model.addGardenObject(object);
+			}
+
+		}
+		event.setDropCompleted(success);
+		event.consume();
+	}
+
+	/**
+	 * Drag Event handler for when a plant is starting to be dragged from the list view in PlantPlacement scene
+	 * @param event
+	 */
+	public void onPlantDragDetected(MouseEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene.PlantWithImage pwi = scene.getPlantListView().getSelectionModel().getSelectedItem();
+		Dragboard db = scene.getPlantListView().startDragAndDrop(TransferMode.COPY);
+		ClipboardContent content = new ClipboardContent();
+		content.putImage(pwi.getImage());
+		db.setContent(content);
+		event.consume();
+	}
+
+	/**
+	 * Drag Event handler for when a plant is being dragged over the garden pane
+	 * @param event
+	 */
+	public void onPlantDragOver(DragEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		if (event.getGestureSource() != scene.getGardenPane() && event.getDragboard().hasImage()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
+
+	/**
+	 * Drag event handler for when a plant is dropped over the garden pane
+	 * @param event
+	 */
+	public void onPlantDragDropped(DragEvent event) {
+		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		Dragboard board = event.getDragboard();
+		boolean success = false;
+		if (board.hasImage()) {
+			success = true;
+			Plant plant = scene.getPlantListView().getSelectionModel().getSelectedItem().getPlant();
+			Plant plant2 = plant.copyOfPlant();
+			plant2.getShape().getPolygon().setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
+			plant2.getShape().getPolygon().setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
+			Circle circle = plant2.getShape().getCircle();
+			circle.setFill(new ImagePattern(board.getImage()));
+			scene.getGardenPane().getChildren().add(circle);
+			giveShapeDragBehavior(circle);
+			circle.setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
+			circle.setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
+			this.model.addGardenObject(plant2);
+		}
+		event.setDropCompleted(success);
+		event.consume();
 	}
 	
 	public static class CustomComparator implements Comparator<Image> {

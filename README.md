@@ -7,4 +7,4 @@ Our plant data was scraped from http://www.newmoonnursery.com.
 
 Current Violet UML:
 
-![GitHub Logo](/UML_Violet.png)
+![GitHub Logo](/UML.png)

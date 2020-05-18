@@ -1,7 +1,8 @@
 package objects;
 
-import javafx.scene.shape.Polygon;
 import java.io.Serializable;
+
+import javafx.scene.shape.Polygon;
 
 /**
  * SerializablePolygon class for Gardendesigner Hub

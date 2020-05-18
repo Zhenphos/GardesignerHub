@@ -8,6 +8,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import mvc.Controller;
 import mvc.Model;
+import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**

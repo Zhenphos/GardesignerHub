@@ -1,7 +1,8 @@
 package objects;
 
-import javafx.scene.paint.Color;
 import java.io.Serializable;
+
+import javafx.scene.paint.Color;
 
 /**
  * Shade class for Gardendesigner Hub
