@@ -189,7 +189,7 @@ public class Plant extends GardenObject implements Serializable {
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3 / 4;
-			shape.getCircle().setRadius((this.spreadMin * 3) + (growthRate * age));
+			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age));
 		} else {
 			double growthRate = defaultRadius / 4;
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
@@ -202,10 +202,12 @@ public class Plant extends GardenObject implements Serializable {
 	 * @return A copy of the Plant object
 	 */
 	public Plant copyOfPlant() {
-		Plant plant = new Plant(this.botanicalName, this.heightMinInches, this.heightMaxInches, this.spreadMin,
-				this.spreadMax, this.spacingMin, this.spacingMax, this.hardinessMin, this.hardinessMax,
-				this.bloomColors);
-		return plant;
+		Plant copiedPlant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, phytoElementsCleaned, type);
+
+		return copiedPlant;
 	}
 
 	/**

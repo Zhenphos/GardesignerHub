@@ -91,7 +91,10 @@ public class View {
 			+ "A good starting value for both is 10.";
 	
 	private static final String INSTRUCTIONS_TITLE = "Instructions";
-	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\nYou can drag and drop images of your choice from outside the garden.";
+	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\n" + 
+													"You can drag and drop images of your choice from outside the garden.\n\n" + 
+													"IMPORTANT NOTE: You must click on a plant's image to view its data.\n" + 
+													"Clicking the text will not show you the plant's information.";
 
 
 	private static final String DISCARD_TITLE = "Discard Changes";
