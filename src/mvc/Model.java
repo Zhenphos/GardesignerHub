@@ -20,7 +20,7 @@ public class Model implements Serializable {
 	private int length;
 	private int light;
 	private int rain;
-	private double temperature;
+	private String deer;
 	private double soilPH;
 	private double age;
 	private Season season = Season.SUMMER;
@@ -43,7 +43,7 @@ public class Model implements Serializable {
 		this.length = 0;
 		this.light = 0;
 		this.rain = 0;
-		this.temperature = 0;
+		this.deer = "";
 		this.soilPH = 0.0;
 		this.age = 0.0;
 		this.season = Season.SPRING;
@@ -87,13 +87,12 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Sets the temperature in degrees Fahrenheit of the garden
+	 * Sets whether the user has deer near their land
 	 * 
-	 * @param temperature the garden's average temperature in degrees Fahrenheit
-	 *                    over the last week
+	 * @param deer whether the user has deer near their land
 	 */
-	public void setTemperature(double temperature) {
-		this.temperature = temperature;
+	public void setDeer(String deer) {
+		this.deer = deer;
 	}
 
 	/**
@@ -160,12 +159,12 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Gets the average temperature of the garden in degrees Fahrenheit
+	 * Gets string representing whether the user has deer near their land
 	 * 
-	 * @return the average temperature of the garden
+	 * @return string representing whether the user has deer near their land
 	 */
-	public double getTemperature() {
-		return this.temperature;
+	public String getDeer() {
+		return this.deer;
 	}
 
 	/**
