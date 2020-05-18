@@ -26,6 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -60,8 +61,8 @@ public class PlantPlacementScene extends Scene {
 	public static final int TOP_MAX_HEIGHT = 150;
 	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
 	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
-	public static final Insets GRID_PADDING = new Insets(10, 0, 0, 10);
-	public static final int HGAP = 10;
+	public static final Insets GRID_PADDING = new Insets(10, 10, 10, 10);
+	public static final int HGAP = 5;
 	public static final int VGAP = 10;
 	public static final String BORDER_STYLE = "-fx-border-color: black";
 	public static final int CHOICEBOX_WIDTH = 175;
@@ -291,6 +292,7 @@ public class PlantPlacementScene extends Scene {
 	 */
 	private Label createLabel(String text) {
 		Label label = new Label(text);
+		label.setTextFill(Color.BLACK);
 		label.setStyle(this.TEXT_LABEL_STYLE);
 		return label;
 	}
