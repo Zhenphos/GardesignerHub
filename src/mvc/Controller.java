@@ -16,8 +16,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
 
-import com.sun.jdi.Field;
-
 import enums.Names;
 import enums.PlantType;
 import enums.Season;
@@ -1226,7 +1224,7 @@ public class Controller extends Application {
 	public static int getIndex(Image image) {
 		String indexString = null;
 
-		//String path = image.impl_getUrl();
+		// path = image.impl_getUrl();
 		String path = image.getUrl();
 		String [] s = path.split(".jp");
 		String [] s2 = s[0].split("images/");

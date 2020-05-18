@@ -73,10 +73,11 @@ public class DrawShape implements Serializable {
 	}
 
 	public void save() {
-		this.color = this.shape == null ? this.circle.getFill().toString() : this.shape.getFill().toString();
 		this.points = new ArrayList<>();
-		if (this.shape != null)
+		if (this.shape != null) {
+			this.color = String.format("#%s", this.shape.getFill().toString().substring(2, 8));
 			this.points.addAll(this.shape.getPoints());
+		}
 		this.x = this.shape == null ? this.circle.getLayoutX() : this.shape.getLayoutX();
 		this.y = this.shape == null ? this.circle.getLayoutY() : this.shape.getLayoutY();
 		if (this.circle != null)
@@ -85,13 +86,12 @@ public class DrawShape implements Serializable {
 
 	public void load() {
 		this.shape = new SerializablePolygon();
-		this.shape.setFill(Paint.valueOf(this.color));
+		if (this.color != null) this.shape.setFill(Color.valueOf(this.color));
 		this.shape.getPoints().addAll(this.points);
 		this.shape.setLayoutX(this.x);
 		this.shape.setLayoutY(this.y);
 		this.circle = new SerializableCircle();
 		this.circle.setRadius(this.radius);
-		this.circle.setFill(Paint.valueOf(this.color));
 		this.circle.setLayoutX(this.x);
 		this.circle.setLayoutY(this.y);
 	}

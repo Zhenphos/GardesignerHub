@@ -136,13 +136,25 @@ public class View {
 	}
 
 	public void reload(Model model) {
-		GardenInfoScene scene = (GardenInfoScene) this.getScene(Names.GARDEN_INFO);
-		scene.getWidthTextfield().setText(String.valueOf(model.getWidth()));
-		scene.getHeightTextfield().setText(String.valueOf(model.getHeight()));
-		scene.getSunlightTextfield().setText(String.valueOf(model.getLight()));
-		scene.getRainTextfield().setText(String.valueOf(model.getRain()));
-		scene.getSoilPHTextfield().setText(String.valueOf(model.getSoilPH()));
-		scene.getTempTextfield().setText(String.valueOf(model.getTemperature()));
+		GardenInfoScene info = (GardenInfoScene) this.getScene(Names.GARDEN_INFO);
+		info.getWidthTextfield().setText(String.valueOf(model.getWidth()));
+		info.getHeightTextfield().setText(String.valueOf(model.getHeight()));
+		info.getSunlightTextfield().setText(String.valueOf(model.getLight()));
+		info.getRainTextfield().setText(String.valueOf(model.getRain()));
+		info.getSoilPHTextfield().setText(String.valueOf(model.getSoilPH()));
+		info.getTempTextfield().setText(String.valueOf(model.getTemperature()));
+
+		TimesScene times = (TimesScene) this.getScene(Names.TIMES);
+		times.getAgeSlider().setValue(model.getAge());
+		for (Plant plant : model.getPlantObjects()) {
+			String plantImg = String.format("resources/PlantImages/%s.jpg", plant.getBotanicalName());
+			if (new File(plantImg).exists()) {
+				plant.getShape().getCircle().setFill(new ImagePattern(View.createImage(plantImg)));
+			} else {
+				plant.getShape().getCircle().setFill(new ImagePattern(View.createImage("resources/NO_IMAGE_AVAILABLE.png")));
+			}
+		}
+
 	}
 
 	/**
