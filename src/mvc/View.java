@@ -88,7 +88,7 @@ public class View {
 			+ "A good starting value for both is 10.";
 	
 	private static final String INSTRUCTIONS_TITLE = "Instructions";
-	private static final String INSTRUCTIONS_TEXT = "Click on the plant name to show its information. Double click on the name of plant to put it in your garden.";
+	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\nYou can drag and drop images of your choice from outside the garden.";
 
 
 	private static final String DISCARD_TITLE = "Discard Changes";
