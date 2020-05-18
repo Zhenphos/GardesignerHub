@@ -28,6 +28,7 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
@@ -92,11 +93,8 @@ public class View {
 	
 	private static final String INSTRUCTIONS_TITLE = "Instructions";
 	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\n" + 
-													"You can drag and drop images of your choice from outside the garden.\n\n" + 
-													"IMPORTANT NOTE: You must click on a plant's image to view its data.\n" + 
-													"Clicking the text will not show you the plant's information.";
-
-
+													"You can drag and drop images of your choice from outside the garden.\n";
+													
 	private static final String DISCARD_TITLE = "Discard Changes";
 	private static final String DISCARD_TEXT = "Are you sure you would like to go back to the main menu? This will discard any changes you have made.";
 
@@ -300,6 +298,7 @@ public class View {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle(INSTRUCTIONS_TITLE);
 		alert.setContentText(INSTRUCTIONS_TEXT);
+		alert.initStyle(StageStyle.DECORATED);
 		alert.show();
 	}
 
