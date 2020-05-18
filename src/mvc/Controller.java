@@ -56,6 +56,7 @@ import view.LoadingScene;
 import view.PlantPlacementScene;
 import view.RatingScene;
 import view.TimesScene;
+import view.PlantPlacementScene.PlantWithImage;
 
 /**
  * Controller class for Gardendesigner Hub
@@ -745,7 +746,9 @@ public class Controller extends Application {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		System.out.println(season.name());
 		for (Plant plant : model.getPlantObjects()) {
-			plant.getShape().getCircle().setFill(view.generateImage(scene.getPlantImages().get(scene.getIndexOfPlant()), season));
+			File imageFile = new File("resources/PlantImages/" + plant.getBotanicalName() + ".jpg");
+			Image plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
+			plant.getShape().getCircle().setFill(view.generateImage(plantImage, season));
 		}
 	}
 
