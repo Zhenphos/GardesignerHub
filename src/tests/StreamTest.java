@@ -19,7 +19,7 @@ public class StreamTest {
 	@Test
 	public void testMakeShape() {
 		Stream stream = new Stream();
-		assertEquals(stream.getShape().shape.getFill(), Color.LIGHTBLUE);
+		assertEquals(stream.getShape().getPolygon().getFill(), Color.LIGHTBLUE);
 	}
 
 }

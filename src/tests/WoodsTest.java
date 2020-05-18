@@ -19,7 +19,7 @@ public class WoodsTest {
 	@Test
 	public void testMakeShape() {
 		Woods woods = new Woods();
-		assertEquals(woods.getShape().shape.getFill(), Color.FORESTGREEN);
+		assertEquals(woods.getShape().getPolygon().getFill(), Color.FORESTGREEN);
 	}
 
 }
