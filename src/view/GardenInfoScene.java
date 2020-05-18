@@ -30,12 +30,12 @@ public class GardenInfoScene extends Scene {
 	private static final String SUNLIGHT_LABEL_TEXT = "Hours of Sunlight: ";
 	private static final String RAIN_LABEL_TEXT = "Amount of Rain (millimeters):";
 	private static final String SOIL_LABEL_TEXT = "Soil pH:";
-	private static final String TEMP_LABEL_TEXT = "Temperature (Fahrenheit):";
+	private static final String TEMP_LABEL_TEXT = "Deer Near Garden? (Yes/No):";
 
 	private static final Image SUN_IMAGE = View.createImage("resources/sun.png");
 	private static final Image RAIN_IMAGE = View.createImage("resources/rain.png");
 	private static final Image SOIL_IMAGE = View.createImage("resources/soil.png");
-	private static final Image TEMPERATURE_IMAGE = View.createImage("resources/temperature.png");
+	//private static final Image TEMPERATURE_IMAGE = View.createImage("resources/temperature.png");
 
 	private static final String DEFAULT_INFO = "Please enter some information about your garden in the boxes to the left. It will help us calculate the optimal garden design for you.";
 	private static final String WIDTH_INFO = "The \"Width\" is the total width of your garden in feet. This must be entered to continue. If you're not sure, a good starting value is 10.";
@@ -46,9 +46,9 @@ public class GardenInfoScene extends Scene {
 			+ "\nLeave this blank if you do not know the value.";
 	private static final String SOIL_INFO = "The \"Soil pH\" is how acidic or basic your soil is on the pH scale. "
 			+ "The ideal pH of your soil is 6.5." + "\nLeave this blank if you do not know the value.";
-	private static final String TEMPERATURE_INFO = "The \"Temperature\" is the average temperature the land the garden will be on has experienced in the past week, in Fahrenheit."
-			+ "\nLeave this blank if you do not know the value.";
-
+	//private static final String DEER_INFO = "The \"Temperature\" is the average temperature the land the garden will be on has experienced in the past week, in Fahrenheit." + "\nLeave this blank if you do not know the value.";
+	private static final String DEER_INFO = "Enter yes or no based on whether deer will be able to enter your garden.";
+	
 	private BorderPane container;
 	private Label lblInputHeader, lblWidth, lblLength, lblSunlight, lblRain, lblTemp, lblSoilPH;
 	private ImageView imageView;
@@ -83,7 +83,7 @@ public class GardenInfoScene extends Scene {
 		this.tfSunlight = this.createTextField(SUNLIGHT_INFO, SUN_IMAGE);
 		this.tfRain = this.createTextField(RAIN_INFO, RAIN_IMAGE);
 		this.tfSoilPH = this.createTextField(SOIL_INFO, SOIL_IMAGE);
-		this.tfTemp = this.createTextField(TEMPERATURE_INFO, TEMPERATURE_IMAGE);
+		this.tfTemp = this.createTextField(DEER_INFO, null);
 		this.btnNext = this.createButton(View.NEXT_BUTTON_TEXT);
 		this.btnNext.setMaxWidth(Double.MAX_VALUE);
 		this.btnPrev = this.createButton(View.PREV_BUTTON_TEXT);

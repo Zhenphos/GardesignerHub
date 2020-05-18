@@ -348,9 +348,9 @@ public class Controller extends Application {
 				this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
 			}
 			if (scene.getTempTextfield().getText().isEmpty()) {
-				this.model.setTemperature(-1);
+				this.model.setDeer("");
 			} else {
-				this.model.setTemperature(Double.parseDouble(scene.getTempTextfield().getText()));
+				this.model.setDeer(scene.getTempTextfield().getText());
 			}
 			this.view.setScreen(Names.DRAW);
 			this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
@@ -1026,50 +1026,55 @@ public class Controller extends Application {
 		});
 	}
 	
-	
-	
-	
 	public String generateRecommendation() {
-		String rec = "";
-		boolean PhMatch = true, bugFriendly = false;
+		String recommendations = "";
+		boolean phMatch = true, bugFriendly = false;
 		int rating = 0;
-		PlantType t;
-		Plant p;
-		Double ph = model.getSoilPH();
-		
-		for (int i = 0; i < model.getPlantObjects().size(); i++) {
-			t = model.getPlantObjects().get(i).getType();
-			p = model.getPlantObjects().get(i);
-			if (t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) {
-				PhMatch = false;
-				rec += "The pH requirement of " + p.getCommonName() + " doesn't match you garden's pH.\n";
+		PlantType plantType;
+		Double userPH = model.getSoilPH();
+
+		ArrayList<Plant> plantObjects = model.getPlantObjects();
+		System.out.println(plantObjects);
+
+		for (Plant somePlant : plantObjects) {
+			plantType = somePlant.getType();
+			if (plantType != PlantType.ALKALINE_SOIL_TOLERANT && userPH > 7) {
+				phMatch = false;
+				recommendations += "Warning: The pH requirement of " + somePlant.getCommonName() + " doesn't match your garden's pH.\n";
 			}
-			if (t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
+			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
 				bugFriendly = true;
 			}
+			if (model.getDeer().equalsIgnoreCase("yes")) {
+				if (somePlant.isDeerResistant() == false) {
+					recommendations += "Warning: A plant isn't deer resistant - " + somePlant.getBotanicalName() + " | " + somePlant.getCommonName() + "\n";
+				}
+			}
 		}
 
-		if (model.getPlantObjects().size() == 0 || model.getPlantObjects().size()
-				- model.getGardenObjects().size() == model.getPlantObjects().size() * -1)
-			rec += "Use a combination of both plants and other objects.\n"; // 0 rating for no plants
-		else
+		if (plantObjects.size() == 0
+				|| plantObjects.size() - model.getGardenObjects().size() == plantObjects.size() * -1) {
+			recommendations += "Use a combination of both plants and other objects.\n";
+		} // 0 rating for no plants}
+		else {
 			rating += 2;
+		}
 
-		if (PhMatch) {
+		if (phMatch) {
 			rating++;
 		} else {
 			rating--;
 		}
-		
+
 		if (bugFriendly) {
-			rec += "Your garden attract bugs/butterflies. +1\n";
+			recommendations += "Your garden attract bugs/butterflies. +1\n";
 			rating++;
 		} else {
 			rating--;
-			rec += "Your garden doesn't attract bugs or butterflies.\n";
+			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
 		}
-		
-		return rec;
+
+		return recommendations;
 	}
 	
 	/**

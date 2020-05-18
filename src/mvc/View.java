@@ -143,7 +143,7 @@ public class View {
 		info.getSunlightTextfield().setText(String.valueOf(model.getLight()));
 		info.getRainTextfield().setText(String.valueOf(model.getRain()));
 		info.getSoilPHTextfield().setText(String.valueOf(model.getSoilPH()));
-		info.getTempTextfield().setText(String.valueOf(model.getTemperature()));
+		info.getTempTextfield().setText(String.valueOf(model.getDeer()));
 
 		TimesScene times = (TimesScene) this.getScene(Names.TIMES);
 		times.getAgeSlider().setValue(model.getAge());
