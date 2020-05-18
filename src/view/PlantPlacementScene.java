@@ -364,31 +364,6 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * Creates the "next" button
-	 * 
-	 * @return the "next" button
-	 */
-	private Button createNextButton() {
-		Button nextButton = new Button("Next");
-		nextButton.setTranslateX(View.getCanvasWidth() * 7 / 8);
-		nextButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-		return nextButton;
-	}
-
-	/**
-	 * Creates the "previous" button
-	 * 
-	 * @return the "previous" button
-	 */
-	private Button createPrevButton() {
-		Button prevButton = new Button("Prev");
-		prevButton.setTranslateX(View.getCanvasWidth() * 1 / 8);
-		prevButton.setTranslateY(View.getCanvasHeight() * 7 / 8);
-		return prevButton;
-	}
-
-
-	/**
 	 * Creates a button
 	 * 
 	 * @param text - the text displayed on the button

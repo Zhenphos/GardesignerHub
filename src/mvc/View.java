@@ -8,14 +8,12 @@ import java.util.Optional;
 
 import enums.Names;
 import enums.Season;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -31,7 +29,6 @@ import javafx.stage.Stage;
 import objects.Anchor;
 import objects.GardenObject;
 import objects.Plant;
-import objects.Shade;
 import view.DrawScene;
 import view.GardenInfoScene;
 import view.LoadingScene;
@@ -89,12 +86,11 @@ public class View {
 	private static final String INVALID_INPUT_TITLE = "Invalid Input";
 	private static final String INVALID_INPUT_TEXT = "Please ensure you fill out the width and height of your desired garden. "
 			+ "A good starting value for both is 10.";
-	
+
 	private static final String INSTRUCTIONS_TITLE = "Instructions";
-	private static final String INSTRUCTIONS_TEXT = "Click on a plant to show its information. Double click on plant or drag it in your garden.\n" + 
-													"You can drag and drop images of your choice from outside the garden.\n\n" + 
-													"IMPORTANT NOTE: You must click on a plant's image to view its data.\n" + 
-													"Clicking the text will not show you the plant's information.";
+	private static final String INSTRUCTIONS_TEXT = "IMPORTANT NOTE: You must click on a plant's image to view its data.\n"
+			+ "Clicking the text will not show you the plant's information.\n"
+			+ "You can double click or drag/drop a plant into your garden.";
 
 
 	private static final String DISCARD_TITLE = "Discard Changes";
