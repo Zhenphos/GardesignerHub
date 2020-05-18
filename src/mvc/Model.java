@@ -89,7 +89,7 @@ public class Model implements Serializable {
 	/**
 	 * Sets whether the user has deer near their land
 	 * 
-	 * @param deer whether the user has deer near their land
+	 * @param deer the String containing whether the user has deer near their land
 	 */
 	public void setDeer(String deer) {
 		this.deer = deer;
@@ -234,9 +234,9 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Calculates each of your ratings based on your map and area details
+	 * Calculates garden ratings based on the garden map and area details
 	 * 
-	 * @return the rating of your map on a scale of 1 to 5
+	 * @return the rating of garden on a scale of 1 to 5
 	 */
 	public int getRating() {
 		return 0;
@@ -245,7 +245,7 @@ public class Model implements Serializable {
 	/**
 	 * Adds a garden object to the map being created
 	 * 
-	 * @param someObject the garden object to be added
+	 * @param someObject the GardenObject to be added
 	 */
 	public void addGardenObject(GardenObject someObject) {
 		myObjects.add(someObject);
@@ -253,9 +253,9 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Removes an object from the garden
+	 * Removes a garden object from the garden
 	 * 
-	 * @param someObject the object to be removed
+	 * @param someObject the GardenObject to be removed
 	 */
 	public void removeGardenObject(GardenObject someObject) {
 		myObjects.remove(someObject);

@@ -8,14 +8,12 @@ import java.util.Optional;
 
 import enums.Names;
 import enums.Season;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -81,7 +79,6 @@ public class View {
 	public static final String EDIT_BUTTON_TEXT = "Edit";
 
 	// Images
-
 	public static final Image STAR_IMAGE = View.createImage("resources/star.png");
 	public static final Image LOGO_IMAGE = View.createImage("resources/Logo.png");
 
@@ -134,6 +131,11 @@ public class View {
 		this.stage.setScene(this.screens.get(Names.MAIN_MENU));
 	}
 
+	/**
+	 * Reloads the displayed plant info
+	 * 
+	 * @param model the Model containing all the plant info
+	 */
 	public void reload(Model model) {
 		GardenInfoScene info = (GardenInfoScene) this.getScene(Names.GARDEN_INFO);
 		info.getWidthTextfield().setText(String.valueOf(model.getWidth()));
@@ -231,11 +233,16 @@ public class View {
 		scene.getShadeButton().setOnAction(event -> this.controller.onDrawShader());
 		scene.getDeleteButton().setOnAction(event -> this.controller.onDrawUndo());
 
-		scene.getGrassView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.GRASS_TEXT, scene.getGrassView(), event));
-		scene.getRoadView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.ROAD_TEXT, scene.getRoadView(), event));
-		scene.getStreamView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.STREAM_TEXT, scene.getStreamView(), event));
-		scene.getWoodsView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.WOODS_TEXT, scene.getWoodsView(), event));
-		scene.getShadeView().setOnDragDetected(event -> this.controller.onDrawDragDetected(DrawScene.SHADE_TEXT, scene.getShadeView(), event));
+		scene.getGrassView().setOnDragDetected(
+				event -> this.controller.onDrawDragDetected(DrawScene.GRASS_TEXT, scene.getGrassView(), event));
+		scene.getRoadView().setOnDragDetected(
+				event -> this.controller.onDrawDragDetected(DrawScene.ROAD_TEXT, scene.getRoadView(), event));
+		scene.getStreamView().setOnDragDetected(
+				event -> this.controller.onDrawDragDetected(DrawScene.STREAM_TEXT, scene.getStreamView(), event));
+		scene.getWoodsView().setOnDragDetected(
+				event -> this.controller.onDrawDragDetected(DrawScene.WOODS_TEXT, scene.getWoodsView(), event));
+		scene.getShadeView().setOnDragDetected(
+				event -> this.controller.onDrawDragDetected(DrawScene.SHADE_TEXT, scene.getShadeView(), event));
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onDrawDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onDrawDragDropped(event));
 	}
@@ -248,7 +255,8 @@ public class View {
 		scene.getBrowseButton().setOnAction(event -> this.controller.onLoadingBrowse());
 		scene.getPrevButton().setOnAction(event -> this.controller.onLoadingPrev());
 		scene.getEditButton().setOnAction(event -> this.controller.onLoadingEdit());
-		scene.getSaves().getSelectionModel().selectedItemProperty().addListener(event -> this.controller.onLoadingSelect());
+		scene.getSaves().getSelectionModel().selectedItemProperty()
+				.addListener(event -> this.controller.onLoadingSelect());
 	}
 
 	/**
@@ -264,8 +272,7 @@ public class View {
 		scene.getGardenPane().setOnDragOver(event -> this.controller.onPlantDragOver(event));
 		scene.getGardenPane().setOnDragDropped(event -> this.controller.onPlantDragDropped(event));
 		//scene.getGardenPane().setOnDragOver(event -> this.controller.handleDrag());
-
-	}	
+	}
 	
 	/**
 	 * Initializes event handlers for TimesScene
@@ -278,7 +285,6 @@ public class View {
 				.addListener((observable, oldValue, newValue) -> this.controller.onTimesSetAge(newValue.doubleValue()));
 		scene.getSeasonGroup().selectedToggleProperty().addListener(((observable, oldValue, newValue) -> this.controller
 				.onTimesSetSeason((Season) newValue.getUserData())));
-	
 	}
 
 	/**
@@ -305,7 +311,6 @@ public class View {
 	/**
 	 * Alerts the user with information about how to interact with PlantPlacementScene
 	 */
-	
 	public void showInformationAlert() {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle(INSTRUCTIONS_TITLE);
@@ -373,14 +378,14 @@ public class View {
 	/**
 	 * Creates an image with set dimensions
 	 * 
-	 * @param pathToFile
-	 * @param width
-	 * @param height
-	 * @param ratio
-	 * @param smooth
+	 * @param pathToFile the String containing the file path to the image
+	 * @param width      the width of the image
+	 * @param height     the height of the image
+	 * @param ratio      the Boolean indicating whether to preserve the image ratio
+	 * @param smooth     the Boolean indicating whether to use a better quality
+	 *                   filtering algorithm or a faster one when scaling the image
 	 * @return the created image
 	 */
-
 	public static Image createImage(String pathToFile, int width, int height, boolean ratio, boolean smooth) {
 		Image someImage = new Image(new File(pathToFile).toURI().toString(), width, height, ratio, smooth);
 		return someImage;
