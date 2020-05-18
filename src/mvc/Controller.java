@@ -943,8 +943,29 @@ public class Controller extends Application {
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 300;");
 		// statsLayout.getChildren().addAll(show, hide);
+		
+		StringBuilder phSB = new StringBuilder("For soil pH, ");
+		if (model.getSoilPH() != -1 && model.getSoilPH() > 7) {
+			phSB.append("your soil pH of " + model.getSoilPH() + " is alkaline.");
+			for (Plant plant : plantList) {
+				Plant fixed = new Plant();
+				for (Plant masterPlant : masterList) {
+						if (masterPlant.getBotanicalName().equals(plant.getBotanicalName())) {
+							if (masterPlant.getType() == PlantType.ALKALINE_SOIL_TOLERANT) {
+								String plantName = masterPlant.getBotanicalName();
+								System.out.println("this should be alkaline soil tolerant: " + plantName);
+								phSB.append("\nA.T. plant found in garden: " + plantName);
+							}
+						//fixed = masterPlant;
+					}
+				}
+			}
+		} else {
+			phSB.append("we have no recommendations.");
+		}
 
-		Text recsText = new Text(10, 50, "Here are some recommendations:");
+		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
+										  + phSB.toString());
 		recsText.setFont(new Font(20));
 		recsLayout.getChildren().addAll(recsText);
 
@@ -1131,34 +1152,36 @@ public class Controller extends Application {
 	
 	public int calculateRating() {
 		String rec = "";
-		boolean PhMatch = true, bugFriendly=false;
-		int rating=0;
+		boolean PhMatch = true, bugFriendly = false;
+		int rating = 0;
 		PlantType t;
 		Double ph = model.getSoilPH();
-		for (int i=0; i<model.getPlantObjects().size(); i++) {
+		for (int i = 0; i < model.getPlantObjects().size(); i++) {
 			t = model.getPlantObjects().get(i).getType();
-				if(t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7) PhMatch = false;
-				if(t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS)
-					bugFriendly=true;
+			if (t != PlantType.ALKALINE_SOIL_TOLERANT && ph > 7)
+				PhMatch = false;
+			if (t == PlantType.BIRD_BUTTERFLY_BUG_GARDENS)
+				bugFriendly = true;
 
-			
 		}
-		
-		
-		if (model.getPlantObjects().size()==0 || model.getPlantObjects().size() - model.getGardenObjects().size() == model.getPlantObjects().size()*-1) return 0; // 0 rating for no plants
-		else rating+=2;
-	
-		
-		
-		if (PhMatch) rating++;
+
+		if (model.getPlantObjects().size() == 0 || model.getPlantObjects().size()
+				- model.getGardenObjects().size() == model.getPlantObjects().size() * -1)
+			return 0; // 0 rating for no plants
+		else
+			rating += 2;
+
+		if (PhMatch)
+			rating++;
 		else {
 			rating--;
-			rec+="Ph mismatch,";
+			rec += "Ph mismatch,";
 		}
-		if(bugFriendly) rating++;
+		if (bugFriendly)
+			rating++;
 		else {
-			rating --;
-			rec+=" not bug friendly,";
+			rating--;
+			rec += " not bug friendly,";
 		}
 		return rating;
 	}

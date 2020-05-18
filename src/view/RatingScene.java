@@ -27,8 +27,9 @@ import mvc.View;
 public class RatingScene extends Scene {
 	
 	private static final String HEADER_TEXT = "Evaluation";
-	private static final String RATING_TEXT = "Rating";
-	//private static final String RECOMMENDATIONS_TEXT = "Recommendations";
+	// private static final String RATING_TEXT = "Rating";
+	private static final String RATING_TEXT = "";
+	// private static final String RECOMMENDATIONS_TEXT = "Recommendations";
 	private static final String RECOMMENDATIONS_TEXT = "";
 
 	private BorderPane container;
@@ -111,13 +112,13 @@ public class RatingScene extends Scene {
 	 */
 	public void setRating(int rating) {
 		this.stars.getChildren().clear();
-		if(rating>=0) {
-		for (int i=0; i<rating; i++) {
-			ImageView imageView = new ImageView(View.STAR_IMAGE);
-			imageView.setFitHeight(View.HEIGHT / 8f);
-			imageView.setPreserveRatio(true);
-			this.stars.getChildren().add(imageView);
-		}
+		if (rating >= 0) {
+			for (int i = 0; i < rating; i++) {
+				ImageView imageView = new ImageView(View.STAR_IMAGE);
+				imageView.setFitHeight(View.HEIGHT / 8f);
+				imageView.setPreserveRatio(true);
+				//this.stars.getChildren().add(imageView);
+			}
 		}
 	}
 
