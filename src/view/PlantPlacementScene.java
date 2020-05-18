@@ -286,11 +286,11 @@ public class PlantPlacementScene extends Scene {
 		grid.add(maxSpacing, 0, 4);
 		grid.add(maxSpaceLabel, 1, 4);
 
-		Label minHardi = createLabel("Min Hardiness: ");
+		Label minHardi = createLabel("Min USDA Hardiness: ");
 		grid.add(minHardi, 0, 5);
 		grid.add(minHardiLabel, 1, 5);
 		
-		Label maxHardi = createLabel("Min Hardiness: ");
+		Label maxHardi = createLabel("Min USDA Hardiness: ");
 		grid.add(maxHardi, 0, 6);
 		grid.add(maxHardiLabel, 1, 6);
 

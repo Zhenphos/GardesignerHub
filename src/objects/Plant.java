@@ -62,7 +62,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.type = type;
 
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape = new DrawShape(null, (this.spreadMin * 2));
 			shape.getCircle().setCenterX(this.spreadMin * 4);
 			shape.getCircle().setCenterY(this.spreadMin * 4);
 		} else {
@@ -104,7 +104,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.type = type;
 
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape = new DrawShape(null, (this.spreadMin * 2));
 			shape.getCircle().setCenterX(this.spreadMin * 4);
 			shape.getCircle().setCenterY(this.spreadMin * 4);
 		} else {
@@ -171,7 +171,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.type = type;
 		
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 3));
+			shape = new DrawShape(null, (this.spreadMin * 2));
 			shape.getCircle().setCenterX(this.spreadMin * 4);
 			shape.getCircle().setCenterY(this.spreadMin * 4);
 		} else {
