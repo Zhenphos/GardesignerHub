@@ -465,7 +465,7 @@ public class Controller extends Application {
 		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
 		try {
 			System.out.println("Mouse clicked");
-			ListCell cell = (ListCell) (event.getTarget());
+			ListCell<MouseEvent> cell = (ListCell<MouseEvent>) (event.getTarget());
 			Optional<Plant> plant = scene.getAllPlants().stream().filter(p -> p.toString().equals(cell.getText()))
 					.findAny();
 			Plant selectedPlant = plant.get();
@@ -579,6 +579,8 @@ public class Controller extends Application {
 			e.printStackTrace();
 		} catch (ClassCastException e) {
 			System.out.println(event.getTarget().toString());
+			System.out.println("ClassCastException");
+			e.printStackTrace();
 		}
 	}
 
