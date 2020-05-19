@@ -123,12 +123,10 @@ public class Plant extends GardenObject implements Serializable {
 		this.phytoElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
 		
-		double factor = 100.0 / (20 * 20); // replace 20 * 20 with length and width of garden
-		
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 2 * factor));
-			shape.getCircle().setCenterX(this.spreadMin * 4 * factor);
-			shape.getCircle().setCenterY(this.spreadMin * 4 * factor);
+			shape = new DrawShape(null, (this.spreadMin * 2));
+			shape.getCircle().setCenterX(this.spreadMin * 4);
+			shape.getCircle().setCenterY(this.spreadMin * 4);
 		} else {
 			shape = new DrawShape(null, defaultRadius);
 			shape.getCircle().setCenterX(defaultRadius * 2);
