@@ -123,10 +123,12 @@ public class Plant extends GardenObject implements Serializable {
 		this.phytoElementsCleaned = phytoremediationElementsCleaned;
 		this.type = type;
 		
+		double factor = 100.0 / (20 * 20); // replace 20 * 20 with length and width of garden
+		
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 2 * ((100 * 100) / 100))); // scale factor here but we would need to change the formula if we wanted to use it
-			shape.getCircle().setCenterX(this.spreadMin * 4);
-			shape.getCircle().setCenterY(this.spreadMin * 4);
+			shape = new DrawShape(null, (this.spreadMin * 2 * factor));
+			shape.getCircle().setCenterX(this.spreadMin * 4 * factor);
+			shape.getCircle().setCenterY(this.spreadMin * 4 * factor);
 		} else {
 			shape = new DrawShape(null, defaultRadius);
 			shape.getCircle().setCenterX(defaultRadius * 2);
@@ -142,7 +144,7 @@ public class Plant extends GardenObject implements Serializable {
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3 / 4;
-			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age)); // if we wanted it to grow correctly while scaling to the garden size we would have to add the factor here too
+			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age));
 		} else {
 			double growthRate = defaultRadius / 4;
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
