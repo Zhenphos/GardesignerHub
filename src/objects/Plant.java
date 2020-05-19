@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import enums.PlantType;
 import mvc.Controller;
-import mvc.Model;
 
 /**
  * Plant class for Gardesigner Hub
@@ -125,7 +124,7 @@ public class Plant extends GardenObject implements Serializable {
 		this.type = type;
 		
 		if (spreadMin != -1) {
-			shape = new DrawShape(null, (this.spreadMin * 2));
+			shape = new DrawShape(null, (this.spreadMin * 2 * ((100 * 100) / 100))); // scale factor here but we would need to change the formula if we wanted to use it
 			shape.getCircle().setCenterX(this.spreadMin * 4);
 			shape.getCircle().setCenterY(this.spreadMin * 4);
 		} else {
@@ -143,7 +142,7 @@ public class Plant extends GardenObject implements Serializable {
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3 / 4;
-			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age));
+			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age)); // if we wanted it to grow correctly while scaling to the garden size we would have to add the factor here too
 		} else {
 			double growthRate = defaultRadius / 4;
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
