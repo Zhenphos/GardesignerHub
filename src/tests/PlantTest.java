@@ -13,7 +13,7 @@ import objects.Plant;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-public class PlantTest {
+public class PlantTest { // TODO update
 	String plantBotanicalName = "name";
 	int heightMinInches = 0;
 	int heightMaxInches = 0;
