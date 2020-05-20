@@ -233,15 +233,6 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Calculates garden ratings based on the garden map and area details
-	 * 
-	 * @return the rating of garden on a scale of 1 to 5
-	 */
-	public int getRating() {
-		return 0;
-	}
-
-	/**
 	 * Adds a garden object to the map being created
 	 * 
 	 * @param someObject the GardenObject to be added

@@ -39,7 +39,7 @@ public class Anchor extends Circle implements Serializable {
     }
 
     /**
-     * Adds an Anchor
+     * Adds an Anchor to the ArrayList of anchors
      * 
      * @param anchor the anchor to be added
      */

@@ -16,6 +16,9 @@ import objects.Grass;
 public class GrassTest {
 	
 	@Test
+	/**
+	 * Tests Grass constructor
+	 */
 	public void testMakeShape() {
 		Grass grass = new Grass();
 		assertEquals(grass.getShape().getPolygon().getFill(), Color.LAWNGREEN);

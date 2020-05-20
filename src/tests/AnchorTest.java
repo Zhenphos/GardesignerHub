@@ -20,27 +20,17 @@ import objects.Anchor;
 public class AnchorTest { // TODO update
 	
 	@Test
-	public void setCommonTest() {
+	public void testSetCommon() {
 		
 	}
 	
 	@Test
-	public void addAnchorTest() {
+	public void testAddAnchor() {
 		
 	}
 	
 	@Test
-	public void constructorTest() {
-		
-	}
-	
-	@Test
-	public void createAnchorsTest() {
-		
-	}
-	
-	@Test
-	public void enableDragTest() { // does this need to be tested?
+	public void testAnchor() {
 		
 	}
 }

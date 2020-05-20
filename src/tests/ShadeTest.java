@@ -16,6 +16,9 @@ import objects.Shade;
 public class ShadeTest {
 
 	@Test
+	/**
+	 * Tests Shade constructor
+	 */
 	public void testMakeShape() {
 		Shade shade = new Shade();
 		assertEquals(shade.getShape().getPolygon().getFill(), Color.GREY);

@@ -16,6 +16,9 @@ import objects.Stream;
 public class StreamTest {
 
 	@Test
+	/**
+	 * Tests Stream constructor
+	 */
 	public void testMakeShape() {
 		Stream stream = new Stream();
 		assertEquals(stream.getShape().getPolygon().getFill(), Color.LIGHTBLUE);

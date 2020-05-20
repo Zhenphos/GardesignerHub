@@ -394,7 +394,7 @@ public class View {
 	 * Draws the map out for the user to see
 	 *
 	 * @param someObjects a collection of garden objects which make up the map
-	 * @return an ImageView of the map so the user can see the map
+	 * @return an ImageView of the map so the map is visible
 	 */
 	public ImageView generateMap(Collection<GardenObject> someObjects) {
 		return null;

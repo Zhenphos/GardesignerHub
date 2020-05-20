@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import enums.PlantType;
+import mvc.Controller;
 import objects.Plant;
 
 /**
@@ -27,7 +28,7 @@ public class PlantTest { // TODO update
 	String commonName = "name";
 	String soilMoisturePreference = "";
 	String sunlightExposure = "";
-	String[] floweringMonths = { "July" };
+	String[] floweringMonths = { "July", "August" };
 	String[] wildlifeAttracted = { "Bees" };
 	String[] otherAttributes = { "Other" };
 	boolean deerResistant = true;
@@ -39,10 +40,10 @@ public class PlantTest { // TODO update
 	PlantType type = PlantType.ALL;
 	
 	/**
-	 * Tests the plant constructor and, by extension, the getters
+	 * Tests the plant constructor and, by extension, the getters.
 	 */
 	@Test
-	public void constructorTest() {	
+	public void testPlant() {	
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -58,6 +59,20 @@ public class PlantTest { // TODO update
 		assertEquals(plant.getHardinessMin(), hardinessMin);
 		assertEquals(plant.getHardinessMax(), hardinessMax);
 		assertEquals(plant.getBloomColors(), bloomColors);
+		assertEquals(plant.getCommonName(), commonName);
+		assertEquals(plant.getSoilMoisturePreference(), soilMoisturePreference);
+		assertEquals(plant.getSunlightExposure(), sunlightExposure);
+		assertEquals(plant.getFloweringMonths(), Controller.ArrayOfStrings(floweringMonths));
+		assertEquals(plant.getWildlifeAttracted(), Controller.ArrayOfStrings(wildlifeAttracted));
+		assertEquals(plant.getOtherAttributes(), Controller.ArrayOfStrings(otherAttributes));
+		assertEquals(plant.isDeerResistant(), deerResistant);
+		assertEquals(plant.getFoliageColor(), foliageColor);
+		assertEquals(plant.getGrowthRate(), growthRate);
+		assertEquals(plant.getSaltTolerance(), saltTolerance);
+		assertEquals(plant.getSeasonsOfInterest(), Controller.ArrayOfStrings(seasonsOfInterest));
+		assertEquals(plant.getPhytoremediationElementsCleaned(),
+				Controller.ArrayOfStrings(phytoremediationElementsCleaned));
+		assertEquals(plant.getType(), type);
 		
 		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				plantBotanicalName, spacingMax, spacingMin, spreadMax, -1, commonName, soilMoisturePreference,
@@ -68,7 +83,10 @@ public class PlantTest { // TODO update
 	}
 	
 	@Test
-	public void toStringTest() {
+	/**
+	 * Tests the overridden toString()
+	 */
+	public void testToString() {
 		Plant emptyPlant = new Plant();
 		assertEquals(null, emptyPlant.toString());
 		
@@ -80,7 +98,18 @@ public class PlantTest { // TODO update
 	}
 	
 	@Test
-	public void copyOfPlantTest() {
+	/**
+	 * Tests changePlantSize(double)
+	 */
+	public void testChangePlantSize() {
+		
+	}
+	
+	@Test
+	/**
+	 * Tests copyOfPlant()
+	 */
+	public void testCopyOfPlant() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -96,5 +125,29 @@ public class PlantTest { // TODO update
 		assertEquals(plant.getHardinessMin(), plant.copyOfPlant().getHardinessMin());
 		assertEquals(plant.getHardinessMax(), plant.copyOfPlant().getHardinessMax());
 		assertEquals(plant.getBloomColors(), plant.copyOfPlant().getBloomColors());
+	}
+	
+	@Test
+	/**
+	 * Tests returnDetailedInfo()
+	 */
+	public void testReturnDetailedInfo() {
+		
+	}
+	
+	@Test
+	/**
+	 * Tests overridden hashCode()
+	 */
+	public void testHashCode() {
+		
+	}
+	
+	@Test
+	/**
+	 * Tests the overridden equals(Object)
+	 */
+	public void testEquals() {
+		
 	}
 }
