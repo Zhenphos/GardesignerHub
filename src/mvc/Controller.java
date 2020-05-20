@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import enums.Names;
 import enums.PlantType;
 import enums.Season;
@@ -64,6 +66,8 @@ import view.TimesScene;
  *
  */
 public class Controller extends Application {
+	public static double gardenWidth;
+	public static double gardenLength;
 	
 	/**
 	 * The main method for the program
@@ -72,6 +76,17 @@ public class Controller extends Application {
 	 * @throws FileNotFoundException if an image file or csv file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
+		String width = "";
+		String length = "";
+		while (width.isEmpty()) {
+			width = JOptionPane.showInputDialog("Input garden width (ft)");
+		}
+		while (length.isEmpty()) {
+			length = JOptionPane.showInputDialog("Input garden length (ft)");
+		}
+		gardenWidth = Double.parseDouble(width);
+		gardenLength = Double.parseDouble(length);
+		
 		launch(args);
 	}
 

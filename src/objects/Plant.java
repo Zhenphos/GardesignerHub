@@ -13,7 +13,8 @@ import mvc.Controller;
  *
  */
 public class Plant extends GardenObject implements Serializable {
-	public static final int defaultRadius = 20;
+	public static double plantScaleFactor = 100.0 / (Controller.gardenLength * Controller.gardenWidth);
+	public static final double defaultRadius = 20 * plantScaleFactor;
 	
 	String bloomColors;
 	String commonName;
@@ -126,9 +127,15 @@ public class Plant extends GardenObject implements Serializable {
 		double factor = 100.0 / (20 * 20); // replace 20 * 20 with length and width of garden
 		
 		if (spreadMin != -1) {
+<<<<<<< Updated upstream
 			shape = new DrawShape(null, (this.spreadMin * 2 * factor));
 			shape.getCircle().setCenterX(this.spreadMin * 4 * factor);
 			shape.getCircle().setCenterY(this.spreadMin * 4 * factor);
+=======
+			shape = new DrawShape(null, (this.spreadMin * 2 * plantScaleFactor));
+			shape.getCircle().setCenterX(this.spreadMin * 4 * plantScaleFactor);
+			shape.getCircle().setCenterY(this.spreadMin * 4 * plantScaleFactor);
+>>>>>>> Stashed changes
 		} else {
 			shape = new DrawShape(null, defaultRadius);
 			shape.getCircle().setCenterX(defaultRadius * 2);
@@ -144,7 +151,7 @@ public class Plant extends GardenObject implements Serializable {
 	public void changePlantSize(double age) {
 		if (spreadMin != -1 && spreadMax != -1) {
 			double growthRate = (spreadMax - spreadMin) * 3 / 4;
-			shape.getCircle().setRadius((this.spreadMin * 2) + (growthRate * age));
+			shape.getCircle().setRadius((this.spreadMin * 2 * plantScaleFactor) + (growthRate * age));
 		} else {
 			double growthRate = defaultRadius / 4;
 			shape.getCircle().setRadius(defaultRadius + growthRate * age);
