@@ -1,9 +1,5 @@
 package tests;
 
-import static org.junit.Assert.fail;
-
-import org.junit.Test;
-
 /**
  * ViewTest for Gardesigner Hub. Tests View class.
  * 

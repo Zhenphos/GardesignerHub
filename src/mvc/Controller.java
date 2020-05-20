@@ -256,7 +256,7 @@ public class Controller extends Application {
 	private View view;
 	private PlantPlacementScene pps;
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	/**
@@ -275,7 +275,7 @@ public class Controller extends Application {
 		this.pps = pps;
 		model = new Model();
 		if (DEBUG)
-			System.out.println("ic created");
+			System.out.println("PlantPlacementScene created");
 	}
 
 	/**
@@ -377,7 +377,6 @@ public class Controller extends Application {
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
 		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
-		// System.out.print(calculateRating());
 	}
 
 	/**
@@ -594,9 +593,7 @@ public class Controller extends Application {
 			@Override
 			public void handle(DragEvent event) {
 				Dragboard db = event.getDragboard();
-
 				event.acceptTransferModes(TransferMode.COPY);
-
 				event.consume();
 			}
 		});
@@ -719,9 +716,7 @@ public class Controller extends Application {
 	public void onTimesNext() {
 		this.view.setScreen(Names.RATING);
 		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
-		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
-		//Controller.sc.setRating(calculateRating());
-		
+		RatingScene sc = (RatingScene) view.getScene(Names.RATING);		
 	}
 	
 	/**
@@ -775,8 +770,6 @@ public class Controller extends Application {
 	 */
 	public void changePlantStatus(Plant plant) {
 		plant.changePlantSize(this.model.getAge());
-		//this.model.getSeason();
-
 	}
 
 	/**
@@ -840,8 +833,7 @@ public class Controller extends Application {
 				
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
-		// statsLayout.getChildren().addAll(show, hide);
-
+		
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
 										  + generateRecommendation());
 		recsText.setFont(new Font(20));
@@ -858,8 +850,7 @@ public class Controller extends Application {
 	 */
 	public String generateRecommendation() {
 		String recommendations = "";
-		boolean phMatch = true, bugFriendly = false;
-		int rating = 0;
+		boolean phMatch = true;
 		PlantType plantType;
 		Double userPH = model.getSoilPH();
 
@@ -876,38 +867,36 @@ public class Controller extends Application {
 
 		for (Plant somePlant : plantObjects) {
 			plantType = somePlant.getType();
-			// this doesn't work properly, triggers for all plants not in ALKALINE_SOIL_TOLERANT
-			/*
-			if (plantType != PlantType.ALKALINE_SOIL_TOLERANT && userPH > 7) {
-				phMatch = false;
-				recommendations += "Warning: The pH requirement of " + somePlant.getCommonName() + " doesn't match your garden's pH.\n";
-			}*/
 			
 			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
-				bugFriendly = true;
 			}
+			
 			if (model.getDeer().equalsIgnoreCase("yes")) {
 				if (somePlant.isDeerResistant() == false) {
 					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
 							+ " (" + somePlant.getCommonName() + ")\n";
 				}
 			}
+			
 			if (model.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
 					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
 				recommendations += "Warning: A plant may receive too much rain - " + somePlant.getBotanicalName() + " ("
 						+ somePlant.getCommonName() + ")\n";
 			}
+			
 			if (!(model.getRain() < 0) && model.getRain() < 2.0
 					&& somePlant.getSoilMoisturePreference().contains("Moist")
 					&& !somePlant.getSoilMoisturePreference().contains("Dry")) {
 				recommendations += "Warning: A plant may not receive enough rain - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
+			
 			if (!(model.getLight() < 0) && model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
 					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
 				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
+			
 			if (!(model.getLight() < 0) && model.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
 					&& somePlant.getSunlightExposure().contains("Shade")) {
 				recommendations += "Warning: A plant may get too much sunlight - " + somePlant.getBotanicalName() + " ("
@@ -918,25 +907,7 @@ public class Controller extends Application {
 		if (plantObjects.size() == 0
 				|| model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
-		} // 0 rating for no plants}
-		else {
-			rating += 2;
 		}
-
-		if (phMatch) {
-			rating++;
-		} else {
-			rating--;
-		}
-		
-		/*
-		if (bugFriendly) {
-			recommendations += "Your garden attract bugs/butterflies. +1\n";
-			rating++;
-		} else {
-			rating--;
-			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
-		}*/
 
 		return recommendations;
 	}
@@ -960,7 +931,6 @@ public class Controller extends Application {
 			this.view.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
 			this.view.setScreen(Names.LOADING);
 			scene.addTableEntry(file);
-
 		} catch (IOException ex) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
 			if (DEBUG)
