@@ -12,21 +12,87 @@ import javafx.scene.input.MouseEvent;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-public class ControllerTest { // TODO update
+public class ControllerTest { // TODO update - not sure if most of these are needed
 
 	@Test
-	public void testMain() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testStartStage() {
-		fail("Not yet implemented"); // TODO
+	public void importImagesTest() {
+		
 	}
 	
 	@Test
-	public void testEventHandler() {
-		MouseEvent me;
+	public void importPlantsTest() {
+		
 	}
 	
+	@Test
+	public void onMainMenuNewTest() {
+		
+	}
+	
+	@Test
+	public void onMainMenuHelpTest() {
+		
+	}
+	
+	@Test
+	public void onMainMenuLoadTest() {
+		
+	}
+	
+	@Test
+	public void onGardenInfoPrevTest() {
+		
+	}
+	
+	@Test
+	public void onGardenInfoNextTest() {
+		
+	}
+	
+	@Test
+	public void onPlantPlacementPrevTest() {
+		
+	}
+	
+	@Test
+	public void onPlantPlacementNextTest() {
+		
+	}
+	
+	@Test
+	public void onTutorialPrevTest() {
+		
+	}
+	
+	@Test
+	public void onDrawPrevTest() {
+		
+	}
+	
+	@Test
+	public void onDrawNextTest() {
+		
+	}
+	
+	@Test
+	public void onDrawGrassTest() {
+		
+	}
+	
+	@Test
+	public void onDrawRoadTest() {
+		
+	}
+	
+	@Test
+	public void onDrawStreamTest() {
+		
+	}
+	
+	@Test
+	public void onDrawWoodsTest() {
+		
+	}
+	
+	// TODO continue updating
 }
