@@ -51,4 +51,10 @@ public class AnchorTest { // TODO update
 	public void testAnchor() {
 		
 	}
+	
+	@Test
+	public void testGetAnchors() {
+		ArrayList<Anchor> someAnchors = new ArrayList<Anchor>();
+		//assertEquals(, someAnchors);
+	}
 }

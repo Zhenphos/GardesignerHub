@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
 
@@ -176,6 +177,21 @@ public class PlantTest { // TODO update
 		int testCode2 = plant2.hashCode();
 		
 		assertEquals(testCode, testCode2);
+		
+		Plant plant3 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				"sadsadnlsadkmnlk", spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		Plant plant4 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				"sdadsadsadsadsa", spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		int testCode3 = plant3.hashCode();
+		int testCode4 = plant4.hashCode();
+		
+		assertNotEquals(testCode3, testCode4);
 	}
 	
 	@Test
@@ -187,38 +203,66 @@ public class PlantTest { // TODO update
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
 				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
-		
+
 		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
 				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
-		
+
 		boolean equals = plant.equals(plant2);
-		
+
 		assertEquals(equals, true);
-		
+
 		Plant plant3 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
 				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
-		
+
 		Plant plant4 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				"asdsadsadsada", spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
 				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
-		
+
 		boolean equals2 = plant3.equals(plant4);
-		
+
 		assertEquals(equals2, false);
-		
+
 		Plant nullPlant = null;
 		boolean equals3 = plant4.equals(nullPlant);
 		assertEquals(equals3, false);
-		
+
 		boolean equals4 = plant4.equals(plant4);
 		assertEquals(equals4, true);
-		
+
 		boolean equals5 = plant4.equals(new Shade());
 		assertEquals(equals5, false);
+
+		Plant plant5 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches, null,
+				spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference, sunlightExposure,
+				floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor, growthRate,
+				saltTolerance, seasonsOfInterest, elementsCleaned, type);
+
+		Plant plant6 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				"asdsadsadsada", spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+
+		boolean equals6 = plant5.equals(plant6);
+
+		assertEquals(equals6, false);
+
+		Plant plant7 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches, null,
+				spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference, sunlightExposure,
+				floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor, growthRate,
+				saltTolerance, seasonsOfInterest, elementsCleaned, type);
+
+		Plant plant8 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches, null,
+				spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference, sunlightExposure,
+				floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor, growthRate,
+				saltTolerance, seasonsOfInterest, elementsCleaned, type);
+
+		boolean equals7 = plant7.equals(plant8);
+
+		assertEquals(equals7, true);
 	}
 }
