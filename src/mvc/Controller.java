@@ -56,17 +56,17 @@ import view.LoadingScene;
 import view.PlantPlacementScene;
 import view.RatingScene;
 import view.TimesScene;
+import view.PlantPlacementScene.PlantWithImage;
 
 /**
- * Controller class for Gardesigner Hub
+ * Controller class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 public class Controller extends Application {
-	
 	/**
-	 * The main method for the program
+	 * the main method for the program
 	 * 
 	 * @param args an array of strings
 	 * @throws FileNotFoundException if an image file or csv file is not found
@@ -100,6 +100,9 @@ public class Controller extends Application {
 
 	/**
 	 * Imports plant data
+	 * 
+	 * @param path the path to find the location of the plant file
+	 * @param plantType the type of the plant
 	 * 
 	 * @return an ArrayList of plants
 	 */
@@ -151,12 +154,10 @@ public class Controller extends Application {
 				splittingArray = data[2].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) {
-				}
+				} catch (Exception e) { }
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) {
-				}
+				} catch (Exception e) { }
 
 				try {
 					spreadMin = Integer.parseInt(splittingArray[0]);
@@ -181,12 +182,10 @@ public class Controller extends Application {
 				splittingArray = data[3].split("-", 2);
 				try {
 					splittingArray[0] = splittingArray[0].replaceAll("\\D", "");
-				} catch (Exception e) {
-				}
+				} catch (Exception e) { }
 				try {
 					splittingArray[1] = splittingArray[1].replaceAll("\\D", "");
-				} catch (Exception e) {
-				}
+				} catch (Exception e) { }
 
 				try {
 					spacingMin = Integer.parseInt(splittingArray[0]);
@@ -221,7 +220,7 @@ public class Controller extends Application {
 				} catch (Exception e) {
 					hardinessMax = -1;
 				}
-
+				
 				String bloomColor = data[5];
 				String commonName = data[6];
 				String soilMoisturePref = data[7];
@@ -230,11 +229,11 @@ public class Controller extends Application {
 				String[] wildlifeAttracted = data[10].split(",", 20);
 				String[] extraAttributes = data[11].split(",", 25);
 				boolean deerResistant = false;
-
+				
 				if (data[12].equals("Deer Resistant")) {
 					deerResistant = true;
 				}
-
+				
 				String foliageColor = data[13];
 				String growthRate = data[14];
 				String saltTolerance = data[15];
@@ -256,7 +255,7 @@ public class Controller extends Application {
 	private View view;
 	private PlantPlacementScene pps;
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	/**
@@ -275,7 +274,7 @@ public class Controller extends Application {
 		this.pps = pps;
 		model = new Model();
 		if (DEBUG)
-			System.out.println("PlantPlacementScene created");
+			System.out.println("ic created");
 	}
 
 	/**
@@ -377,6 +376,7 @@ public class Controller extends Application {
 	public void onPlantPlacementNext() {
 		this.view.setScreen(Names.TIMES);
 		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+		// System.out.print(calculateRating());
 	}
 
 	/**
@@ -450,9 +450,8 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Handles the click events. A single click on a plant name displays the
-	 * information in right panel and a double click puts the plant image in the
-	 * garden
+	 * Handles the click events, single click on plant name displays the information
+	 * in right panel double click puts the plant image on the garden
 	 * 
 	 * @param event the MouseEvent on the plant
 	 */
@@ -593,7 +592,9 @@ public class Controller extends Application {
 			@Override
 			public void handle(DragEvent event) {
 				Dragboard db = event.getDragboard();
+
 				event.acceptTransferModes(TransferMode.COPY);
+
 				event.consume();
 			}
 		});
@@ -716,7 +717,9 @@ public class Controller extends Application {
 	public void onTimesNext() {
 		this.view.setScreen(Names.RATING);
 		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
-		RatingScene sc = (RatingScene) view.getScene(Names.RATING);		
+		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
+		//Controller.sc.setRating(calculateRating());
+		
 	}
 	
 	/**
@@ -767,9 +770,13 @@ public class Controller extends Application {
 	/**
 	 * Handles when the user changes the appearance of the circles based on time and
 	 * season
+	 * 
+	 * @param plant the plant which will have its size changed
 	 */
 	public void changePlantStatus(Plant plant) {
 		plant.changePlantSize(this.model.getAge());
+		//this.model.getSeason();
+
 	}
 
 	/**
@@ -833,7 +840,8 @@ public class Controller extends Application {
 				
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
-		
+		// statsLayout.getChildren().addAll(show, hide);
+
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
 										  + generateRecommendation());
 		recsText.setFont(new Font(20));
@@ -850,7 +858,8 @@ public class Controller extends Application {
 	 */
 	public String generateRecommendation() {
 		String recommendations = "";
-		boolean phMatch = true;
+		boolean phMatch = true, bugFriendly = false;
+		int rating = 0;
 		PlantType plantType;
 		Double userPH = model.getSoilPH();
 
@@ -867,36 +876,38 @@ public class Controller extends Application {
 
 		for (Plant somePlant : plantObjects) {
 			plantType = somePlant.getType();
+			// this doesn't work properly, triggers for all plants not in ALKALINE_SOIL_TOLERANT
+			/*
+			if (plantType != PlantType.ALKALINE_SOIL_TOLERANT && userPH > 7) {
+				phMatch = false;
+				recommendations += "Warning: The pH requirement of " + somePlant.getCommonName() + " doesn't match your garden's pH.\n";
+			}*/
 			
 			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
+				bugFriendly = true;
 			}
-			
 			if (model.getDeer().equalsIgnoreCase("yes")) {
 				if (somePlant.isDeerResistant() == false) {
 					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
 							+ " (" + somePlant.getCommonName() + ")\n";
 				}
 			}
-			
 			if (model.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
 					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
 				recommendations += "Warning: A plant may receive too much rain - " + somePlant.getBotanicalName() + " ("
 						+ somePlant.getCommonName() + ")\n";
 			}
-			
 			if (!(model.getRain() < 0) && model.getRain() < 2.0
 					&& somePlant.getSoilMoisturePreference().contains("Moist")
 					&& !somePlant.getSoilMoisturePreference().contains("Dry")) {
 				recommendations += "Warning: A plant may not receive enough rain - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
-			
 			if (!(model.getLight() < 0) && model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
 					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
 				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
-			
 			if (!(model.getLight() < 0) && model.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
 					&& somePlant.getSunlightExposure().contains("Shade")) {
 				recommendations += "Warning: A plant may get too much sunlight - " + somePlant.getBotanicalName() + " ("
@@ -907,7 +918,25 @@ public class Controller extends Application {
 		if (plantObjects.size() == 0
 				|| model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
+		} // 0 rating for no plants}
+		else {
+			rating += 2;
 		}
+
+		if (phMatch) {
+			rating++;
+		} else {
+			rating--;
+		}
+		
+		/*
+		if (bugFriendly) {
+			recommendations += "Your garden attract bugs/butterflies. +1\n";
+			rating++;
+		} else {
+			rating--;
+			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
+		}*/
 
 		return recommendations;
 	}
@@ -931,6 +960,7 @@ public class Controller extends Application {
 			this.view.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
 			this.view.setScreen(Names.LOADING);
 			scene.addTableEntry(file);
+
 		} catch (IOException ex) {
 			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
 			if (DEBUG)
@@ -1121,7 +1151,9 @@ public class Controller extends Application {
 	/**
 	 * Handles when the user drags a plant from the plant selection section in
 	 * PlantPlacementScene
-	 * 
+	 *  
+	 * @param name The name of the plant
+	 * @param view The image the plant will have
 	 * @param event the MouseEvent on a plant image
 	 */
 	public void onDrawDragDetected(String name, ImageView view, MouseEvent event) {

@@ -19,7 +19,7 @@ import javafx.scene.shape.StrokeType;
 import mvc.Controller;
 
 /**
- * Anchor class for Gardesigner Hub
+ * Anchor class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -39,7 +39,7 @@ public class Anchor extends Circle implements Serializable {
     }
 
     /**
-     * Adds an Anchor to the ArrayList of anchors
+     * Adds an Anchor
      * 
      * @param anchor the anchor to be added
      */
@@ -74,8 +74,8 @@ public class Anchor extends Circle implements Serializable {
 	/**
 	 * Adds anchors to a polygon
 	 * 
-	 * @param polygon the polygon which will have anchors added to it
-	 * @param points  the points of the polygon
+	 * @param shape		the shape which will have anchors added to it
+	 * @param points	the points of the polygon
 	 * @return an ObservableList with all the anchors stored inside of them
 	 */
 	public static ObservableList<Anchor> createAnchors(Polygon shape, final ObservableList<Double> points) {

@@ -14,11 +14,12 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * DrawScene class for Gardesigner Hub
+ * DrawScene class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class DrawScene extends Scene {
 
 	public static final String HEADER_TEXT = "Draw Garden";
@@ -35,6 +36,7 @@ public class DrawScene extends Scene {
 	private static final Image WOODS_IMAGE = View.createImage("resources/forest.png");
 	private static final Image SHADE_IMAGE = View.createImage("resources/shade.png");
 	private static final Image UNDO_IMAGE = View.createImage("resources/delete.png");
+	
 
 	private static final String GARDEN_PANE_STYLE = "-fx-border-color: black;";
 

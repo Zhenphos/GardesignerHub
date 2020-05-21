@@ -5,11 +5,12 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Woods class for Gardesigner Hub
+ * Woods class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class Woods extends GardenObject implements Serializable {
 
 	/**

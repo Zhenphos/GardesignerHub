@@ -38,7 +38,7 @@ import mvc.View;
 import objects.Plant;
 
 /**
- * PlantPlacementScene class for Gardesigner Hub
+ * PlantPlacementScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -52,14 +52,14 @@ public class PlantPlacementScene extends Scene {
 	private BorderPane container;
 	private GridPane grid = new GridPane();
 
-	private static final int TOP_MIN_WIDTH = View.getCanvasWidth() - 20;
+	private static final int TOP_MIN_WIDTH = View.getCanvasWidth()-20;
 	private static final int MIN_HEIGHT = 300;
 	public static final String TEXT_LABEL_STYLE = "-fx-font: 14 arial;";
 	public static final String UNDO_BUTTON_TEXT = "Undo";
 	public static final String SELECT_TYPE = "Select Plant Type";
 	public static final int TOP_MAX_HEIGHT = 150;
-	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3 / 5;
-	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3 / 4) - 20;
+	public static final int CENTER_HEIGHT = View.getCanvasHeight() * 3/5;
+	public static final int CENTER_WIDTH = View.getCanvasWidth() * (3/4)-20;
 	public static final Insets GRID_PADDING = new Insets(10, 10, 10, 10);
 	public static final int HGAP = 5;
 	public static final int VGAP = 10;
@@ -405,7 +405,7 @@ public class PlantPlacementScene extends Scene {
 	}
 
 	/**
-	 * Overloaded version of createButton that takes the container to place the
+	 * Overloaded method of createButton that takes the container to place the
 	 * button in, the button name, and the image to place in the button
 	 * 
 	 * @param pane  the Pane to place the button in
@@ -424,6 +424,7 @@ public class PlantPlacementScene extends Scene {
 		pane.getChildren().add(box);
 		return button;
 	}
+	
 	
 	/**
 	 * Reloads the plantListView according to a given plant type
@@ -473,8 +474,7 @@ public class PlantPlacementScene extends Scene {
 	}
 	
 	/**
-	 * PlantWithImage class for Gardesigner Hub. Static class to encapsulate both
-	 * Image and Plant objects in a single object.
+	 * Static class to encapsulate both Image and Plant objects in a single object
 	 * 
 	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
 	 */

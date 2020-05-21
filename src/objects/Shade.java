@@ -5,11 +5,12 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Shade class for Gardesigner Hub
+ * Shade class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class Shade extends GardenObject implements Serializable {
 	double darknessLevel;
 	String direction;

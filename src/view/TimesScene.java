@@ -18,11 +18,12 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * TimesScene class for Gardesigner Hub
+ * TimesScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class TimesScene extends Scene {
 
 	private static final String HEADER_TEXT = "Timeline Visualization";

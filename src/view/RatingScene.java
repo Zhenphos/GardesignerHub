@@ -14,11 +14,12 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * RatingScene class for Gardesigner Hub
+ * RatingScene class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class RatingScene extends Scene {
 	
 	private static final String HEADER_TEXT = "Evaluation";
@@ -134,6 +135,7 @@ public class RatingScene extends Scene {
 	public Button getSaveButton() {
 		return this.btnSave;
 	}
+
 	
 	/**
 	 * Gets pane the garden is displayed in

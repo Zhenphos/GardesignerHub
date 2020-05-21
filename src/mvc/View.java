@@ -40,7 +40,7 @@ import view.TimesScene;
 import view.TutorialScene;
 
 /**
- * View class for Gardesigner Hub
+ * View class for Gardendesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -394,7 +394,7 @@ public class View {
 	 * Draws the map out for the user to see
 	 *
 	 * @param someObjects a collection of garden objects which make up the map
-	 * @return an ImageView of the map so the map is visible
+	 * @return an ImageView of the map so the user can see the map
 	 */
 	public ImageView generateMap(Collection<GardenObject> someObjects) {
 		return null;
@@ -403,15 +403,14 @@ public class View {
 	/**
 	 * Finds the correct image for a plant
 	 *
-	 * @param plantName the plant that will be shown in the image
-	 * @param year      the amount of years after the plant has been planted
+	 * @param image     the image which the plant will have
 	 * @param season    the season in which the plant is shown
-	 * @return an ImageView of the plant
+	 * @return a paint object which is the appearance of the plant
 	 */
 	public Paint generateImage(Image image, Season season) {
 		Paint p;
 		switch (season) {
-		case SPRING:
+		case SPRING: 
 			p = Color.YELLOW;
 			break;
 		case SUMMER:

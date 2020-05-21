@@ -5,11 +5,12 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Stream class for Gardesigner Hub
+ * Stream class for Gardendesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
+
 public class Stream extends GardenObject implements Serializable {
 
 	/**
