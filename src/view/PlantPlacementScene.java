@@ -70,29 +70,7 @@ public class PlantPlacementScene extends Scene {
 	public Controller imc;
 	private int indexOfPlant=0;
 	
-	private ArrayList<Plant> list00 = Controller.importPlants("resources/PlantData/PlantList_00.csv", PlantType.ALL);
-	private ArrayList<Plant> list01 = Controller.importPlants("resources/PlantData/PlantList_01.csv", PlantType.ALKALINE_SOIL_TOLERANT);
-	private ArrayList<Plant> list02 = Controller.importPlants("resources/PlantData/PlantList_02.csv", PlantType.BIRD_BUTTERFLY_BUG_GARDENS);
-	private ArrayList<Plant> list03 = Controller.importPlants("resources/PlantData/PlantList_03.csv", PlantType.DROUGHT_TOLERANT);
-	private ArrayList<Plant> list04 = Controller.importPlants("resources/PlantData/PlantList_04.csv", PlantType.GRASSES);
-	private ArrayList<Plant> list05 = Controller.importPlants("resources/PlantData/PlantList_05.csv", PlantType.GROUNDHOG_RESISTANT);
-	private ArrayList<Plant> list06 = Controller.importPlants("resources/PlantData/PlantList_06.csv", PlantType.LANDSCAPE_ORNAMENTALS);
-	private ArrayList<Plant> list07 = Controller.importPlants("resources/PlantData/PlantList_07.csv", PlantType.MEADOW);
-	private ArrayList<Plant> list08 = Controller.importPlants("resources/PlantData/PlantList_08.csv", PlantType.NORTH_AMERICAN_NATIVE);
-	private ArrayList<Plant> list09 = Controller.importPlants("resources/PlantData/PlantList_09.csv", PlantType.PERENNIALS);
-	private ArrayList<Plant> list10 = Controller.importPlants("resources/PlantData/PlantList_10.csv", PlantType.PHYTOREMEDIATION);
-	private ArrayList<Plant> list11 = Controller.importPlants("resources/PlantData/PlantList_11.csv", PlantType.RABBIT_RESISTANT);
-	private ArrayList<Plant> list12 = Controller.importPlants("resources/PlantData/PlantList_12.csv", PlantType.RAIN_GARDENS);
-	private ArrayList<Plant> list13 = Controller.importPlants("resources/PlantData/PlantList_13.csv", PlantType.RESTORATION_CONSERVATION);
-	private ArrayList<Plant> list14 = Controller.importPlants("resources/PlantData/PlantList_14.csv", PlantType.ROOFTOP_GARDEN_PLANT);
-	private ArrayList<Plant> list15 = Controller.importPlants("resources/PlantData/PlantList_15.csv", PlantType.SHRUB);
-	private ArrayList<Plant> list16 = Controller.importPlants("resources/PlantData/PlantList_16.csv", PlantType.SOIL_STABILIZATION);
-	private ArrayList<Plant> list17 = Controller.importPlants("resources/PlantData/PlantList_17.csv", PlantType.STORMWATER_MANAGEMENT);
-	private ArrayList<Plant> list18 = Controller.importPlants("resources/PlantData/PlantList_18.csv", PlantType.VINES);
-	private ArrayList<Plant> list19 = Controller.importPlants("resources/PlantData/PlantList_19.csv", PlantType.WETLANDS);
-	private ArrayList<Plant> list20 = Controller.importPlants("resources/PlantData/PlantList_20.csv", PlantType.WOODLAND);
-	
-	private ArrayList<Plant> masterList = new ArrayList<>();
+	private ArrayList<Plant> masterList = createMasterList();
 	
 	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
@@ -118,6 +96,22 @@ public class PlantPlacementScene extends Scene {
 	private Label phytoLabel  = createLabel("");
 	private Label seasonLabel  = createLabel("");
 	private Label wildlifeLabel  = createLabel("");
+	
+	/**
+	 * Creates the master list of plants
+	 * 
+	 * @return the master list of plants
+	 */
+	public ArrayList<Plant> createMasterList() {
+		ArrayList<Plant> tempList = new ArrayList<Plant>();
+
+		for (PlantType type : PlantType.values()) {
+			tempList.addAll(
+					Controller.importPlants("resources/PlantData/PlantList_" + type.getCSVNum(type) + ".csv", type));
+		}
+
+		return tempList;
+	}
 
 	/**
 	 * Gets the common name label
@@ -211,28 +205,6 @@ public class PlantPlacementScene extends Scene {
 	 * plants onto the garden space they drew previously.
 	 */
 	public void placePlant() {
-		masterList.addAll(list00);
-		masterList.addAll(list01);
-		masterList.addAll(list02);
-		masterList.addAll(list03);
-		masterList.addAll(list04);
-		masterList.addAll(list05);
-		masterList.addAll(list06);
-		masterList.addAll(list07);
-		masterList.addAll(list08);
-		masterList.addAll(list09);
-		masterList.addAll(list10);
-		masterList.addAll(list11);
-		masterList.addAll(list12);
-		masterList.addAll(list13);
-		masterList.addAll(list14);
-		masterList.addAll(list15);
-		masterList.addAll(list16);
-		masterList.addAll(list17);
-		masterList.addAll(list18);
-		masterList.addAll(list19);
-		masterList.addAll(list20);
-		
 		Canvas drawCanvas = new Canvas(View.getCanvasWidth(), View.getCanvasHeight());
 		GraphicsContext drawGC;
 		root.getChildren().add(drawCanvas);
