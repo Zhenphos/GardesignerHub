@@ -181,4 +181,11 @@ public class Anchor extends Circle implements Serializable {
 	private class Delta {
 		double x, y;
 	}
+
+	/**
+	 * @return the anchors
+	 */
+	public ArrayList<Anchor> getAnchors() {
+		return anchors;
+	}
 }

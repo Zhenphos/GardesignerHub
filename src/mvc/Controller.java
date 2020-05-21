@@ -76,29 +76,6 @@ public class Controller extends Application {
 	}
 
 	/**
-	 * Imports plant images into an ArrayList
-	 * 
-	 * @return an ArrayList of plant ImageViews
-	 */
-	public static ArrayList<Image> importImages() {
-		ArrayList<Image> images = new ArrayList<>();
-
-		File directory = new File("resources/plant-images");
-
-		File[] f = directory.listFiles();
-		
-		for (File file : f) {
-			if (file != null && file.getName().toLowerCase().endsWith(".jpg")) {
-				images.add(View.createImage("resources/plant-images/" + file.getName(), 100, 100, true, true));
-
-			}
-		}
-				
-		return images;
-	}
-
-
-	/**
 	 * Imports plant data
 	 * 
 	 * @return an ArrayList of plants

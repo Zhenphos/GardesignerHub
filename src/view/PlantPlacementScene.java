@@ -72,7 +72,6 @@ public class PlantPlacementScene extends Scene {
 	
 	private ArrayList<Plant> masterList = createMasterList();
 	
-	private ArrayList<Image> plantImages = Controller.importImages();
 	ListView<PlantWithImage> plantListView = new ListView<PlantWithImage>();
 
 	private Label error = createLabel("");
@@ -539,15 +538,6 @@ public class PlantPlacementScene extends Scene {
 	 */
 	public void setIndexOfPlant(int index) {
 		indexOfPlant = index;
-	}
-
-	/**
-	 * Gets a list of all plant images
-	 * 
-	 * @return an ArrayList of all the plant images
-	 */
-	public ArrayList<Image> getPlantImages() {
-		return plantImages;
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 import objects.Anchor;
 
@@ -20,8 +21,15 @@ public class AnchorTest { // TODO update
 	
 	@Test
 	public void testSetCommon() {
-		//ArrayList<Anchor> someAnchors = new ArrayList<Anchor>();
-		//assertEquals(someAnchors., actual);
+		/*
+		ArrayList<Anchor> someAnchors = new ArrayList<Anchor>();
+		Color testColor = new Color(5, 5, 5, 10);
+		DoubleProperty testProp = null;
+		Anchor testAnchor = new Anchor(testColor, testProp, testProp);
+		
+		testAnchor.setCommon(someAnchors);*/
+		//assertEquals(testAnchor.getAnchors(), someAnchors);
+		assertEquals(5, 10);
 	}
 	
 	@Test

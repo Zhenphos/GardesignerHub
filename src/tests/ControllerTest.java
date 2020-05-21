@@ -9,17 +9,6 @@ import org.junit.Test;
  *
  */
 public class ControllerTest { // TODO update - not sure if most of these are needed
-
-	@Test
-	public void importImagesTest() {
-		
-	}
-	
-	@Test
-	public void importPlantsTest() {
-		
-	}
-	
 	@Test
 	public void onMainMenuNewTest() {
 		
@@ -89,6 +78,4 @@ public class ControllerTest { // TODO update - not sure if most of these are nee
 	public void onDrawWoodsTest() {
 		
 	}
-	
-	// TODO continue updating
 }
