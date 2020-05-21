@@ -247,8 +247,9 @@ public class Controller extends Application {
 						saltTolerance, seasonsOfInterest, phytoremediations, plantType));
 			}
 		} catch (IOException e) {
-			e.printStackTrace(); // TODO add proper error handling
+			e.printStackTrace();
 		}
+		
 		return plantList;
 	}
 
@@ -850,8 +851,6 @@ public class Controller extends Application {
 	 */
 	public String generateRecommendation() {
 		String recommendations = "";
-		boolean phMatch = true;
-		PlantType plantType;
 		Double userPH = model.getSoilPH();
 
 		ArrayList<Plant> plantObjects = model.getPlantObjects();
@@ -866,37 +865,32 @@ public class Controller extends Application {
 		}
 
 		for (Plant somePlant : plantObjects) {
-			plantType = somePlant.getType();
-			
-			if (plantType == PlantType.BIRD_BUTTERFLY_BUG_GARDENS) {
-			}
-			
 			if (model.getDeer().equalsIgnoreCase("yes")) {
 				if (somePlant.isDeerResistant() == false) {
 					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
 							+ " (" + somePlant.getCommonName() + ")\n";
 				}
 			}
-			
+
 			if (model.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
 					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
 				recommendations += "Warning: A plant may receive too much rain - " + somePlant.getBotanicalName() + " ("
 						+ somePlant.getCommonName() + ")\n";
 			}
-			
+
 			if (!(model.getRain() < 0) && model.getRain() < 2.0
 					&& somePlant.getSoilMoisturePreference().contains("Moist")
 					&& !somePlant.getSoilMoisturePreference().contains("Dry")) {
 				recommendations += "Warning: A plant may not receive enough rain - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
-			
+
 			if (!(model.getLight() < 0) && model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
 					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
 				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
-			
+
 			if (!(model.getLight() < 0) && model.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
 					&& somePlant.getSunlightExposure().contains("Shade")) {
 				recommendations += "Warning: A plant may get too much sunlight - " + somePlant.getBotanicalName() + " ("
@@ -904,8 +898,7 @@ public class Controller extends Application {
 			}
 		}
 
-		if (plantObjects.size() == 0
-				|| model.getGardenObjects().size() - plantObjects.size() == 0) {
+		if (plantObjects.size() == 0 || model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
 		}
 

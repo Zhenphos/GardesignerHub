@@ -55,7 +55,7 @@ public class Anchor extends Circle implements Serializable {
 	 * @param x     the x-coordinate of the anchor
 	 * @param y     the y-coordinate of the anchor
 	 */
-    Anchor(Color color, DoubleProperty x, DoubleProperty y) {
+    public Anchor(Color color, DoubleProperty x, DoubleProperty y) {
         super(x.get(), y.get(), 10);
         setFill(color.deriveColor(1, 1, 1, 0.5));
         setStroke(color);

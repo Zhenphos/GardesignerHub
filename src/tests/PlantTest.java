@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 import enums.PlantType;
@@ -15,7 +17,7 @@ import objects.Plant;
  *
  */
 public class PlantTest { // TODO update
-	String plantBotanicalName = "name";
+	String botanicalName = "name";
 	int heightMinInches = 0;
 	int heightMaxInches = 0;
 	int spreadMin = 0;
@@ -36,7 +38,7 @@ public class PlantTest { // TODO update
 	String growthRate = "1";
 	String saltTolerance = "1";
 	String[] seasonsOfInterest = { "July" };
-	String[] phytoremediationElementsCleaned = { "element" };
+	String[] elementsCleaned = { "element" };
 	PlantType type = PlantType.ALL;
 	
 	/**
@@ -45,11 +47,11 @@ public class PlantTest { // TODO update
 	@Test
 	public void testPlant() {	
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
-				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
-				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
-		assertEquals(plant.getBotanicalName(), plantBotanicalName);
+		assertEquals(plant.getBotanicalName(), botanicalName);
 		assertEquals(plant.getHeightMinInches(), heightMinInches);
 		assertEquals(plant.getHeightMaxInches(), heightMaxInches);
 		assertEquals(plant.getSpreadMin(), spreadMin);
@@ -71,13 +73,13 @@ public class PlantTest { // TODO update
 		assertEquals(plant.getSaltTolerance(), saltTolerance);
 		assertEquals(plant.getSeasonsOfInterest(), Controller.ArrayOfStrings(seasonsOfInterest));
 		assertEquals(plant.getPhytoremediationElementsCleaned(),
-				Controller.ArrayOfStrings(phytoremediationElementsCleaned));
+				Controller.ArrayOfStrings(elementsCleaned));
 		assertEquals(plant.getType(), type);
 		
 		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
-				plantBotanicalName, spacingMax, spacingMin, spreadMax, -1, commonName, soilMoisturePreference,
+				botanicalName, spacingMax, spacingMin, spreadMax, -1, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
-				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
 		assertEquals(plant2.getSpacingMin(), spacingMin);
 	}
@@ -91,10 +93,10 @@ public class PlantTest { // TODO update
 		assertEquals(null, emptyPlant.toString());
 		
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
-				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
-				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
-		assertEquals(plant.toString(), plantBotanicalName);
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		assertEquals(plant.toString(), botanicalName);
 	}
 	
 	@Test
@@ -102,7 +104,9 @@ public class PlantTest { // TODO update
 	 * Tests changePlantSize(double)
 	 */
 	public void testChangePlantSize() {
-		
+		Plant testPlant = new Plant();
+		testPlant.changePlantSize(10);
+		assertEquals(5, 20);
 	}
 	
 	@Test
@@ -111,9 +115,9 @@ public class PlantTest { // TODO update
 	 */
 	public void testCopyOfPlant() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
-				plantBotanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
-				growthRate, saltTolerance, seasonsOfInterest, phytoremediationElementsCleaned, type);
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
 		assertEquals(plant.getBotanicalName(), plant.copyOfPlant().getBotanicalName());
 		assertEquals(plant.getHeightMinInches(), plant.copyOfPlant().getHeightMinInches());
@@ -132,7 +136,24 @@ public class PlantTest { // TODO update
 	 * Tests returnDetailedInfo()
 	 */
 	public void testReturnDetailedInfo() {
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
+		String info = "Plant [bloomColors=" + bloomColors + ", commonName=" + commonName + ", deerResistant=" + deerResistant
+				+ ", floweringMonths=" + Arrays.toString(floweringMonths) + ", foliageColor=" + foliageColor
+				+ ", growthRate=" + growthRate + ", hardinessMax=" + hardinessMax + ", hardinessMin=" + hardinessMin
+				+ ", heightMaxInches=" + heightMaxInches + ", heightMinInches=" + heightMinInches + ", otherAttributes="
+				+ Arrays.toString(otherAttributes) + ", phytoremediationElementsCleaned="
+				+ Arrays.toString(elementsCleaned) + ", plantBotanicalName=" + botanicalName + ", saltTolerance="
+				+ saltTolerance + ", seasonsOfInterest=" + Arrays.toString(seasonsOfInterest)
+				+ ", soilMoisturePreference=" + soilMoisturePreference + ", spacingMax=" + spacingMax + ", spacingMin="
+				+ spacingMin + ", spreadMax=" + spreadMax + ", spreadMin=" + spreadMin + ", sunlightExposure="
+				+ sunlightExposure + ", type=" + type + ", wildlifeAttracted=" + Arrays.toString(wildlifeAttracted)
+				+ ", type=" + type + "]";
+		
+		assertEquals(plant.returnDetailedInfo(), info);
 	}
 	
 	@Test
@@ -140,7 +161,20 @@ public class PlantTest { // TODO update
 	 * Tests overridden hashCode()
 	 */
 	public void testHashCode() {
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
+		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		int testCode = plant.hashCode();
+		int testCode2 = plant2.hashCode();
+		
+		assertEquals(testCode, testCode2);
 	}
 	
 	@Test
@@ -148,6 +182,18 @@ public class PlantTest { // TODO update
 	 * Tests the overridden equals(Object)
 	 */
 	public void testEquals() {
+		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
 		
+		Plant plant2 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		boolean equals = plant.equals(plant2);
+		
+		assertEquals(equals, true);
 	}
 }
