@@ -13,13 +13,6 @@ public abstract class GardenObject implements Serializable {
 	DrawShape shape;
 	double xLoc;
 	double yLoc;
-
-	/**
-	 * Creates a GardenObject of a specific shape
-	 */
-	public void makeShape() {
-
-	}
 	
 	/**
 	 * Gets the shape of a garden object
