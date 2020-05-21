@@ -425,5 +425,4 @@ public class Plant extends GardenObject implements Serializable {
 			return false;
 		return true;
 	}
-
 }

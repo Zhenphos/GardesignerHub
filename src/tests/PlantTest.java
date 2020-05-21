@@ -9,6 +9,7 @@ import org.junit.Test;
 import enums.PlantType;
 import mvc.Controller;
 import objects.Plant;
+import objects.Shade;
 
 /**
  * PlantTest for Gardesigner Hub. Tests Plant class.
@@ -195,5 +196,29 @@ public class PlantTest { // TODO update
 		boolean equals = plant.equals(plant2);
 		
 		assertEquals(equals, true);
+		
+		Plant plant3 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		Plant plant4 = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
+				"asdsadsadsada", spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
+				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
+				growthRate, saltTolerance, seasonsOfInterest, elementsCleaned, type);
+		
+		boolean equals2 = plant3.equals(plant4);
+		
+		assertEquals(equals2, false);
+		
+		Plant nullPlant = null;
+		boolean equals3 = plant4.equals(nullPlant);
+		assertEquals(equals3, false);
+		
+		boolean equals4 = plant4.equals(plant4);
+		assertEquals(equals4, true);
+		
+		boolean equals5 = plant4.equals(new Shade());
+		assertEquals(equals5, false);
 	}
 }
