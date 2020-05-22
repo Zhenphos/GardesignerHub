@@ -830,7 +830,8 @@ public class Controller extends Application {
 	}
 	
 	/**
-	 * Generates recommendations for the garden based on garden attributes and plants
+	 * Generates recommendations for the garden based on garden attributes and
+	 * plants
 	 * 
 	 * @return the String holding the recommendation for the garden
 	 */
@@ -851,7 +852,6 @@ public class Controller extends Application {
 		}
 
 		for (Plant somePlant : plantObjects) {
-
 			if (model.getDeer().equalsIgnoreCase("yes")) {
 				if (somePlant.isDeerResistant() == false) {
 					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
@@ -887,25 +887,7 @@ public class Controller extends Application {
 
 		if (plantObjects.size() == 0 || model.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
-		} // 0 rating for no plants}
-		else {
-			rating += 2;
 		}
-
-		if (phMatch) {
-			rating++;
-		} else {
-			rating--;
-		}
-		
-		/*
-		if (bugFriendly) {
-			recommendations += "Your garden attract bugs/butterflies. +1\n";
-			rating++;
-		} else {
-			rating--;
-			recommendations += "Your garden doesn't attract bugs or butterflies.\n";
-		}*/
 
 		return recommendations;
 	}
