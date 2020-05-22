@@ -837,11 +837,8 @@ public class Controller extends Application {
 	 */
 	public String generateRecommendation() {
 		String recommendations = "";
-
 		Double userPH = model.getSoilPH();
-
 		ArrayList<Plant> plantObjects = model.getPlantObjects();
-		System.out.println(plantObjects);
 
 		if (userPH > 7) {
 			recommendations += "Note: You have an alkaline garden pH. ";
