@@ -2,12 +2,14 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Test;
 
 import mvc.Model;
 import objects.GardenObject;
+import objects.Plant;
 
 /**
  * ModelTest for Gardesigner Hub. Tests Model class.
@@ -94,7 +96,14 @@ public class ModelTest { // TODO update
 	 * Tests getPlantObjects()
 	 */
 	public void testGetPlantObjects() {
+		Plant testPlant = new Plant();
+		Model testModel = new Model();
+		testModel.addGardenObject(testPlant);
+		testModel.addGardenObject(testPlant);
+		testModel.addGardenObject(testPlant);
 		
+		ArrayList<Plant> testList = testModel.getPlantObjects();
+		assertEquals(testList.size(), 3);
 	}
 	
 	@Test
@@ -102,11 +111,14 @@ public class ModelTest { // TODO update
 	 * Tests addGardenObject(GardenObject)
 	 */
 	public void testAddGardenObject() {
-		//Plant p = new Plant();
-		Model m = new Model();
-		Collection<GardenObject> c = m.getGardenObjects();
-		//m.addGardenObject(p);
-		assertEquals(c.size(), c.size() + 1);
+		Plant testPlant = new Plant();
+		Model testModel = new Model();
+		Collection<GardenObject> testCollection = testModel.getGardenObjects();
+		int startSize = testCollection.size();
+		testModel.addGardenObject(testPlant);
+		int expectedFinishSize = startSize + 1;
+				
+		assertEquals(testCollection.size(), expectedFinishSize);
 	}
 	
 	@Test
@@ -114,11 +126,15 @@ public class ModelTest { // TODO update
 	 * Tests removeGardenObject(GardenObject)
 	 */
 	public void testRemoveGardenObject() {
-		//Plant p = new Plant();
-		Model m = new Model();
-		//m.removeGardenObject(p);
-		//assertNull("Should be null", p);
-
+		Plant testPlant = new Plant();
+		Model testModel = new Model();
+		Collection<GardenObject> testCollection = testModel.getGardenObjects();
+		testModel.addGardenObject(testPlant);
+		int startSize = testCollection.size();
+		testModel.removeGardenObject(testPlant);
+		int expectedFinishSize = startSize - 1;
+				
+		assertEquals(testCollection.size(), expectedFinishSize);
 	}
 	
 	@Test
