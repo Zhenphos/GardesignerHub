@@ -17,90 +17,90 @@ import objects.GardenObject;
  */
 public class ModelTest { // TODO update
 
-	@Test
 	/**
 	 * Tests width setters and getters
 	 */
+	@Test
 	public void testWidth() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests length setters and getters
 	 */
+	@Test
 	public void testLength() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests light setters and getters
 	 */
+	@Test
 	public void testLight() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests rain setters and getters
 	 */
+	@Test
 	public void testRain() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests deer setters and getters
 	 */
+	@Test
 	public void testDeer() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests soil pH setters and getters
 	 */
+	@Test
 	public void testSoilPH() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests age setters and getters
 	 */
+	@Test
 	public void testAge() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests season setters and getters
 	 */
+	@Test
 	public void testSeason() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests getGardenObjects()
 	 */
+	@Test
 	public void testGetGardenObjects() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests getPlantObjects()
 	 */
+	@Test
 	public void testGetPlantObjects() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests addGardenObject(GardenObject)
 	 */
+	@Test
 	public void testAddGardenObject() {
 		//Plant p = new Plant();
 		Model m = new Model();
@@ -109,10 +109,10 @@ public class ModelTest { // TODO update
 		assertEquals(c.size(), c.size() + 1);
 	}
 	
-	@Test
 	/**
 	 * Tests removeGardenObject(GardenObject)
 	 */
+	@Test
 	public void testRemoveGardenObject() {
 		//Plant p = new Plant();
 		Model m = new Model();
@@ -121,18 +121,18 @@ public class ModelTest { // TODO update
 
 	}
 	
-	@Test
 	/**
 	 * Tests x setters and getters
 	 */
+	@Test
 	public void testX() {
 		
 	}
 	
-	@Test
 	/**
 	 * Tests y setters and getters
 	 */
+	@Test
 	public void testY() {
 		
 	}

@@ -15,28 +15,28 @@ import objects.Shade;
  */
 public class ShadeTest {
 
-	@Test
 	/**
 	 * Tests Shade constructor
 	 */
+	@Test
 	public void testMakeShape() {
 		Shade shade = new Shade();
 		assertEquals(shade.getShape().getPolygon().getFill(), Color.GREY);
 	}
 
-	@Test
 	/**
 	 * Tests getX
 	 */
+	@Test
 	public void getXTest() {
 		Shade shade = new Shade();
 		assertEquals(shade.getX(), 0, .1);
 	}
 	
-	@Test
 	/**
 	 * Tests getY
 	 */
+	@Test
 	public void getYTest() {
 		Shade shade = new Shade();
 		assertEquals(shade.getY(), 0, .1);

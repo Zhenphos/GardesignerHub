@@ -15,10 +15,10 @@ import objects.Road;
  */
 public class RoadTest {
 
-	@Test
 	/**
 	 * Tests Road constructor
 	 */
+	@Test
 	public void testMakeShape() {
 		Road road = new Road();
 		assertEquals(road.getShape().getPolygon().getFill(), Color.LIGHTYELLOW);

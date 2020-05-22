@@ -15,10 +15,10 @@ import objects.Woods;
  */
 public class WoodsTest {
 
-	@Test
 	/**
 	 * Tests Woods constructor
 	 */
+	@Test
 	public void testMakeShape() {
 		Woods woods = new Woods();
 		assertEquals(woods.getShape().getPolygon().getFill(), Color.FORESTGREEN);

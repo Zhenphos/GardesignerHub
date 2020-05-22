@@ -18,7 +18,7 @@ import objects.Shade;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-public class PlantTest { // TODO update
+public class PlantTest {
 	String botanicalName = "name";
 	int heightMinInches = 0;
 	int heightMaxInches = 0;
@@ -86,10 +86,10 @@ public class PlantTest { // TODO update
 		assertEquals(plant2.getSpacingMin(), spacingMin);
 	}
 	
-	@Test
 	/**
 	 * Tests the overridden toString()
 	 */
+	@Test
 	public void testToString() {
 		Plant emptyPlant = new Plant();
 		assertEquals(null, emptyPlant.toString());
@@ -101,20 +101,20 @@ public class PlantTest { // TODO update
 		assertEquals(plant.toString(), botanicalName);
 	}
 	
-	@Test
 	/**
 	 * Tests changePlantSize(double)
 	 */
+	@Test
 	public void testChangePlantSize() {
 		Plant testPlant = new Plant();
 		testPlant.changePlantSize(10);
 		assertEquals(5, 20);
 	}
 	
-	@Test
 	/**
 	 * Tests copyOfPlant()
 	 */
+	@Test
 	public void testCopyOfPlant() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
@@ -133,10 +133,10 @@ public class PlantTest { // TODO update
 		assertEquals(plant.getBloomColors(), plant.copyOfPlant().getBloomColors());
 	}
 	
-	@Test
 	/**
 	 * Tests returnDetailedInfo()
 	 */
+	@Test
 	public void testReturnDetailedInfo() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
@@ -158,10 +158,10 @@ public class PlantTest { // TODO update
 		assertEquals(plant.returnDetailedInfo(), info);
 	}
 	
-	@Test
 	/**
 	 * Tests overridden hashCode()
 	 */
+	@Test
 	public void testHashCode() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
@@ -194,10 +194,10 @@ public class PlantTest { // TODO update
 		assertNotEquals(testCode3, testCode4);
 	}
 	
-	@Test
 	/**
 	 * Tests the overridden equals(Object)
 	 */
+	@Test
 	public void testEquals() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
