@@ -24,4 +24,21 @@ public class RoadTest {
 		assertEquals(road.getShape().getPolygon().getFill(), Color.LIGHTYELLOW);
 	}
 
+	/**
+	 * Tests getX
+	 */
+	@Test
+	public void getXTest() {
+		Road road = new Road();
+		assertEquals(road.getX(), 0, .1);
+	}
+	
+	/**
+	 * Tests getY
+	 */
+	@Test
+	public void getYTest() {
+		Road road = new Road();
+		assertEquals(road.getY(), 0, .1);
+	}
 }

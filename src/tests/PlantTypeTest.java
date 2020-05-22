@@ -18,7 +18,7 @@ import enums.PlantType;
 public class PlantTypeTest {
 	
 	/**
-	 * Tests 
+	 * Tests get(int)
 	 */
 	@Test
 	public void getTest() {
@@ -27,7 +27,7 @@ public class PlantTypeTest {
 	}
 	
 	/**
-	 * 
+	 * Tests getCSVNum(PlantType)
 	 */
 	@Test
 	public void getCSVNumTest() {

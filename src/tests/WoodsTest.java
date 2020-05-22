@@ -24,4 +24,21 @@ public class WoodsTest {
 		assertEquals(woods.getShape().getPolygon().getFill(), Color.FORESTGREEN);
 	}
 
+	/**
+	 * Tests getX
+	 */
+	@Test
+	public void getXTest() {
+		Woods woods = new Woods();
+		assertEquals(woods.getX(), 0, .1);
+	}
+	
+	/**
+	 * Tests getY
+	 */
+	@Test
+	public void getYTest() {
+		Woods woods = new Woods();
+		assertEquals(woods.getY(), 0, .1);
+	}
 }

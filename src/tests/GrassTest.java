@@ -24,4 +24,21 @@ public class GrassTest {
 		assertEquals(grass.getShape().getPolygon().getFill(), Color.LAWNGREEN);
 	}
 	
+	/**
+	 * Tests getX
+	 */
+	@Test
+	public void getXTest() {
+		Grass grass = new Grass();
+		assertEquals(grass.getX(), 0, .1);
+	}
+	
+	/**
+	 * Tests getY
+	 */
+	@Test
+	public void getYTest() {
+		Grass grass = new Grass();
+		assertEquals(grass.getY(), 0, .1);
+	}
 }

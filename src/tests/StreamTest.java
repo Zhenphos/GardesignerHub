@@ -24,4 +24,21 @@ public class StreamTest {
 		assertEquals(stream.getShape().getPolygon().getFill(), Color.LIGHTBLUE);
 	}
 
+	/**
+	 * Tests getX
+	 */
+	@Test
+	public void getXTest() {
+		Stream stream = new Stream();
+		assertEquals(stream.getX(), 0, .1);
+	}
+	
+	/**
+	 * Tests getY
+	 */
+	@Test
+	public void getYTest() {
+		Stream stream = new Stream();
+		assertEquals(stream.getY(), 0, .1);
+	}
 }

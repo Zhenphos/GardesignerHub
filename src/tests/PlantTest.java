@@ -47,7 +47,7 @@ public class PlantTest {
 	 * Tests the plant constructor and, by extension, the getters.
 	 */
 	@Test
-	public void testPlant() {	
+	public void plantTest() {	
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -90,7 +90,7 @@ public class PlantTest {
 	 * Tests the overridden toString()
 	 */
 	@Test
-	public void testToString() {
+	public void toStringTest() {
 		Plant emptyPlant = new Plant();
 		assertEquals(null, emptyPlant.toString());
 		
@@ -105,7 +105,7 @@ public class PlantTest {
 	 * Tests changePlantSize(double)
 	 */
 	@Test
-	public void testChangePlantSize() {
+	public void changePlantSizeTest() {
 		Plant testPlant = new Plant();
 		testPlant.changePlantSize(10);
 		assertEquals(5, 20);
@@ -115,7 +115,7 @@ public class PlantTest {
 	 * Tests copyOfPlant()
 	 */
 	@Test
-	public void testCopyOfPlant() {
+	public void copyOfPlantTest() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -137,7 +137,7 @@ public class PlantTest {
 	 * Tests returnDetailedInfo()
 	 */
 	@Test
-	public void testReturnDetailedInfo() {
+	public void returnDetailedInfoTest() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -162,7 +162,7 @@ public class PlantTest {
 	 * Tests overridden hashCode()
 	 */
 	@Test
-	public void testHashCode() {
+	public void hashCodeTest() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
@@ -198,7 +198,7 @@ public class PlantTest {
 	 * Tests the overridden equals(Object)
 	 */
 	@Test
-	public void testEquals() {
+	public void equalsTest() {
 		Plant plant = new Plant(bloomColors, hardinessMax, hardinessMin, heightMaxInches, heightMinInches,
 				botanicalName, spacingMax, spacingMin, spreadMax, spreadMin, commonName, soilMoisturePreference,
 				sunlightExposure, floweringMonths, wildlifeAttracted, otherAttributes, deerResistant, foliageColor,
