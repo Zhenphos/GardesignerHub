@@ -88,7 +88,14 @@ public class ModelTest { // TODO update
 	 * Tests getGardenObjects()
 	 */
 	public void testGetGardenObjects() {
+		Plant testPlant = new Plant();
+		Model testModel = new Model();
+		testModel.addGardenObject(testPlant);
+		testModel.addGardenObject(testPlant);
+		testModel.addGardenObject(testPlant);
 		
+		ArrayList<GardenObject> testList = testModel.getGardenObjects();
+		assertEquals(testList.size(), 3);
 	}
 	
 	@Test
