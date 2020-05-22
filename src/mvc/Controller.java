@@ -229,8 +229,8 @@ public class Controller extends Application {
 		return plantList;
 	}
 
-	private Model model;
-	private View view;
+	private Model gardenModel;
+	private View gardenView;
 	private PlantPlacementScene pps;
 
 	private static final boolean DEBUG = false;
@@ -250,7 +250,7 @@ public class Controller extends Application {
 	 */
 	public Controller(PlantPlacementScene pps) {
 		this.pps = pps;
-		model = new Model();
+		gardenModel = new Model();
 		if (DEBUG)
 			System.out.println("PlantPlacementScene created");
 	}
@@ -263,8 +263,8 @@ public class Controller extends Application {
 	@Override
 	public void start(Stage theStage) throws Exception {
 		System.out.println(theStage);
-		view = new View(theStage, this);
-		model = new Model();
+		gardenView = new View(theStage, this);
+		gardenModel = new Model();
 		theStage.show();
 	}
 
@@ -272,21 +272,21 @@ public class Controller extends Application {
 	 * Event handler for when the user presses the new button on the main menu scene
 	 */
 	public void onMainMenuNew() {
-		this.view.setScreen(Names.GARDEN_INFO);
+		this.gardenView.setScreen(Names.GARDEN_INFO);
 	}
 
 	/**
 	 * Event handler for when the user presses the help button on the MainMenuScene
 	 */
 	public void onMainMenuHelp() {
-		this.view.setScreen(Names.TUTORIAL);
+		this.gardenView.setScreen(Names.TUTORIAL);
 	}
 
 	/**
 	 * Event handler for when the user presses the load button on the MainMenuScene
 	 */
 	public void onMainMenuLoad() {
-		this.view.setScreen(Names.LOADING);
+		this.gardenView.setScreen(Names.LOADING);
 	}
 
 	/**
@@ -294,11 +294,11 @@ public class Controller extends Application {
 	 * GardenInfoscene
 	 */
 	public void onGardenInfoPrev() {
-		Optional<ButtonType> response = this.view.showDiscardDialog();
+		Optional<ButtonType> response = this.gardenView.showDiscardDialog();
 		if (response.isPresent() && response.get() == ButtonType.OK) {
-			GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
+			GardenInfoScene scene = (GardenInfoScene) this.gardenView.getScene(Names.GARDEN_INFO);
 			scene.clearTextFields();
-			this.view.setScreen(Names.MAIN_MENU);
+			this.gardenView.setScreen(Names.MAIN_MENU);
 		}
 	}
 
@@ -307,34 +307,34 @@ public class Controller extends Application {
 	 * GardenInfoScene
 	 */
 	public void onGardenInfoNext() {
-		GardenInfoScene scene = (GardenInfoScene) this.view.getScene(Names.GARDEN_INFO);
+		GardenInfoScene scene = (GardenInfoScene) this.gardenView.getScene(Names.GARDEN_INFO);
 		try {
-			this.model.setWidth((int) Double.parseDouble(scene.getWidthTextfield().getText()));
-			this.model.setLength((int) Double.parseDouble(scene.getHeightTextfield().getText()));
+			this.gardenModel.setWidth((int) Double.parseDouble(scene.getWidthTextfield().getText()));
+			this.gardenModel.setLength((int) Double.parseDouble(scene.getHeightTextfield().getText()));
 			if (scene.getSunlightTextfield().getText().isEmpty()) {
-				this.model.setLight(-1);
+				this.gardenModel.setLight(-1);
 			} else {
-				this.model.setLight((int) Double.parseDouble(scene.getSunlightTextfield().getText()));
+				this.gardenModel.setLight((int) Double.parseDouble(scene.getSunlightTextfield().getText()));
 			}
 			if (scene.getRainTextfield().getText().isEmpty()) {
-				this.model.setRain(-1);
+				this.gardenModel.setRain(-1);
 			} else {
-				this.model.setRain((int) Double.parseDouble(scene.getRainTextfield().getText()));
+				this.gardenModel.setRain((int) Double.parseDouble(scene.getRainTextfield().getText()));
 			}
 			if (scene.getSoilPHTextfield().getText().isEmpty()) {
-				this.model.setSoilPH(-1);
+				this.gardenModel.setSoilPH(-1);
 			} else {
-				this.model.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
+				this.gardenModel.setSoilPH(Double.parseDouble(scene.getSoilPHTextfield().getText()));
 			}
 			if (scene.getTempTextfield().getText().isEmpty()) {
-				this.model.setDeer("");
+				this.gardenModel.setDeer("");
 			} else {
-				this.model.setDeer(scene.getTempTextfield().getText());
+				this.gardenModel.setDeer(scene.getTempTextfield().getText());
 			}
-			this.view.setScreen(Names.DRAW);
-			this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
+			this.gardenView.setScreen(Names.DRAW);
+			this.gardenView.drawEditMap(((DrawScene) gardenView.getScene(Names.DRAW)).getGardenPane());
 		} catch (NumberFormatException e) {
-			this.view.showInvalidInputAlert();
+			this.gardenView.showInvalidInputAlert();
 		}
 	}
 
@@ -343,8 +343,8 @@ public class Controller extends Application {
 	 * PlantPlacementScene
 	 */
 	public void onPlantPlacementPrev() {
-		this.view.setScreen(Names.DRAW);
-		this.view.drawEditMap(((DrawScene) view.getScene(Names.DRAW)).getGardenPane());
+		this.gardenView.setScreen(Names.DRAW);
+		this.gardenView.drawEditMap(((DrawScene) gardenView.getScene(Names.DRAW)).getGardenPane());
 	}
 	
 	/**
@@ -352,9 +352,8 @@ public class Controller extends Application {
 	 * PlantPlacementScene
 	 */
 	public void onPlantPlacementNext() {
-		this.view.setScreen(Names.TIMES);
-		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
-		// System.out.print(calculateRating());
+		this.gardenView.setScreen(Names.TIMES);
+		this.gardenView.drawMap(((TimesScene) gardenView.getScene(Names.TIMES)).getGardenPane());
 	}
 
 	/**
@@ -362,23 +361,23 @@ public class Controller extends Application {
 	 * TutorialScene
 	 */
 	public void onTutorialPrev() {
-		this.view.setScreen(Names.MAIN_MENU);
+		this.gardenView.setScreen(Names.MAIN_MENU);
 	}
 
 	/**
 	 * Event handler for when the user presses the previous button on the DrawScene
 	 */
 	public void onDrawPrev() {
-		this.view.setScreen(Names.GARDEN_INFO);
+		this.gardenView.setScreen(Names.GARDEN_INFO);
 	}
 
 	/**
 	 * Event handler for when the user presses the next button on the DrawScene
 	 */
 	public void onDrawNext() {
-		this.view.setScreen(Names.PLANT_PLACEMENT);
-		this.view.showInformationAlert();
-		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
+		this.gardenView.setScreen(Names.PLANT_PLACEMENT);
+		this.gardenView.showInformationAlert();
+		this.gardenView.drawMap(((PlantPlacementScene) gardenView.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
 		
 	}
 
@@ -386,10 +385,10 @@ public class Controller extends Application {
 	 * Creates a polygon for grass and adds it to the garden model
 	 */
 	public void onDrawGrass() {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Grass grass = new Grass();
 		Polygon polygon = grass.getShape().getPolygon();
-		this.model.addGardenObject(grass);
+		this.gardenModel.addGardenObject(grass);
 		createDrawPolyDraggable(scene, polygon);
 	}
 
@@ -397,10 +396,10 @@ public class Controller extends Application {
 	 * Creates a polygon for a road and adds it to the garden model
 	 */
 	public void onDrawRoad() {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Road road = new Road();
 		Polygon polygon = road.getShape().getPolygon();
-		this.model.addGardenObject(road);
+		this.gardenModel.addGardenObject(road);
 		createDrawPolyDraggable(scene, polygon);
 	}
 
@@ -408,10 +407,10 @@ public class Controller extends Application {
 	 * Creates a polygon for a stream and adds it to the garden model
 	 */
 	public void onDrawStream() {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Stream stream = new Stream();
 		Polygon polygon = stream.getShape().getPolygon();
-		this.model.addGardenObject(stream);
+		this.gardenModel.addGardenObject(stream);
 		createDrawPolyDraggable(scene, polygon);
 	}
 
@@ -419,11 +418,11 @@ public class Controller extends Application {
 	 * Creates a polygon for woods and adds it to the garden model
 	 */
 	public void onDrawWoods() {
-		System.out.println(this.view);
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		System.out.println(this.gardenView);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Woods woods = new Woods();
 		Polygon polygon = woods.getShape().getPolygon();
-		this.model.addGardenObject(woods);
+		this.gardenModel.addGardenObject(woods);
 		createDrawPolyDraggable(scene, polygon);
 	}
 
@@ -434,7 +433,7 @@ public class Controller extends Application {
 	 * @param event the MouseEvent on the plant
 	 */
 	public void onClickPlant(MouseEvent event) {
-		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) gardenView.getScene(Names.PLANT_PLACEMENT);
 		try {
 			Optional<Plant> plant = null;
 			if (event.getTarget() instanceof ListCell) {
@@ -454,8 +453,8 @@ public class Controller extends Application {
 				Circle circle = plantCopy.getShape().getCircle();
 				circle.setFill(new ImagePattern(plantImage));
 				scene.getGardenPane().getChildren().add(circle);
-				model.addGardenObject(plantCopy);
-				System.out.println(model.getGardenObjects());
+				gardenModel.addGardenObject(plantCopy);
+				System.out.println(gardenModel.getGardenObjects());
 				giveShapeDragBehavior(circle);
 			}
 
@@ -564,7 +563,7 @@ public class Controller extends Application {
 	 * Handles the dragged over event on the garden in PlantPlacementScene
 	 */
 	public void handleDrag() {
-		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) gardenView.getScene(Names.PLANT_PLACEMENT);
 
 		scene.getGardenPane().setOnDragOver(new EventHandler<DragEvent>() {
 			@Override
@@ -585,7 +584,7 @@ public class Controller extends Application {
 	 * @param event the DragEvent on a plant
 	 */
 	public void handleDrop(DragEvent event) {
-		PlantPlacementScene scene = (PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) gardenView.getScene(Names.PLANT_PLACEMENT);
 		try {
 			Dragboard db = event.getDragboard();
 			boolean success = false;
@@ -596,7 +595,7 @@ public class Controller extends Application {
 				Circle circle = customPlant.getShape().getCircle();
 				circle.setFill(new ImagePattern(img));
 				scene.getGardenPane().getChildren().add(circle);
-				model.addGardenObject(customPlant);
+				gardenModel.addGardenObject(customPlant);
 				giveShapeDragBehavior(circle);
 				success = true;
 			}
@@ -612,10 +611,10 @@ public class Controller extends Application {
 	 * Creates a polygon for shade and adds it to the garden model
 	 */
 	public void onDrawShader() {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Shade shade = new Shade();
 		Polygon polygon = shade.getShape().getPolygon();
-		this.model.addGardenObject(shade);
+		this.gardenModel.addGardenObject(shade);
 		createDrawPolyDraggable(scene, polygon);
 	}
 
@@ -623,12 +622,12 @@ public class Controller extends Application {
 	 * Handles when the user presses the undo button in DrawScene
 	 */
 	public void onDrawUndo() {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
 			for (int i = 0; i < 9; i++) {
 				scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
 			}
-			int i = this.model.getGardenObjects().size() - 1;
+			int i = this.gardenModel.getGardenObjects().size() - 1;
 			while (removeLastObject(i)) {
 				i--;
 			}
@@ -639,10 +638,10 @@ public class Controller extends Application {
 	 * Handles when the user presses the undo button in PlantPlacementScene
 	 */
 	public void onPlantPlacementUndo() {
-		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.gardenView.getScene(Names.PLANT_PLACEMENT);
 		if (!(scene.getGardenPane().getChildren().isEmpty())) {
 			scene.getGardenPane().getChildren().remove(scene.getGardenPane().getChildren().size() - 1);
-			int i = this.model.getGardenObjects().size() - 1;
+			int i = this.gardenModel.getGardenObjects().size() - 1;
 			removeLastPlant(i);
 
 		}
@@ -659,9 +658,9 @@ public class Controller extends Application {
 		if (i < 0) {
 			return false;
 		}
-		GardenObject object = model.getGardenObjects().get(i);
+		GardenObject object = gardenModel.getGardenObjects().get(i);
 		if (!(object instanceof Plant)) {
-			model.removeGardenObject(object);
+			gardenModel.removeGardenObject(object);
 			return false;
 		} else {
 			return true;
@@ -676,8 +675,8 @@ public class Controller extends Application {
 	
 	public void removeLastPlant(int i) {
 		if (i >= 0) {
-		GardenObject object = model.getGardenObjects().get(i);
-		model.removeGardenObject(object);
+		GardenObject object = gardenModel.getGardenObjects().get(i);
+		gardenModel.removeGardenObject(object);
 		}
 	}
 
@@ -685,17 +684,17 @@ public class Controller extends Application {
 	 * Handles when the user presses the previous button on the TimesScene
 	 */
 	public void onTimesPrev() {
-		this.view.setScreen(Names.PLANT_PLACEMENT);
-		this.view.drawMap(((PlantPlacementScene) view.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
+		this.gardenView.setScreen(Names.PLANT_PLACEMENT);
+		this.gardenView.drawMap(((PlantPlacementScene) gardenView.getScene(Names.PLANT_PLACEMENT)).getGardenPane());
 	}
 
 	/**
 	 * Handles when the user presses the next button on the TimesScene
 	 */
 	public void onTimesNext() {
-		this.view.setScreen(Names.RATING);
-		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
-		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
+		this.gardenView.setScreen(Names.RATING);
+		this.gardenView.drawMap(((RatingScene) gardenView.getScene(Names.RATING)).getGardenPane());
+		RatingScene sc = (RatingScene) gardenView.getScene(Names.RATING);
 	}
 	
 	/**
@@ -721,12 +720,12 @@ public class Controller extends Application {
 	 * @param season the new season the garden is in
 	 */
 	public void onTimesSetSeason(Season season) {
-		this.model.setSeason(season);
+		this.gardenModel.setSeason(season);
 		System.out.println(season.name());
-		for (Plant plant : model.getPlantObjects()) {
+		for (Plant plant : gardenModel.getPlantObjects()) {
 			File imageFile = new File("resources/PlantImages/" + plant.getBotanicalName() + ".jpg");
-			Image plantImage = new Image(imageFile.toURI().toString(),100,100,true,true);
-			plant.getShape().getCircle().setFill(view.generateImage(plantImage, season));
+			Image plantImage = new Image(imageFile.toURI().toString(), 100, 100, true, true);
+			plant.getShape().getCircle().setFill(gardenView.generateImage(plantImage, season));
 		}
 	}
 
@@ -736,9 +735,9 @@ public class Controller extends Application {
 	 * @param age the age in years to set the garden to
 	 */
 	public void onTimesSetAge(double age) {
-		this.model.setAge(age);
+		this.gardenModel.setAge(age);
 		System.out.println(age);
-		for (Plant plant : model.getPlantObjects()) {
+		for (Plant plant : gardenModel.getPlantObjects()) {
 			plant.changePlantSize(age);
 		}
 	}
@@ -750,17 +749,15 @@ public class Controller extends Application {
 	 * @param plant the plant which will have its size changed
 	 */
 	public void changePlantStatus(Plant plant) {
-		plant.changePlantSize(this.model.getAge());
-		//this.model.getSeason();
-
+		plant.changePlantSize(this.gardenModel.getAge());
 	}
 
 	/**
 	 * Handles when the user presses the previous button in the RatingScene
 	 */
 	public void onRatingPrev() {
-		this.view.setScreen(Names.TIMES);
-		this.view.drawMap(((TimesScene) view.getScene(Names.TIMES)).getGardenPane());
+		this.gardenView.setScreen(Names.TIMES);
+		this.gardenView.drawMap(((TimesScene) gardenView.getScene(Names.TIMES)).getGardenPane());
 	}
 	
 	/**
@@ -779,7 +776,7 @@ public class Controller extends Application {
         HBox statsLayout = new HBox(10);
         statsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
         
-		ArrayList<Plant> plantList = model.getPlantObjects();
+		ArrayList<Plant> plantList = gardenModel.getPlantObjects();
 		StringBuilder sb = new StringBuilder();
 
 		for (Plant plant : plantList) {
@@ -816,7 +813,6 @@ public class Controller extends Application {
 				
 		HBox recsLayout = new HBox(10);
 		recsLayout.setStyle("-fx-background-color: cornsilk; -fx-padding: 50;");
-		// statsLayout.getChildren().addAll(show, hide);
 
 		Text recsText = new Text(10, 50, "Here are some recommendations:\n"
 										  + generateRecommendation());
@@ -835,8 +831,8 @@ public class Controller extends Application {
 	 */
 	public String generateRecommendation() {
 		String recommendations = "";
-		Double userPH = model.getSoilPH();
-		ArrayList<Plant> plantObjects = model.getPlantObjects();
+		Double userPH = gardenModel.getSoilPH();
+		ArrayList<Plant> plantObjects = gardenModel.getPlantObjects();
 
 		if (userPH > 7) {
 			recommendations += "Note: You have an alkaline garden pH. ";
@@ -847,40 +843,40 @@ public class Controller extends Application {
 		}
 
 		for (Plant somePlant : plantObjects) {
-			if (model.getDeer().equalsIgnoreCase("yes")) {
+			if (gardenModel.getDeer().equalsIgnoreCase("yes")) {
 				if (somePlant.isDeerResistant() == false) {
 					recommendations += "Warning: A plant may be damaged by deer - " + somePlant.getBotanicalName()
 							+ " (" + somePlant.getCommonName() + ")\n";
 				}
 			}
 
-			if (model.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
+			if (gardenModel.getRain() > 2.0 && (!somePlant.getSoilMoisturePreference().contains("Moist")
 					&& somePlant.getSoilMoisturePreference().contains("Dry"))) {
 				recommendations += "Warning: A plant may receive too much rain - " + somePlant.getBotanicalName() + " ("
 						+ somePlant.getCommonName() + ")\n";
 			}
 
-			if (!(model.getRain() < 0) && model.getRain() < 2.0
+			if (!(gardenModel.getRain() < 0) && gardenModel.getRain() < 2.0
 					&& somePlant.getSoilMoisturePreference().contains("Moist")
 					&& !somePlant.getSoilMoisturePreference().contains("Dry")) {
 				recommendations += "Warning: A plant may not receive enough rain - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
 
-			if (!(model.getLight() < 0) && model.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
+			if (!(gardenModel.getLight() < 0) && gardenModel.getLight() < 6 && somePlant.getSunlightExposure().contains("Full Sun")
 					&& !somePlant.getSunlightExposure().contains("Full Shade")) {
 				recommendations += "Warning: A plant may not get enough sunlight - " + somePlant.getBotanicalName()
 						+ " (" + somePlant.getCommonName() + ")\n";
 			}
 
-			if (!(model.getLight() < 0) && model.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
+			if (!(gardenModel.getLight() < 0) && gardenModel.getLight() > 6 && !somePlant.getSunlightExposure().contains("Sun")
 					&& somePlant.getSunlightExposure().contains("Shade")) {
 				recommendations += "Warning: A plant may get too much sunlight - " + somePlant.getBotanicalName() + " ("
 						+ somePlant.getCommonName() + ")\n";
 			}
 		}
 
-		if (plantObjects.size() == 0 || model.getGardenObjects().size() - plantObjects.size() == 0) {
+		if (plantObjects.size() == 0 || gardenModel.getGardenObjects().size() - plantObjects.size() == 0) {
 			recommendations += "Use a combination of both plants and other objects.\n";
 		}
 
@@ -891,24 +887,24 @@ public class Controller extends Application {
 	 * Handles when the user presses the save button in the RatingScene
 	 */
 	public void onRatingSave() {
-		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
-		File file = this.view.showSaveDialog();
+		LoadingScene scene = (LoadingScene) this.gardenView.getScene(Names.LOADING);
+		File file = this.gardenView.showSaveDialog();
 		if (file == null)
 			return;
 
-		for (GardenObject object : this.model.getGardenObjects())
+		for (GardenObject object : this.gardenModel.getGardenObjects())
 			object.getShape().save();
 
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-			out.writeObject(this.model);
+			out.writeObject(this.gardenModel);
 			if (DEBUG)
 				System.out.println("Object has been serialized to file: " + file.getPath());
-			this.view.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
-			this.view.setScreen(Names.LOADING);
+			this.gardenView.showDialog(Alert.AlertType.INFORMATION, "Garden Saved", "Your garden has been saved!");
+			this.gardenView.setScreen(Names.LOADING);
 			scene.addTableEntry(file);
 
 		} catch (IOException ex) {
-			this.view.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
+			this.gardenView.showDialog(Alert.AlertType.ERROR, "Save Error", "Your garden was unable to be saved.");
 			if (DEBUG)
 				ex.printStackTrace();
 		}
@@ -918,12 +914,12 @@ public class Controller extends Application {
 	 * Handles when the user attempts to select a garden to load while on the LoadingScene
 	 */
 	public void onLoadingBrowse() {
-		File file = this.view.showOpenDialog();
+		File file = this.gardenView.showOpenDialog();
 		if (file == null)
 			return;
 
 		this.loadGarden(file);
-		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
+		LoadingScene scene = (LoadingScene) this.gardenView.getScene(Names.LOADING);
 		scene.addTableEntry(file);
 	}
 
@@ -934,17 +930,17 @@ public class Controller extends Application {
 	 */
 	public void loadGarden(File file) {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-			this.model = (Model) in.readObject();
-			for (GardenObject object : this.model.getGardenObjects())
+			this.gardenModel = (Model) in.readObject();
+			for (GardenObject object : this.gardenModel.getGardenObjects())
 				object.getShape().load();
 
-			this.view.reload(this.model);
+			this.gardenView.reload(this.gardenModel);
 			if (DEBUG) {
 				System.out.println("Object has been deserialized ");
-				System.out.println("amount of light = " + model.getLight());
+				System.out.println("amount of light = " + gardenModel.getLight());
 			}
 		} catch (IOException | ClassNotFoundException e) {
-			this.view.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
+			this.gardenView.showDialog(Alert.AlertType.ERROR, "Load Error", "There was an error loading your garden.");
 			if (DEBUG)
 				e.printStackTrace();
 		}
@@ -954,11 +950,11 @@ public class Controller extends Application {
 	 * Handles when the user selects a different save preview on the loading screen
 	 */
 	public void onLoadingSelect() {
-		LoadingScene scene = (LoadingScene) this.view.getScene(Names.LOADING);
+		LoadingScene scene = (LoadingScene) this.gardenView.getScene(Names.LOADING);
 		LoadingScene.Save save = scene.getSaves().getSelectionModel().getSelectedItem();
 		if (save != null) {
 			this.loadGarden(new File(save.getName()));
-			this.view.drawMap(scene.getGardenPane());
+			this.gardenView.drawMap(scene.getGardenPane());
 		}
 	}
 
@@ -966,14 +962,14 @@ public class Controller extends Application {
 	 * Handles when the user presses the previous button in the LoadingScene
 	 */
 	public void onLoadingPrev() {
-		this.view.setScreen(Names.MAIN_MENU);
+		this.gardenView.setScreen(Names.MAIN_MENU);
 	}
 
 	/**
 	 * Handles when the user presses the edit button in the LoadingScene
 	 */
 	public void onLoadingEdit() {
-		this.view.setScreen(Names.GARDEN_INFO);
+		this.gardenView.setScreen(Names.GARDEN_INFO);
 	}
 
 	/**
@@ -982,7 +978,7 @@ public class Controller extends Application {
 	 * @param object the object that will be loaded into the model
 	 */
 	public void addGardenObject(GardenObject object) {
-		this.model.addGardenObject(object);
+		this.gardenModel.addGardenObject(object);
 		System.out.println("Added object");
 	}
 
@@ -1067,7 +1063,7 @@ public class Controller extends Application {
 	 * @return the GardenObjects stored inside of model
 	 */
 	public Collection<GardenObject> loadMapObjects() {
-		return model.getGardenObjects();
+		return gardenModel.getGardenObjects();
 	}
 
 	/**
@@ -1076,7 +1072,7 @@ public class Controller extends Application {
 	 * @return the Plants stored inside of model
 	 */
 	public ArrayList<Plant> loadPlantObjects() {
-		return model.getPlantObjects();
+		return gardenModel.getPlantObjects();
 	}
 
 	/**
@@ -1131,7 +1127,7 @@ public class Controller extends Application {
 	 * @param event the DragEvent on the dragged object
 	 */
 	public void onDrawDragDropped(DragEvent event) {
-		DrawScene scene = (DrawScene) this.view.getScene(Names.DRAW);
+		DrawScene scene = (DrawScene) this.gardenView.getScene(Names.DRAW);
 		Dragboard board = event.getDragboard();
 		boolean success = false;
 		if (board.hasString()) {
@@ -1164,7 +1160,7 @@ public class Controller extends Application {
 				createDrawPolyDraggable(scene, polygon);
 				polygon.setLayoutX(event.getX() - scene.getGardenPane().getLayoutX());
 				polygon.setLayoutY(event.getY() - scene.getGardenPane().getLayoutY());
-				this.model.addGardenObject(object);
+				this.gardenModel.addGardenObject(object);
 			}
 
 		}
@@ -1179,7 +1175,7 @@ public class Controller extends Application {
 	 * @param event the MouseEvent on the plant
 	 */
 	public void onPlantDragDetected(MouseEvent event) {
-		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.gardenView.getScene(Names.PLANT_PLACEMENT);
 		PlantPlacementScene.PlantWithImage pwi = scene.getPlantListView().getSelectionModel().getSelectedItem();
 		if (pwi != null) {
 			Dragboard db = scene.getPlantListView().startDragAndDrop(TransferMode.COPY);
@@ -1196,7 +1192,7 @@ public class Controller extends Application {
 	 * @param event the DragEvent on the plant
 	 */
 	public void onPlantDragOver(DragEvent event) {
-		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.gardenView.getScene(Names.PLANT_PLACEMENT);
 		if (event.getGestureSource() != scene.getGardenPane() && event.getDragboard().hasImage()) {
 			event.acceptTransferModes(TransferMode.COPY);
 		}
@@ -1209,7 +1205,7 @@ public class Controller extends Application {
 	 * @param event the DragEvent on the plant
 	 */
 	public void onPlantDragDropped(DragEvent event) {
-		PlantPlacementScene scene = (PlantPlacementScene) this.view.getScene(Names.PLANT_PLACEMENT);
+		PlantPlacementScene scene = (PlantPlacementScene) this.gardenView.getScene(Names.PLANT_PLACEMENT);
 		Dragboard board = event.getDragboard();
 		boolean success = false;
 		if (board.hasImage()) {
@@ -1222,7 +1218,7 @@ public class Controller extends Application {
 			giveShapeDragBehavior(circle);
 			circle.setLayoutX(event.getX() - scene.getPlantListView().getLayoutX());
 			circle.setLayoutY(event.getY() - scene.getPlantListView().getLayoutY());
-			this.model.addGardenObject(plantCopy);
+			this.gardenModel.addGardenObject(plantCopy);
 		}
 		event.setDropCompleted(success);
 		event.consume();
