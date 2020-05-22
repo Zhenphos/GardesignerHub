@@ -231,29 +231,9 @@ public class Controller extends Application {
 
 	private Model gardenModel;
 	private View gardenView;
-	private PlantPlacementScene pps;
 
 	private static final boolean DEBUG = false;
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
-
-	/**
-	 * Default constructor for Controller
-	 */
-	public Controller() {
-
-	}
-
-	/**
-	 * Controller constructor for plant placement scene
-	 * 
-	 * @param pps a plant placement scene
-	 */
-	public Controller(PlantPlacementScene pps) {
-		this.pps = pps;
-		gardenModel = new Model();
-		if (DEBUG)
-			System.out.println("PlantPlacementScene created");
-	}
 
 	/**
 	 * Starts the program and the stage

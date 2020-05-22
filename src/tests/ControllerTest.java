@@ -15,78 +15,11 @@ import objects.Plant;
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-public class ControllerTest { // TODO update - not sure if most of these are needed
+public class ControllerTest {
 	
-	@Test
-	public void onMainMenuNewTest() {
-		
-	}
-	
-	@Test
-	public void onMainMenuHelpTest() {
-		
-	}
-	
-	@Test
-	public void onMainMenuLoadTest() {
-		
-	}
-	
-	@Test
-	public void onGardenInfoPrevTest() {
-		
-	}
-	
-	@Test
-	public void onGardenInfoNextTest() {
-		
-	}
-	
-	@Test
-	public void onPlantPlacementPrevTest() {
-		
-	}
-	
-	@Test
-	public void onPlantPlacementNextTest() {
-		
-	}
-	
-	@Test
-	public void onTutorialPrevTest() {
-		
-	}
-	
-	@Test
-	public void onDrawPrevTest() {
-		
-	}
-	
-	@Test
-	public void onDrawNextTest() {
-		
-	}
-	
-	@Test
-	public void onDrawGrassTest() {
-		
-	}
-	
-	@Test
-	public void onDrawRoadTest() {
-		
-	}
-	
-	@Test
-	public void onDrawStreamTest() {
-		
-	}
-	
-	@Test
-	public void onDrawWoodsTest() {
-		
-	}
-	
+	/**
+	 * Tests importPlants(String, PlantType)
+	 */
 	@Test
 	public void importPlantsTest() {
 		ArrayList<Plant> invalidList1 = mvc.Controller.importPlants("invalid", PlantType.ALKALINE_SOIL_TOLERANT);

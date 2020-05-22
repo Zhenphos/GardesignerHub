@@ -66,8 +66,7 @@ public class PlantPlacementScene extends Scene {
 	public static final String BORDER_STYLE = "-fx-border-color: black";
 	public static final int CHOICEBOX_WIDTH = 175;
 	private Button btnPrev, btnNext, btnUndo;
-
-	public Controller imc;
+	
 	private int indexOfPlant=0;
 	
 	private ArrayList<Plant> masterList = createMasterList();
@@ -182,7 +181,6 @@ public class PlantPlacementScene extends Scene {
 		// need to watch this button's location when adding things
 		grid.add(btnUndo, 0, 20);
 		
-		imc = new Controller(this);
 		placePlant();
 
 		this.container.setMinSize(View.WIDTH, View.HEIGHT);
