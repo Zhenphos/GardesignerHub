@@ -40,7 +40,7 @@ import view.TimesScene;
 import view.TutorialScene;
 
 /**
- * View class for Gardendesigner Hub
+ * View class for Gardesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -470,23 +470,11 @@ public class View {
 			if (!(go instanceof Plant)) {
 				pane.getChildren().add(go.getShape().getPolygon());
 			}
-			//pane.getChildren().add(go.getShape().getPolygon());
-			//pane.getChildren().add(go.getShape().getCircle());
 		}
 		
 		for (Plant p : this.controller.loadPlantObjects()) {
 			pane.getChildren().add(p.getShape().getCircle());
 		}
-		
-		/*
-		for (GardenObject go : this.controller.loadMapObjects()) {
-			if (!(pane.getChildren().contains(go.getShape().getPolygon())))
-				pane.getChildren().add(go.getShape().getPolygon());
-			
-			if (!(pane.getChildren().contains(go.getShape().getCircle())))
-				pane.getChildren().add(go.getShape().getCircle());
-		}
-		*/
 	}
 
 	/**

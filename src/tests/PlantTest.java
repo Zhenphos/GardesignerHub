@@ -102,16 +102,6 @@ public class PlantTest {
 	}
 	
 	/**
-	 * Tests changePlantSize(double)
-	 */
-	@Test
-	public void changePlantSizeTest() {
-		Plant testPlant = new Plant();
-		testPlant.changePlantSize(10);
-		assertEquals(5, 20);
-	}
-	
-	/**
 	 * Tests copyOfPlant()
 	 */
 	@Test

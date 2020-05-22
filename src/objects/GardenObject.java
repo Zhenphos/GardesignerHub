@@ -3,12 +3,11 @@ package objects;
 import java.io.Serializable;
 
 /**
- * GardenObject class for Gardendesigner Hub
+ * GardenObject class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public abstract class GardenObject implements Serializable {
 	DrawShape shape;
 	double xLoc;

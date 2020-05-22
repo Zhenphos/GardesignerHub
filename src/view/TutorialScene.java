@@ -11,12 +11,11 @@ import javafx.scene.text.TextAlignment;
 import mvc.View;
 
 /**
- * TutorialScene class for Gardendesigner Hub
+ * TutorialScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class TutorialScene extends Scene {
 
 	private static final String HEADER_TEXT = "Tutorial";

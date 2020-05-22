@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 /**
- * Shape class for Gardendesigner Hub
+ * Shape class for Garesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -49,7 +49,7 @@ public class DrawShape implements Serializable {
 	 * Constructor for shape which configures the shape as a circle, configures its
 	 * color, and configures its radius
 	 * 
-	 * @param c the color of the circle
+	 * @param c    the color of the circle
 	 * @param radi the radius of the circle
 	 */
 	public DrawShape(Color c, double radi) {

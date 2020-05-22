@@ -14,12 +14,11 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * RatingScene class for Gardendesigner Hub
+ * RatingScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class RatingScene extends Scene {
 	
 	private static final String HEADER_TEXT = "Evaluation";

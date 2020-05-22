@@ -19,12 +19,11 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * LoadingScene class for Gardendesigner Hub
+ * LoadingScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class LoadingScene extends Scene {
 
 	private static final String HEADER_TEXT = "Load a Garden";
@@ -135,7 +134,7 @@ public class LoadingScene extends Scene {
 	}
 
 	/**
-	 * Save class for Gardendesigner Hub
+	 * Save class for Gardesigner Hub
 	 * 
 	 * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
 	 *

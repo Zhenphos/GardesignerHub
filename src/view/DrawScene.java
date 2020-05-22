@@ -14,12 +14,11 @@ import javafx.scene.layout.VBox;
 import mvc.View;
 
 /**
- * DrawScene class for Gardendesigner Hub
+ * DrawScene class for Gardesigner Hub
  *
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class DrawScene extends Scene {
 
 	public static final String HEADER_TEXT = "Draw Garden";
@@ -124,7 +123,7 @@ public class DrawScene extends Scene {
 
 	/**
 	 * Gets ImageView for grass button
-	 * @return the imageview for the grass button
+	 * @return the ImageView for the grass button
 	 */
 	public ImageView getGrassView() {
 		return grassView;
@@ -140,7 +139,7 @@ public class DrawScene extends Scene {
 
 	/**
 	 * Gets ImageView for stream button
-	 * @return the imageview for the stream button
+	 * @return the ImageView for the stream button
 	 */
 	public ImageView getStreamView() {
 		return streamView;
@@ -148,7 +147,7 @@ public class DrawScene extends Scene {
 
 	/**
 	 * Gets ImageView for woods button
-	 * @return the imageview for the woods button
+	 * @return the ImageView for the woods button
 	 */
 	public ImageView getWoodsView() {
 		return woodsView;
@@ -156,7 +155,7 @@ public class DrawScene extends Scene {
 
 	/**
 	 * Gets ImageView for shade button
-	 * @return the imageview for the shade button
+	 * @return the ImageView for the shade button
 	 */
 	public ImageView getShadeView() {
 		return shadeView;

@@ -5,12 +5,11 @@ import java.io.Serializable;
 import javafx.scene.paint.Color;
 
 /**
- * Road class for Gardendesigner Hub
+ * Road class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public class Road extends GardenObject implements Serializable {
 
 	/**

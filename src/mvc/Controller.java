@@ -59,14 +59,15 @@ import view.TimesScene;
 import view.PlantPlacementScene.PlantWithImage;
 
 /**
- * Controller class for Gardendesigner Hub
+ * Controller class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
 public class Controller extends Application {
+	
 	/**
-	 * the main method for the program
+	 * The main method for the program
 	 * 
 	 * @param args an array of strings
 	 * @throws FileNotFoundException if an image file or csv file is not found
@@ -78,7 +79,7 @@ public class Controller extends Application {
 	/**
 	 * Imports plant data
 	 * 
-	 * @param path the path to find the location of the plant file
+	 * @param path      the path to find the location of the plant file
 	 * @param plantType the type of the plant
 	 * 
 	 * @return an ArrayList of plants

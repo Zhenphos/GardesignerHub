@@ -38,7 +38,7 @@ import mvc.View;
 import objects.Plant;
 
 /**
- * PlantPlacementScene class for Gardendesigner Hub
+ * PlantPlacementScene class for Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
