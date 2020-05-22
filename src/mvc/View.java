@@ -138,7 +138,7 @@ public class View {
 	public void reload(Model model) {
 		GardenInfoScene info = (GardenInfoScene) this.getScene(Names.GARDEN_INFO);
 		info.getWidthTextfield().setText(String.valueOf(model.getWidth()));
-		info.getHeightTextfield().setText(String.valueOf(model.getHeight()));
+		info.getHeightTextfield().setText(String.valueOf(model.getLength()));
 		info.getSunlightTextfield().setText(String.valueOf(model.getLight()));
 		info.getRainTextfield().setText(String.valueOf(model.getRain()));
 		info.getSoilPHTextfield().setText(String.valueOf(model.getSoilPH()));

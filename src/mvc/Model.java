@@ -55,7 +55,7 @@ public class Model implements Serializable {
 	 * @param width the width to set the garden to
 	 */
 	public void setWidth(int width) {
-		this.width = width;
+		this.width = Math.abs(width);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class Model implements Serializable {
 	 * @param length the length to set the garden to
 	 */
 	public void setLength(int length) {
-		this.length = length;
+		this.length = Math.abs(length);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class Model implements Serializable {
 	 * 
 	 * @param rain the rain value to set the garden to
 	 */
-	public void setRain(int rain) {
+	public void setRain(double rain) {
 		this.rain = rain;
 	}
 
@@ -131,11 +131,11 @@ public class Model implements Serializable {
 	}
 
 	/**
-	 * Gets the height of the garden
+	 * Gets the length of the garden
 	 * 
-	 * @return the height of the garden
+	 * @return the length of the garden
 	 */
-	public int getHeight() {
+	public int getLength() {
 		return this.length;
 	}
 
