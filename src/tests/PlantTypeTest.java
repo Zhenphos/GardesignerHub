@@ -10,7 +10,7 @@ import org.junit.Test;
 import enums.PlantType;
 
 /**
- * PlantTypeTest for Gardesigner Hub. Tests PlantType.
+ * PlantTypeTest for Gardesigner Hub. Tests PlantType class.
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
@@ -18,7 +18,7 @@ import enums.PlantType;
 public class PlantTypeTest {
 	
 	/**
-	 * 
+	 * Tests 
 	 */
 	@Test
 	public void getTest() {

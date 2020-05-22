@@ -1,12 +1,11 @@
 package enums;
 
 /**
- * Enumeration of names for different scenes in garden designer
+ * Enumeration of names for different scenes in Gardesigner Hub
  * 
  * @author Jonathan, Ntsee, Hamza, Haseeb, Jason
  *
  */
-
 public enum Names {
 	MAIN_MENU,
 	GARDEN_INFO,
