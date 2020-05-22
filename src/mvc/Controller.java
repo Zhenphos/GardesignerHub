@@ -233,7 +233,7 @@ public class Controller extends Application {
 	private View view;
 	private PlantPlacementScene pps;
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	public ArrayList<ImageView> imageViewArrayList = new ArrayList<ImageView>();
 
 	/**
@@ -252,7 +252,7 @@ public class Controller extends Application {
 		this.pps = pps;
 		model = new Model();
 		if (DEBUG)
-			System.out.println("ic created");
+			System.out.println("PlantPlacementScene created");
 	}
 
 	/**
@@ -696,8 +696,6 @@ public class Controller extends Application {
 		this.view.setScreen(Names.RATING);
 		this.view.drawMap(((RatingScene) view.getScene(Names.RATING)).getGardenPane());
 		RatingScene sc = (RatingScene) view.getScene(Names.RATING);
-		//Controller.sc.setRating(calculateRating());
-		
 	}
 	
 	/**
